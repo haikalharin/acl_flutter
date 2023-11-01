@@ -24,7 +24,7 @@ void main() async {
 
   await init();
   WidgetsFlutterBinding.ensureInitialized();
-  await Configurations().setConfigurationValues(config.environment);
+  await Configurations().setConfigurationValues(config.stagingEnvironment);
   runApp(const MyApp());
 }
 

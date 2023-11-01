@@ -61,29 +61,50 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-
-    flavorDimensions "app"
+    flavorDimensions "flavor-type"
 
     productFlavors {
-        dev {
-            dimension "app"
-            versionNameSuffix "-dev"
-            applicationIdSuffix ".dev"
+            development {
+            dimension "flavor-type"
+            applicationId "co.id.az.acl.dev"
+            resValue "string", "app_name", "Acl dev"
+        }
+        production {
+            dimension "flavor-type"
+            applicationId "co.id.az.acl"
+            resValue "string", "app_name", "Acl"
         }
         staging {
-            dimension "app"
-            versionNameSuffix "-staging"
-            applicationIdSuffix ".staging"
-        }
-        prod {
-            dimension "app"
+            dimension "flavor-type"
+            applicationId "co.id.az.acl.staging"
+            resValue "string", "app_name", "Acl uat"
         }
     }
+
+//    flavorDimensions "app"
+
+//    productFlavors {
+//        dev {
+//            dimension "app"
+//            versionNameSuffix "-dev"
+//            applicationIdSuffix ".dev"
+//        }
+//        staging {
+//            dimension "app"
+//            versionNameSuffix "-staging"
+//            applicationIdSuffix ".staging"
+//        }
+//        prod {
+//            dimension "app"
+//        }
+//    }
 }
 
 flutter {
     source '../..'
 }
+
+
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
