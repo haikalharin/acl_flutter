@@ -1,8 +1,8 @@
-import 'package:base_mvvm/screens/login_page/bloc/login_page_bloc.dart';
-import 'package:base_mvvm/screens/todo/bloc/todo_bloc.dart';
-import 'package:base_mvvm/screens/user/bloc/user_bloc.dart';
-import 'package:base_mvvm/viewmodel/comment/bloc/comment_bloc.dart';
-import 'package:base_mvvm/viewmodel/post/bloc/post_bloc.dart';
+import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
+import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
+import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
+import 'package:acl_flutter/viewmodel/comment/bloc/comment_bloc.dart';
+import 'package:acl_flutter/viewmodel/post/bloc/post_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
         // debugShowCheckedModeBanner: false,
         theme: AppTheme.lightAppTheme,
         navigatorKey: AppRouter.navigatorKey,
-        routes: AppRouter.generateRoute(),
-        initialRoute: Routes.loginPage,
+        onGenerateRoute: AppRouter.generateRoute,
+        initialRoute: Routes.initialPage,
       ),
     );
   }

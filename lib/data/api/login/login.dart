@@ -1,5 +1,5 @@
-import 'package:base_mvvm/common/configurations/configurations.dart';
-import 'package:base_mvvm/data/model/login_model/login_model.dart';
+import 'package:acl_flutter/common/configurations/configurations.dart';
+import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../../core/network/api_helper.dart';

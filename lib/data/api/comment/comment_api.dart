@@ -1,7 +1,7 @@
-import 'package:base_mvvm/core/network/api_config.dart';
-import 'package:base_mvvm/core/network/api_helper.dart';
-import 'package:base_mvvm/core/network/dio_client.dart';
-import 'package:base_mvvm/data/model/comment/comment.dart';
+import 'package:acl_flutter/core/network/api_config.dart';
+import 'package:acl_flutter/core/network/api_helper.dart';
+import 'package:acl_flutter/core/network/dio_client.dart';
+import 'package:acl_flutter/data/model/comment/comment.dart';
 
 class CommentApi with ApiHelper<Comment> {
   final DioClient dioClient;

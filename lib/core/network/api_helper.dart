@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:base_mvvm/common/app_extension.dart';
-import 'package:base_mvvm/core/network/dio_exception.dart';
+import 'package:acl_flutter/common/app_extension.dart';
+import 'package:acl_flutter/core/network/dio_exception.dart';
 import 'package:dio/dio.dart';
 
 abstract mixin class ApiHelper<T> {

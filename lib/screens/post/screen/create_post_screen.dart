@@ -1,12 +1,12 @@
-import 'package:base_mvvm/common/app_extension.dart';
-import 'package:base_mvvm/core/bloc/generic_bloc_state.dart';
-import 'package:base_mvvm/core/dialog/progress_dialog.dart';
-import 'package:base_mvvm/core/dialog/retry_dialog.dart';
-import 'package:base_mvvm/core/widget/text_input.dart';
-import 'package:base_mvvm/data/model/post/post.dart';
-import 'package:base_mvvm/data/model/user/user.dart';
-import 'package:base_mvvm/viewmodel/post/bloc/post_bloc.dart';
-import 'package:base_mvvm/viewmodel/post/bloc/post_event.dart';
+import 'package:acl_flutter/common/app_extension.dart';
+import 'package:acl_flutter/core/bloc/generic_bloc_state.dart';
+import 'package:acl_flutter/core/dialog/progress_dialog.dart';
+import 'package:acl_flutter/core/dialog/retry_dialog.dart';
+import 'package:acl_flutter/core/widget/text_input.dart';
+import 'package:acl_flutter/data/model/post/post.dart';
+import 'package:acl_flutter/data/model/user/user.dart';
+import 'package:acl_flutter/viewmodel/post/bloc/post_bloc.dart';
+import 'package:acl_flutter/viewmodel/post/bloc/post_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

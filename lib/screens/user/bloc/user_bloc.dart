@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:base_mvvm/repository/user/user_repository.dart';
-import 'package:base_mvvm/screens/user/bloc/user_event.dart';
-import 'package:base_mvvm/screens/user/bloc/user_state.dart';
+import 'package:acl_flutter/repository/user/user_repository.dart';
+import 'package:acl_flutter/screens/user/bloc/user_event.dart';
+import 'package:acl_flutter/screens/user/bloc/user_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {

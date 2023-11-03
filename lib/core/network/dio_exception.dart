@@ -2,7 +2,7 @@
 
 import 'dart:io' show SocketException;
 
-import 'package:base_mvvm/common/app_string.dart';
+import 'package:acl_flutter/common/app_string.dart';
 import 'package:dio/dio.dart' show DioError, DioErrorType;
 
 class DioExceptions implements Exception {

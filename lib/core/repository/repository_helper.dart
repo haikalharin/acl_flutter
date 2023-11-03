@@ -1,5 +1,5 @@
-import 'package:base_mvvm/core/network/api_result.dart';
-import 'package:base_mvvm/core/network/dio_exception.dart';
+import 'package:acl_flutter/core/network/api_result.dart';
+import 'package:acl_flutter/core/network/dio_exception.dart';
 import 'package:dio/dio.dart';
 
 mixin RepositoryHelper<T> {

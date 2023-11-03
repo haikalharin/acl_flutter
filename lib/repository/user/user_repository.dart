@@ -1,9 +1,9 @@
-import 'package:base_mvvm/core/network/api_result.dart';
-import 'package:base_mvvm/core/repository/repository_helper.dart';
-import 'package:base_mvvm/data/api/login/login.dart';
-import 'package:base_mvvm/data/api/user/user_api.dart';
-import 'package:base_mvvm/data/model/login_model/login_model.dart';
-import 'package:base_mvvm/data/model/user/user.dart';
+import 'package:acl_flutter/core/network/api_result.dart';
+import 'package:acl_flutter/core/repository/repository_helper.dart';
+import 'package:acl_flutter/data/api/login/login.dart';
+import 'package:acl_flutter/data/api/user/user_api.dart';
+import 'package:acl_flutter/data/model/login_model/login_model.dart';
+import 'package:acl_flutter/data/model/user/user.dart';
 
 class UserRepository with RepositoryHelper<User> {
   final UserApi userApi;

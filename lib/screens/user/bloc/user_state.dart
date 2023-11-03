@@ -1,4 +1,4 @@
-import 'package:base_mvvm/data/model/user/user.dart';
+import 'package:acl_flutter/data/model/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_state.freezed.dart';

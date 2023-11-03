@@ -1,5 +1,5 @@
-import 'package:base_mvvm/core/network/api_config.dart';
-import 'package:base_mvvm/core/network/dio_interceptor.dart';
+import 'package:acl_flutter/core/network/api_config.dart';
+import 'package:acl_flutter/core/network/dio_interceptor.dart';
 import 'package:dio/dio.dart' show Dio, ResponseType;
 
 import '../../common/configurations/configurations.dart';
@@ -15,6 +15,6 @@ class DioClient {
       ..options.connectTimeout = ApiConfig.connectionTimeout
       ..options.receiveTimeout = ApiConfig.receiveTimeout
       ..options.responseType = ResponseType.json
-      ..interceptors.add(DioInterceptor());
+      ..interceptors.addAll([DioInterceptor(dio)]);
   }
 }

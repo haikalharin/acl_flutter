@@ -1,7 +1,7 @@
-import 'package:base_mvvm/core/network/api_result.dart';
-import 'package:base_mvvm/core/repository/repository_helper.dart';
-import 'package:base_mvvm/data/api/comment/comment_api.dart';
-import 'package:base_mvvm/data/model/comment/comment.dart';
+import 'package:acl_flutter/core/network/api_result.dart';
+import 'package:acl_flutter/core/repository/repository_helper.dart';
+import 'package:acl_flutter/data/api/comment/comment_api.dart';
+import 'package:acl_flutter/data/model/comment/comment.dart';
 
 class CommentRepository with RepositoryHelper<Comment> {
   final CommentApi commentApi;

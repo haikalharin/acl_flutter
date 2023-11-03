@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ffi';
 
-import 'package:base_mvvm/main.dart';
+import 'package:acl_flutter/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';

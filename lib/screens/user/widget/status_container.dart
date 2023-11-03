@@ -1,4 +1,4 @@
-import 'package:base_mvvm/data/model/user/user.dart';
+import 'package:acl_flutter/data/model/user/user.dart';
 import 'package:flutter/material.dart';
 
 class StatusContainer extends StatelessWidget {

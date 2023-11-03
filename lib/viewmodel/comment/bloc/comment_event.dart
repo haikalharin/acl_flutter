@@ -1,4 +1,4 @@
-import 'package:base_mvvm/data/model/comment/comment.dart';
+import 'package:acl_flutter/data/model/comment/comment.dart';
 
 abstract class CommentEvent {}
 

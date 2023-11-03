@@ -1,9 +1,9 @@
-import 'package:base_mvvm/common/app_extension.dart';
-import 'package:base_mvvm/core/dialog/retry_dialog.dart';
-import 'package:base_mvvm/core/router/routes.dart';
-import 'package:base_mvvm/core/widget/text_input.dart';
-import 'package:base_mvvm/main.dart';
-import 'package:base_mvvm/screens/login_page/bloc/login_page_bloc.dart';
+import 'package:acl_flutter/common/app_extension.dart';
+import 'package:acl_flutter/core/dialog/retry_dialog.dart';
+import 'package:acl_flutter/core/router/routes.dart';
+import 'package:acl_flutter/core/widget/text_input.dart';
+import 'package:acl_flutter/main.dart';
+import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,8 +57,9 @@ class _LoginScreenScreenState extends State<LoginScreen> {
             username.clear();
             password.clear();
             getIt<LoginPageBloc>().add(LoginPageInitialEvent());
-            Navigator.of(context).pushNamed(
-              Routes.navbarPage,
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.sidebarPage,
+                  (Route<dynamic> route) => false,
             );
           } else if (state.status == LoginPageStatus.loading) {
             const SpinKitIndicator(type: SpinKitType.circle);
@@ -120,10 +121,6 @@ class _LoginScreenScreenState extends State<LoginScreen> {
                         },
                       ),
 
-                      DropDown(onChanged: (value) {
-
-                      }, items: const ["a","b","c"],initialItem: "a",),
-                      const SizedBox(height: 15),
                       SizedBox(
                         width: width * 0.4,
                         child: ElevatedButton(
