@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 
 import '../../../common/secure.dart';
+import '../../../core/repository/shared_preference/app_shared_preference.dart';
 import '../../../core/router/routes.dart';
 import 'package:equatable/equatable.dart';
 import '../../../repository/login/login_repository.dart';
@@ -56,6 +57,7 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
       final result =
       await loginRepository.login(userName: userName, password: password);
       result.when(success: (data) {
+        AppSharedPreference.setUser(data);
         emit(state.copyWith(
             username: userName,
             password: password,

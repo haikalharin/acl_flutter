@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../common/secure.dart';
 
 
 
@@ -70,5 +73,32 @@ class AppSharedPreference {
     final userString = prefs.getString(AppSharedPreference.token);
     if (userString == null) return null;
     return userString;
+  }
+
+  static setUser(LoginModel data) async {
+    String json = jsonEncode(data.toJson());
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String encryptedJson = encrypt(json);
+    prefs.setString(user, encryptedJson);
+  }
+
+  static Future<LoginModel> getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? json = prefs.getString(user);
+    if (json != null) {
+      String decryptedJson = decrypty(json);
+      Map<String, dynamic> map = jsonDecode(decryptedJson);
+      LoginModel _loginModel = LoginModel.fromJson(map);
+      LoginModel loginModel = _loginModel.copyWith(
+        username: _loginModel.username != null
+            ? await aesDecryptor(_loginModel.username)
+            : null,
+        lastAuthenticated:  _loginModel.lastAuthenticated != null ? await aesDecryptor(_loginModel.lastAuthenticated) : null ,
+        invalidPasswordAttempts: _loginModel.invalidPasswordAttempts != null ? int.parse(await aesDecryptor(_loginModel.invalidPasswordAttempts.toString())) : null,
+      );
+      return loginModel;
+    } else {
+      return LoginModel();
+    }
   }
 }

@@ -1,14 +1,37 @@
+import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:acl_flutter/core/widget/button_widget.dart';
 
 import '../../core/dialog/retry_dialog.dart';
+import '../../core/repository/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
 import '../../core/widget/button_widget.dart';
 
 
-class InitialPage extends StatelessWidget {
+class InitialPage extends StatefulWidget {
   const InitialPage({Key? key}) : super(key: key);
+
+  @override
+  State<InitialPage> createState() => _InitialPageState();
+}
+
+class _InitialPageState extends State<InitialPage> {
+  @override
+  void initState() {
+    checkLogin();
+    super.initState();
+  }
+
+  Future<void> checkLogin () async {
+    LoginModel data =  await AppSharedPreference.getUser();
+    if(data.username != null){
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        Routes.sidebarPage,
+            (Route<dynamic> route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,20 +1,41 @@
+// To parse this JSON data, do
+//
+//     final loginModel = loginModelFromJson(jsonString);
+
 import 'package:json_annotation/json_annotation.dart';
-import 'package:flutter/foundation.dart' show immutable;
+import 'dart:convert';
 
 part 'login_model.g.dart';
 
-@immutable
+LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
+
+String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+
 @JsonSerializable()
 class LoginModel {
-  const LoginModel({
+  @JsonKey(name: "username")
+  String? username;
+  @JsonKey(name: "lastAuthenticated")
+  String? lastAuthenticated;
+  @JsonKey(name: "invalidPasswordAttempts")
+  int? invalidPasswordAttempts;
+
+  LoginModel({
+    this.username,
+    this.lastAuthenticated,
     this.invalidPasswordAttempts,
-    required this.username,
-    required this.lastAuthenticated,
   });
 
-  final int? invalidPasswordAttempts;
-  final String username;
-  final String lastAuthenticated;
+  LoginModel copyWith({
+    String? username,
+    String? lastAuthenticated,
+    int? invalidPasswordAttempts,
+  }) =>
+      LoginModel(
+        username: username ?? this.username,
+        lastAuthenticated: lastAuthenticated ?? this.lastAuthenticated,
+        invalidPasswordAttempts: invalidPasswordAttempts ?? this.invalidPasswordAttempts,
+      );
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => _$LoginModelFromJson(json);
 

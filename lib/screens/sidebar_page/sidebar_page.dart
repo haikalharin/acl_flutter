@@ -1,8 +1,10 @@
+import 'package:acl_flutter/core/repository/shared_preference/app_shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
+import '../../core/router/routes.dart';
 import '../../di.dart';
 import '../../myApp.dart';
 import '../home_page/home_page.dart';
@@ -166,7 +168,13 @@ class _SideBarPageState extends State<SideBarPage> {
             ListTile(
               title: Text('Exit'),
               leading: Icon(Icons.exit_to_app),
-              onTap: () => null,
+              onTap: () {
+                AppSharedPreference.clear();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  Routes.initialPage,
+                      (Route<dynamic> route) => false,
+                );
+              },
             ),
           ],
         ),
