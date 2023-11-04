@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../core/router/routes.dart';
 import '../../di.dart';
 import '../../myApp.dart';
+import '../../utils/acl_color.dart';
 import '../home_page/home_page.dart';
 import '../user/user_list_screen.dart';
 enum Language { english, spanish, indonesia }
@@ -73,7 +74,7 @@ class _SideBarPageState extends State<SideBarPage> {
                 ),
               ),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: AclColors.blueDark,
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../utils/acl_color.dart';
 import '../sidebar_page/sidebar_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         children: [
           Container(
             height: 200,
-            color: Colors.green,
+            color: AclColors.blueDark,
           ),
           TabBar(
             isScrollable: true,
@@ -41,13 +42,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             tabs: [
               Tab(
                   child: Text(AppLocalizations.of(context)!.myRecruitment,
-                      style: TextStyle(color: Colors.blue))),
+                      style: TextStyle(color: AclColors.blueDark))),
               Tab(
                   child: Text(AppLocalizations.of(context)!.beRecruitment,
-                      style: TextStyle(color: Colors.blue))),
+                      style: TextStyle(color: AclColors.blueDark))),
               Tab(
                   child: Text(AppLocalizations.of(context)!.notification,
-                      style: TextStyle(color: Colors.blue))),
+                      style: TextStyle(color: AclColors.blueDark))),
             ],
           ),
           Divider(
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: Text(
                           'Tab 1 Content ' +
                               AppLocalizations.of(context)!.helloWorld,
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: AclColors.blueDark),
                         ),
                       ),
                     ),
@@ -82,21 +83,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           color: Colors.white,
                           border: Border(
                             top: BorderSide(
-                              color: Colors.blue, // Color of the border
+                              color: AclColors.blueDark, // Color of the border
                               width: 1.0, // Width of the border
                             ),
                           ),
                         ),
                         child: Center(
                           child: Text(AppLocalizations.of(context)!.sorted,
-                              style: TextStyle(color: Colors.blue)),
+                              style: TextStyle(color: AclColors.blueDark)),
                         ),
                       ),
                     ),
                   ],
                 ),
                 // Center(
-                //   child: Text('Tab 1 Content '+AppLocalizations.of(context)!.helloWorld,style: TextStyle(color: Colors.blue),),
+                //   child: Text('Tab 1 Content '+AppLocalizations.of(context)!.helloWorld,style: TextStyle(color: AclColors.blueDark),),
                 // ),
                 // Content for Tab 2
                 Column(
@@ -108,7 +109,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: Text(
                           'Tab 2 Content ' +
                               AppLocalizations.of(context)!.helloWorld,
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: AclColors.blueDark),
                         ),
                       ),
                     ),
@@ -121,14 +122,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           color: Colors.white,
                           border: Border(
                             top: BorderSide(
-                              color: Colors.blue, // Color of the border
+                              color: AclColors.blueDark, // Color of the border
                               width: 1.0, // Width of the border
                             ),
                           ),
                         ),
                         child: Center(
                           child: Text(AppLocalizations.of(context)!.sorted,
-                              style: TextStyle(color: Colors.blue)),
+                              style: TextStyle(color: AclColors.blueDark)),
                         ),
                       ),
                     ),
@@ -144,7 +145,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: Text(
                           'Tab 3 Content ' +
                               AppLocalizations.of(context)!.helloWorld,
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: AclColors.blueDark),
                         ),
                       ),
                     ),
@@ -160,14 +161,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 color: Colors.white,
                                 border: Border(
                                   top: BorderSide(
-                                    color: Colors.blue, // Color of the border
+                                    color: AclColors.blueDark, // Color of the border
                                     width: 1.0, // Width of the border
                                   ),
                                 ),
                               ),
                               child: Center(
                                 child: Text(AppLocalizations.of(context)!.reload,
-                                    style: TextStyle(color: Colors.blue)),
+                                    style: TextStyle(color: AclColors.blueDark)),
                               ),
                             ),
                           ),
@@ -179,14 +180,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 color: Colors.white,
                                 border: Border(
                                   top: BorderSide(
-                                    color: Colors.blue, // Color of the border
+                                    color: AclColors.blueDark, // Color of the border
                                     width: 1.0, // Width of the border
                                   ),
                                 ),
                               ),
                               child: Center(
                                 child: Text(AppLocalizations.of(context)!.note,
-                                    style: TextStyle(color: Colors.blue)),
+                                    style: TextStyle(color: AclColors.blueDark)),
                               ),
                             ),
                           ),

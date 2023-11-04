@@ -76,26 +76,17 @@ class AppSharedPreference {
   }
 
   static setUser(LoginModel data) async {
-    String json = jsonEncode(data.toJson());
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String encryptedJson = encrypt(json);
-    prefs.setString(user, encryptedJson);
+    String json = jsonEncode(data.toJson());
+    prefs.setString(user, json);
   }
 
   static Future<LoginModel> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? json = prefs.getString(user);
     if (json != null) {
-      String decryptedJson = decrypty(json);
-      Map<String, dynamic> map = jsonDecode(decryptedJson);
-      LoginModel _loginModel = LoginModel.fromJson(map);
-      LoginModel loginModel = _loginModel.copyWith(
-        username: _loginModel.username != null
-            ? await aesDecryptor(_loginModel.username)
-            : null,
-        lastAuthenticated:  _loginModel.lastAuthenticated != null ? await aesDecryptor(_loginModel.lastAuthenticated) : null ,
-        invalidPasswordAttempts: _loginModel.invalidPasswordAttempts != null ? int.parse(await aesDecryptor(_loginModel.invalidPasswordAttempts.toString())) : null,
-      );
+      Map<String, dynamic> map = jsonDecode(json);
+      LoginModel loginModel = LoginModel.fromJson(map);
       return loginModel;
     } else {
       return LoginModel();

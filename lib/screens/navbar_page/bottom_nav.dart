@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../utils/acl_color.dart';
 import '../post/screen/create_post_screen.dart';
 import '../user/user_list_screen.dart';
 
@@ -65,7 +66,7 @@ class _NavbarPageState extends State<NavbarPage> with TickerProviderStateMixin {
   Widget _bottomNavigatorBar({int? indexSelected}) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: Colors.blue,
+      selectedItemColor: AclColors.blueDark,
       unselectedItemColor: Colors.black,
       showUnselectedLabels: true,
       currentIndex: indexSelected ?? 0,

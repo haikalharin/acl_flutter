@@ -263,7 +263,7 @@ class FirebaseMessagingService {
     //       if (target != null) {
     //         if (headerToken != null || headerToken != "") {
     //           if (target == "home") {
-    // UserModel user = await AppSharedPreference.getUser();
+    // LoginModel user = await AppSharedPreference.getUser();
     // if (F.appFlavor == Flavor.DEVELOPMENT) {
     //
     //   if (user.id != null && user.id != "") {

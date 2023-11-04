@@ -10,6 +10,7 @@ import 'package:acl_flutter/repository/post/post_repository.dart';
 import 'package:acl_flutter/repository/todo/todo_repository.dart';
 import 'package:acl_flutter/repository/user/user_repository.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
+import 'package:acl_flutter/screens/splashscreen_page/bloc/splash_screen_bloc.dart';
 import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
 import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
 import 'package:acl_flutter/viewmodel/comment/bloc/comment_bloc.dart';
@@ -27,19 +28,24 @@ Future<void> init() async {
   getIt.registerLazySingleton<DioClient>(() => DioClient(getIt<Dio>()));
 
   // User api
-  getIt.registerLazySingleton<UserApi>(() => UserApi(dioClient: getIt<DioClient>()));
+  getIt.registerLazySingleton<UserApi>(
+      () => UserApi(dioClient: getIt<DioClient>()));
 
   // _Todo api
-  getIt.registerLazySingleton<ToDoApi>(() => ToDoApi(dioClient: getIt<DioClient>()));
+  getIt.registerLazySingleton<ToDoApi>(
+      () => ToDoApi(dioClient: getIt<DioClient>()));
 
   // Post api
-  getIt.registerLazySingleton<PostApi>(() => PostApi(dioClient: getIt<DioClient>()));
+  getIt.registerLazySingleton<PostApi>(
+      () => PostApi(dioClient: getIt<DioClient>()));
 
   // Comment api
-  getIt.registerLazySingleton<CommentApi>(() => CommentApi(dioClient: getIt<DioClient>()));
+  getIt.registerLazySingleton<CommentApi>(
+      () => CommentApi(dioClient: getIt<DioClient>()));
 
   // Login api
-  getIt.registerLazySingleton<LoginApi>(() => LoginApi(dioClient: getIt<DioClient>()));
+  getIt.registerLazySingleton<LoginApi>(
+      () => LoginApi(dioClient: getIt<DioClient>()));
 
   // User repository
   getIt.registerLazySingleton<UserRepository>(
@@ -62,25 +68,32 @@ Future<void> init() async {
 
   // Login repository
   getIt.registerLazySingleton<LoginRepository>(
-        () => LoginRepository(loginApi: getIt<LoginApi>()),
+    () => LoginRepository(loginApi: getIt<LoginApi>()),
   );
 
   //_Todo Bloc
-  getIt.registerLazySingleton(() => TodoBloc(todoRepository: getIt<TodoRepository>()));
+  getIt.registerLazySingleton(
+      () => TodoBloc(todoRepository: getIt<TodoRepository>()));
 
   //Post Bloc
-  getIt.registerLazySingleton(() => PostBloc(postRepository: getIt<PostRepository>()));
+  getIt.registerLazySingleton(
+      () => PostBloc(postRepository: getIt<PostRepository>()));
 
   //Comment Bloc
-  getIt.registerLazySingleton(() => CommentBloc(commentRepository: getIt<CommentRepository>()));
+  getIt.registerLazySingleton(
+      () => CommentBloc(commentRepository: getIt<CommentRepository>()));
 
   //User Bloc
-  getIt.registerLazySingleton(() => UserBloc(userRepository: getIt<UserRepository>()));
+  getIt.registerLazySingleton(
+      () => UserBloc(userRepository: getIt<UserRepository>()));
 
   //Login Bloc
-  getIt.registerLazySingleton(() => LoginPageBloc(loginRepository: getIt<LoginRepository>()));
+  getIt.registerLazySingleton(
+      () => LoginPageBloc(loginRepository: getIt<LoginRepository>()));
+
+  //Splashscreen Bloc
+  getIt.registerLazySingleton(() => SplashscreenBloc());
 
   //Language Cubit
   getIt.registerLazySingleton(() => LanguageCubit());
-
 }

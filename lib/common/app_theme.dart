@@ -2,17 +2,19 @@ import 'package:acl_flutter/common/app_style.dart';
 import 'package:acl_flutter/common/app_string.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/acl_color.dart';
+
 class AppTheme {
   AppTheme._();
 
   static ThemeData lightAppTheme = ThemeData(
     appBarTheme: const AppBarTheme(
-      color: Colors.blue,
+      color: AclColors.blueDark,
       centerTitle: true,
     ),
     dialogTheme: const DialogTheme(
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.blue, width: 1.0),
+        side: BorderSide(color: AclColors.blueDark, width: 1.0),
         borderRadius: BorderRadius.all(
           Radius.circular(15.0),
         ),
@@ -25,11 +27,11 @@ class AppTheme {
         border: inputBorder),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor:  Colors.blue,
+        backgroundColor:  AclColors.blueDark,
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Colors.blue,
+      backgroundColor: AclColors.blueDark,
     ),
     fontFamily: AppString.appFont,
     textButtonTheme: TextButtonThemeData(
@@ -45,10 +47,10 @@ class AppTheme {
         borderRadius: BorderRadius.all(Radius.circular(8)),
         side: BorderSide(color: Colors.grey, width: 2),
       ),
-      dialHandColor:  Colors.blue,
+      dialHandColor:  AclColors.blueDark,
       hourMinuteColor: MaterialStateColor.resolveWith((states) =>
           states.contains(MaterialState.selected)
-              ? Colors.blue
+              ? AclColors.blueDark
               : Colors.black12),
       hourMinuteTextColor: MaterialStateColor.resolveWith((states) =>
           states.contains(MaterialState.selected)
@@ -61,7 +63,7 @@ class AppTheme {
       dayPeriodColor: Colors.transparent,
       dayPeriodTextColor: MaterialStateColor.resolveWith((states) =>
           states.contains(MaterialState.selected)
-              ? Colors.blue
+              ? AclColors.blueDark
               : Colors.black12),
       hourMinuteShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/acl_color.dart';
+
 class ButtonWidgetCustom extends StatelessWidget {
   final String text;
   final IconData? icon;
@@ -23,8 +25,8 @@ class ButtonWidgetCustom extends StatelessWidget {
             .width,
         margin: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: Colors.blue,
-          border: Border.all(color: Colors.blue),
+          color: AclColors.blueDark,
+          border: Border.all(color: AclColors.blueDark),
           borderRadius: BorderRadius.circular(4),
         ),
         padding: EdgeInsets.all(10),

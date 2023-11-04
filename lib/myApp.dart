@@ -1,4 +1,5 @@
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
+import 'package:acl_flutter/screens/splashscreen_page/bloc/splash_screen_bloc.dart';
 import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
 import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
 import 'package:acl_flutter/viewmodel/comment/bloc/comment_bloc.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<PostBloc>(create: (context) => getIt<PostBloc>()),
         BlocProvider<CommentBloc>(create: (context) => getIt<CommentBloc>()),
         BlocProvider<UserBloc>(create: (context) => getIt<UserBloc>()),
+        BlocProvider<SplashscreenBloc>(create: (context) => getIt<SplashscreenBloc>()),
         BlocProvider<LanguageCubit>(create: (context) => getIt<LanguageCubit>()),
         BlocProvider<LoginPageBloc>(
             create: (context) => getIt<LoginPageBloc>()),
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.lightAppTheme,
             navigatorKey: AppRouter.navigatorKey,
             onGenerateRoute: AppRouter.generateRoute,
-            initialRoute: Routes.initialPage,
+            initialRoute: Routes.splashScreen,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

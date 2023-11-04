@@ -2,6 +2,7 @@ import 'package:acl_flutter/core/router/routes.dart';
 import 'package:acl_flutter/screens/home_page/home_page.dart';
 import 'package:acl_flutter/screens/login_page/screen/login_screen.dart';
 import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
+import 'package:acl_flutter/screens/splashscreen_page/splashscreen_page.dart';
 import 'package:acl_flutter/screens/user/user_list_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,8 @@ class AppRouter {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.splashScreen:
+        return MaterialPageRoute(builder: (_) => SplashscreenPage());
       case Routes.userList:
         return MaterialPageRoute(builder: (_) => UserListScreen());
       case Routes.loginPage:

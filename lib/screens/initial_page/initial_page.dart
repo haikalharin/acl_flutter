@@ -19,73 +19,63 @@ class InitialPage extends StatefulWidget {
 class _InitialPageState extends State<InitialPage> {
   @override
   void initState() {
-    checkLogin();
     super.initState();
-  }
-
-  Future<void> checkLogin () async {
-    LoginModel data =  await AppSharedPreference.getUser();
-    if(data.username != null){
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        Routes.sidebarPage,
-            (Route<dynamic> route) => false,
-      );
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Container(
-            height: MediaQuery.of(context).size.height/3,
+      body: Container(
         decoration:  const BoxDecoration(
-            // border: Border.all(
-            //   color: Colors.grey, // You can choose the color you want
-            //   width: 1.0,          // Adjust the width of the border as needed
-            // ),
-            borderRadius: BorderRadius.all(Radius.circular(8))),
-        child:  Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ButtonWidgetCustom(
-              text: "Agen",
-              function: () {
-                Navigator.of(context).pushNamed(
-                  Routes.loginPage,
-                );
-              },
-            ),
-            SizedBox(height: 10,),
-            ButtonWidgetCustom(
-              text: "Calon Agen",
-              function: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => RetryDialog(
-                        title: 'Belum tersedia',
-                        onRetryPressed: () => [
-                          Navigator.pop(context)
-                        ]));
-              },
-            ),
-             SizedBox(height: 10,),
-            ButtonWidgetCustom(
-              text: "ADT Team",
-              function: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) => RetryDialog(
-                        title: 'Belum tersedia',
-                        onRetryPressed: () => [
-                          Navigator.pop(context)
-                        ]));
-              },
-            ),
-
-          ],
+        // border: Border.all(
+        //   color: Colors.grey, // You can choose the color you want
+        //   width: 1.0,          // Adjust the width of the border as needed
+        // ),
+        borderRadius: BorderRadius.all(Radius.circular(8))),
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 250,
+          child: Image.asset("assets/images/allianz_logo.png" ),
+        ), ButtonWidgetCustom(
+          text: "Agen",
+          function: () {
+            Navigator.of(context).pushNamed(
+              Routes.loginPage,
+            );
+          },
         ),
-      )),
+        SizedBox(height: 10,),
+        ButtonWidgetCustom(
+          text: "Calon Agen",
+          function: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => RetryDialog(
+                    title: 'Belum tersedia',
+                    onRetryPressed: () => [
+                      Navigator.pop(context)
+                    ]));
+          },
+        ),
+         SizedBox(height: 10,),
+        ButtonWidgetCustom(
+          text: "ADT Team",
+          function: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => RetryDialog(
+                    title: 'Belum tersedia',
+                    onRetryPressed: () => [
+                      Navigator.pop(context)
+                    ]));
+          },
+        ),
+
+      ],
+        ),
+      ),
     );
   }
 }
