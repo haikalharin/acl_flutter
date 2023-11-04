@@ -3,6 +3,7 @@ import 'package:acl_flutter/data/api/comment/comment_api.dart';
 import 'package:acl_flutter/data/api/post/post_api.dart';
 import 'package:acl_flutter/data/api/todo/todo_api.dart';
 import 'package:acl_flutter/data/api/user/user_api.dart';
+import 'package:acl_flutter/myApp.dart';
 import 'package:acl_flutter/repository/comment/comment_repository.dart';
 import 'package:acl_flutter/repository/login/login_repository.dart';
 import 'package:acl_flutter/repository/post/post_repository.dart';
@@ -78,5 +79,8 @@ Future<void> init() async {
 
   //Login Bloc
   getIt.registerLazySingleton(() => LoginPageBloc(loginRepository: getIt<LoginRepository>()));
+
+  //Language Cubit
+  getIt.registerLazySingleton(() => LanguageCubit());
 
 }
