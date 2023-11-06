@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/core/network/dio_exception.dart';
+import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:dio/dio.dart';
+
+import '../../utils/http_util.dart';
 
 abstract mixin class ApiHelper<T> {
   late final T data;
@@ -56,5 +59,12 @@ abstract mixin class ApiHelper<T> {
     } else {
       throw DioExceptions;
     }
+  }
+
+  Future<ResponseModel<T>> makeGetRequestWithResponseModel(Future<Response<dynamic>> apiCallback, T Function(Map<String, dynamic> json) getJsonCallback) async {
+    final Response response = await apiCallback;
+    final responseData = HttpUtil.getResponse(response);
+    return responseData;
+
   }
 }

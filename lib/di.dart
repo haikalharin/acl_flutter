@@ -10,6 +10,7 @@ import 'package:acl_flutter/repository/post/post_repository.dart';
 import 'package:acl_flutter/repository/todo/todo_repository.dart';
 import 'package:acl_flutter/repository/user/user_repository.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
+import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
 import 'package:acl_flutter/screens/splashscreen_page/bloc/splash_screen_bloc.dart';
 import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
 import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
@@ -93,6 +94,9 @@ Future<void> init() async {
 
   //Splashscreen Bloc
   getIt.registerLazySingleton(() => SplashscreenBloc());
+
+  //SideBar Bloc
+  getIt.registerLazySingleton(() => SideBarPageBloc());
 
   //Language Cubit
   getIt.registerLazySingleton(() => LanguageCubit());

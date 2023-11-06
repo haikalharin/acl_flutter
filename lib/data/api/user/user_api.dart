@@ -5,6 +5,8 @@ import 'package:acl_flutter/core/network/service_url.dart';
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:acl_flutter/data/model/user/user.dart';
 
+import '../../model/response_model/response_model.dart';
+
 class UserApi with ApiHelper<User> {
   final DioClient dioClient;
 
@@ -33,5 +35,19 @@ class UserApi with ApiHelper<User> {
     }
 
     return await makeGetRequest(dioClient.dio.get(ApiConfig.users, queryParameters: queryParameters), User.fromJson);
+  }
+
+  Future<ResponseModel<User>> getUsersPagination({Gender? gender, UserStatus? status}) async {
+    Map<String, String> queryParameters = <String, String>{};
+
+    if (gender != null && gender != Gender.all) {
+      queryParameters.addAll({'gender': gender.name});
+    }
+
+    if (status != null && status != UserStatus.all) {
+      queryParameters.addAll({'status': status.name});
+    }
+
+    return await makeGetRequestWithResponseModel(dioClient.dio.get(ApiConfig.users, queryParameters: queryParameters), User.fromJson);
   }
 }

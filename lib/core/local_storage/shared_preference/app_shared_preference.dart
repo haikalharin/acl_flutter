@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../common/secure.dart';
@@ -35,6 +36,8 @@ class AppSharedPreference {
   static const String isShowGuide = "show_guide";
   static const String cookie = "cookie";
   static const String playlist = "playlist";
+  static const  storage = FlutterSecureStorage();
+
 
   static clear() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -69,8 +72,7 @@ class AppSharedPreference {
 
 
   static Future<String?> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userString = prefs.getString(AppSharedPreference.token);
+    final userString = await storage.read(key: AppSharedPreference.token);
     if (userString == null) return null;
     return userString;
   }

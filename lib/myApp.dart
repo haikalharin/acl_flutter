@@ -1,4 +1,5 @@
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
+import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
 import 'package:acl_flutter/screens/splashscreen_page/bloc/splash_screen_bloc.dart';
 import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
 import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<CommentBloc>(create: (context) => getIt<CommentBloc>()),
         BlocProvider<UserBloc>(create: (context) => getIt<UserBloc>()),
         BlocProvider<SplashscreenBloc>(create: (context) => getIt<SplashscreenBloc>()),
+        BlocProvider<SideBarPageBloc>(create: (context) => getIt<SideBarPageBloc>()),
         BlocProvider<LanguageCubit>(create: (context) => getIt<LanguageCubit>()),
         BlocProvider<LoginPageBloc>(
             create: (context) => getIt<LoginPageBloc>()),

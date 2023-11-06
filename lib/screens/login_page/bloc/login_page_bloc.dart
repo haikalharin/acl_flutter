@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:ffi';
 
+import 'package:acl_flutter/core/local_storage/secure_storage/secure_storage.dart';
 import 'package:acl_flutter/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 
 import '../../../common/secure.dart';
-import '../../../core/repository/shared_preference/app_shared_preference.dart';
+import '../../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../../core/router/routes.dart';
 import 'package:equatable/equatable.dart';
 import '../../../repository/login/login_repository.dart';
@@ -57,7 +58,7 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
       final result =
       await loginRepository.login(userName: userName, password: password);
       result.when(success: (data) {
-        AppSharedPreference.setUser(data);
+        SecureStorage().setUser(data);
         emit(state.copyWith(
             username: userName,
             password: password,
