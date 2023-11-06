@@ -30,6 +30,7 @@ class TextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       focusNode: focusNode,
+      keyboardType: TextInputType.number,
       controller: controller,
       textInputAction: TextInputAction.next,
       autovalidateMode: autoValidateMode,

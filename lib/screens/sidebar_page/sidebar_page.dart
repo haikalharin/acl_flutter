@@ -114,7 +114,7 @@ class _SideBarPageState extends State<SideBarPage> {
                     title: Text(
                       AppLocalizations.of(context)!.language,
                       style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w500),
                     ),
                     children: <Widget>[
                       ListTile(
