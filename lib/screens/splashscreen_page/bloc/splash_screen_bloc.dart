@@ -26,12 +26,23 @@ class SplashscreenBloc extends Bloc<SplashscreenEvent, SplashscreenState> {
     Emitter<SplashscreenState> emit,
   ) async {
     final LoginModel userModel = await SecureStorage().getUser();
+
     await Future.delayed(const Duration(seconds: 2));
     if (userModel.username != null) {
-      emit(state.copyWith(
-          userModel: userModel,
-          submitStatus: FormzSubmissionStatus.success,
-          isExist: true));
+      int ts = int.parse(userModel.lastAuthenticated ?? '0');
+      DateTime dt = DateTime.fromMillisecondsSinceEpoch(ts);
+
+      String date = DateFormat('MM/dd/yyyy, hh:mm a').format(dt);
+      print(date);
+      if (dt.day == DateTime.now().day) {
+        emit(state.copyWith(
+            userModel: userModel,
+            submitStatus: FormzSubmissionStatus.success,
+            isExist: true));
+      } else {
+        emit(state.copyWith(
+            submitStatus: FormzSubmissionStatus.success, isExist: false));
+      }
     } else {
       emit(state.copyWith(
           submitStatus: FormzSubmissionStatus.success, isExist: false));
