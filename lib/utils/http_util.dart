@@ -1,15 +1,13 @@
 import 'dart:convert';
 
+import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
 
 import '../../../utils/remote_utils.dart';
 import '../core/exceptions/server_error_exception.dart';
 import '../core/network/dio_exception.dart';
 import '../core/network/http_constants.dart';
-
-
 
 class HttpUtil {
   static dynamic encodeRequestBody(dynamic data, String contentType) {
@@ -29,11 +27,13 @@ class HttpUtil {
   }
 
   static dynamic _getSuccessResponse(Response response) {
-    final _responseJson = json.decode(response.data);
-
+    final _responseJson = response.data;
+    dynamic data = _responseJson;
     debugPrint('>>>>>>> [RESPONSE] $_responseJson');
-
-    return _responseJson;
+    if(_responseJson is List){
+      data = {'data': _responseJson ?? ''};
+    }
+    return data;
   }
 
   static dynamic _tokenExpired(Response response) {

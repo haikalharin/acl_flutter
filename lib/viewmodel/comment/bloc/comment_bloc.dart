@@ -1,9 +1,10 @@
 import 'package:acl_flutter/core/bloc/bloc_helper.dart';
 import 'package:acl_flutter/core/bloc/generic_bloc_state.dart';
 import 'package:acl_flutter/data/model/comment/comment.dart';
-import 'package:acl_flutter/repository/comment/comment_repository.dart';
 import 'package:acl_flutter/viewmodel/comment/bloc/comment_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/repository/comment/comment_repository.dart';
 
 typedef Emit = Emitter<GenericBlocState<Comment>>;
 

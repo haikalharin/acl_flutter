@@ -7,7 +7,6 @@ import 'package:acl_flutter/core/widget/spinkit_indicator.dart';
 import 'package:acl_flutter/core/widget/stateful_wrapper.dart';
 import 'package:acl_flutter/data/model/user/user.dart';
 import 'package:acl_flutter/di.dart';
-import 'package:acl_flutter/repository/user/user_repository.dart';
 import 'package:acl_flutter/screens/post/screen/post_list_screen.dart';
 import 'package:acl_flutter/screens/todo/todo_list_screen.dart';
 import 'package:acl_flutter/screens/user/bloc/user_event.dart';
@@ -17,6 +16,7 @@ import 'package:acl_flutter/screens/user/widget/status_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/repository/user/user_repository.dart';
 import 'bloc/user_bloc.dart';
 
 enum Operation { edit, delete, post, todo }

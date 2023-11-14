@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ffi';
 
 import 'package:acl_flutter/core/local_storage/secure_storage/secure_storage.dart';
+import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:acl_flutter/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,7 +12,8 @@ import '../../../common/secure.dart';
 import '../../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../../core/router/routes.dart';
 import 'package:equatable/equatable.dart';
-import '../../../repository/login/login_repository.dart';
+
+import '../../../data/repository/login/login_repository.dart';
 
 part 'login_page_event.dart';
 
@@ -57,8 +59,9 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
     try{
       final result =
       await loginRepository.login(userName: userName, password: password);
-      result.when(success: (data) {
-        SecureStorage().setUser(data);
+      result.when(success: (response) {
+        SecureStorage().setUser(LoginModel.fromJson(response.data));
+        SecureStorage().setToken( response.headers.map['Authorization']?.first??'');
         emit(state.copyWith(
             username: userName,
             password: password,

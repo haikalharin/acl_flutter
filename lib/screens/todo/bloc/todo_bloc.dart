@@ -1,9 +1,10 @@
 import 'package:acl_flutter/core/bloc/bloc_helper.dart';
 import 'package:acl_flutter/core/bloc/generic_bloc_state.dart';
 import 'package:acl_flutter/data/model/todo/todo.dart';
-import 'package:acl_flutter/repository/todo/todo_repository.dart';
 import 'package:acl_flutter/screens/todo/bloc/todo_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/repository/todo/todo_repository.dart';
 
 typedef Emit = Emitter<GenericBlocState<ToDo>>;
 

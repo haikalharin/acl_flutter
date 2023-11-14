@@ -1,9 +1,13 @@
+import 'package:acl_flutter/screens/home_page/list_notify_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../core/router/app_router.dart';
+import '../../core/router/routes.dart';
 import '../../utils/acl_color.dart';
 import '../sidebar_page/sidebar_page.dart';
+import 'list_candidate_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -61,141 +65,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               controller: _tabController,
               children: [
                 // Content for Tab 1
-                Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          'Tab 1 Content ' +
-                              AppLocalizations.of(context)!.helloWorld,
-                          style: TextStyle(color: AclColors.blueDark),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                            top: BorderSide(
-                              color: AclColors.blueDark, // Color of the border
-                              width: 1.0, // Width of the border
-                            ),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(AppLocalizations.of(context)!.sorted,
-                              style: TextStyle(color: AclColors.blueDark)),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                ListCandidatePage(isMyCandidate: true,),
                 // Center(
                 //   child: Text('Tab 1 Content '+AppLocalizations.of(context)!.helloWorld,style: TextStyle(color: AclColors.blueDark),),
                 // ),
                 // Content for Tab 2
-                Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          'Tab 2 Content ' +
-                              AppLocalizations.of(context)!.helloWorld,
-                          style: TextStyle(color: AclColors.blueDark),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          border: Border(
-                            top: BorderSide(
-                              color: AclColors.blueDark, // Color of the border
-                              width: 1.0, // Width of the border
-                            ),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(AppLocalizations.of(context)!.sorted,
-                              style: TextStyle(color: AclColors.blueDark)),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                ListCandidatePage(isMyCandidate: false,),
                 // Content for Tab 3
-                Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          'Tab 3 Content ' +
-                              AppLocalizations.of(context)!.helloWorld,
-                          style: TextStyle(color: AclColors.blueDark),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: Container(
-                              height: 50,
-                              // width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                border: Border(
-                                  top: BorderSide(
-                                    color: AclColors.blueDark, // Color of the border
-                                    width: 1.0, // Width of the border
-                                  ),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(AppLocalizations.of(context)!.reload,
-                                    style: TextStyle(color: AclColors.blueDark)),
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            child: Container(
-                              height: 50,
-                              // width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                border: Border(
-                                  top: BorderSide(
-                                    color: AclColors.blueDark, // Color of the border
-                                    width: 1.0, // Width of the border
-                                  ),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(AppLocalizations.of(context)!.note,
-                                    style: TextStyle(color: AclColors.blueDark)),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+               ListNotifyPage()
               ],
             ),
           ),

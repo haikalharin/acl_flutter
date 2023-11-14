@@ -31,10 +31,11 @@ class SplashscreenBloc extends Bloc<SplashscreenEvent, SplashscreenState> {
     if (userModel.username != null) {
       int ts = int.parse(userModel.lastAuthenticated ?? '0');
       DateTime dt = DateTime.fromMillisecondsSinceEpoch(ts);
+      DateTime dtNow = DateTime.now();
+      Duration diff = dtNow.difference(dt);
 
-      String date = DateFormat('MM/dd/yyyy, hh:mm a').format(dt);
-      print(date);
-      if (dt.day == DateTime.now().day) {
+      // String date = DateFormat('MM/dd/yyyy, hh:mm a').format(dt);
+      if (diff.inMinutes < 30) {
         emit(state.copyWith(
             userModel: userModel,
             submitStatus: FormzSubmissionStatus.success,

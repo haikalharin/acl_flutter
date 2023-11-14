@@ -1,6 +1,6 @@
 import 'package:acl_flutter/core/network/api_result.dart';
 import 'package:acl_flutter/core/repository/repository_helper.dart';
-import 'package:acl_flutter/data/api/login/login.dart';
+import 'package:acl_flutter/data/api/login/login_api.dart';
 import 'package:acl_flutter/data/api/user/user_api.dart';
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
@@ -15,9 +15,6 @@ class UserRepository with RepositoryHelper<User> {
     return checkItemsFailOrSuccess(userApi.getUsers(gender: gender, status: status));
   }
 
-  Future<ApiResult<ResponseModel<User>>> getUsersPagination({Gender? gender, UserStatus? status}) async {
-    return checkItemsWithResponseModelFailOrSuccess(userApi.getUsersPagination(gender: gender, status: status));
-  }
   Future<ApiResult<bool>> createUser(User user) async {
     return checkItemFailOrSuccess(userApi.createUser(user));
   }

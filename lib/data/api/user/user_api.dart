@@ -2,6 +2,7 @@ import 'package:acl_flutter/core/network/api_config.dart';
 import 'package:acl_flutter/core/network/api_helper.dart';
 import 'package:acl_flutter/core/network/dio_client.dart';
 import 'package:acl_flutter/core/network/service_url.dart';
+import 'package:acl_flutter/data/model/agent/agent_model.dart';
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:acl_flutter/data/model/user/user.dart';
 
@@ -37,7 +38,7 @@ class UserApi with ApiHelper<User> {
     return await makeGetRequest(dioClient.dio.get(ApiConfig.users, queryParameters: queryParameters), User.fromJson);
   }
 
-  Future<ResponseModel<User>> getUsersPagination({Gender? gender, UserStatus? status}) async {
+  Future<ResponseModel> getUsersPagination({Gender? gender, UserStatus? status}) async {
     Map<String, String> queryParameters = <String, String>{};
 
     if (gender != null && gender != Gender.all) {
@@ -48,6 +49,6 @@ class UserApi with ApiHelper<User> {
       queryParameters.addAll({'status': status.name});
     }
 
-    return await makeGetRequestWithResponseModel(dioClient.dio.get(ApiConfig.users, queryParameters: queryParameters), User.fromJson);
+    return await makeGetRequestWithResponseModel(dioClient.dio.get(ApiConfig.users, queryParameters: queryParameters),User.fromJson);
   }
 }

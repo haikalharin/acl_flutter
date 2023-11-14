@@ -11,6 +11,7 @@ class TextInput extends StatelessWidget {
     this.icon,
     this.focusNode,
     this.obscureText,
+    this.keyboardType,
     this.autoValidateMode = AutovalidateMode.onUserInteraction,
     required this.hint,
   }) : super(key: key);
@@ -25,12 +26,13 @@ class TextInput extends StatelessWidget {
   final AutovalidateMode autoValidateMode;
   final FocusNode? focusNode;
   final bool? obscureText;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       focusNode: focusNode,
-      keyboardType: TextInputType.number,
+      keyboardType: keyboardType,
       controller: controller,
       textInputAction: TextInputAction.next,
       autovalidateMode: autoValidateMode,

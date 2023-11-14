@@ -1,9 +1,9 @@
 import 'package:acl_flutter/core/bloc/bloc_helper.dart';
 import 'package:acl_flutter/core/bloc/generic_bloc_state.dart';
 import 'package:acl_flutter/data/model/post/post.dart';
-import 'package:acl_flutter/repository/post/post_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/repository/post/post_repository.dart';
 import 'post_event.dart';
 
 typedef Emit = Emitter<GenericBlocState<Post>>;

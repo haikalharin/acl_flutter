@@ -3,7 +3,10 @@ import '../base_model/pagination.dart';
 
 class ResponseModel<T> {
   int? code;
-  String? status;
+  int? responseCode;
+  String? httpStatus;
+  String? statusCode;
+  String? responseTime;
   String? message;
   String? action;
   dynamic data;
@@ -21,10 +24,13 @@ class ResponseModel<T> {
   ResponseModel({
     this.code,
     this.pagination,
-    this.status,
+    this.httpStatus,
     this.message,
     this.action,
     this.data,
+    this.responseCode,
+    this.responseTime,
+    this.statusCode,
     this.total,
     this.perPage,
     this.currentPage,
@@ -34,13 +40,16 @@ class ResponseModel<T> {
     this.result,
   });
 
-  ResponseModel.fromJson(Map<String, dynamic> json, T fromJson(Map<String, dynamic> json)) {
+  ResponseModel.fromJson(Map<String, dynamic> json, T Function(Map<String, dynamic> json) fromJson) {
     code = json['code'];
-    status = json['status'];
+    httpStatus = json['httpStatus'];
     message = json['message'];
     action = json['action'];
+    responseCode = json['responseCode'];
+    responseTime = json['responseTime'];
+    statusCode = json['statusCode'];
 
-    if (json["data"] != null && fromJson != null) {
+    if (json["data"] != null) {
       if (json['data'].toString()[0] == "[") {
         data = List<T>.from(json['data'].map((x) => fromJson(x)));
       } else {
@@ -62,8 +71,11 @@ class ResponseModel<T> {
   }
 
   ResponseModel<T> copyWith({
-    int? statusCode,
-    String? statusMessage,
+    int? code,
+    int? responseCode,
+    String? statusCode,
+    String? responseTime,
+    String? httpStatus,
     String? errorMessage,
     String? action,
     dynamic data,
@@ -77,8 +89,11 @@ class ResponseModel<T> {
     List<T>? result,
   }) {
     return ResponseModel<T>(
-      code: statusCode ?? this.code,
-      status: statusMessage ?? this.status,
+      code: code ?? this.code,
+      responseCode: responseCode ?? this.responseCode,
+      statusCode: statusCode ?? this.statusCode,
+      responseTime: responseTime ?? this.responseTime,
+      httpStatus: httpStatus ?? this.httpStatus,
       message: errorMessage ?? this.message,
       action: action ?? this.action,
       data: data ?? this.data,
@@ -100,7 +115,7 @@ class ResponseModel<T> {
   static ResponseModel dataEmpty({dynamic data}) {
     return ResponseModel(
      code: 0,
-      status: '',
+      httpStatus: '',
       message: '',
       data: data,
       action: '',

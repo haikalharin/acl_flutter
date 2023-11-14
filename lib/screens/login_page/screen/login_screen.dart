@@ -96,6 +96,7 @@ class _LoginScreenScreenState extends State<LoginScreen> {
                     children: [
                       TextInput(
                         controller: username,
+                        keyboardType: TextInputType.number,
                         // initialValue: postTitle,
                         hint: "Username",
                         validator: (String? value) {

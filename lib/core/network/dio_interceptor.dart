@@ -2,8 +2,14 @@
 
 import 'package:acl_flutter/common/app_extension.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
+
+import '../local_storage/secure_storage/secure_storage.dart';
+import '../local_storage/shared_preference/app_shared_preference.dart';
+import '../router/app_router.dart';
+import '../router/routes.dart';
 
 class DioInterceptor extends Interceptor {
   final Dio dio;
@@ -26,9 +32,11 @@ class DioInterceptor extends Interceptor {
     logger.i('Header  => ${options.headers}');
     logger.i('Body  => ${options.data}');
    ///for set token
-   //  final accessToken = await storage.read(key: "accessToken");
+    final accessToken = await storage.read(key: AppSharedPreference.token);
    //  final refreshToken = await storage.read(key: "refreshToken");
-   //  options.headers["Authorization"] = "Bearer $accessToken";
+    if(!options.path.contains('login')) {
+      options.headers["Authorization"] = "$accessToken";
+    }
     return super.onRequest(options, handler);
   }
 
@@ -44,11 +52,15 @@ class DioInterceptor extends Interceptor {
     // if (err.response == null) {
     //   return;
     // }
-    // if (err.response!.statusCode == 401) {
-    //   var res = await refreshToken();
-    //   if (res != null && res) {
-    //     await _retry(err.requestOptions);
-    //   }
+    if (err.response!.statusCode == 403) {
+      SecureStorage().secureDeleteAll();
+      AppSharedPreference.clear();
+      AppRouter.navigatorKey.currentState?.pushNamedAndRemoveUntil(
+        Routes.initialPage,
+            (Route<dynamic> route) => false,
+      );
+
+    }
     // }
     return super.onError(err, handler);
   }
