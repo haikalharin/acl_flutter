@@ -9,6 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
+import '../../core/widget/popup_menu.dart';
+import '../../data/model/user/user.dart';
 import '../../di.dart';
 import '../../myApp.dart';
 import '../../utils/acl_color.dart';
@@ -76,6 +78,18 @@ class _SideBarPageState extends State<SideBarPage> {
           return Scaffold(
             appBar: AppBar(
               title: _widgetOptions[selectedIndex],
+              actions: [
+                PopupMenu<UserStatus>(
+                  icon: Icons.filter_list_outlined,
+                  items: UserStatus.values,
+                  onChanged: (value){},
+                ),
+                PopupMenu<Gender>(
+                  icon: Icons.filter_alt_outlined,
+                  items: Gender.values,
+                  onChanged: (value){},
+                )
+              ],
             ),
             drawer: Drawer(
               child: ListView(

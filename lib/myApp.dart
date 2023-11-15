@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<LanguageCubit, Locale>(
         builder: (context, lang) {
           return MaterialApp(
-            // debugShowCheckedModeBanner: false,
+            debugShowCheckedModeBanner: false,
             locale: lang,
             theme: AppTheme.lightAppTheme,
             navigatorKey: AppRouter.navigatorKey,
