@@ -24,7 +24,11 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
 
   @override
   void initState() {
-    getIt<HomePageBloc>().add(FetchListMyAgentEvent());
+    if(widget.isMyCandidate) {
+      getIt<HomePageBloc>().add(FetchListMyAgentEvent());
+    }else{
+      getIt<HomePageBloc>().add(FetchListBeAgentEvent());
+    }
     super.initState();
   }
 
@@ -50,12 +54,18 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                             Expanded(
                               child: Center(
                                   child: ListView.builder(
-                                itemCount: state.listAgentModel?.length,
+                                itemCount: widget.isMyCandidate
+                                    ? state.listAgentModel?.length
+                                    : state.listAgentBeModel?.length,
                                 itemBuilder: (context, index) {
-                                  // String outputDate = "";
-                                  // var outputFormat = DateFormat.yMMMMd('id');
-                                  // outputDate = outputFormat.format(DateTime.parse(
-                                  //     state.listAgentModel?[index].createDate ?? "0000-00-00"));
+                                  String startDate = "";
+                                 if(!widget.isMyCandidate) {
+                                   var outputFormat = DateFormat.yMMMMd('en');
+                                   startDate = outputFormat.format(
+                                       DateTime.parse(
+                                           state.listAgentBeModel?[index]
+                                               .startDate ?? "0000-00-00"));
+                                 }
                                   return Column(
                                     children: [
                                       index == 0 ? Container() : Divider(),
@@ -65,18 +75,23 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                           backgroundImage: AssetImage(
                                               'assets/images/user.png'),
                                         ),
-                                        title: Text(
-                                            "${state.listAgentModel?[index].firstName} ${state.listAgentModel?[index].lastName??''}"),
+                                        title: Text(widget.isMyCandidate
+                                            ? "${state.listAgentModel?[index].firstName} ${state.listAgentModel?[index].lastName ?? ''}"
+                                            : "${state.listAgentBeModel?[index].firstName} ${state.listAgentBeModel?[index].lastName ?? ''}"),
                                         subtitle: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(state.listAgentModel?[index]
+                                            widget.isMyCandidate
+                                                ? Text(state.listAgentModel?[index]
                                                     .userId ??
+                                                ''):Text(state.listAgentBeModel?[index]
+                                                .userId ??
                                                 ''),
-                                            Text(state.listAgentModel?[index]
+                                            widget.isMyCandidate
+                                                ?Text(state.listAgentModel?[index]
                                                     .createDate ??
-                                                ''),
+                                                ''):Text(startDate),
                                           ],
                                         ),
                                       ),

@@ -13,6 +13,7 @@ extension HomePageStatusX on HomePageStatus {
 class HomePageState extends Equatable {
   final HomePageStatus status;
   final List<AgentModel>? listAgentModel;
+  final List<AgentBeModel>? listAgentBeModel;
   final List<NotificationModel>? listNotify;
   final AgentModel? agentModel;
   final String? errorMessage;
@@ -20,6 +21,7 @@ class HomePageState extends Equatable {
 
   const HomePageState({
     this.listAgentModel,
+    this.listAgentBeModel,
     this.listNotify,
     this.agentModel,
     this.moveTo,
@@ -36,6 +38,7 @@ class HomePageState extends Equatable {
   HomePageState copyWith({
     AgentModel? agentModel,
     List<AgentModel>? listAgentModel,
+    List<AgentBeModel>? listAgentBeModel,
     List<NotificationModel>? listNotify,
     String? moveTo,
     String? errorMessage,
@@ -44,6 +47,7 @@ class HomePageState extends Equatable {
     return HomePageState(
       agentModel: agentModel ?? this.agentModel,
       listAgentModel: listAgentModel ?? this.listAgentModel,
+      listAgentBeModel: listAgentBeModel ?? this.listAgentBeModel,
       listNotify: listNotify ?? this.listNotify,
       moveTo: moveTo ?? this.moveTo,
       errorMessage: errorMessage ?? this.errorMessage,

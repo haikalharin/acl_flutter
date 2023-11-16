@@ -1,5 +1,6 @@
 import 'package:acl_flutter/core/network/dio_client.dart';
 import 'package:acl_flutter/data/api/agent/agent_api.dart';
+import 'package:acl_flutter/data/api/agent/agent_be_api.dart';
 import 'package:acl_flutter/data/api/comment/comment_api.dart';
 import 'package:acl_flutter/data/api/notify/notify_api.dart';
 import 'package:acl_flutter/data/api/post/post_api.dart';
@@ -59,9 +60,13 @@ Future<void> init() async {
   getIt.registerLazySingleton<AgentApi>(
       () => AgentApi(dioClient: getIt<DioClient>()));
 
-  // Notofy api
+  // Notify api
   getIt.registerLazySingleton<NotifyApi>(
       () => NotifyApi(dioClient: getIt<DioClient>()));
+
+  // Agent api
+  getIt.registerLazySingleton<AgentBeApi>(
+          () => AgentBeApi(dioClient: getIt<DioClient>()));
 
   // User repository
   getIt.registerLazySingleton<UserRepository>(
@@ -89,7 +94,7 @@ Future<void> init() async {
 
   // Agent repository
   getIt.registerLazySingleton<AgentRepository>(
-    () => AgentRepository(agentApi: getIt<AgentApi>()),
+    () => AgentRepository(agentApi: getIt<AgentApi>(), agentBeApi: getIt<AgentBeApi>()),
   );
 
   // Agent repository

@@ -29,8 +29,9 @@ class HttpUtil {
   static dynamic _getSuccessResponse(Response response) {
     final _responseJson = response.data;
     dynamic data = _responseJson;
+    String dataString = _responseJson.toString();
     debugPrint('>>>>>>> [RESPONSE] $_responseJson');
-    if(_responseJson is List){
+    if(!dataString.contains('data:')){
       data = {'data': _responseJson ?? ''};
     }
     return data;
