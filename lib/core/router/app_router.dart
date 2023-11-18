@@ -1,6 +1,7 @@
 import 'package:acl_flutter/core/router/routes.dart';
+import 'package:acl_flutter/screens/add_agent_page/screen/add_agent_page.dart';
 import 'package:acl_flutter/screens/home_page/home_page.dart';
-import 'package:acl_flutter/screens/login_page/screen/login_screen.dart';
+import 'package:acl_flutter/screens/login_page/screen/login_page.dart';
 import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/screens/splashscreen_page/splashscreen_page.dart';
 import 'package:acl_flutter/screens/user/user_list_screen.dart';
@@ -20,7 +21,7 @@ class AppRouter {
       case Routes.userList:
         return MaterialPageRoute(builder: (_) => UserListScreen());
       case Routes.loginPage:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(builder: (_) => LoginPage());
       case Routes.navbarPage:
         return MaterialPageRoute(builder: (_) => NavbarPage());
       case Routes.initialPage:
@@ -29,6 +30,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomePage());
       case Routes.sidebarPage:
         return MaterialPageRoute(builder: (_) => SideBarPage());
+      case Routes.addAgentPage:
+        return MaterialPageRoute(builder: (_) => const AddAgentPage());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

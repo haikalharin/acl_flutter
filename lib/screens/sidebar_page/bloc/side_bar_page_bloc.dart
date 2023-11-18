@@ -4,6 +4,7 @@ import 'package:acl_flutter/core/local_storage/secure_storage/secure_storage.dar
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
 part 'side_bar_page_event.dart';
@@ -20,7 +21,7 @@ class SideBarPageBloc extends Bloc<SideBarPageEvent, SideBarPageState> {
     LoginModel userModel = await SecureStorage().getUser();
     emit(state.copyWith(
       userModel: userModel,
-      status: SideBarPageStatus.success,
+      submitStatus: FormzSubmissionStatus.success,
     ));
   }
 }

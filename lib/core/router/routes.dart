@@ -6,4 +6,5 @@ mixin Routes {
   static const String navbarPage = '/navbarPage';
   static const String homePage = '/homePage';
   static const String sidebarPage = '/sidebarPage';
+  static const String addAgentPage = '/addAgentPage';
 }

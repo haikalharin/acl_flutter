@@ -1,17 +1,7 @@
 part of 'home_page_bloc.dart';
 
-enum HomePageStatus { initial, success, error, loading, selected }
-
-extension HomePageStatusX on HomePageStatus {
-  bool get isInitial => this == HomePageStatus.initial;
-  bool get isSuccess => this == HomePageStatus.success;
-  bool get isError => this == HomePageStatus.error;
-  bool get isLoading => this == HomePageStatus.loading;
-  bool get isSelected => this == HomePageStatus.selected;
-}
-
 class HomePageState extends Equatable {
-  final HomePageStatus status;
+  final FormzSubmissionStatus submitStatus;
   final List<AgentModel>? listAgentModel;
   final List<AgentBeModel>? listAgentBeModel;
   final List<NotificationModel>? listNotify;
@@ -26,14 +16,13 @@ class HomePageState extends Equatable {
     this.agentModel,
     this.moveTo,
     this.errorMessage,
-    this.status = HomePageStatus.initial,
-
+    this.submitStatus = FormzSubmissionStatus.initial,
   });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [ agentModel,listAgentModel,listNotify,status];
-
+  List<Object?> get props =>
+      [agentModel, listAgentModel, listNotify, submitStatus];
 
   HomePageState copyWith({
     AgentModel? agentModel,
@@ -42,7 +31,7 @@ class HomePageState extends Equatable {
     List<NotificationModel>? listNotify,
     String? moveTo,
     String? errorMessage,
-    HomePageStatus? status,
+    FormzSubmissionStatus? submitStatus,
   }) {
     return HomePageState(
       agentModel: agentModel ?? this.agentModel,
@@ -51,7 +40,7 @@ class HomePageState extends Equatable {
       listNotify: listNotify ?? this.listNotify,
       moveTo: moveTo ?? this.moveTo,
       errorMessage: errorMessage ?? this.errorMessage,
-      status: status ?? HomePageStatus.initial,
+      submitStatus: submitStatus ?? FormzSubmissionStatus.initial,
     );
   }
 }

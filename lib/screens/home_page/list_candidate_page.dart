@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:formz/formz.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/widget/spinkit_indicator.dart';
@@ -40,9 +41,9 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
       },
       child: BlocBuilder<HomePageBloc, HomePageState>(
         builder: (context, state) {
-          return state.status.isLoading
+          return state.submitStatus.isInProgress
               ? const SpinKitIndicator(type: SpinKitType.circle)
-              : state.status.isSuccess
+              : state.submitStatus.isSuccess
                   ? state.listAgentModel!.isEmpty
                       ? Container(
                           width: MediaQuery.of(context).size.width,
@@ -102,54 +103,28 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    child: Container(
-                                      height: 50,
-                                      // width: double.infinity,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border(
-                                          top: BorderSide(
-                                            color: AclColors
-                                                .blueDark, // Color of the border
-                                            width: 1.0, // Width of the border
-                                          ),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                            AppLocalizations.of(context)!
-                                                .reload,
-                                            style: TextStyle(
-                                                color: AclColors.blueDark)),
+                              child: Flexible(
+                                child: Container(
+                                  height: 50,
+                                  // width: double.infinity,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border(
+                                      top: BorderSide(
+                                        color: AclColors
+                                            .blueDark, // Color of the border
+                                        width: 1.0, // Width of the border
                                       ),
                                     ),
                                   ),
-                                  Flexible(
-                                    child: Container(
-                                      height: 50,
-                                      // width: double.infinity,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border(
-                                          top: BorderSide(
-                                            color: AclColors
-                                                .blueDark, // Color of the border
-                                            width: 1.0, // Width of the border
-                                          ),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                            AppLocalizations.of(context)!.note,
-                                            style: TextStyle(
-                                                color: AclColors.blueDark)),
-                                      ),
-                                    ),
+                                  child: Center(
+                                    child: Text(
+                                        AppLocalizations.of(context)!
+                                            .sorted,
+                                        style: TextStyle(
+                                            color: AclColors.blueDark)),
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ],

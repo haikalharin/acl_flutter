@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:formz/formz.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/widget/spinkit_indicator.dart';
@@ -35,9 +36,9 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
       },
       child: BlocBuilder<HomePageBloc, HomePageState>(
         builder: (context, state) {
-          return state.status.isLoading
+          return state.submitStatus.isInProgress
               ? const SpinKitIndicator(type: SpinKitType.circle)
-              : state.status.isSuccess
+              : state.submitStatus.isSuccess
                   ? state.listAgentModel!.isEmpty
                       ? Container(
                           width: MediaQuery.of(context).size.width,

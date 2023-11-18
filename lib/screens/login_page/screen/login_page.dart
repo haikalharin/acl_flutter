@@ -6,6 +6,7 @@ import 'package:acl_flutter/main.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 import '../../../core/widget/drop_down.dart';
 import '../../../core/widget/empty_widget.dart';
@@ -14,14 +15,14 @@ import '../../../di.dart';
 
 enum PostMode { create, update }
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenScreenState();
+  State<LoginPage> createState() => _LoginPageScreenState();
 }
 
-class _LoginScreenScreenState extends State<LoginScreen> {
+class _LoginPageScreenState extends State<LoginPage> {
   String postTitle = "";
   String postBody = "";
   int postId = 0;
@@ -53,7 +54,7 @@ class _LoginScreenScreenState extends State<LoginScreen> {
       appBar: AppBar(title: Text("Login")),
       body: BlocListener<LoginPageBloc, LoginPageState>(
         listener: (context, state) {
-          if (state.status.isSuccess && state.moveTo == Routes.userList) {
+          if (state.submitStatus.isSuccess && state.moveTo == Routes.userList) {
             username.clear();
             password.clear();
             getIt<LoginPageBloc>().add(LoginPageInitialEvent());
@@ -61,9 +62,9 @@ class _LoginScreenScreenState extends State<LoginScreen> {
               Routes.sidebarPage,
                   (Route<dynamic> route) => false,
             );
-          } else if (state.status == LoginPageStatus.loading) {
+          } else if (state.submitStatus.isInProgress) {
             const SpinKitIndicator(type: SpinKitType.circle);
-          } else if (state.status == LoginPageStatus.error) {
+          } else if (state.submitStatus.isFailure) {
             showDialog(
                 context: context,
                 builder: (BuildContext context) => RetryDialog(
@@ -97,10 +98,10 @@ class _LoginScreenScreenState extends State<LoginScreen> {
                       TextInput(
                         controller: username,
                         keyboardType: TextInputType.number,
-                        // initialValue: postTitle,
-                        hint: "Username",
+                        icon: Icon(Icons.person),
+                        label: const Text("Username"),
                         validator: (String? value) {
-                          if (value!.isNotEmpty || value == "") return null;
+                          if (value!.isNotEmpty ) return null;
                           return "Username cannot be empty";
                         },
                         onChanged: (String input) {
@@ -111,10 +112,11 @@ class _LoginScreenScreenState extends State<LoginScreen> {
                       TextInput(
                         controller: password,
                         // initialValue: postBody,
-                        hint: "Password",
+                        icon: Icon(Icons.password),
+                        label: const Text("Password"),
                         obscureText: true,
                         validator: (String? value) {
-                          if (value!.isNotEmpty || value == "") return null;
+                          if (value!.isNotEmpty) return null;
                           return "Password cannot be empty";
                         },
                         onChanged: (String input) {
@@ -126,7 +128,9 @@ class _LoginScreenScreenState extends State<LoginScreen> {
                         width: width * 0.4,
                         child: ElevatedButton(
                           onPressed: () {
-                            viewModel.add(LoginSubmittedEvent());
+                            if(formKey.currentState!.validate()) {
+                              viewModel.add(LoginSubmittedEvent());
+                            }
                           },
                           child: Text("Login".toCapital),
                         ),
@@ -138,7 +142,7 @@ class _LoginScreenScreenState extends State<LoginScreen> {
             }),
             BlocBuilder<LoginPageBloc, LoginPageState>(
               builder: (context, state) {
-                return state.status.isLoading
+                return state.submitStatus.isInProgress
                     ? const SpinKitIndicator(type: SpinKitType.circle)
                     : Container();
               },

@@ -4,13 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../utils/acl_color.dart';
+
 class CustomImagePicker extends StatefulWidget {
-  final Function(String) onImagePicked;
+  final Function(dynamic) onImagePicked;
   final XFile? initialImage; // Add this property
+  final String? title; // Add this property
+  final bool isMandatory; // Add this property
+  final String? errorText; // Add this property
 
   const CustomImagePicker({
+    super.key,
     required this.onImagePicked,
-    this.initialImage, // Provide an initial image from the state
+    required this.title,
+    this.initialImage,
+    this.isMandatory = true,
+    this.errorText, // Provide an initial image from the state
   });
 
   @override
@@ -38,28 +47,83 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 200,
-          width: MediaQuery.of(context).size.width/1.5,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: Colors.green),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              margin: const EdgeInsets.only(bottom: 5),
+              child: Row(
+                children: [
+                  Container(
+                      child: Text(widget.title ?? '',
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            color: AclColors.greyDarkFontColor,
+                          ))),
+                  widget.isMandatory
+                      ? Container(
+                          margin: EdgeInsets.only(left: 5, bottom: 5),
+                          child: const Text(
+                            '*',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: AclColors.redAccent,
+                            ),
+                          ))
+                      : Container(),
+
+                  widget.isMandatory
+                      ? Container(
+                      margin: EdgeInsets.only(left: 5, bottom: 5),
+                      child:  Text(
+                        widget.errorText??'',
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                          color: AclColors.redAccent,
+                        ),
+                      )):Container()
+                ],
+              )),
+         Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all( width:  widget.errorText != null
+                          ?4:1,
+                        color: widget.errorText != null
+                            ? AclColors.redText
+                            : Colors.grey.shade300,),
+                      image:  _selectedImage != null
+                          ? DecorationImage(
+                          image: FileImage(File(_selectedImage ?? '')),
+                          fit: BoxFit.fill):null),
+                ),
+          const SizedBox(height: 5),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: ElevatedButton(
+              onPressed: () {
+                _showPicker(context);
+              },
+              child: Text("Ambil Gambar"),
+            ),
           ),
-          child: _selectedImage != null
-              ? Image.file(
-                  File(_selectedImage ?? ''),fit: BoxFit.fill,
-                )
-              : Container(),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            _showPicker(context);
-          },
-          child: Text("Pick an Image"),
-        ),
-      ],
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(AclColors.jingga)),
+              onPressed: () {
+                _deleteImage();
+              },
+              child: Text("Hapus"),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -138,6 +202,15 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         });
         widget.onImagePicked(croppedFile.path);
       }
+    }
+  }
+
+  void _deleteImage() async {
+    if (_selectedImage != null) {
+      setState(() {
+        _selectedImage = null;
+      });
+      widget.onImagePicked(null);
     }
   }
 }

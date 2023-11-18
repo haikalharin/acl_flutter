@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 import '../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
 import '../../core/widget/popup_menu.dart';
@@ -28,7 +27,7 @@ class _SideBarPageState extends State<SideBarPage> {
   Language? _language = Language.indonesia;
   int selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
+      TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
 
   @override
   void initState() {
@@ -82,12 +81,16 @@ class _SideBarPageState extends State<SideBarPage> {
                 PopupMenu<UserStatus>(
                   icon: Icons.filter_list_outlined,
                   items: UserStatus.values,
-                  onChanged: (value){},
+                  onChanged: (value) {},
                 ),
-                PopupMenu<Gender>(
-                  icon: Icons.filter_alt_outlined,
-                  items: Gender.values,
-                  onChanged: (value){},
+                InkWell(
+                  onTap: (){
+                    Navigator.of(context).pushNamed(
+                        Routes.addAgentPage);
+                  },
+                  child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: Icon(Icons.add)),
                 )
               ],
             ),
@@ -97,8 +100,8 @@ class _SideBarPageState extends State<SideBarPage> {
                 padding: EdgeInsets.zero,
                 children: [
                   UserAccountsDrawerHeader(
-                    accountName: Text(state.userModel?.name??''),
-                    accountEmail: Text(state.userModel?.employeeNumber??''),
+                    accountName: Text(state.userModel?.name ?? ''),
+                    accountEmail: Text(state.userModel?.employeeNumber ?? ''),
                     currentAccountPicture: CircleAvatar(
                       child: ClipOval(
                         child: Image.network(
@@ -127,8 +130,7 @@ class _SideBarPageState extends State<SideBarPage> {
                     leading: Icon(Icons.settings),
                     title: Text(
                       AppLocalizations.of(context)!.language,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500),
+                      style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     children: <Widget>[
                       ListTile(
@@ -207,7 +209,7 @@ class _SideBarPageState extends State<SideBarPage> {
                       AppSharedPreference.clear();
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         Routes.initialPage,
-                            (Route<dynamic> route) => false,
+                        (Route<dynamic> route) => false,
                       );
                     },
                   ),

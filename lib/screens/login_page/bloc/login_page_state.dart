@@ -12,39 +12,43 @@ extension LoginPageStatusX on LoginPageStatus {
   bool get isSelected => this == LoginPageStatus.selected;
 }
 
-class LoginPageState extends Equatable {
-  final LoginPageStatus status;
-  final String? username;
-  final String? password;
+class LoginPageState extends Equatable with FormzMixin {
+  final FormzSubmissionStatus submitStatus;
+  final MandatoryFieldValidator userName;
+  final MandatoryFieldValidator password;
   final String? moveTo;
 
-  const LoginPageState( {
-    this.username,
+  const LoginPageState({
+    this.userName = const MandatoryFieldValidator.pure(),
+    this.password = const MandatoryFieldValidator.pure(),
     this.moveTo,
-    this.password,
-    this.status = LoginPageStatus.initial,
+    this.submitStatus = FormzSubmissionStatus.initial,
 
   });
 
-
-
-
   @override
-  List<Object?> get props => [ username,password,status];
+  List<Object?> get props => [userName, password,submitStatus];
+  @override
+  List<FormzInput> get inputs => [userName, password];
+
 
   LoginPageState copyWith({
-    String? username,
-    String? password,
+    MandatoryFieldValidator? userName,
+    MandatoryFieldValidator? password,
     String? moveTo,
-    LoginPageStatus? status,
+    FormzSubmissionStatus? submitStatus,
   }) {
     return LoginPageState(
-      username: username ?? this.username,
+      userName: userName ?? this.userName,
       password: password ?? this.password,
       moveTo: moveTo ?? this.moveTo,
-      status: status ?? LoginPageStatus.initial,
+      submitStatus: submitStatus?? this.submitStatus,
     );
   }
+
+
 }
+
+
 
 class LoginPageInitial extends LoginPageState {}

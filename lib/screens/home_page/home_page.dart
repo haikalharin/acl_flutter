@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           Expanded(
             child: TabBarView(
+              physics: const BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.normal),
               controller: _tabController,
               children: [
                 // Content for Tab 1
