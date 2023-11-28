@@ -2,11 +2,13 @@ import 'package:acl_flutter/core/network/dio_client.dart';
 import 'package:acl_flutter/data/api/agent/agent_api.dart';
 import 'package:acl_flutter/data/api/agent/agent_be_api.dart';
 import 'package:acl_flutter/data/api/comment/comment_api.dart';
+import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
 import 'package:acl_flutter/data/api/notify/notify_api.dart';
 import 'package:acl_flutter/data/api/post/post_api.dart';
 import 'package:acl_flutter/data/api/todo/todo_api.dart';
 import 'package:acl_flutter/data/api/user/user_api.dart';
 import 'package:acl_flutter/myApp.dart';
+import 'package:acl_flutter/screens/add_candidate_page/bloc/add_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
@@ -68,6 +70,10 @@ Future<void> init() async {
   getIt.registerLazySingleton<AgentBeApi>(
           () => AgentBeApi(dioClient: getIt<DioClient>()));
 
+  // MasterData api
+  getIt.registerLazySingleton<MasterDataApi>(
+          () => MasterDataApi(dioClient: getIt<DioClient>()));
+
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),
@@ -94,7 +100,7 @@ Future<void> init() async {
 
   // Agent repository
   getIt.registerLazySingleton<AgentRepository>(
-    () => AgentRepository(agentApi: getIt<AgentApi>(), agentBeApi: getIt<AgentBeApi>()),
+    () => AgentRepository(agentApi: getIt<AgentApi>(), agentBeApi: getIt<AgentBeApi>(), masterDataApi: getIt<MasterDataApi>()),
   );
 
   // Agent repository
@@ -135,4 +141,7 @@ Future<void> init() async {
 
   //Language Cubit
   getIt.registerLazySingleton(() => LanguageCubit());
+
+  //SideBar Bloc
+  getIt.registerLazySingleton(() => AddCandidatePageBloc(agentRepository:  getIt<AgentRepository>()));
 }

@@ -1,3 +1,4 @@
+import 'package:acl_flutter/core/router/routes.dart';
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,9 +8,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:formz/formz.dart';
 import 'package:intl/intl.dart';
 
+import '../../core/widget/drop_down.dart';
 import '../../core/widget/spinkit_indicator.dart';
 import '../../di.dart';
 import '../../utils/acl_color.dart';
+
+enum EnvName { dev, staging, prod }
 
 class ListCandidatePage extends StatefulWidget {
   final bool isMyCandidate;
@@ -25,9 +29,9 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
 
   @override
   void initState() {
-    if(widget.isMyCandidate) {
+    if (widget.isMyCandidate) {
       getIt<HomePageBloc>().add(FetchListMyAgentEvent());
-    }else{
+    } else {
       getIt<HomePageBloc>().add(FetchListBeAgentEvent());
     }
     super.initState();
@@ -36,9 +40,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomePageBloc, HomePageState>(
-      listener: (context, state) {
-        // TODO: implement listener}
-      },
+      listener: (context, state) {},
       child: BlocBuilder<HomePageBloc, HomePageState>(
         builder: (context, state) {
           return state.submitStatus.isInProgress
@@ -60,13 +62,22 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                     : state.listAgentBeModel?.length,
                                 itemBuilder: (context, index) {
                                   String startDate = "";
-                                 if(!widget.isMyCandidate) {
-                                   var outputFormat = DateFormat.yMMMMd('en');
-                                   startDate = outputFormat.format(
-                                       DateTime.parse(
-                                           state.listAgentBeModel?[index]
-                                               .startDate ?? "0000-00-00"));
-                                 }
+                                  if (!widget.isMyCandidate) {
+                                    var outputFormat = DateFormat.yMMMMd('en');
+                                    startDate = outputFormat.format(
+                                        DateTime.parse(state
+                                                .listAgentBeModel?[index]
+                                                .startDate ??
+                                            "0000-00-00"));
+                                  } else {
+                                    var outputFormat = DateFormat.yMMMMd('en');
+                                    var data =
+                                        state.listAgentModel?[index].createDate;
+                                    var dataFix = data?.replaceAll('/', '-');
+                                    startDate = outputFormat.format(
+                                        DateTime.parse(
+                                            dataFix ?? "0000-00-00"));
+                                  }
                                   return Column(
                                     children: [
                                       index == 0 ? Container() : Divider(),
@@ -84,15 +95,16 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             widget.isMyCandidate
-                                                ? Text(state.listAgentModel?[index]
-                                                    .userId ??
-                                                ''):Text(state.listAgentBeModel?[index]
-                                                .userId ??
-                                                ''),
-                                            widget.isMyCandidate
-                                                ?Text(state.listAgentModel?[index]
-                                                    .createDate ??
-                                                ''):Text(startDate),
+                                                ? Text(state
+                                                        .listAgentModel?[index]
+                                                        .userId ??
+                                                    '')
+                                                : Text(state
+                                                        .listAgentBeModel?[
+                                                            index]
+                                                        .userId ??
+                                                    ''),
+                                            Text('SC: $startDate'),
                                           ],
                                         ),
                                       ),
@@ -103,7 +115,89 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: Flexible(
+                              child: InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      backgroundColor: Colors.white,
+                                      builder: (_) {
+                                        return Wrap(
+                                          children: [
+                                            ListTile(
+                                                leading: Icon(
+                                                    Icons.filter_list_sharp),
+                                                title: const Text('Name[Asc]'),
+                                                onTap: () async {
+                                                  if (widget.isMyCandidate) {
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListMyAgentEvent(
+                                                            filter: 1));
+                                                    Navigator.pop(context);
+                                                  } else{
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListBeAgentEvent(
+                                                            filter: 1));
+                                                    Navigator.pop(context);
+                                                  }
+                                                }),
+                                            ListTile(
+                                                leading: Icon(
+                                                    Icons.filter_list_sharp),
+                                                title: const Text('Name[Dsc]'),
+                                                onTap: () async {
+                                                  if (widget.isMyCandidate) {
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListMyAgentEvent(
+                                                            filter: 2));
+                                                    Navigator.pop(context);
+                                                  }else{
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListBeAgentEvent(
+                                                            filter: 2));
+                                                    Navigator.pop(context);
+                                                  }
+                                                }),
+                                            ListTile(
+                                                leading: Icon(
+                                                    Icons.filter_list_sharp),
+                                                title: const Text(
+                                                    'Simple Checking Submission'),
+                                                onTap: () async {
+                                                  // getIt<HomePageBloc>().add(
+                                                  //     FetchListMyAgentEvent(
+                                                  //         filter: 2));
+                                                  // Navigator.pop(context);
+                                                }),
+                                            ListTile(
+                                                leading: Icon(
+                                                    Icons.filter_list_sharp),
+                                                title: const Text(
+                                                    'FAA Submission'),
+                                                onTap: () async {
+                                                  // getIt<HomePageBloc>().add(
+                                                  //     FetchListMyAgentEvent(
+                                                  //         filter: 2));
+                                                  // Navigator.pop(context);
+                                                }),
+                                            ListTile(
+                                                leading: Icon(
+                                                    Icons.filter_list_sharp),
+                                                title: const Text('Default'),
+                                                onTap: () async {
+                                                  if (widget.isMyCandidate) {
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListMyAgentEvent());
+                                                    Navigator.pop(context);
+                                                  }else{
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListBeAgentEvent());
+                                                    Navigator.pop(context);
+                                                  }
+                                                }),
+                                          ],
+                                        );
+                                      });
+                                },
                                 child: Container(
                                   height: 50,
                                   // width: double.infinity,
@@ -119,8 +213,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                        AppLocalizations.of(context)!
-                                            .sorted,
+                                        AppLocalizations.of(context)!.sorted,
                                         style: TextStyle(
                                             color: AclColors.blueDark)),
                                   ),

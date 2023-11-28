@@ -5,6 +5,7 @@ import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:formz/formz.dart';
 
 import '../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
@@ -18,13 +19,14 @@ import '../user/user_list_screen.dart';
 
 enum Language { english, spanish, indonesia }
 
+Language? language = Language.indonesia;
+
 class SideBarPage extends StatefulWidget {
   @override
   State<SideBarPage> createState() => _SideBarPageState();
 }
 
 class _SideBarPageState extends State<SideBarPage> {
-  Language? _language = Language.indonesia;
   int selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
@@ -84,14 +86,13 @@ class _SideBarPageState extends State<SideBarPage> {
                   onChanged: (value) {},
                 ),
                 InkWell(
-                  onTap: (){
-                    Navigator.of(context).pushNamed(
-                        Routes.addAgentPage);
+                  onTap: () {
+                    Navigator.of(context).pushNamed(Routes.addAgentPage);
                   },
                   child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 10),
                       child: Icon(Icons.add)),
-                )
+                ),
               ],
             ),
             drawer: Drawer(
@@ -137,10 +138,10 @@ class _SideBarPageState extends State<SideBarPage> {
                         title: const Text('English'),
                         leading: Radio<Language>(
                           value: Language.english,
-                          groupValue: _language,
+                          groupValue: language,
                           onChanged: (Language? value) {
                             setState(() {
-                              _language = value;
+                              language = value;
                             });
                             getIt<LanguageCubit>().changeLang(context, 'en');
                           },
@@ -163,10 +164,10 @@ class _SideBarPageState extends State<SideBarPage> {
                         title: const Text('Indonesia'),
                         leading: Radio<Language>(
                           value: Language.indonesia,
-                          groupValue: _language,
+                          groupValue: language,
                           onChanged: (Language? value) {
                             setState(() {
-                              _language = value;
+                              language = value;
                             });
                             getIt<LanguageCubit>().changeLang(context, 'id');
                           },

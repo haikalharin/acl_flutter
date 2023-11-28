@@ -116,7 +116,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
           case Status.loading:
             return const SpinKitIndicator();
           case Status.failure:
-            return RetryDialog(title: state.error ?? "Error", onRetryPressed: () => getUserComments());
+            return RetryDialog(title: state.error ?? "Error", onCancelPressed: () => getUserComments());
           case Status.success:
             return ListView.builder(
               shrinkWrap: true,
@@ -187,7 +187,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               case Status.failure:
                 return RetryDialog(
                   title: state.error ?? "Error",
-                  onRetryPressed: () => context.read<PostBloc>().add(PostDeleted(post)),
+                  onCancelPressed: () => context.read<PostBloc>().add(PostDeleted(post)),
                 );
               case Status.success:
                 return ProgressDialog(
@@ -234,7 +234,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               case Status.failure:
                 return RetryDialog(
                   title: state.error ?? "Error",
-                  onRetryPressed: () => context.read<CommentBloc>().add(CommentDeleted(comment)),
+                  onCancelPressed: () => context.read<CommentBloc>().add(CommentDeleted(comment)),
                 );
               case Status.success:
                 WidgetsBinding.instance.addPostFrameCallback(
@@ -331,7 +331,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                                 case Status.failure:
                                   return RetryDialog(
                                     title: state.error ?? "Error",
-                                    onRetryPressed: () {
+                                    onCancelPressed: () {
                                       context.read<CommentBloc>().add(CommentCreated(comment));
                                     },
                                   );

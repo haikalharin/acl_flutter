@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/login_model/login_model.dart';
+import '../../../data/model/master_data_model/master_data_model.dart';
+import '../../sidebar_page/sidebar_page.dart';
 
-class DropDownCountry extends StatefulWidget {
-  const DropDownCountry(
+class DropDownProfession extends StatefulWidget {
+  const DropDownProfession(
       {Key? key,
       required this.onChanged,
       required this.items,
@@ -17,20 +19,20 @@ class DropDownCountry extends StatefulWidget {
       this.errorText})
       : super(key: key);
 
-  final ValueChanged<LoginModel> onChanged;
-  final List<LoginModel> items;
-  final LoginModel? initialItem;
+  final ValueChanged<CheckingstatusMasterReference> onChanged;
+  final List<CheckingstatusMasterReference> items;
+  final CheckingstatusMasterReference? initialItem;
   final Widget? lable;
   final String? title;
   final String? errorText;
   final Icon? icon;
 
   @override
-  State<DropDownCountry> createState() => _DropDownCountryState();
+  State<DropDownProfession> createState() => _DropDownProfessionState();
 }
 
-class _DropDownCountryState extends State<DropDownCountry> {
-  LoginModel? selectedItem;
+class _DropDownProfessionState extends State<DropDownProfession> {
+  CheckingstatusMasterReference? selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +75,7 @@ class _DropDownCountryState extends State<DropDownCountry> {
             // hintText: _hint,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              width:  widget.errorText != null
-                  ?4:1,
+              width: widget.errorText != null ? 4 : 1,
               color: widget.errorText != null
                   ? AclColors.redText
                   : Colors.grey.shade300,
@@ -91,17 +92,19 @@ class _DropDownCountryState extends State<DropDownCountry> {
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
-                          (item) => DropdownMenuItem<LoginModel>(
-                            value: item,
-                            child: Text(
-                              item.name ?? '',
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
-                        )
+                          (item) => DropdownMenuItem<CheckingstatusMasterReference>(
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    )
                         .toList(),
                     searchFn: (String keyword,
-                        List<DropdownMenuItem<LoginModel>> items) {
+                        List<DropdownMenuItem<CheckingstatusMasterReference>> items) {
                       List<int> ret = [];
                       if (keyword.isNotEmpty) {
                         keyword.split(" ").forEach((k) {
@@ -109,7 +112,12 @@ class _DropDownCountryState extends State<DropDownCountry> {
                           for (var item in items) {
                             if (!ret.contains(i) &&
                                 k.isNotEmpty &&
-                                (item.value!.name!
+                                (language == Language.indonesia
+                                    ? item.value!.longDescriptionInd!
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase())
+                                    : item.value!.longDescriptionEng!
                                     .toString()
                                     .toLowerCase()
                                     .contains(k.toLowerCase()))) {
@@ -127,7 +135,7 @@ class _DropDownCountryState extends State<DropDownCountry> {
                     value: selectedItem,
                     hint: "Pilih",
                     searchHint: "Select one",
-                    onChanged: (LoginModel value) {
+                    onChanged: (CheckingstatusMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
                         selectedItem = value;

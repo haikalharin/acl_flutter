@@ -1,5 +1,4 @@
 
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,7 @@ import '../../main_dev.dart' as dev;
 import 'bloc/splash_screen_bloc.dart';
 import 'package:intl/intl_standalone.dart';
 
-late final FirebaseRemoteConfig remoteConfig;
+// late final FirebaseRemoteConfig remoteConfig;
 
 class SplashscreenPage extends StatefulWidget {
   const SplashscreenPage({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class SplashscreenPage extends StatefulWidget {
 
 class _SplashscreenPageState extends State<SplashscreenPage> {
   bool? skipOnboarding = false;
-  static FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
+  // static FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
   bool _isLoading = true;
   late Color _color;
   // final Alice _alice = Alice(
@@ -70,24 +69,24 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
     super.initState();
   }
 
-  Future<void> _fetchRemoteConfig() async {
-    try {
-      await _remoteConfig.fetchAndActivate();
-      await _remoteConfig.fetch();
-      await _remoteConfig.activate();
-
-      print('Last fetch status: ' + _remoteConfig.lastFetchStatus.toString());
-      print('Last fetch time: ' + _remoteConfig.lastFetchTime.toString());
-      print('New color enabled?: ' + _remoteConfig.getBool('new_color_enabled').toString());
-
-      setState(() {
-        remoteConfig = _remoteConfig;
-      });
-    } catch (e) {
-      print('Error: ${e.toString()}');
-    }
-
-  }
+  // Future<void> _fetchRemoteConfig() async {
+  //   try {
+  //     await _remoteConfig.fetchAndActivate();
+  //     await _remoteConfig.fetch();
+  //     await _remoteConfig.activate();
+  //
+  //     print('Last fetch status: ' + _remoteConfig.lastFetchStatus.toString());
+  //     print('Last fetch time: ' + _remoteConfig.lastFetchTime.toString());
+  //     print('New color enabled?: ' + _remoteConfig.getBool('new_color_enabled').toString());
+  //
+  //     setState(() {
+  //       remoteConfig = _remoteConfig;
+  //     });
+  //   } catch (e) {
+  //     print('Error: ${e.toString()}');
+  //   }
+  //
+  // }
 
   // _initializeRemoteConfig() async {
   //   if (_remoteConfig == null) {

@@ -86,6 +86,8 @@ abstract mixin class ApiHelper<T> {
     final responseData = HttpUtil.getResponse(response);
     final ResponseModel<T> responseModel =
         ResponseModel.fromJson(responseData, fromJson);
+    var data = responseModel;
+    print(data);
     return responseModel;
   }
 }

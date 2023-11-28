@@ -8,6 +8,8 @@ class MandatoryFieldValidator extends FormzInput<String, MandatoryValidationErro
 
   @override
   MandatoryValidationError? validator(String value) {
-    return value.isNotEmpty == true ? null : MandatoryValidationError.empty;
+    return value.isEmpty == true || value ==""
+        ? MandatoryValidationError.empty
+        : null;
   }
 }

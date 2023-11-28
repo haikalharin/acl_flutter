@@ -111,7 +111,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                                 case Status.failure:
                                   return RetryDialog(
                                     title: state.error ?? "Error",
-                                    onRetryPressed: () {
+                                    onCancelPressed: () {
                                       if (widget.mode == PostMode.create) {
                                         context.read<PostBloc>().add(PostCreated(post));
                                       } else {

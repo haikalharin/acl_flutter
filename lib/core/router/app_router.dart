@@ -1,5 +1,5 @@
 import 'package:acl_flutter/core/router/routes.dart';
-import 'package:acl_flutter/screens/add_agent_page/screen/add_agent_page.dart';
+import 'package:acl_flutter/screens/add_candidate_page/screen/add_canddate_page.dart';
 import 'package:acl_flutter/screens/home_page/home_page.dart';
 import 'package:acl_flutter/screens/login_page/screen/login_page.dart';
 import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
@@ -31,7 +31,7 @@ class AppRouter {
       case Routes.sidebarPage:
         return MaterialPageRoute(builder: (_) => SideBarPage());
       case Routes.addAgentPage:
-        return MaterialPageRoute(builder: (_) => const AddAgentPage());
+        return MaterialPageRoute(builder: (_) => const AddCandidatePage());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

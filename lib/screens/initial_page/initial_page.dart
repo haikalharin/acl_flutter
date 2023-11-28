@@ -53,7 +53,7 @@ class _InitialPageState extends State<InitialPage> {
                 context: context,
                 builder: (BuildContext context) => RetryDialog(
                     title: 'Belum tersedia',
-                    onRetryPressed: () => [
+                    onCancelPressed: () => [
                       Navigator.pop(context)
                     ]));
           },
@@ -66,7 +66,7 @@ class _InitialPageState extends State<InitialPage> {
                 context: context,
                 builder: (BuildContext context) => RetryDialog(
                     title: 'Belum tersedia',
-                    onRetryPressed: () => [
+                    onCancelPressed: () => [
                       Navigator.pop(context)
                     ]));
           },

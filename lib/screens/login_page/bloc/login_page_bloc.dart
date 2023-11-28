@@ -82,6 +82,11 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
       } catch (error) {
         print(error);
       }
+    } else{
+      emit(state.copyWith(
+          submitStatus: FormzSubmissionStatus.failure,
+          userName: userName,
+          password: password));
     }
   }
 }

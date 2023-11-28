@@ -54,7 +54,10 @@ class ResponseModel<T> {
         data = List<T>.from(json['data'].map((x) => fromJson(x)));
       } else {
         data = fromJson(json['data']);
+
       }
+      var datt = data;
+      print(datt);
     }
     if(json["pagination"] != null){
       pagination = Pagination.fromJson(json['pagination']);

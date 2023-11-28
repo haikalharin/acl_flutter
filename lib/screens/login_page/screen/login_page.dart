@@ -69,9 +69,8 @@ class _LoginPageScreenState extends State<LoginPage> {
                 context: context,
                 builder: (BuildContext context) => RetryDialog(
                     title: 'username dan password salah',
-                    onRetryPressed: () => [
+                    onCancelPressed: () => [
                           Navigator.pop(context),
-                          viewModel.add(LoginSubmittedEvent())
                         ]));
           }
         },
@@ -116,8 +115,8 @@ class _LoginPageScreenState extends State<LoginPage> {
                         label: const Text("Password"),
                         obscureText: true,
                         validator: (String? value) {
-                          if (value!.isNotEmpty) return null;
-                          return "Password cannot be empty";
+                            if (state.password.isValid) return null;
+                            return "Password cannot be empty";
                         },
                         onChanged: (String input) {
                           viewModel.add(PasswordInputEvent(input));
