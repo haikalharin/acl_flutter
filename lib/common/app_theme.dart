@@ -1,5 +1,5 @@
-import 'package:acl_flutter/common/app_style.dart';
 import 'package:acl_flutter/common/app_string.dart';
+import 'package:acl_flutter/common/app_style.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/acl_color.dart';

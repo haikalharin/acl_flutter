@@ -1,10 +1,8 @@
 import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/screens/add_agent_page/widget/drop_down_country.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/widget/custom_image_picker.dart';
-import '../../../core/widget/date_time_picker.dart';
 import '../../../core/widget/date_time_picker_form.dart';
 import '../../../core/widget/text_input.dart';
 import '../../../data/model/login_model/login_model.dart';
@@ -55,7 +53,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 const SizedBox(height: 8),
                 TextInput(
                   controller: firstName,
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   label: const Text("Nama Depan(sesuai KTP)"),
                   // initialValue: postTitle,
                   validator: (String? value) {
@@ -70,7 +68,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 TextInput(
                   controller: middleName,
                   isMandatory: false,
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   label: const Text("Nama tengah(sesuai KTP)"),
                   onChanged: (String input) {
                     // viewModel.add(UserNameInputEvent(input));
@@ -80,7 +78,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 TextInput(
                   controller: lastName,
                   isMandatory: false,
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   label: const Text("Nama belakang(sesuai KTP)"),
                   onChanged: (String input) {
                     // viewModel.add(UserNameInputEvent(input));
@@ -89,7 +87,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 const SizedBox(height: 8),
                 DateTimePickerForm(
                   dateTime: mode == Mode.update ? DateTime.now() : null,
-                  label: Text("Tanggal lahir"),
+                  label: const Text("Tanggal lahir"),
                   selectedDateTime: (DateTime date) {
                     var dateTime = date;
                   },
@@ -100,7 +98,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 ),
                 const SizedBox(height: 8),
                 TextInput(
-                  icon: Icon(Icons.add_card_rounded),
+                  icon: const Icon(Icons.add_card_rounded),
                   label: const Text("No KTP"),
                   validator: (String? value) {
                     if (value!.isNotEmpty) return null;
@@ -122,7 +120,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 ),
                 const SizedBox(height: 8),
                 TextInput(
-                  icon: Icon(Icons.add_card_rounded),
+                  icon: const Icon(Icons.add_card_rounded),
                   label: const Text("No KK"),
                   validator: (String? value) {
                     if (value!.isNotEmpty) return null;
@@ -142,14 +140,14 @@ class _AddAgentPageState extends State<AddAgentPage> {
                   title: Row(
                     children: [
                       Container(
-                          margin: EdgeInsets.only(bottom: 8),
+                          margin: const EdgeInsets.only(bottom: 8),
                           child: const Text('Alamat rumah (sesuai KTP)',
                               style: TextStyle(
                                 fontSize: 16.0,
                                 color: AclColors.greyDarkFontColor,
                               ))),
                       Container(
-                          margin: EdgeInsets.only(left: 5, bottom: 5),
+                          margin: const EdgeInsets.only(left: 5, bottom: 5),
                           child: const Text(
                             '*',
                             style: TextStyle(
@@ -159,7 +157,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                           ))
                     ],
                   ),
-                  icon: Icon(Icons.add_location),
+                  icon: const Icon(Icons.add_location),
                   label: const Text("(Gedung.../Jalan...)"),
                   validator: (String? value) {
                     if (value!.isNotEmpty) return null;
@@ -171,7 +169,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 ),
                 const SizedBox(height: 8),
                 TextInput(
-                  icon: Icon(Icons.add_location),
+                  icon: const Icon(Icons.add_location),
                   label: const Text("(RT.../RW...)"),
                   validator: (String? value) {
                     if (value!.isNotEmpty) return null;
@@ -183,7 +181,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 ),
                 const SizedBox(height: 8),
                 TextInput(
-                  icon: Icon(Icons.add_location),
+                  icon: const Icon(Icons.add_location),
                   label: const Text("(Kelurahan.../Kecamatan...)"),
                   validator: (String? value) {
                     if (value!.isNotEmpty) return null;
@@ -195,7 +193,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 ),
                 const SizedBox(height: 8),
                 TextInput(
-                  icon: Icon(Icons.signpost_sharp),
+                  icon: const Icon(Icons.signpost_sharp),
                   label: const Text("Kode Pos"),
                   validator: (String? value) {
                     if (value!.isNotEmpty) return null;
@@ -252,7 +250,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 TextInput(
                   controller: lastName,
                   isMandatory: checkedValueAAJI,
-                  icon: Icon(Icons.add_card_rounded),
+                  icon: const Icon(Icons.add_card_rounded),
                   label: const Text("No lisensi AAJI"),
                   onChanged: (String input) {
                     // viewModel.add(UserNameInputEvent(input));
@@ -289,7 +287,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 TextInput(
                   controller: lastName,
                   isMandatory: checkedValueAASI,
-                  icon: Icon(Icons.add_card_rounded),
+                  icon: const Icon(Icons.add_card_rounded),
                   label: const Text("No lisensi AASI"),
                   onChanged: (String input) {
                     // viewModel.add(UserNameInputEvent(input));
@@ -323,7 +321,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 ),
                 const SizedBox(height: 8),
                 TextInput(
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   isMandatory: checkedValueMarriage,
                   label: const Text("No KTP Pasangan"),
                   // initialValue: postTitle,
@@ -341,7 +339,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 ),
                 const SizedBox(height: 8),
                 TextInput(
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   label: const Text("Nama Depan(sesuai KTP)"),
                   isMandatory: checkedValueMarriage,
                   validator: (String? value) {
@@ -359,7 +357,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 const SizedBox(height: 8),
                 TextInput(
                   isMandatory: false,
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   label: const Text("Nama tengah(sesuai KTP)"),
                   onChanged: (String input) {
                     // viewModel.add(UserNameInputEvent(input));
@@ -368,7 +366,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 const SizedBox(height: 8),
                 TextInput(
                   isMandatory: false,
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   label: const Text("Nama belakang(sesuai KTP)"),
                   onChanged: (String input) {
                     // viewModel.add(UserNameInputEvent(input));
@@ -377,7 +375,7 @@ class _AddAgentPageState extends State<AddAgentPage> {
                 const SizedBox(height: 8),
                 DateTimePickerForm(
                   dateTime: mode == Mode.update ? DateTime.now() : null,
-                  label: Text("Tanggal lahir pasangan"),
+                  label: const Text("Tanggal lahir pasangan"),
                   isMandatory: checkedValueMarriage,
                   selectedDateTime: (DateTime date) {
                     var dateTime = date;

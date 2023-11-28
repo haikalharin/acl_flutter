@@ -1,21 +1,14 @@
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 import 'package:in_app_update/in_app_update.dart';
-
-
 
 import '../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
 import '../../di.dart';
-import '../../main_dev.dart' as dev;
 import 'bloc/splash_screen_bloc.dart';
-import 'package:intl/intl_standalone.dart';
 
 late final FirebaseRemoteConfig remoteConfig;
 
@@ -28,17 +21,17 @@ class SplashscreenPage extends StatefulWidget {
 
 class _SplashscreenPageState extends State<SplashscreenPage> {
   bool? skipOnboarding = false;
-  static FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
-  bool _isLoading = true;
+  static final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
+  final bool _isLoading = true;
   late Color _color;
   // final Alice _alice = Alice(
   //     showNotification: true,
   //     darkTheme: false);
 
   void getFirstInstall() async{
-    bool? _skipOnboarding = await AppSharedPreference.getBool(AppSharedPreference.newInstall);
+    bool? skipOnboarding = await AppSharedPreference.getBool(AppSharedPreference.newInstall);
     setState(() {
-      skipOnboarding = _skipOnboarding;
+      skipOnboarding = skipOnboarding;
       // _alice.showInspector();
     });
     print('skip onboarding : $skipOnboarding');
@@ -64,7 +57,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
   void initState() {
     _init();
     getFirstInstall();
-    getIt<SplashscreenBloc>().add(SplashscreenCheckUserExist());
+    getIt<SplashscreenBloc>().add(const SplashscreenCheckUserExist());
     // _initializeRemoteConfig();
     checkForUpdate();
     super.initState();
@@ -76,9 +69,9 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
       await _remoteConfig.fetch();
       await _remoteConfig.activate();
 
-      print('Last fetch status: ' + _remoteConfig.lastFetchStatus.toString());
-      print('Last fetch time: ' + _remoteConfig.lastFetchTime.toString());
-      print('New color enabled?: ' + _remoteConfig.getBool('new_color_enabled').toString());
+      print('Last fetch status: ${_remoteConfig.lastFetchStatus}');
+      print('Last fetch time: ${_remoteConfig.lastFetchTime}');
+      print('New color enabled?: ${_remoteConfig.getBool('new_color_enabled')}');
 
       setState(() {
         remoteConfig = _remoteConfig;
@@ -133,7 +126,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
       child: BlocBuilder<SplashscreenBloc, SplashscreenState>(
         builder: (context, state) {
           return Scaffold(
-              body: Container(
+              body: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Image.asset("assets/images/allianz_logo.png" ),

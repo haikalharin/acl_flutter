@@ -61,7 +61,7 @@ class TextInput extends StatelessWidget {
                   children: [
                     label ?? Container(),
                     isMandatory?Container(
-                        margin: EdgeInsets.only(left: 5, bottom: 5),
+                        margin: const EdgeInsets.only(left: 5, bottom: 5),
                         child: const Text(
                           '*',
                           style: TextStyle(

@@ -1,5 +1,5 @@
-import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:json_annotation/json_annotation.dart';
 
 part 'todo.g.dart';
 

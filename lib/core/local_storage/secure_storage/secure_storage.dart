@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../../data/model/login_model/login_model.dart';
 import '../shared_preference/app_shared_preference.dart';
 
-SecureStorage secStore = new SecureStorage();
+SecureStorage secStore = SecureStorage();
 
 class SecureStorage {
   final _storage = FlutterSecureStorage();

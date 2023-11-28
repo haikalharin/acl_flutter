@@ -1,11 +1,8 @@
 import 'dart:convert';
 
-import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/remote_utils.dart';
-import '../core/exceptions/server_error_exception.dart';
 import '../core/network/dio_exception.dart';
 import '../core/network/http_constants.dart';
 
@@ -27,24 +24,24 @@ class HttpUtil {
   }
 
   static dynamic _getSuccessResponse(Response response) {
-    final _responseJson = response.data;
-    dynamic data = _responseJson;
-    String dataString = _responseJson.toString();
-    debugPrint('>>>>>>> [RESPONSE] $_responseJson');
+    final responseJson = response.data;
+    dynamic data = responseJson;
+    String dataString = responseJson.toString();
+    debugPrint('>>>>>>> [RESPONSE] $responseJson');
     if(!dataString.contains('data:')){
-      data = {'data': _responseJson ?? ''};
+      data = {'data': responseJson ?? ''};
     }
     return data;
   }
 
   static dynamic _tokenExpired(Response response) {
-    final _responseJson = json.decode(response.data);
+    final responseJson = json.decode(response.data);
 
-    debugPrint('>>>>>>> [Token Expired Response] $_responseJson');
+    debugPrint('>>>>>>> [Token Expired Response] $responseJson');
     // AppSharedPreference.clear();
     //FIX SCREEN ONBOARDING MENUMPUK SAAT SESSION EXPIRED
     // navigatorKey.currentState?.pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => const LoginPage(tokenExpired: true,)), (route) => false);
     //navigatorKey.currentState.pushReplacement(MaterialPageRoute(builder: (BuildContext context) => OnBoardingScreen(isHavePopUpMessage: "401",)));
-    return _responseJson;
+    return responseJson;
   }
 }

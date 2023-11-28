@@ -2,9 +2,9 @@
 //
 //     final pagination = paginationFromJson(jsonString);
 
-import 'package:meta/meta.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'pagination.freezed.dart';
 part 'pagination.g.dart';

@@ -2,8 +2,9 @@
 //
 //     final notificationModel = notificationModelFromJson(jsonString);
 
-import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
+
+import 'package:json_annotation/json_annotation.dart';
 
 part 'notification_model.g.dart';
 

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/core/network/dio_exception.dart';
-import 'package:acl_flutter/data/model/agent/agent_model.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:dio/dio.dart';
 

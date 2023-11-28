@@ -2,14 +2,11 @@ import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/core/dialog/retry_dialog.dart';
 import 'package:acl_flutter/core/router/routes.dart';
 import 'package:acl_flutter/core/widget/text_input.dart';
-import 'package:acl_flutter/main.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../../core/widget/drop_down.dart';
-import '../../../core/widget/empty_widget.dart';
 import '../../../core/widget/spinkit_indicator.dart';
 import '../../../di.dart';
 
@@ -51,7 +48,7 @@ class _LoginPageScreenState extends State<LoginPage> {
     final viewModel = getIt<LoginPageBloc>();
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
+      appBar: AppBar(title: const Text("Login")),
       body: BlocListener<LoginPageBloc, LoginPageState>(
         listener: (context, state) {
           if (state.submitStatus.isSuccess && state.moveTo == Routes.userList) {
@@ -98,7 +95,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                       TextInput(
                         controller: username,
                         keyboardType: TextInputType.number,
-                        icon: Icon(Icons.person),
+                        icon: const Icon(Icons.person),
                         label: const Text("Username"),
                         validator: (String? value) {
                           if (value!.isNotEmpty ) return null;
@@ -112,7 +109,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                       TextInput(
                         controller: password,
                         // initialValue: postBody,
-                        icon: Icon(Icons.password),
+                        icon: const Icon(Icons.password),
                         label: const Text("Password"),
                         obscureText: true,
                         validator: (String? value) {

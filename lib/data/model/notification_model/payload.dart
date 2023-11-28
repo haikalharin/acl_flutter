@@ -2,8 +2,9 @@
 //
 //     final payload = payloadFromJson(jsonString);
 
-import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
+
+import 'package:json_annotation/json_annotation.dart';
 
 part 'payload.g.dart';
 

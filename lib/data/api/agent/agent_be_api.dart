@@ -1,4 +1,3 @@
-import 'package:acl_flutter/data/model/agent/agent_model.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 
 import '../../../core/network/api_helper.dart';

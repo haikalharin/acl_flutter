@@ -1,6 +1,4 @@
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
-import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,7 +12,7 @@ import '../../utils/acl_color.dart';
 class ListCandidatePage extends StatefulWidget {
   final bool isMyCandidate;
 
-  ListCandidatePage({super.key, required this.isMyCandidate});
+  const ListCandidatePage({super.key, required this.isMyCandidate});
 
   @override
   State<ListCandidatePage> createState() => _ListCandidatePageState();
@@ -45,9 +43,9 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
               ? const SpinKitIndicator(type: SpinKitType.circle)
               : state.submitStatus.isSuccess
                   ? state.listAgentModel!.isEmpty
-                      ? Container(
+                      ? SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          child: Center(child: Text("Artikel tidak tersedia")))
+                          child: const Center(child: Text("Artikel tidak tersedia")))
                       : Column(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
@@ -69,7 +67,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                  }
                                   return Column(
                                     children: [
-                                      index == 0 ? Container() : Divider(),
+                                      index == 0 ? Container() : const Divider(),
                                       ListTile(
                                         leading: const CircleAvatar(
                                           // You can replace this with your user image
@@ -121,7 +119,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                     child: Text(
                                         AppLocalizations.of(context)!
                                             .sorted,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: AclColors.blueDark)),
                                   ),
                                 ),
@@ -132,7 +130,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                   : Stack(children: [
                       Center(
                         child: Container(
-                            margin: EdgeInsets.only(),
+                            margin: const EdgeInsets.only(),
                             child: Container(
                               child: Text(state.errorMessage ?? ''),
                             )),

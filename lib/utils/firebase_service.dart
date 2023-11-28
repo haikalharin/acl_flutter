@@ -27,13 +27,13 @@ class FirebaseService {
 
     if (F.appFlavor == Flavor.DEVELOPMENT) {
       await  FirebaseRemoteConfig.instance.setConfigSettings(RemoteConfigSettings(
-        fetchTimeout: Duration(seconds: 10),
-        minimumFetchInterval: Duration(seconds: 30),
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: const Duration(seconds: 30),
       ));
     } else {
       await  FirebaseRemoteConfig.instance.setConfigSettings(RemoteConfigSettings(
-        fetchTimeout: Duration(minutes: 10),
-        minimumFetchInterval: Duration(minutes: 30),
+        fetchTimeout: const Duration(minutes: 10),
+        minimumFetchInterval: const Duration(minutes: 30),
       ));
     }
     try {

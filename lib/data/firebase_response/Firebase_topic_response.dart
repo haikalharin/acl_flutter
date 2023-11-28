@@ -9,20 +9,20 @@ FirebaseTopicResponse(
 
 FirebaseTopicResponse.fromJson(Map<String, dynamic> json) {
 content =
-json['content'] != null ? new Content.fromJson(json['content']) : null;
+json['content'] != null ? Content.fromJson(json['content']) : null;
 successMessage = json['successMessage'];
 code = json['code'];
 errorMessage = json['errorMessage'];
 }
 
 Map<String, dynamic> toJson() {
-  final Map<String, dynamic> data = new Map<String, dynamic>();
-  if (this.content != null) {
-    data['content'] = this.content?.toJson();
+  final Map<String, dynamic> data = <String, dynamic>{};
+  if (content != null) {
+    data['content'] = content?.toJson();
   }
-  data['successMessage'] = this.successMessage;
-  data['code'] = this.code;
-  data['errorMessage'] = this.errorMessage;
+  data['successMessage'] = successMessage;
+  data['code'] = code;
+  data['errorMessage'] = errorMessage;
   return data;
 }
 }
@@ -39,9 +39,9 @@ class Content {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['allAvailableTopics'] = this.allAvailableTopics;
-    data['userRelatedTopics'] = this.userRelatedTopics;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['allAvailableTopics'] = allAvailableTopics;
+    data['userRelatedTopics'] = userRelatedTopics;
     return data;
   }
 }

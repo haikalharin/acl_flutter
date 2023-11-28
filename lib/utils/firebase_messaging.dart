@@ -1,23 +1,17 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'dart:developer';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 import '../data/firebase_response/Firebase_topic_response.dart';
 import '../flavors.dart';
 import '../main.dart';
-
-import '../main_dev.dart' as dev;
 import '../main.dart' as main;
+import '../main_dev.dart' as dev;
 import '../main_prod.dart' as prod;
 import '../main_staging.dart' as staging;
 
@@ -91,7 +85,7 @@ class FirebaseMessagingService {
         priority: Priority.high,
         importance: Importance.max);
     var iOS = DarwinNotificationDetails();
-    var platform = new NotificationDetails(android: android, iOS: iOS);
+    var platform = NotificationDetails(android: android, iOS: iOS);
     // await flutterLocalNotificationsPlugin.show(0, title, body, platform, payload: data);
     if (F.appFlavor == Flavor.DEVELOPMENT) {
       await dev.flutterLocalNotificationsPlugin
@@ -217,7 +211,7 @@ class FirebaseMessagingService {
   }
 
   Future onSelectNotification(String? payload) async {
-    print("payload " + payload!);
+    print("payload ${payload!}");
     // if (payload != null) {
     //   debugPrint('notification payload: ' + payload);
     //   // here set and put condition for property id
@@ -371,7 +365,7 @@ class FirebaseMessagingService {
 
     var payload = initialMessage?.data;
     if (payload != null) {
-      debugPrint('notification payload: ' + payload.toString());
+      debugPrint('notification payload: $payload');
       // here set and put condition for property id
       var response = payload;
       print("response : $response");

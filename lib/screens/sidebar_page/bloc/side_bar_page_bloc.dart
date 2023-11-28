@@ -8,11 +8,10 @@ import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
 part 'side_bar_page_event.dart';
-
 part 'side_bar_page_state.dart';
 
 class SideBarPageBloc extends Bloc<SideBarPageEvent, SideBarPageState> {
-  SideBarPageBloc() : super(SideBarPageState()) {
+  SideBarPageBloc() : super(const SideBarPageState()) {
     on<GetUserInfoEvent>(getUserInfo);
   }
 

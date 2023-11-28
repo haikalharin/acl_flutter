@@ -17,19 +17,19 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splashScreen:
-        return MaterialPageRoute(builder: (_) => SplashscreenPage());
+        return MaterialPageRoute(builder: (_) => const SplashscreenPage());
       case Routes.userList:
-        return MaterialPageRoute(builder: (_) => UserListScreen());
+        return MaterialPageRoute(builder: (_) => const UserListScreen());
       case Routes.loginPage:
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return MaterialPageRoute(builder: (_) => const LoginPage());
       case Routes.navbarPage:
-        return MaterialPageRoute(builder: (_) => NavbarPage());
+        return MaterialPageRoute(builder: (_) => const NavbarPage());
       case Routes.initialPage:
-        return MaterialPageRoute(builder: (_) => InitialPage());
+        return MaterialPageRoute(builder: (_) => const InitialPage());
       case Routes.homePage:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case Routes.sidebarPage:
-        return MaterialPageRoute(builder: (_) => SideBarPage());
+        return MaterialPageRoute(builder: (_) => const SideBarPage());
       case Routes.addAgentPage:
         return MaterialPageRoute(builder: (_) => const AddAgentPage());
       default:

@@ -1,11 +1,8 @@
-import 'package:acl_flutter/data/model/login_model/login_model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:acl_flutter/core/widget/button_widget.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/dialog/retry_dialog.dart';
 import '../../core/router/routes.dart';
-import '../../core/widget/button_widget.dart';
 
 
 class InitialPage extends StatefulWidget {
@@ -34,7 +31,7 @@ class _InitialPageState extends State<InitialPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 250,
           child: Image.asset("assets/images/allianz_logo.png" ),
         ), ButtonWidgetCustom(
@@ -45,7 +42,7 @@ class _InitialPageState extends State<InitialPage> {
             );
           },
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         ButtonWidgetCustom(
           text: "Calon Agen",
           function: () {
@@ -58,7 +55,7 @@ class _InitialPageState extends State<InitialPage> {
                     ]));
           },
         ),
-         SizedBox(height: 10,),
+         const SizedBox(height: 10,),
         ButtonWidgetCustom(
           text: "ADT Team",
           function: () {

@@ -68,6 +68,8 @@ class DioInterceptor extends Interceptor {
   /// Api to get new token from refresh token
   ///
   Future<bool?> refreshToken() async {
+    return null;
+  
     ///call your refesh token api here
   }
 

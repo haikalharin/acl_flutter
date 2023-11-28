@@ -1,7 +1,6 @@
 import 'package:acl_flutter/core/local_storage/secure_storage/secure_storage.dart';
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
-import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,6 +18,8 @@ import '../user/user_list_screen.dart';
 enum Language { english, spanish, indonesia }
 
 class SideBarPage extends StatefulWidget {
+  const SideBarPage({super.key});
+
   @override
   State<SideBarPage> createState() => _SideBarPageState();
 }
@@ -89,8 +90,8 @@ class _SideBarPageState extends State<SideBarPage> {
                         Routes.addAgentPage);
                   },
                   child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      child: Icon(Icons.add)),
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: const Icon(Icons.add)),
                 )
               ],
             ),
@@ -121,16 +122,16 @@ class _SideBarPageState extends State<SideBarPage> {
                     ),
                   ),
                   ListTile(
-                    leading: Icon(Icons.home),
-                    title: Text('Home'),
+                    leading: const Icon(Icons.home),
+                    title: const Text('Home'),
                     selected: selectedIndex == 0,
                     onTap: () => [_onItemTapped(0), Navigator.pop(context)],
                   ),
                   ExpansionTile(
-                    leading: Icon(Icons.settings),
+                    leading: const Icon(Icons.settings),
                     title: Text(
                       AppLocalizations.of(context)!.language,
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                      style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                     children: <Widget>[
                       ListTile(
@@ -180,8 +181,8 @@ class _SideBarPageState extends State<SideBarPage> {
                   //   onTap: () =>  [_onItemTapped(1), Navigator.pop(context)],
                   // ),
                   ListTile(
-                    leading: Icon(Icons.share),
-                    title: Text('Share'),
+                    leading: const Icon(Icons.share),
+                    title: const Text('Share'),
                     selected: selectedIndex == 2,
                     onTap: () => [_onItemTapped(2), Navigator.pop(context)],
                   ),
@@ -200,10 +201,10 @@ class _SideBarPageState extends State<SideBarPage> {
                   //   title: Text('Policies'),
                   //   onTap: () => null,
                   // ),
-                  Divider(),
+                  const Divider(),
                   ListTile(
-                    title: Text('Exit'),
-                    leading: Icon(Icons.exit_to_app),
+                    title: const Text('Exit'),
+                    leading: const Icon(Icons.exit_to_app),
                     onTap: () {
                       SecureStorage().secureDeleteAll();
                       AppSharedPreference.clear();
@@ -226,11 +227,11 @@ class _SideBarPageState extends State<SideBarPage> {
   Widget _buildWidgetBody() {
     switch (selectedIndex) {
       case 0:
-        return HomePage();
+        return const HomePage();
       case 1:
-        return UserListScreen();
+        return const UserListScreen();
       case 2:
-        return HomePage();
+        return const HomePage();
       default:
         return Container();
     }

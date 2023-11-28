@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-
 // ignore_for_file: deprecated_member_use
 
 import 'package:acl_flutter/common/app_extension.dart';
@@ -7,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
 
-import '../local_storage/shared_preference/app_shared_preference.dart';
 
 class AuthInterceptor extends Interceptor {
   final Dio dio;
@@ -57,6 +54,8 @@ class AuthInterceptor extends Interceptor {
   /// Api to get new token from refresh token
   ///
   Future<bool?> refreshToken() async {
+    return null;
+  
     ///call your refesh token api here
   }
 

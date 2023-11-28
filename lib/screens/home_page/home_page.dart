@@ -1,12 +1,8 @@
 import 'package:acl_flutter/screens/home_page/list_notify_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../core/router/app_router.dart';
-import '../../core/router/routes.dart';
 import '../../utils/acl_color.dart';
-import '../sidebar_page/sidebar_page.dart';
 import 'list_candidate_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,16 +42,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             tabs: [
               Tab(
                   child: Text(AppLocalizations.of(context)!.myRecruitment,
-                      style: TextStyle(color: AclColors.blueDark))),
+                      style: const TextStyle(color: AclColors.blueDark))),
               Tab(
                   child: Text(AppLocalizations.of(context)!.beRecruitment,
-                      style: TextStyle(color: AclColors.blueDark))),
+                      style: const TextStyle(color: AclColors.blueDark))),
               Tab(
                   child: Text(AppLocalizations.of(context)!.notification,
-                      style: TextStyle(color: AclColors.blueDark))),
+                      style: const TextStyle(color: AclColors.blueDark))),
             ],
           ),
-          Divider(
+          const Divider(
             // Add a Divider under the TabBar
             height: 1,
             color: Colors.black,
@@ -64,7 +60,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: TabBarView(
               physics: const BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.normal),
               controller: _tabController,
-              children: [
+              children: const [
                 // Content for Tab 1
                 ListCandidatePage(isMyCandidate: true,),
                 // Center(

@@ -2,8 +2,9 @@
 //
 //     final agentBeModel = agentBeModelFromJson(jsonString);
 
-import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
+
+import 'package:json_annotation/json_annotation.dart';
 
 part 'agent_be_model.g.dart';
 
