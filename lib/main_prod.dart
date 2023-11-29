@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'env.dart' as config;
 
@@ -11,7 +10,7 @@ import 'di.dart';
 import 'flavors.dart';
 import 'myApp.dart';
 enum SubmitStatus { empty, loading, failure, success }
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= FlutterLocalNotificationsPlugin();
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= FlutterLocalNotificationsPlugin();
 void main() async {
   runZonedGuarded<Future<void>>(() async {
 

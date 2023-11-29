@@ -60,6 +60,10 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
          listAgent.sort((a, b) => (a.firstName??'').compareTo(b.firstName??''));
         }else if(event.filter == 2){
           listAgent.sort((a, b) => (b.firstName??'').compareTo(a.firstName??''));
+        }else if(event.filter == 3){
+          listAgent.sort((a, b) => (a.createDate??'').compareTo(b.createDate??''));
+        }else if(event.filter == 4){
+          listAgent.sort((a, b) => (a.submissionDate??'').compareTo(b.submissionDate??''));
         }
         emit(state.copyWith(
             listAgentModel: listAgent,
@@ -86,6 +90,10 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
           listAgent.sort((a, b) => (a.firstName??'').compareTo(b.firstName??''));
         }else if(event.filter == 2){
           listAgent.sort((a, b) => (b.firstName??'').compareTo(a.firstName??''));
+        } else if(event.filter == 3){
+          listAgent.sort((a, b) => (a.startDate??'').compareTo(b.startDate??''));
+        }else if(event.filter == 4){
+          listAgent.sort((a, b) => (a.reviewDate??'').compareTo(b.reviewDate??''));
         }
         emit(state.copyWith(
             listAgentBeModel: listAgent,

@@ -378,7 +378,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                         TextInput(
                           isMandatory: checkedValueAAUI,
                           icon: Icon(Icons.add_card_rounded),
-                          label: const Text("No lisensi AASI"),
+                          label: const Text("No lisensi AAUI"),
                           onChanged: (String input) {
                             // viewModel.add(UserNameInputEvent(input));
                           },
@@ -394,7 +394,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                       if (checkedNeedValueAAUI) const SizedBox(height: 8),
                       if (checkedNeedValueAAUI)
                         CustomImagePicker(
-                          title: 'Foto Lisensi AASI',
+                          title: 'Foto Lisensi AAUI',
                           isMandatory: checkedValueAAUI,
                           onImagePicked: (value) {},
                         ),

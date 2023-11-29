@@ -163,10 +163,17 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                 title: const Text(
                                                     'Simple Checking Submission'),
                                                 onTap: () async {
-                                                  // getIt<HomePageBloc>().add(
-                                                  //     FetchListMyAgentEvent(
-                                                  //         filter: 2));
-                                                  // Navigator.pop(context);
+                                                  if (widget.isMyCandidate) {
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListMyAgentEvent(
+                                                            filter: 3));
+                                                    Navigator.pop(context);
+                                                  }else{
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListBeAgentEvent(
+                                                            filter: 3));
+                                                    Navigator.pop(context);
+                                                  }
                                                 }),
                                             ListTile(
                                                 leading: Icon(
@@ -174,10 +181,17 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                 title: const Text(
                                                     'FAA Submission'),
                                                 onTap: () async {
-                                                  // getIt<HomePageBloc>().add(
-                                                  //     FetchListMyAgentEvent(
-                                                  //         filter: 2));
-                                                  // Navigator.pop(context);
+                                                  if (widget.isMyCandidate) {
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListMyAgentEvent(
+                                                            filter: 4));
+                                                    Navigator.pop(context);
+                                                  }else{
+                                                    getIt<HomePageBloc>().add(
+                                                        FetchListBeAgentEvent(
+                                                            filter: 4));
+                                                    Navigator.pop(context);
+                                                  }
                                                 }),
                                             ListTile(
                                                 leading: Icon(
