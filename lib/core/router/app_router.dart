@@ -29,7 +29,7 @@ class AppRouter {
       case Routes.homePage:
         return MaterialPageRoute(builder: (_) => const HomePage());
       case Routes.sidebarPage:
-        return MaterialPageRoute(builder: (_) => const SideBarPage());
+        return MaterialPageRoute(builder: (_) => SideBarPage());
       case Routes.addAgentPage:
         return MaterialPageRoute(builder: (_) => const AddCandidatePage());
       default:
