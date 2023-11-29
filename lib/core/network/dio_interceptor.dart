@@ -52,7 +52,7 @@ class DioInterceptor extends Interceptor {
     // if (err.response == null) {
     //   return;
     // }
-    if (err.response!.statusCode == 403) {
+    if (err.response!.statusCode == 403 || err.response!.statusCode == 500) {
       SecureStorage().secureDeleteAll();
       AppSharedPreference.clear();
       AppRouter.navigatorKey.currentState?.pushNamedAndRemoveUntil(

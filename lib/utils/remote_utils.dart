@@ -1,4 +1,3 @@
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import 'firebase_service.dart';
 
@@ -21,10 +20,10 @@ String getFormattedUrl(String? url, Map<String, String>? variables) {
   });
 }
 
-String remoteConfigGetString(String key) {
-  return FirebaseService().remoteConfig.getString(key);
-}
-
-int remoteConfigGetInt(FirebaseRemoteConfig remoteConfig, String key) {
-    return FirebaseService().remoteConfig.getInt(key);
-}
+// String remoteConfigGetString(String key) {
+//   return FirebaseService().remoteConfig.getString(key);
+// }
+//
+// int remoteConfigGetInt(FirebaseRemoteConfig remoteConfig, String key) {
+//     return FirebaseService().remoteConfig.getInt(key);
+// }

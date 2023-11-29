@@ -2,23 +2,13 @@
 
 part of 'login_page_bloc.dart';
 
-enum LoginPageStatus { initial, success, error, loading, selected }
-
-extension LoginPageStatusX on LoginPageStatus {
-  bool get isInitial => this == LoginPageStatus.initial;
-  bool get isSuccess => this == LoginPageStatus.success;
-  bool get isError => this == LoginPageStatus.error;
-  bool get isLoading => this == LoginPageStatus.loading;
-  bool get isSelected => this == LoginPageStatus.selected;
-}
-
 class LoginPageState extends Equatable with FormzMixin {
   final FormzSubmissionStatus submitStatus;
   final MandatoryFieldValidator userName;
   final MandatoryFieldValidator password;
   final String? moveTo;
 
-  const LoginPageState({
+  const LoginPageState( {
     this.userName = const MandatoryFieldValidator.pure(),
     this.password = const MandatoryFieldValidator.pure(),
     this.moveTo,
@@ -42,7 +32,7 @@ class LoginPageState extends Equatable with FormzMixin {
       userName: userName ?? this.userName,
       password: password ?? this.password,
       moveTo: moveTo ?? this.moveTo,
-      submitStatus: submitStatus?? this.submitStatus,
+      submitStatus: submitStatus??FormzSubmissionStatus.initial,
     );
   }
 

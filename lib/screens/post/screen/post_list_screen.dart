@@ -181,7 +181,7 @@ class _PostListScreenState extends State<PostListScreen> {
                 case Status.failure:
                   return RetryDialog(
                     title: state.error ?? "Error",
-                    onRetryPressed: () => getData(),
+                    onCancelPressed: () => getData(),
                   );
                 case Status.success:
                   return userPostItem(state.data ?? []);

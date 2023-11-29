@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "619871764699",
+    "project_id": "acl-azlife",
+    "storage_bucket": "acl-azlife.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619871764699:android:bc7e4f0e4c9a3ad5c7ccfe",
+        "android_client_info": {
+          "package_name": "co.id.az.acl.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNiuWRtE-nuDc0ZqJor_b0YH5x59OPP2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -227,7 +227,7 @@ class _UserListScreenState extends State<UserListScreen> {
                       return userListItem(user);
                     },
                   ),
-                  failure: (_, __, ___, error) => RetryDialog(title: error ?? '', onRetryPressed: () => viewModel.add(UsersFetched())),
+                  failure: (_, __, ___, error) => RetryDialog(title: error ?? '', onCancelPressed: () => viewModel.add(UsersFetched())),
                 )),
 ),
       ),

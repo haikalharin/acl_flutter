@@ -24,7 +24,26 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     on<FetchListMyAgentEvent>(fetchListAgent);
     on<FetchListBeAgentEvent>(fetchListBeAgent);
     on<FetchListNotifyEvent>(fetchListNotify);
+    on<HomePageInitialEvent>(homePageInitial);
   }
+
+  Future<void> homePageInitial(
+      HomePageInitialEvent event, Emitter<HomePageState> emit) async {
+    emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
+    try {
+      LoginModel loginModel = await SecureStorage().getUser();
+      if(loginModel.uid!.isNotEmpty){
+        emit(state.copyWith(
+            loginModel: loginModel,
+          submitStatus: FormzSubmissionStatus.success
+        ));
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+
 
   Future<void> fetchListAgent(
       FetchListMyAgentEvent event, Emitter<HomePageState> emit) async {
@@ -35,8 +54,18 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
           leaderCode: loginModel.uid ?? '');
       result.when(success: (response) {
         List<AgentModel> listAgent = response.data;
+        if(event.filter == 1){
+         listAgent.sort((a, b) => (a.firstName??'').compareTo(b.firstName??''));
+        }else if(event.filter == 2){
+          listAgent.sort((a, b) => (b.firstName??'').compareTo(a.firstName??''));
+        }else if(event.filter == 3){
+          listAgent.sort((a, b) => (a.createDate??'').compareTo(b.createDate??''));
+        }else if(event.filter == 4){
+          listAgent.sort((a, b) => (a.submissionDate??'').compareTo(b.submissionDate??''));
+        }
         emit(state.copyWith(
             listAgentModel: listAgent,
+            moveTo: Routes.homePage,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
         emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
@@ -55,6 +84,15 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
           leaderCode: loginModel.uid ?? '');
       result.when(success: (response) {
         List<AgentBeModel> listAgent = response.data;
+        if(event.filter == 1){
+          listAgent.sort((a, b) => (a.firstName??'').compareTo(b.firstName??''));
+        }else if(event.filter == 2){
+          listAgent.sort((a, b) => (b.firstName??'').compareTo(a.firstName??''));
+        } else if(event.filter == 3){
+          listAgent.sort((a, b) => (a.startDate??'').compareTo(b.startDate??''));
+        }else if(event.filter == 4){
+          listAgent.sort((a, b) => (a.reviewDate??'').compareTo(b.reviewDate??''));
+        }
         emit(state.copyWith(
             listAgentBeModel: listAgent,
             submitStatus: FormzSubmissionStatus.success));

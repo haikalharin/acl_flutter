@@ -120,7 +120,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
               case Status.failure:
                 return RetryDialog(
                   title: state.error ?? "Error",
-                  onRetryPressed: () {
+                  onCancelPressed: () {
                     if (mode == Mode.create) {
                       context.read<TodoBloc>().add(TodoCreated(todo));
                     } else {
@@ -246,7 +246,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   case Status.failure:
                     return RetryDialog(
                       title: state.error ?? "Error",
-                      onRetryPressed: () => context.read<TodoBloc>().add(TodoDeleted(todo)),
+                      onCancelPressed: () => context.read<TodoBloc>().add(TodoDeleted(todo)),
                     );
                   case Status.success:
                     return ProgressDialog(
@@ -306,7 +306,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   case Status.failure:
                     return RetryDialog(
                       title: state.error ?? "Error",
-                      onRetryPressed: () => context.read<TodoBloc>().add(TodoFetched(widget.user.id!)),
+                      onCancelPressed: () => context.read<TodoBloc>().add(TodoFetched(widget.user.id!)),
                     );
                   case Status.success:
                     return taskList(state.data ?? []);

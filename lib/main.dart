@@ -10,7 +10,7 @@ import 'di.dart';
 import 'env.dart' as config;
 import 'myApp.dart';
 enum SubmitStatus { empty, loading, failure, success }
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= FlutterLocalNotificationsPlugin();
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= FlutterLocalNotificationsPlugin();
 void main() async {
   runZonedGuarded<Future<void>>(() async {
 

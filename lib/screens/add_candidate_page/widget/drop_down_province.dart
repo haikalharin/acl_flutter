@@ -2,7 +2,10 @@ import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
+
 import '../../../data/model/login_model/login_model.dart';
+import '../../../data/model/master_data_model/master_data_model.dart';
+import '../../sidebar_page/sidebar_page.dart';
 
 class DropDownProvince extends StatefulWidget {
   const DropDownProvince(
@@ -13,23 +16,25 @@ class DropDownProvince extends StatefulWidget {
       this.lable,
       this.title,
       this.icon,
-      this.errorText})
+      this.errorText,
+      this.isMandatory = true})
       : super(key: key);
 
-  final ValueChanged<LoginModel> onChanged;
-  final List<LoginModel> items;
-  final LoginModel? initialItem;
+  final ValueChanged<AajicityMasterReference> onChanged;
+  final List<AajicityMasterReference> items;
+  final AajicityMasterReference? initialItem;
   final Widget? lable;
   final String? title;
   final String? errorText;
   final Icon? icon;
+  final bool isMandatory;
 
   @override
   State<DropDownProvince> createState() => _DropDownProvinceState();
 }
 
 class _DropDownProvinceState extends State<DropDownProvince> {
-  LoginModel? selectedItem;
+  AajicityMasterReference? selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +77,7 @@ class _DropDownProvinceState extends State<DropDownProvince> {
             // hintText: _hint,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              width:  widget.errorText != null
-                  ?4:1,
+              width: widget.errorText != null ? 4 : 1,
               color: widget.errorText != null
                   ? AclColors.redText
                   : Colors.grey.shade300,
@@ -90,17 +94,19 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
-                          (item) => DropdownMenuItem<LoginModel>(
-                            value: item,
-                            child: Text(
-                              item.name ?? '',
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
-                        )
+                          (item) => DropdownMenuItem<AajicityMasterReference>(
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    )
                         .toList(),
                     searchFn: (String keyword,
-                        List<DropdownMenuItem<LoginModel>> items) {
+                        List<DropdownMenuItem<AajicityMasterReference>> items) {
                       List<int> ret = [];
                       if (keyword.isNotEmpty) {
                         keyword.split(" ").forEach((k) {
@@ -108,7 +114,12 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                           for (var item in items) {
                             if (!ret.contains(i) &&
                                 k.isNotEmpty &&
-                                (item.value!.name!
+                                (language == Language.indonesia
+                                    ? item.value!.longDescriptionInd!
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase())
+                                    : item.value!.longDescriptionEng!
                                     .toString()
                                     .toLowerCase()
                                     .contains(k.toLowerCase()))) {
@@ -126,7 +137,7 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                     value: selectedItem,
                     hint: "Pilih",
                     searchHint: "Select one",
-                    onChanged: (LoginModel value) {
+                    onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
                         selectedItem = value;

@@ -1,11 +1,13 @@
+import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/login_model/login_model.dart';
+import '../../../data/model/master_data_model/master_data_model.dart';
 
-class DropDownGender extends StatefulWidget {
-  const DropDownGender(
+class DropDownCountry extends StatefulWidget {
+  const DropDownCountry(
       {Key? key,
       required this.onChanged,
       required this.items,
@@ -13,25 +15,23 @@ class DropDownGender extends StatefulWidget {
       this.lable,
       this.title,
       this.icon,
-      this.errorText,
-      this.isMandatory = true})
+      this.errorText})
       : super(key: key);
 
-  final ValueChanged<LoginModel> onChanged;
-  final List<LoginModel> items;
-  final LoginModel? initialItem;
+  final ValueChanged<AajicityMasterReference> onChanged;
+  final List<AajicityMasterReference> items;
+  final AajicityMasterReference? initialItem;
   final Widget? lable;
   final String? title;
   final String? errorText;
   final Icon? icon;
-  final bool isMandatory;
 
   @override
-  State<DropDownGender> createState() => _DropDownGenderState();
+  State<DropDownCountry> createState() => _DropDownCountryState();
 }
 
-class _DropDownGenderState extends State<DropDownGender> {
-  LoginModel? selectedItem;
+class _DropDownCountryState extends State<DropDownCountry> {
+  AajicityMasterReference? selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -47,28 +47,24 @@ class _DropDownGenderState extends State<DropDownGender> {
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
-            widget.isMandatory
-                ? Container(
-                    margin: const EdgeInsets.only(left: 5, bottom: 5),
-                    child: const Text(
-                      '*',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: AclColors.redAccent,
-                      ),
-                    ))
-                : Container(),
-            widget.isMandatory
-                ? Container(
-                    margin: const EdgeInsets.only(left: 5, bottom: 5),
-                    child: Text(
-                      widget.errorText ?? '',
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        color: AclColors.redAccent,
-                      ),
-                    ))
-                : Container()
+            Container(
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
+                child: const Text(
+                  '*',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: AclColors.redAccent,
+                  ),
+                )),
+            Container(
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
+                child: Text(
+                  widget.errorText ?? '',
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    color: AclColors.redAccent,
+                  ),
+                ))
           ],
         ),
         const SizedBox(height: 5),
@@ -95,17 +91,19 @@ class _DropDownGenderState extends State<DropDownGender> {
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
-                          (item) => DropdownMenuItem<LoginModel>(
+                          (item) => DropdownMenuItem<AajicityMasterReference>(
                             value: item,
                             child: Text(
-                              item.name ?? '',
+                              language == Language.indonesia
+                                  ? item.longDescriptionInd ?? ''
+                                  : item.longDescriptionEng ?? '',
                               style: const TextStyle(fontSize: 15),
                             ),
                           ),
                         )
                         .toList(),
                     searchFn: (String keyword,
-                        List<DropdownMenuItem<LoginModel>> items) {
+                        List<DropdownMenuItem<AajicityMasterReference>> items) {
                       List<int> ret = [];
                       if (keyword.isNotEmpty) {
                         keyword.split(" ").forEach((k) {
@@ -113,10 +111,15 @@ class _DropDownGenderState extends State<DropDownGender> {
                           for (var item in items) {
                             if (!ret.contains(i) &&
                                 k.isNotEmpty &&
-                                (item.value!.name!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase()))) {
+                                (language == Language.indonesia
+                                    ? item.value!.longDescriptionInd!
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase())
+                                    : item.value!.longDescriptionEng!
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -131,7 +134,7 @@ class _DropDownGenderState extends State<DropDownGender> {
                     value: selectedItem,
                     hint: "Pilih",
                     searchHint: "Select one",
-                    onChanged: (LoginModel value) {
+                    onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
                         selectedItem = value;
