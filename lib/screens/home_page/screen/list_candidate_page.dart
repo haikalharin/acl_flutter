@@ -8,10 +8,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:formz/formz.dart';
 import 'package:intl/intl.dart';
 
-import '../../core/widget/drop_down.dart';
-import '../../core/widget/spinkit_indicator.dart';
-import '../../di.dart';
-import '../../utils/acl_color.dart';
+import '../../../core/widget/spinkit_indicator.dart';
+import '../../../di.dart';
+import '../../../utils/acl_color.dart';
+
 
 enum EnvName { dev, staging, prod }
 
@@ -43,13 +43,16 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
       listener: (context, state) {},
       child: BlocBuilder<HomePageBloc, HomePageState>(
         builder: (context, state) {
-          return state.submitStatus.isInProgress
+          return state.submitStatus.isInProgress || state.submitStatus.isInitial
               ? const SpinKitIndicator(type: SpinKitType.circle)
               : state.submitStatus.isSuccess
-                  ? state.listAgentModel!.isEmpty
+                  ? state.listAgentModel!.isEmpty &&
+                          !state.submitStatus.isInProgress
                       ? Container(
                           width: MediaQuery.of(context).size.width,
-                          child: Center(child: Text("Artikel tidak tersedia")))
+                          child: Center(
+                              child: Text(
+                                  AppLocalizations.of(context)!.dataNotFound)))
                       : Column(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
@@ -62,53 +65,94 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                     : state.listAgentBeModel?.length,
                                 itemBuilder: (context, index) {
                                   String startDate = "";
+                                  String faaDate = "";
                                   if (!widget.isMyCandidate) {
-                                    var outputFormat = DateFormat.yMMMMd('en');
+                                    var outputFormat = DateFormat.yMMMd('en');
                                     startDate = outputFormat.format(
                                         DateTime.parse(state
                                                 .listAgentBeModel?[index]
                                                 .startDate ??
                                             "0000-00-00"));
+
+                                    var outputFormatFaa =
+                                        DateFormat.yMMMd('en');
+                                    faaDate = outputFormatFaa.format(
+                                        DateTime.parse(state
+                                                .listAgentBeModel?[index]
+                                                .reviewDate ??
+                                            "0000-00-00"));
                                   } else {
-                                    var outputFormat = DateFormat.yMMMMd('en');
+                                    var outputFormat = DateFormat.yMMMd('en');
                                     var data =
                                         state.listAgentModel?[index].createDate;
                                     var dataFix = data?.replaceAll('/', '-');
                                     startDate = outputFormat.format(
                                         DateTime.parse(
                                             dataFix ?? "0000-00-00"));
+
+                                    var outputFormatFaa =
+                                        DateFormat.yMMMd('en');
+                                    var dataFaa = state
+                                        .listAgentModel?[index].submissionDate;
+                                    if (state.listAgentModel?[index]
+                                            .submissionDate !=
+                                        null) {
+                                      var dataFixFaa =
+                                          dataFaa?.replaceAll('/', '-');
+                                      faaDate = outputFormatFaa
+                                          .format(DateTime.parse(dataFixFaa));
+                                    }
                                   }
-                                  return Column(
-                                    children: [
-                                      index == 0 ? Container() : Divider(),
-                                      ListTile(
-                                        leading: const CircleAvatar(
-                                          // You can replace this with your user image
-                                          backgroundImage: AssetImage(
-                                              'assets/images/user.png'),
-                                        ),
-                                        title: Text(widget.isMyCandidate
-                                            ? "${state.listAgentModel?[index].firstName} ${state.listAgentModel?[index].lastName ?? ''}"
-                                            : "${state.listAgentBeModel?[index].firstName} ${state.listAgentBeModel?[index].lastName ?? ''}"),
-                                        subtitle: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                          Routes.detailCandidatePage,
+                                          arguments: {
+                                            'candidate_model':
+                                                state.listAgentModel?[index],
+                                            'is_my_candidate':
+                                                widget.isMyCandidate
+                                          });
+                                    },
+                                    child: Column(
+                                      children: [
+                                        index == 0 ? Container() : Divider(),
+                                        ListTile(
+                                          leading: const CircleAvatar(
+                                            // You can replace this with your user image
+                                            backgroundImage: AssetImage(
+                                                'assets/images/user.png'),
+                                          ),
+                                          title: Text(
                                             widget.isMyCandidate
-                                                ? Text(state
-                                                        .listAgentModel?[index]
-                                                        .userId ??
-                                                    '')
-                                                : Text(state
-                                                        .listAgentBeModel?[
-                                                            index]
-                                                        .userId ??
-                                                    ''),
-                                            Text('SC: $startDate'),
-                                          ],
+                                                ? "${state.listAgentModel?[index].firstName} ${state.listAgentModel?[index].lastName ?? ''}"
+                                                : "${state.listAgentBeModel?[index].firstName} ${state.listAgentBeModel?[index].lastName ?? ''}",
+                                            style: const TextStyle(
+                                                color: AclColors.blueDark),
+                                          ),
+                                          subtitle: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              widget.isMyCandidate
+                                                  ? Text(state
+                                                          .listAgentModel?[
+                                                              index]
+                                                          .userId ??
+                                                      '')
+                                                  : Text(state
+                                                          .listAgentBeModel?[
+                                                              index]
+                                                          .userId ??
+                                                      ''),
+                                              faaDate == ''
+                                                  ? Text('SC: $startDate')
+                                                  : Text('FAA: $faaDate'),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   );
                                 },
                               )),
@@ -133,7 +177,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                         FetchListMyAgentEvent(
                                                             filter: 1));
                                                     Navigator.pop(context);
-                                                  } else{
+                                                  } else {
                                                     getIt<HomePageBloc>().add(
                                                         FetchListBeAgentEvent(
                                                             filter: 1));
@@ -150,7 +194,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                         FetchListMyAgentEvent(
                                                             filter: 2));
                                                     Navigator.pop(context);
-                                                  }else{
+                                                  } else {
                                                     getIt<HomePageBloc>().add(
                                                         FetchListBeAgentEvent(
                                                             filter: 2));
@@ -168,7 +212,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                         FetchListMyAgentEvent(
                                                             filter: 3));
                                                     Navigator.pop(context);
-                                                  }else{
+                                                  } else {
                                                     getIt<HomePageBloc>().add(
                                                         FetchListBeAgentEvent(
                                                             filter: 3));
@@ -186,7 +230,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                         FetchListMyAgentEvent(
                                                             filter: 4));
                                                     Navigator.pop(context);
-                                                  }else{
+                                                  } else {
                                                     getIt<HomePageBloc>().add(
                                                         FetchListBeAgentEvent(
                                                             filter: 4));
@@ -202,7 +246,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                     getIt<HomePageBloc>().add(
                                                         FetchListMyAgentEvent());
                                                     Navigator.pop(context);
-                                                  }else{
+                                                  } else {
                                                     getIt<HomePageBloc>().add(
                                                         FetchListBeAgentEvent());
                                                     Navigator.pop(context);

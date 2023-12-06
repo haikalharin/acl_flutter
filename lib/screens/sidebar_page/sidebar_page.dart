@@ -14,7 +14,7 @@ import '../../data/model/user/user.dart';
 import '../../di.dart';
 import '../../myApp.dart';
 import '../../utils/acl_color.dart';
-import '../home_page/home_page.dart';
+import '../home_page/screen/home_page.dart';
 import '../user/user_list_screen.dart';
 
 enum Language { english, spanish, indonesia }

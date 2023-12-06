@@ -1,11 +1,9 @@
-import 'package:acl_flutter/data/model/agent/agent_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 
 import '../../../core/network/api_helper.dart';
 import '../../../core/network/dio_client.dart';
 import '../../../core/network/service_url.dart';
-import '../../model/agent/agent_be_model.dart';
 
 class MasterDataApi with ApiHelper<MasterDataModel> {
   final DioClient dioClient;

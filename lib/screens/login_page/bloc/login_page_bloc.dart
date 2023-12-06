@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:acl_flutter/core/local_storage/secure_storage/secure_storage.dart';
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
+import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:acl_flutter/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
@@ -65,7 +66,8 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
         final result = await loginRepository.login(
             userName: userName.value, password: password.value);
         result.when(success: (response) {
-          SecureStorage().setUser(LoginModel.fromJson(response.data));
+          ResponseModel responseModel = ResponseModel.fromJson(response.data,LoginModel.fromJson);
+          SecureStorage().setUser(responseModel.data);
           SecureStorage()
               .setToken(response.headers.map['Authorization']?.first ?? '');
           emit(state.copyWith(

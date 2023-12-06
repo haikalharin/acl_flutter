@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
-import 'package:acl_flutter/data/repository/agent/agent_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
@@ -12,16 +11,16 @@ import 'package:equatable/equatable.dart';
 
 import '../../../core/local_storage/secure_storage/secure_storage.dart';
 import '../../../core/router/routes.dart';
-import '../../../data/model/agent/agent_model.dart';
 import '../../../data/model/login_model/login_model.dart';
+import '../../../data/repository/candidate/candidate_repository.dart';
 
 
 part 'add_candidate_page_event.dart';
 part 'add_candidate_page_state.dart';
 
 class AddCandidatePageBloc extends Bloc<AddCandidatePageEvent, AddCandidatePageState> {
-  final AgentRepository agentRepository;
-  AddCandidatePageBloc({required this.agentRepository}) : super(AddAgentPageInitial()) {
+  final CandidateRepository candidateRepository;
+  AddCandidatePageBloc({required this.candidateRepository}) : super(AddAgentPageInitial()) {
     on<FetchMasterDataEvent>(fetchMasterData);
     on<UserNameInputEvent>(userNameInput);
     on<PasswordInputEvent>(passwordInput);
@@ -38,7 +37,7 @@ class AddCandidatePageBloc extends Bloc<AddCandidatePageEvent, AddCandidatePageS
       FetchMasterDataEvent event, Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     try {
-      final result = await agentRepository.fetchMasterData();
+      final result = await candidateRepository.fetchMasterData();
       result.when(success: (response) {
         emit(state.copyWith(
           masterDataModel: response.data,

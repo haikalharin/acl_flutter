@@ -1,22 +1,28 @@
 // To parse this JSON data, do
 //
-//     final agentModel = agentModelFromJson(jsonString);
+//     final candidateBeModel = candidateBeModelFromJson(jsonString);
 
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-part 'agent_model.g.dart';
+part 'candidate_be_model.g.dart';
 
-AgentModel agentModelFromJson(String str) => AgentModel.fromJson(json.decode(str));
+CandidateBeModel candidateBeModelFromJson(String str) => CandidateBeModel.fromJson(json.decode(str));
 
-String agentModelToJson(AgentModel data) => json.encode(data.toJson());
+String candidateBeModelToJson(CandidateBeModel data) => json.encode(data.toJson());
 
 @JsonSerializable()
-class AgentModel {
+class CandidateBeModel {
   @JsonKey(name: "id")
-  String? id;
-  @JsonKey(name: "userID")
+  int? id;
+  @JsonKey(name: "userId")
   String? userId;
+  @JsonKey(name: "startDate")
+  String? startDate;
+  @JsonKey(name: "reviewDate")
+  String? reviewDate;
+  @JsonKey(name: "notificationId")
+  String? notificationId;
   @JsonKey(name: "firstName")
   String? firstName;
   @JsonKey(name: "middleName")
@@ -25,64 +31,63 @@ class AgentModel {
   String? lastName;
   @JsonKey(name: "dob")
   String? dob;
-  @JsonKey(name: "createDate")
-  String? createDate;
   @JsonKey(name: "isSubmission")
   String? isSubmission;
   @JsonKey(name: "isCompleted")
   String? isCompleted;
   @JsonKey(name: "agentCode")
-  dynamic agentCode;
-  @JsonKey(name: "submissionDate")
-  dynamic submissionDate;
-  @JsonKey(name: "finalAgreementStatus")
-  String? finalAgreementStatus;
+  String? agentCode;
+  @JsonKey(name: "isReview")
+  String? isReview;
 
-  AgentModel({
+  CandidateBeModel({
     this.id,
     this.userId,
+    this.startDate,
+    this.reviewDate,
+    this.notificationId,
     this.firstName,
     this.middleName,
     this.lastName,
     this.dob,
-    this.createDate,
     this.isSubmission,
     this.isCompleted,
     this.agentCode,
-    this.submissionDate,
-    this.finalAgreementStatus,
+    this.isReview,
   });
 
-  AgentModel copyWith({
-    String? id,
+  CandidateBeModel copyWith({
+    int? id,
     String? userId,
+    String? startDate,
+    String? reviewDate,
+    String? notificationId,
     String? firstName,
     dynamic middleName,
     String? lastName,
     String? dob,
-    String? createDate,
     String? isSubmission,
     String? isCompleted,
-    dynamic agentCode,
-    dynamic submissionDate,
-    String? finalAgreementStatus,
+    String? agentCode,
+    String? isReview,
   }) =>
-      AgentModel(
+      CandidateBeModel(
         id: id ?? this.id,
         userId: userId ?? this.userId,
+        startDate: startDate ?? this.startDate,
+        reviewDate: reviewDate ?? this.reviewDate,
+        notificationId: notificationId ?? this.notificationId,
         firstName: firstName ?? this.firstName,
         middleName: middleName ?? this.middleName,
         lastName: lastName ?? this.lastName,
         dob: dob ?? this.dob,
-        createDate: createDate ?? this.createDate,
         isSubmission: isSubmission ?? this.isSubmission,
         isCompleted: isCompleted ?? this.isCompleted,
         agentCode: agentCode ?? this.agentCode,
-        submissionDate: submissionDate ?? this.submissionDate,
-        finalAgreementStatus: finalAgreementStatus ?? this.finalAgreementStatus,
+        isReview: isReview ?? this.isReview,
       );
 
-  factory AgentModel.fromJson(Map<String, dynamic> json) => _$AgentModelFromJson(json);
+  factory CandidateBeModel.fromJson(Map<String, dynamic> json) => _$CandidateBeModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AgentModelToJson(this);
+  Map<String, dynamic> toJson() => _$CandidateBeModelToJson(this);
 }

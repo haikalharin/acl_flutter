@@ -7,12 +7,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:formz/formz.dart';
 import 'package:intl/intl.dart';
 
-import '../../core/widget/spinkit_indicator.dart';
-import '../../di.dart';
-import '../../utils/acl_color.dart';
+import '../../../core/widget/spinkit_indicator.dart';
+import '../../../di.dart';
+import '../../../utils/acl_color.dart';
 
 class ListNotifyPage extends StatefulWidget {
-
   ListNotifyPage({super.key});
 
   @override
@@ -36,13 +35,16 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
       },
       child: BlocBuilder<HomePageBloc, HomePageState>(
         builder: (context, state) {
-          return state.submitStatus.isInProgress
+          return state.submitStatus.isInProgress || state.submitStatus.isInitial
               ? const SpinKitIndicator(type: SpinKitType.circle)
               : state.submitStatus.isSuccess
-                  ? state.listAgentModel!.isEmpty
+                  ? state.listAgentModel!.isEmpty &&
+                          !state.submitStatus.isInProgress
                       ? Container(
                           width: MediaQuery.of(context).size.width,
-                          child: Center(child: Text("Artikel tidak tersedia")))
+                          child: Center(
+                              child: Text(
+                                  AppLocalizations.of(context)!.dataNotFound)))
                       : Column(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
@@ -62,7 +64,10 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                       ListTile(
                                         leading: Icon(Icons.mail_rounded),
                                         title: Text(
-                                            "${state.listNotify?[index].alert} ${state.listAgentModel?[index].lastName??''}"),
+                                          "${state.listNotify?[index].alert} ${state.listAgentModel?[index].lastName ?? ''}",
+                                          style: const TextStyle(
+                                              color: AclColors.blueDark),
+                                        ),
                                       ),
                                     ],
                                   );
