@@ -1,19 +1,18 @@
 // To parse this JSON data, do
 //
-//     final agentBeModel = agentBeModelFromJson(jsonString);
-
-import 'dart:convert';
+//     final candidateBeModel = candidateBeModelFromJson(jsonString);
 
 import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
 
-part 'agent_be_model.g.dart';
+part 'candidate_be_model.g.dart';
 
-AgentBeModel agentBeModelFromJson(String str) => AgentBeModel.fromJson(json.decode(str));
+CandidateBeModel candidateBeModelFromJson(String str) => CandidateBeModel.fromJson(json.decode(str));
 
-String agentBeModelToJson(AgentBeModel data) => json.encode(data.toJson());
+String candidateBeModelToJson(CandidateBeModel data) => json.encode(data.toJson());
 
 @JsonSerializable()
-class AgentBeModel {
+class CandidateBeModel {
   @JsonKey(name: "id")
   int? id;
   @JsonKey(name: "userId")
@@ -41,7 +40,7 @@ class AgentBeModel {
   @JsonKey(name: "isReview")
   String? isReview;
 
-  AgentBeModel({
+  CandidateBeModel({
     this.id,
     this.userId,
     this.startDate,
@@ -57,7 +56,7 @@ class AgentBeModel {
     this.isReview,
   });
 
-  AgentBeModel copyWith({
+  CandidateBeModel copyWith({
     int? id,
     String? userId,
     String? startDate,
@@ -72,7 +71,7 @@ class AgentBeModel {
     String? agentCode,
     String? isReview,
   }) =>
-      AgentBeModel(
+      CandidateBeModel(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         startDate: startDate ?? this.startDate,
@@ -88,7 +87,7 @@ class AgentBeModel {
         isReview: isReview ?? this.isReview,
       );
 
-  factory AgentBeModel.fromJson(Map<String, dynamic> json) => _$AgentBeModelFromJson(json);
+  factory CandidateBeModel.fromJson(Map<String, dynamic> json) => _$CandidateBeModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AgentBeModelToJson(this);
+  Map<String, dynamic> toJson() => _$CandidateBeModelToJson(this);
 }

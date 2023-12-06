@@ -73,6 +73,38 @@ class ResponseModel<T> {
     }
   }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['code'] = this.code;
+    data['httpStatus'] = this.httpStatus;
+    data['message'] = this.message;
+    data['action'] = this.action;
+    data['responseCode'] = this.responseCode;
+    data['responseTime'] = this.responseTime;
+    data['statusCode'] = this.statusCode;
+
+    if (this.data != null) {
+      if (this.data is List) {
+        data['data'] = List<dynamic>.from(this.data.map((e) => e.toJson()));
+      } else {
+        data['data'] = this.data.toJson();
+      }
+    }
+
+    if (this.pagination != null) {
+      data['pagination'] = this.pagination?.toJson();
+    }
+
+    data['total'] = this.total;
+    data['per_page'] = this.perPage;
+    data['current_page'] = this.currentPage;
+    data['last_page'] = this.lastPage;
+    data['from'] = this.from;
+    data['to'] = this.to;
+
+    return data;
+  }
+
   ResponseModel<T> copyWith({
     int? code,
     int? responseCode,

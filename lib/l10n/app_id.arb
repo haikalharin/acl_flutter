@@ -6,5 +6,6 @@
     "sorted": "Urutkan",
     "reload": "Muat ulang",
     "note": "Catatan",
-    "language": "Bahasa"
+    "language": "Bahasa",
+    "dataNotFound": "Data tidak tersedia"
 }

@@ -2,18 +2,17 @@
 //
 //     final agentModel = agentModelFromJson(jsonString);
 
+import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-import 'package:json_annotation/json_annotation.dart';
+part 'candidate_model.g.dart';
 
-part 'agent_model.g.dart';
+CandidateModel candidateModelFromJson(String str) => CandidateModel.fromJson(json.decode(str));
 
-AgentModel agentModelFromJson(String str) => AgentModel.fromJson(json.decode(str));
-
-String agentModelToJson(AgentModel data) => json.encode(data.toJson());
+String candidateModelToJson(CandidateModel data) => json.encode(data.toJson());
 
 @JsonSerializable()
-class AgentModel {
+class CandidateModel {
   @JsonKey(name: "id")
   String? id;
   @JsonKey(name: "userID")
@@ -39,7 +38,7 @@ class AgentModel {
   @JsonKey(name: "finalAgreementStatus")
   String? finalAgreementStatus;
 
-  AgentModel({
+  CandidateModel({
     this.id,
     this.userId,
     this.firstName,
@@ -54,7 +53,7 @@ class AgentModel {
     this.finalAgreementStatus,
   });
 
-  AgentModel copyWith({
+  CandidateModel copyWith({
     String? id,
     String? userId,
     String? firstName,
@@ -68,7 +67,7 @@ class AgentModel {
     dynamic submissionDate,
     String? finalAgreementStatus,
   }) =>
-      AgentModel(
+      CandidateModel(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         firstName: firstName ?? this.firstName,
@@ -83,7 +82,7 @@ class AgentModel {
         finalAgreementStatus: finalAgreementStatus ?? this.finalAgreementStatus,
       );
 
-  factory AgentModel.fromJson(Map<String, dynamic> json) => _$AgentModelFromJson(json);
+  factory CandidateModel.fromJson(Map<String, dynamic> json) => _$CandidateModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AgentModelToJson(this);
+  Map<String, dynamic> toJson() => _$CandidateModelToJson(this);
 }

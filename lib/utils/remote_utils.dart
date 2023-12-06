@@ -9,6 +9,10 @@ dynamic getPersonUid(dynamic result) => result['uid'];
 
 dynamic getData(dynamic result) => result['data'];
 
+dynamic getCandidateModel(dynamic result) => result['candidate_model'];
+
+dynamic getIsMyCandidate(dynamic result) => result['is_my_candidate'];
+
 int getCode(dynamic result) => result['code'];
 
 

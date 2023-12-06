@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter/material.dart';
 
 enum SpinKitType { wave, circle }
 
@@ -15,13 +16,13 @@ class SpinKitIndicator extends StatelessWidget {
     switch (type) {
       case SpinKitType.wave:
         widget = const SpinKitWave(
-          color: Color(0xFFF4511E),
+          color: AclColors.greenMight,
           size: 50.0,
         );
         break;
       case SpinKitType.circle:
         widget = const SpinKitFadingCircle(
-          color: Color(0xFFF4511E),
+          color: AclColors.greenMight,
           size: 50.0,
         );
     }

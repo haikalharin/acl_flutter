@@ -2,11 +2,11 @@ part of 'home_page_bloc.dart';
 
 class HomePageState extends Equatable {
   final FormzSubmissionStatus submitStatus;
-  final List<AgentModel>? listAgentModel;
-  final List<AgentBeModel>? listAgentBeModel;
+  final List<CandidateModel>? listAgentModel;
+  final List<CandidateBeModel>? listAgentBeModel;
   final List<NotificationModel>? listNotify;
   final LoginModel? loginModel;
-  final AgentModel? agentModel;
+  final CandidateModel? agentModel;
   final String? errorMessage;
   final String? moveTo;
 
@@ -27,10 +27,10 @@ class HomePageState extends Equatable {
       [agentModel, listAgentModel, listNotify, submitStatus,loginModel];
 
   HomePageState copyWith({
-    AgentModel? agentModel,
+    CandidateModel? agentModel,
     LoginModel? loginModel,
-    List<AgentModel>? listAgentModel,
-    List<AgentBeModel>? listAgentBeModel,
+    List<CandidateModel>? listAgentModel,
+    List<CandidateBeModel>? listAgentBeModel,
     List<NotificationModel>? listNotify,
     String? moveTo,
     String? errorMessage,

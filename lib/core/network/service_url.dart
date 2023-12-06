@@ -5,4 +5,5 @@ class ServiceUrl {
   static String listBeAgent = "${subHost}aclopt/getCandidateReviewListAuth";
   static String listNotify = "${subHost}notification/getPushNotificationListAuth";
   static String masterData = "${subHost}startup/init-cores";
+  static String listTracking = "${subHost}restcandidate/getCandidateTracking";
 }

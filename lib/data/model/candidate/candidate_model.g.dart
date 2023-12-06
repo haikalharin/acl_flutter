@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'agent_model.dart';
+part of 'candidate_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AgentModel _$AgentModelFromJson(Map<String, dynamic> json) => AgentModel(
+CandidateModel _$CandidateModelFromJson(Map<String, dynamic> json) =>
+    CandidateModel(
       id: json['id'] as String?,
       userId: json['userID'] as String?,
       firstName: json['firstName'] as String?,
@@ -21,7 +22,7 @@ AgentModel _$AgentModelFromJson(Map<String, dynamic> json) => AgentModel(
       finalAgreementStatus: json['finalAgreementStatus'] as String?,
     );
 
-Map<String, dynamic> _$AgentModelToJson(AgentModel instance) =>
+Map<String, dynamic> _$CandidateModelToJson(CandidateModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'userID': instance.userId,

@@ -7,6 +7,7 @@
   "reload": "Reload",
   "note": "Note",
   "language": "Language",
+  "dataNotFound": "Data Not Found",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   }

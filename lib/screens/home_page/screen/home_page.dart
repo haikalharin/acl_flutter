@@ -1,15 +1,12 @@
-import 'package:acl_flutter/screens/home_page/list_notify_page.dart';
+import 'package:acl_flutter/screens/home_page/screen/list_notify_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../core/router/app_router.dart';
-import '../../core/router/routes.dart';
-import '../../di.dart';
-import '../../utils/acl_color.dart';
-import '../sidebar_page/sidebar_page.dart';
-import 'bloc/home_page_bloc.dart';
+import '../../../di.dart';
+import '../../../utils/acl_color.dart';
+import '../bloc/home_page_bloc.dart';
 import 'list_candidate_page.dart';
 
 class HomePage extends StatefulWidget {

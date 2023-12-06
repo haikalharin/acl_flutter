@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'agent_be_model.dart';
+part of 'candidate_be_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AgentBeModel _$AgentBeModelFromJson(Map<String, dynamic> json) => AgentBeModel(
+CandidateBeModel _$CandidateBeModelFromJson(Map<String, dynamic> json) =>
+    CandidateBeModel(
       id: json['id'] as int?,
       userId: json['userId'] as String?,
       startDate: json['startDate'] as String?,
@@ -22,7 +23,7 @@ AgentBeModel _$AgentBeModelFromJson(Map<String, dynamic> json) => AgentBeModel(
       isReview: json['isReview'] as String?,
     );
 
-Map<String, dynamic> _$AgentBeModelToJson(AgentBeModel instance) =>
+Map<String, dynamic> _$CandidateBeModelToJson(CandidateBeModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'userId': instance.userId,
