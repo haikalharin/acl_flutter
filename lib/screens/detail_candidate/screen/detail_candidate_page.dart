@@ -115,27 +115,24 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                         ),
                         // Divider(),
                         Flexible(
-                          child: ListView.builder(
-                            itemCount: state.listTrackModel?.length,
-                            // Replace with the actual number of items
-                            itemBuilder: (context, index) {
-                              return state.submitStatus.isInProgress ||
-                                      state.submitStatus.isInitial
-                                  ? const SpinKitIndicator(
-                                      type: SpinKitType.circle)
-                                  : state.submitStatus.isSuccess
-                                      ? state.listTrackModel!.isEmpty &&
-                                              !state.submitStatus.isInProgress
-                                          ? Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: Center(
-                                                  child: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .dataNotFound)))
-                                          : ListTile(
+                          child: state.submitStatus.isInProgress
+                              ? const SpinKitIndicator(type: SpinKitType.circle)
+                              : state.submitStatus.isSuccess
+                                  ? state.listTrackModel!.isEmpty &&
+                                          !state.submitStatus.isInProgress
+                                      ? Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: Center(
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .dataNotFound)))
+                                      : ListView.builder(
+                                          itemCount:
+                                              state.listTrackModel?.length,
+                                          // Replace with the actual number of items
+                                          itemBuilder: (context, index) {
+                                            return ListTile(
                                               leading: Container(
                                                 width: 50,
                                                 height: 50,
@@ -184,20 +181,19 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                                               onTap: () {
                                                 // Handle item tap
                                               },
-                                            )
-                                      : Stack(children: [
-                                          Center(
+                                            );
+                                          },
+                                        )
+                                  : Stack(children: [
+                                      Center(
+                                        child: Container(
+                                            margin: EdgeInsets.only(),
                                             child: Container(
-                                                margin: EdgeInsets.only(),
-                                                child: Container(
-                                                  child: Text(
-                                                      state.errorMessage ?? ''),
-                                                )),
-                                          )
-                                        ]);
-                              ;
-                            },
-                          ),
+                                              child: Text(
+                                                  state.errorMessage ?? ''),
+                                            )),
+                                      )
+                                    ]),
                         ),
                       ],
                     ),
