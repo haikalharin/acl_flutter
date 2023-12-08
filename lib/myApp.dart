@@ -1,4 +1,5 @@
 import 'package:acl_flutter/screens/add_candidate_page/bloc/add_candidate_page_bloc.dart';
+import 'package:acl_flutter/screens/detail_candidate/bloc/detail_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<HomePageBloc>(create: (context) => getIt<HomePageBloc>()),
         BlocProvider<AddCandidatePageBloc>(create: (context) => getIt<AddCandidatePageBloc>()),
         BlocProvider<LanguageCubit>(create: (context) => getIt<LanguageCubit>()),
+        BlocProvider<DetailCandidatePageBloc>(create: (context) => getIt<DetailCandidatePageBloc>()),
         BlocProvider<LoginPageBloc>(
             create: (context) => getIt<LoginPageBloc>()),
       ],
