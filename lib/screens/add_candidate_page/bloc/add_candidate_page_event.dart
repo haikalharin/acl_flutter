@@ -75,9 +75,8 @@ class CountryInputEvent extends AddCandidatePageEvent {
 
 class ProvinceInputEvent extends AddCandidatePageEvent {
   final AajicityMasterReference province;
-  final bool isClear;
 
-  ProvinceInputEvent(this.province,{this.isClear = false});
+  ProvinceInputEvent(this.province);
 }
 
 class CityInputEvent extends AddCandidatePageEvent {

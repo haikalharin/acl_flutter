@@ -143,6 +143,12 @@ class _DropDownGenderState extends State<DropDownGender> {
                         selectedItem = value;
                       });
                     },
+                    onClear: (){
+                      widget.onChanged(AajicityMasterReference());
+                      setState(() {
+                        selectedItem = AajicityMasterReference();
+                      });
+                    },
                     isExpanded: true,
                   ),
                 ),

@@ -144,6 +144,12 @@ class _DropDownRelationState extends State<DropDownRelation> {
                         selectedItem = value;
                       });
                     },
+                    onClear: (){
+                      widget.onChanged(AajicityMasterReference());
+                      setState(() {
+                        selectedItem = AajicityMasterReference();
+                      });
+                    },
                     isExpanded: true,
                   ),
                 ),

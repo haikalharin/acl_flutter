@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
-
 import '../../../data/model/login_model/login_model.dart';
 import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../sidebar_page/sidebar_page.dart';
@@ -18,7 +17,8 @@ class DropDownCity extends StatefulWidget {
       this.title,
       this.icon,
       this.errorText,
-      this.isMandatory = true, this.readOnly = false})
+      this.isMandatory = true,
+      this.readOnly = false})
       : super(key: key);
 
   final ValueChanged<CityMasterReference> onChanged;
@@ -98,15 +98,15 @@ class _DropDownCityState extends State<DropDownCity> {
                     items: widget.items
                         .map(
                           (item) => DropdownMenuItem<CityMasterReference>(
-                        value: item,
-                        child: Text(
-                          language == Language.indonesia
-                              ? item.longDescriptionInd ?? ''
-                              : item.longDescriptionEng ?? '',
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    )
+                            value: item,
+                            child: Text(
+                              language == Language.indonesia
+                                  ? item.longDescriptionInd ?? ''
+                                  : item.longDescriptionEng ?? '',
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        )
                         .toList(),
                     searchFn: (String keyword,
                         List<DropdownMenuItem<CityMasterReference>> items) {
@@ -119,13 +119,13 @@ class _DropDownCityState extends State<DropDownCity> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase())
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase()))) {
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -146,7 +146,12 @@ class _DropDownCityState extends State<DropDownCity> {
                         selectedItem = value;
                       });
                     },
-                    displayClearIcon: false,
+                    onClear: () {
+                      widget.onChanged(CityMasterReference());
+                      setState(() {
+                        selectedItem = CityMasterReference();
+                      });
+                    },
                     isExpanded: true,
                   ),
                 ),

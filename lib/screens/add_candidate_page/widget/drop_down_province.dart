@@ -147,7 +147,12 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                         selectedItem = value;
                       });
                     },
-                   displayClearIcon: false,
+                    onClear: (){
+                      widget.onChanged(AajicityMasterReference());
+                      setState(() {
+                        selectedItem = AajicityMasterReference();
+                      });
+                    },
                     isExpanded: true,
                   ),
                 ),

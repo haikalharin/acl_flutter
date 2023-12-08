@@ -64,7 +64,7 @@ class AddCandidatePageBloc extends Bloc<AddCandidatePageEvent, AddCandidatePageS
 
   Future<void> provinceInput(ProvinceInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
-    if(event.isClear){
+    if(event.province.id == 0||event.province.id == null){
       const provinceId = DropdownFieldValidator.pure();
       emit(state.copyWith(
         provinceId: provinceId,

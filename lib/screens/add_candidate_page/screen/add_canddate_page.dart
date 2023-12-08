@@ -266,11 +266,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           getIt<AddCandidatePageBloc>()
                               .add(ProvinceInputEvent(value));
                         },
-                        onClear: () {
-                          getIt<AddCandidatePageBloc>().add(ProvinceInputEvent(
-                              AajicityMasterReference(),
-                              isClear: true));
-                        },
                         items: state
                                 .masterDataModel
                                 ?.masterData
