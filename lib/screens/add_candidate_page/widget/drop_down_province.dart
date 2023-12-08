@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
-
 import '../../../data/model/login_model/login_model.dart';
 import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../sidebar_page/sidebar_page.dart';
@@ -13,15 +12,18 @@ class DropDownProvince extends StatefulWidget {
       {Key? key,
       required this.onChanged,
       required this.items,
+      this.onClear,
       this.initialItem,
       this.lable,
       this.title,
       this.icon,
       this.errorText,
-      this.isMandatory = true, this.isCheck =false})
+      this.isMandatory = true,
+      this.isCheck = false})
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
+  final Function? onClear;
   final List<AajicityMasterReference> items;
   final AajicityMasterReference? initialItem;
   final Widget? lable;
@@ -64,7 +66,7 @@ class _DropDownProvinceState extends State<DropDownProvince> {
             Container(
                 margin: EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
-                 widget.errorText != null ? widget.errorText!: '',
+                  widget.errorText != null ? widget.errorText! : '',
                   style: const TextStyle(
                     fontSize: 12.0,
                     color: AclColors.redAccent,
@@ -80,7 +82,8 @@ class _DropDownProvinceState extends State<DropDownProvince> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: widget.errorText != null ? 4 : 1,
-              color: widget.errorText != null ? AclColors.redText
+              color: widget.errorText != null
+                  ? AclColors.redText
                   : Colors.grey.shade300,
             ),
           ),
@@ -96,15 +99,15 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                     items: widget.items
                         .map(
                           (item) => DropdownMenuItem<AajicityMasterReference>(
-                        value: item,
-                        child: Text(
-                          language == Language.indonesia
-                              ? item.longDescriptionInd ?? ''
-                              : item.longDescriptionEng ?? '',
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    )
+                            value: item,
+                            child: Text(
+                              language == Language.indonesia
+                                  ? item.longDescriptionInd ?? ''
+                                  : item.longDescriptionEng ?? '',
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        )
                         .toList(),
                     searchFn: (String keyword,
                         List<DropdownMenuItem<AajicityMasterReference>> items) {
@@ -117,13 +120,13 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase())
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase()))) {
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -144,6 +147,7 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                         selectedItem = value;
                       });
                     },
+                   displayClearIcon: false,
                     isExpanded: true,
                   ),
                 ),

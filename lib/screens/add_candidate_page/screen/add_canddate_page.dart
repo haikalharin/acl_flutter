@@ -16,7 +16,7 @@ import '../../../utils/acl_color.dart';
 import '../bloc/add_candidate_page_bloc.dart';
 import '../widget/drop_down_country.dart';
 import '../widget/drop_down_gender.dart';
-import '../widget/drop_down_profession.dart';
+import '../widget/drop_down_occupation.dart';
 import '../widget/drop_down_province.dart';
 import '../widget/drop_down_relation.dart';
 
@@ -266,6 +266,11 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           getIt<AddCandidatePageBloc>()
                               .add(ProvinceInputEvent(value));
                         },
+                        onClear: () {
+                          getIt<AddCandidatePageBloc>().add(ProvinceInputEvent(
+                              AajicityMasterReference(),
+                              isClear: true));
+                        },
                         items: state
                                 .masterDataModel
                                 ?.masterData
@@ -273,7 +278,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 ?.province
                                 ?.masterReference ??
                             [],
-                        errorText: isCheck == true && state.provinceId!.isNotValid?'Mohon diisi':null,
+                        errorText:
+                            isCheck == true && state.provinceId!.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                       ),
                       const SizedBox(height: 8),
                       DropDownCity(
@@ -549,7 +557,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           onPressed: () {
                             if (formKey.currentState!.validate()) {}
                             setState(() {
-                              isCheck =true;
+                              isCheck = true;
                             });
                           },
                           child: Text("Selanjutnya".toCapital),

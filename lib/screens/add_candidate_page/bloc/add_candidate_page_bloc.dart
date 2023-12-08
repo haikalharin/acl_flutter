@@ -64,11 +64,19 @@ class AddCandidatePageBloc extends Bloc<AddCandidatePageEvent, AddCandidatePageS
 
   Future<void> provinceInput(ProvinceInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
-    final provinceId = DropdownFieldValidator.dirty(event.province.id??0);
-    emit(state.copyWith(
-      provinceId: provinceId,
-      province: event.province,
-    ));
+    if(event.isClear){
+      const provinceId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        provinceId: provinceId,
+        province: null,
+      ));
+    } else {
+      final provinceId = DropdownFieldValidator.dirty(event.province.id ?? 0);
+      emit(state.copyWith(
+        provinceId: provinceId,
+        province: event.province,
+      ));
+    }
   }
 
   Future<void> addAgentSubmitted(AddAgentSubmittedEvent event,

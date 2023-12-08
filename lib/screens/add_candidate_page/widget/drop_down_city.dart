@@ -146,6 +146,7 @@ class _DropDownCityState extends State<DropDownCity> {
                         selectedItem = value;
                       });
                     },
+                    displayClearIcon: false,
                     isExpanded: true,
                   ),
                 ),

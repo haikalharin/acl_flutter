@@ -155,6 +155,7 @@ class _DropDownCountryState extends State<DropDownCountry> {
                         initialItem = value;
                       });
                     },
+                    displayClearIcon: false,
                     isExpanded: true,
                   ),
                 ),

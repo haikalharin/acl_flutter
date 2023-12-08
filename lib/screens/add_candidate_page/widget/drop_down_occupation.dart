@@ -141,6 +141,7 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
                         selectedItem = value;
                       });
                     },
+                    displayClearIcon: false,
                     isExpanded: true,
                   ),
                 ),
