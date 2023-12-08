@@ -1,14 +1,15 @@
-import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
+
 import '../../../data/model/login_model/login_model.dart';
 import '../../../data/model/master_data_model/master_data_model.dart';
+import '../../sidebar_page/sidebar_page.dart';
 
-class DropDownCountry extends StatefulWidget {
-  const DropDownCountry(
+class DropDownRelation extends StatefulWidget {
+  const DropDownRelation(
       {Key? key,
       required this.onChanged,
       required this.items,
@@ -16,7 +17,8 @@ class DropDownCountry extends StatefulWidget {
       this.lable,
       this.title,
       this.icon,
-      this.errorText, this.readOnly = false})
+      this.errorText,
+      this.isMandatory = true, this.isCheck =false})
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
@@ -26,26 +28,15 @@ class DropDownCountry extends StatefulWidget {
   final String? title;
   final String? errorText;
   final Icon? icon;
-  final bool readOnly;
+  final bool isMandatory;
+  final bool isCheck;
 
   @override
-  State<DropDownCountry> createState() => _DropDownCountryState(initialItem);
+  State<DropDownRelation> createState() => _DropDownRelationState();
 }
 
-
-class _DropDownCountryState extends State<DropDownCountry> {
-  AajicityMasterReference? initialItem;
-
-  _DropDownCountryState(this.initialItem);
-  @override
-  void didUpdateWidget(DropDownCountry oldWidget) {
-    if (this.initialItem != widget.initialItem) {
-      setState(() {
-        this.initialItem = widget.initialItem;
-      });
-    }
-    super.didUpdateWidget(oldWidget);
-  }
+class _DropDownRelationState extends State<DropDownRelation> {
+  AajicityMasterReference? selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +64,7 @@ class _DropDownCountryState extends State<DropDownCountry> {
             Container(
                 margin: EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
-                  widget.errorText ?? '',
+                 widget.errorText != null ? widget.errorText!: '',
                   style: const TextStyle(
                     fontSize: 12.0,
                     color: AclColors.redAccent,
@@ -89,8 +80,7 @@ class _DropDownCountryState extends State<DropDownCountry> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: widget.errorText != null ? 4 : 1,
-              color: widget.errorText != null
-                  ? AclColors.redText
+              color: widget.errorText != null ? AclColors.redText
                   : Colors.grey.shade300,
             ),
           ),
@@ -102,20 +92,19 @@ class _DropDownCountryState extends State<DropDownCountry> {
                 child: Container(
                   // width: 200,
                   child: SearchChoices.single(
-                    readOnly: widget.readOnly,
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
                           (item) => DropdownMenuItem<AajicityMasterReference>(
-                            value: item,
-                            child: Text(
-                              language == Language.indonesia
-                                  ? item.longDescriptionInd ?? ''
-                                  : item.longDescriptionEng ?? '',
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
-                        )
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    )
                         .toList(),
                     searchFn: (String keyword,
                         List<DropdownMenuItem<AajicityMasterReference>> items) {
@@ -128,13 +117,13 @@ class _DropDownCountryState extends State<DropDownCountry> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase())
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase()))) {
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -146,13 +135,13 @@ class _DropDownCountryState extends State<DropDownCountry> {
                       }
                       return (ret);
                     },
-                    value: initialItem,
+                    value: selectedItem,
                     hint: "Pilih",
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
-                        initialItem = value;
+                        selectedItem = value;
                       });
                     },
                     isExpanded: true,

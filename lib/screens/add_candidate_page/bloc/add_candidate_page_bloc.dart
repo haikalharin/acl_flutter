@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:bloc/bloc.dart';
@@ -6,6 +7,7 @@ import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
 import '../../../common/secure.dart';
+import '../../../common/validators/mandatory_dropdown_validator.dart';
 import '../../../common/validators/mandatory_field_validator.dart';
 import 'package:equatable/equatable.dart';
 
@@ -22,8 +24,8 @@ class AddCandidatePageBloc extends Bloc<AddCandidatePageEvent, AddCandidatePageS
   final CandidateRepository candidateRepository;
   AddCandidatePageBloc({required this.candidateRepository}) : super(AddAgentPageInitial()) {
     on<FetchMasterDataEvent>(fetchMasterData);
-    on<UserNameInputEvent>(userNameInput);
-    on<PasswordInputEvent>(passwordInput);
+    on<FirstNameInputEvent>(userNameInput);
+    on<ProvinceInputEvent>(provinceInput);
     on<AddAgentSubmittedEvent>(addAgentSubmitted);
     on<AddCandidatePageInitialEvent>(addAgentPageInitial);
   }
@@ -52,19 +54,20 @@ class AddCandidatePageBloc extends Bloc<AddCandidatePageEvent, AddCandidatePageS
   }
 
 
-  Future<void> userNameInput(UserNameInputEvent event,
+  Future<void> userNameInput(FirstNameInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
-    final userName = MandatoryFieldValidator.dirty(event.userName);
+    final firstName = MandatoryFieldValidator.dirty(event.firstName);
     emit(state.copyWith(
-      firstName: userName,
+      firstName: firstName,
     ));
   }
 
-  Future<void> passwordInput(PasswordInputEvent event,
+  Future<void> provinceInput(ProvinceInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
-    final password = MandatoryFieldValidator.dirty(encrypt(event.password));
+    final provinceId = DropdownFieldValidator.dirty(event.province.id??0);
     emit(state.copyWith(
-      middleName: password,
+      provinceId: provinceId,
+      province: event.province,
     ));
   }
 

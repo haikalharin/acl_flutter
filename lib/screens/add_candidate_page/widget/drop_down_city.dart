@@ -1,14 +1,15 @@
-import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
+
 import '../../../data/model/login_model/login_model.dart';
 import '../../../data/model/master_data_model/master_data_model.dart';
+import '../../sidebar_page/sidebar_page.dart';
 
-class DropDownCountry extends StatefulWidget {
-  const DropDownCountry(
+class DropDownCity extends StatefulWidget {
+  const DropDownCity(
       {Key? key,
       required this.onChanged,
       required this.items,
@@ -16,36 +17,26 @@ class DropDownCountry extends StatefulWidget {
       this.lable,
       this.title,
       this.icon,
-      this.errorText, this.readOnly = false})
+      this.errorText,
+      this.isMandatory = true, this.readOnly = false})
       : super(key: key);
 
-  final ValueChanged<AajicityMasterReference> onChanged;
-  final List<AajicityMasterReference> items;
-  final AajicityMasterReference? initialItem;
+  final ValueChanged<CityMasterReference> onChanged;
+  final List<CityMasterReference> items;
+  final CityMasterReference? initialItem;
   final Widget? lable;
   final String? title;
   final String? errorText;
   final Icon? icon;
+  final bool isMandatory;
   final bool readOnly;
 
   @override
-  State<DropDownCountry> createState() => _DropDownCountryState(initialItem);
+  State<DropDownCity> createState() => _DropDownCityState();
 }
 
-
-class _DropDownCountryState extends State<DropDownCountry> {
-  AajicityMasterReference? initialItem;
-
-  _DropDownCountryState(this.initialItem);
-  @override
-  void didUpdateWidget(DropDownCountry oldWidget) {
-    if (this.initialItem != widget.initialItem) {
-      setState(() {
-        this.initialItem = widget.initialItem;
-      });
-    }
-    super.didUpdateWidget(oldWidget);
-  }
+class _DropDownCityState extends State<DropDownCity> {
+  CityMasterReference? selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -106,19 +97,19 @@ class _DropDownCountryState extends State<DropDownCountry> {
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
-                          (item) => DropdownMenuItem<AajicityMasterReference>(
-                            value: item,
-                            child: Text(
-                              language == Language.indonesia
-                                  ? item.longDescriptionInd ?? ''
-                                  : item.longDescriptionEng ?? '',
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
-                        )
+                          (item) => DropdownMenuItem<CityMasterReference>(
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    )
                         .toList(),
                     searchFn: (String keyword,
-                        List<DropdownMenuItem<AajicityMasterReference>> items) {
+                        List<DropdownMenuItem<CityMasterReference>> items) {
                       List<int> ret = [];
                       if (keyword.isNotEmpty) {
                         keyword.split(" ").forEach((k) {
@@ -128,13 +119,13 @@ class _DropDownCountryState extends State<DropDownCountry> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase())
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase()))) {
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -146,13 +137,13 @@ class _DropDownCountryState extends State<DropDownCountry> {
                       }
                       return (ret);
                     },
-                    value: initialItem,
+                    value: selectedItem,
                     hint: "Pilih",
                     searchHint: "Select one",
-                    onChanged: (AajicityMasterReference value) {
+                    onChanged: (CityMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
-                        initialItem = value;
+                        selectedItem = value;
                       });
                     },
                     isExpanded: true,

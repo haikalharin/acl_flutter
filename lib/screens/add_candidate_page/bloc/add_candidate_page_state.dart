@@ -5,6 +5,8 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   final MandatoryFieldValidator firstName;
   final MandatoryFieldValidator middleName;
   final MasterDataModel? masterDataModel;
+  final AajicityMasterReference? province;
+  final DropdownFieldValidator? provinceId;
   final String? moveTo;
   final bool checkedValueAAJI;
   final bool checkedValueAASI;
@@ -13,6 +15,8 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   final bool checkedValueMarriage;
 
   const AddCandidatePageState({
+    this.province,
+    this.provinceId = const DropdownFieldValidator.pure(),
     this.firstName = const MandatoryFieldValidator.pure(),
     this.middleName = const MandatoryFieldValidator.pure(),
     this.masterDataModel,
@@ -26,7 +30,8 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   });
 
   @override
-  List<Object?> get props => [firstName, middleName, submitStatus,masterDataModel];
+  List<Object?> get props =>
+      [firstName, middleName, submitStatus, masterDataModel,provinceId,province];
 
   @override
   List<FormzInput> get inputs {
@@ -45,6 +50,8 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     bool? checkedNeedValueAAUI,
     bool? checkedValueAAUI,
     bool? checkedValueMarriage,
+    AajicityMasterReference? province,
+    DropdownFieldValidator? provinceId,
     FormzSubmissionStatus? submitStatus,
   }) {
     return AddCandidatePageState(
@@ -57,6 +64,8 @@ class AddCandidatePageState extends Equatable with FormzMixin {
       checkedNeedValueAAUI: checkedNeedValueAAUI ?? this.checkedNeedValueAAUI,
       checkedValueAAUI: checkedValueAAUI ?? this.checkedValueAAUI,
       checkedValueMarriage: checkedValueMarriage ?? this.checkedValueMarriage,
+      province: province ?? this.province,
+      provinceId: provinceId ?? this.provinceId,
       submitStatus: submitStatus ?? this.submitStatus,
     );
   }

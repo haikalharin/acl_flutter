@@ -1,14 +1,15 @@
+
 import 'package:formz/formz.dart';
 
 enum DropdownValidationError { empty }
 
-class DropdownFieldValidator extends FormzInput<String, DropdownValidationError> {
-  const DropdownFieldValidator.pure() : super.pure('- PILIH -');
-  const DropdownFieldValidator.dirty([String value = '- PILIH -']) : super.dirty(value);
+class DropdownFieldValidator extends FormzInput<int, DropdownValidationError> {
+  const DropdownFieldValidator.pure() : super.pure(0);
+  const DropdownFieldValidator.dirty([int value = 0]) : super.dirty(value);
 
   @override
-  DropdownValidationError? validator(String value) {
-    if(value == '- PILIH -'){
+  DropdownValidationError? validator(int? value) {
+    if(value == null||value == 0){
       return DropdownValidationError.empty;
     } else {
       return null;

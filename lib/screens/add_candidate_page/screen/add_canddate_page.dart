@@ -1,4 +1,5 @@
 import 'package:acl_flutter/common/app_extension.dart';
+import 'package:acl_flutter/screens/add_candidate_page/widget/drop_down_city.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ import '../widget/drop_down_country.dart';
 import '../widget/drop_down_gender.dart';
 import '../widget/drop_down_profession.dart';
 import '../widget/drop_down_province.dart';
+import '../widget/drop_down_relation.dart';
 
 enum Mode { create, update }
 
@@ -38,6 +40,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   bool checkedNeedValueAAUI = false;
   bool checkedValueAAUI = false;
   bool checkedValueMarriage = false;
+  bool isCheck = false;
   var data = [
     LoginModel(name: 'adadada', uid: '1'),
     LoginModel(name: 'bccccc', uid: '2'),
@@ -51,6 +54,12 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   void initState() {
     getIt<AddCandidatePageBloc>().add(FetchMasterDataEvent());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    getIt<AddCandidatePageBloc>().add(AddCandidatePageInitialEvent());
+    super.dispose();
   }
 
   @override
@@ -234,12 +243,16 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           color: AclColors.greyDarkFontColor,
                         ),
                         onChanged: (value) {},
-                        items: state
-                                .masterDataModel
-                                ?.masterData
-                                ?.masterReferenceAll
-                                ?.country
-                                ?.masterReference ??
+                        readOnly: true,
+                        initialItem: state.masterDataModel?.masterData
+                            ?.masterReferenceAll?.country?.masterReference
+                            ?.where((element) => element.id == 744)
+                            .toList()
+                            .first,
+                        items: state.masterDataModel?.masterData
+                                ?.masterReferenceAll?.country?.masterReference
+                                ?.where((element) => element.id == 744)
+                                .toList() ??
                             [],
                       ),
                       const SizedBox(height: 8),
@@ -249,17 +262,37 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           Icons.account_balance_rounded,
                           color: AclColors.greyDarkFontColor,
                         ),
-                        onChanged: (AajicityMasterReference value) {},
+                        onChanged: (AajicityMasterReference value) {
+                          getIt<AddCandidatePageBloc>()
+                              .add(ProvinceInputEvent(value));
+                        },
                         items: state
-                            .masterDataModel
-                            ?.masterData
-                            ?.masterReferenceAll
-                            ?.province
-                            ?.masterReference ??
+                                .masterDataModel
+                                ?.masterData
+                                ?.masterReferenceAll
+                                ?.province
+                                ?.masterReference ??
+                            [],
+                        errorText: isCheck == true && state.provinceId!.isNotValid?'Mohon diisi':null,
+                      ),
+                      const SizedBox(height: 8),
+                      DropDownCity(
+                        title: 'Kota',
+                        readOnly: state.provinceId!.isValid ? false : true,
+                        icon: const Icon(
+                          Icons.account_balance_rounded,
+                          color: AclColors.greyDarkFontColor,
+                        ),
+                        onChanged: (CityMasterReference value) {},
+                        items: state.masterDataModel?.masterData
+                                ?.masterReferenceAll?.city?.masterReference
+                                ?.where((element) =>
+                                    element.referTo == state.provinceId?.value)
+                                .toList() ??
                             [],
                       ),
                       const SizedBox(height: 8),
-                      DropDownProfession(
+                      DropDownOccupation(
                         title: 'Profesi',
                         icon: const Icon(
                           Icons.work,
@@ -267,11 +300,11 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                         ),
                         onChanged: (CheckingstatusMasterReference value) {},
                         items: state
-                            .masterDataModel
-                            ?.masterData
-                            ?.masterReferenceAll
-                            ?.occupationtype
-                            ?.masterReference ??
+                                .masterDataModel
+                                ?.masterData
+                                ?.masterReferenceAll
+                                ?.occupationtype
+                                ?.masterReference ??
                             [],
                       ),
                       const SizedBox(height: 16),
@@ -489,16 +522,12 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           color: AclColors.greyDarkFontColor,
                         ),
                         onChanged: (AajicityMasterReference value) {},
-                        items: state
-                            .masterDataModel
-                            ?.masterData
-                            ?.masterReferenceAll
-                            ?.gender
-                            ?.masterReference ??
+                        items: state.masterDataModel?.masterData
+                                ?.masterReferenceAll?.gender?.masterReference ??
                             [],
                       ),
                       const SizedBox(height: 8),
-                      DropDownProvince(
+                      DropDownRelation(
                         title: 'Hubungan Dengan Kandidat',
                         isMandatory: checkedValueMarriage,
                         icon: const Icon(
@@ -507,11 +536,11 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                         ),
                         onChanged: (AajicityMasterReference value) {},
                         items: state
-                            .masterDataModel
-                            ?.masterData
-                            ?.masterReferenceAll
-                            ?.relation
-                            ?.masterReference ??
+                                .masterDataModel
+                                ?.masterData
+                                ?.masterReferenceAll
+                                ?.relation
+                                ?.masterReference ??
                             [],
                       ),
                       SizedBox(
@@ -519,6 +548,9 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {}
+                            setState(() {
+                              isCheck =true;
+                            });
                           },
                           child: Text("Selanjutnya".toCapital),
                         ),

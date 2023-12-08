@@ -7,8 +7,8 @@ import '../../../data/model/login_model/login_model.dart';
 import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../sidebar_page/sidebar_page.dart';
 
-class DropDownProfession extends StatefulWidget {
-  const DropDownProfession(
+class DropDownOccupation extends StatefulWidget {
+  const DropDownOccupation(
       {Key? key,
       required this.onChanged,
       required this.items,
@@ -28,10 +28,10 @@ class DropDownProfession extends StatefulWidget {
   final Icon? icon;
 
   @override
-  State<DropDownProfession> createState() => _DropDownProfessionState();
+  State<DropDownOccupation> createState() => _DropDownOccupationState();
 }
 
-class _DropDownProfessionState extends State<DropDownProfession> {
+class _DropDownOccupationState extends State<DropDownOccupation> {
   CheckingstatusMasterReference? selectedItem;
 
   @override

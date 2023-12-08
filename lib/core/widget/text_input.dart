@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/acl_color.dart';
 
-class TextInput extends StatelessWidget {
+class TextInput extends StatefulWidget {
   const TextInput({
     Key? key,
     this.initialValue,
@@ -38,29 +38,38 @@ class TextInput extends StatelessWidget {
   final TextInputType? keyboardType;
 
   @override
+  State<TextInput> createState() => _TextInputState();
+}
+
+class _TextInputState extends State<TextInput> {
+  String? initialValue;
+
+  _TextInputState();
+
+
+  @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: title,
+      title: widget.title,
       subtitle: TextFormField(
-        focusNode: focusNode,
-        keyboardType: keyboardType,
-        controller: controller,
-        enabled: enabled ?? true,
+        focusNode: widget.focusNode,
+        keyboardType: widget.keyboardType,
+        controller: widget.controller,
+        enabled: widget.enabled ?? true,
         textInputAction: TextInputAction.next,
-        autovalidateMode: autoValidateMode,
+        autovalidateMode: widget.autoValidateMode,
         cursorColor: Colors.grey,
-        initialValue: initialValue,
-        maxLines: obscureText != false || obscureText != null ? 1 : maxLine,
-        obscureText: obscureText ?? false,
+        maxLines: widget.obscureText != false || widget.obscureText != null ? 1 : widget.maxLine,
+        obscureText: widget.obscureText ?? false,
         decoration: InputDecoration(
-            hintText: hint,
+            hintText: widget.hint,
             label: Wrap(
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    label ?? Container(),
-                    isMandatory?Container(
+                    widget.label ?? Container(),
+                    widget.isMandatory?Container(
                         margin: EdgeInsets.only(left: 5, bottom: 5),
                         child: const Text(
                           '*',
@@ -73,9 +82,9 @@ class TextInput extends StatelessWidget {
                 ),
               ],
             ),
-            prefixIcon: icon),
-        onChanged: onChanged,
-        validator: validator,
+            prefixIcon: widget.icon),
+        onChanged:widget.onChanged,
+        validator: widget.validator,
       ),
     );
   }
