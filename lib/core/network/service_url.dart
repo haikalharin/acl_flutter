@@ -6,4 +6,5 @@ class ServiceUrl {
   static String listNotify = "${subHost}notification/getPushNotificationListAuth";
   static String masterData = "${subHost}startup/init-cores";
   static String listTracking = "${subHost}restcandidate/getCandidateTracking";
+  static String addRegisterCandidate = "${subHost}restcandidate/registrationCandidateStart";
 }

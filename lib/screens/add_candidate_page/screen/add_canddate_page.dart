@@ -274,7 +274,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 ?.masterReference ??
                             [],
                         errorText:
-                            isCheck == true && state.provinceId!.isNotValid
+                            isCheck == true && state.provinceId.isNotValid
                                 ? 'Mohon diisi'
                                 : null,
                       ),
@@ -286,13 +286,19 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           Icons.account_balance_rounded,
                           color: AclColors.greyDarkFontColor,
                         ),
-                        onChanged: (CityMasterReference value) {},
+                        onChanged: (CityMasterReference value) { getIt<AddCandidatePageBloc>()
+                            .add(CityInputEvent(value));},
                         items: state.masterDataModel?.masterData
                                 ?.masterReferenceAll?.city?.masterReference
                                 ?.where((element) =>
                                     element.referTo == state.provinceId?.value)
                                 .toList() ??
                             [],
+                        errorText:
+                        isCheck == true && state.cityId.isNotValid
+                            ? 'Mohon diisi'
+                            : null,
+
                       ),
                       const SizedBox(height: 8),
                       DropDownOccupation(

@@ -11,10 +11,12 @@ import '../../../core/network/api_result.dart';
 import '../../../core/network/dio_exception.dart';
 import '../../../core/repository/repository_helper.dart';
 
+import '../../api/candidate/add_register_candidate_api.dart';
 import '../../api/candidate/candiate_be_api.dart';
 import '../../api/candidate/candidate_api.dart';
 import '../../api/candidate/tracking_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';
+import '../../model/candidate/request_candidate_model.dart';
 import '../../model/tracking_model/tracking_model.dart';
 
 class CandidateRepository with RepositoryHelper<CandidateModel> {
@@ -22,12 +24,14 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
   final CandidateBeApi candidateBeApi;
   final MasterDataApi masterDataApi;
   final TrackingCandidateApi trackingCandidateApi;
+  final AddRegisterCandidateApi addRegisterCandidateApi;
 
   const CandidateRepository({
     required this.trackingCandidateApi,
     required this.candidateApi,
     required this.candidateBeApi,
     required this.masterDataApi,
+    required this.addRegisterCandidateApi,
   });
 
   Future<ApiResult<ResponseModel<CandidateModel>>> fetchListMyAgent(
@@ -70,6 +74,19 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     try {
       final ResponseModel<MasterDataModel> items =
           await masterDataApi.fetchMasterData();
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      var data = e;
+      print(data);
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+
+  Future<ApiResult<ResponseModel<CandidateModel>>> addRegisterCandidat(RequestCandidateModel requestCandidateModel) async {
+    try {
+      final ResponseModel<CandidateModel> items =
+      await addRegisterCandidateApi.addRegisterCandidate(requestCandidateModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;

@@ -1,4 +1,5 @@
 import 'package:acl_flutter/core/network/dio_client.dart';
+import 'package:acl_flutter/data/api/candidate/add_register_candidate_api.dart';
 import 'package:acl_flutter/data/api/comment/comment_api.dart';
 import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
 import 'package:acl_flutter/data/api/notify/notify_api.dart';
@@ -80,6 +81,10 @@ Future<void> init() async {
   getIt.registerLazySingleton<TrackingCandidateApi>(
       () => TrackingCandidateApi(dioClient: getIt<DioClient>()));
 
+  // AddRegisterCandidate api
+  getIt.registerLazySingleton<AddRegisterCandidateApi>(
+      () => AddRegisterCandidateApi(dioClient: getIt<DioClient>()));
+
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),
@@ -110,7 +115,8 @@ Future<void> init() async {
         candidateApi: getIt<CandidateApi>(),
         candidateBeApi: getIt<CandidateBeApi>(),
         masterDataApi: getIt<MasterDataApi>(),
-        trackingCandidateApi: getIt<TrackingCandidateApi>()),
+        trackingCandidateApi: getIt<TrackingCandidateApi>(),
+        addRegisterCandidateApi: getIt<AddRegisterCandidateApi>()),
   );
 
   // Agent repository
@@ -157,6 +163,6 @@ Future<void> init() async {
       AddCandidatePageBloc(candidateRepository: getIt<CandidateRepository>()));
 
   //detail candidate Bloc
-  getIt.registerLazySingleton(() =>
-      DetailCandidatePageBloc(candidateRepository: getIt<CandidateRepository>()));
+  getIt.registerLazySingleton(() => DetailCandidatePageBloc(
+      candidateRepository: getIt<CandidateRepository>()));
 }

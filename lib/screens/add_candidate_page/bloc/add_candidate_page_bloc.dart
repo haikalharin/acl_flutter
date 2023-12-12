@@ -9,7 +9,10 @@ import '../../../common/validators/mandatory_dropdown_validator.dart';
 import '../../../common/validators/mandatory_field_validator.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../core/local_storage/secure_storage/secure_storage.dart';
 import '../../../core/router/routes.dart';
+import '../../../data/model/candidate/request_candidate_model.dart';
+import '../../../data/model/login_model/login_model.dart';
 import '../../../data/repository/candidate/candidate_repository.dart';
 
 part 'add_candidate_page_event.dart';
@@ -358,27 +361,46 @@ class AddCandidatePageBloc
 
     Future.delayed(const Duration(seconds: 2));
     if (state.isValid) {
-      // try {
-      //   final result = await candidateRepository.(
-      //       userName: userName.value, password: password.value);
-      //   result.when(success: (response) {
-      //     SecureStorage().setUser(AddAgentModel.fromJson(response.data));
-      //     SecureStorage()
-      //         .setToken(response.headers.map['Authorization']?.first ?? '');
-      //     emit(state.copyWith(
-      //         userName: userName,
-      //         password: password,
-      //         moveTo: Routes.userList,
-      //         submitStatus: FormzSubmissionStatus.success));
-      //   }, failure: (error) {
-      //     emit(state.copyWith(
-      //         submitStatus: FormzSubmissionStatus.failure,
-      //         userName: userName,
-      //         password: password));
-      //   });
-      // } catch (error) {
-      //   print(error);
-      // }
+      try {
+        LoginModel loginModel = await SecureStorage().getUser();
+        final result = await candidateRepository
+            .addRegisterCandidat(RequestCandidateModel(
+          firstName: state.firstName.value,
+          middleName: state.middleName.value,
+          lastName: state.lastName.value,
+          dob: state.dob.value,
+          address1: state.address.value,
+          address2: state.rtRw.value,
+          address3: state.kecKel.value,
+          city: state.cityId.value.toString(),
+          province: state.provinceId.value.toString(),
+          zipCode: state.postalCode.value.toString(),
+          country: state.countryId.value.toString(),
+          officeCode: state.occupationId.value.toString(),
+          officeCity: state.occupation?.longDescriptionInd??'',
+          leaderName: loginModel.name??'',
+          leaderAgentCode: loginModel.uid??'',
+          spouseIdCardNo: state.identityNoPartner.value,
+          idCardNo: state.identityNo.value,
+          occupation: state.occupationId.value.toString(),
+          occupationOther: '',
+          aajiNo: state.noLicenceAAJI.value,
+          aajiActiveFlag: state.checkedValueAAJI.toString(),
+          aasiNo: state.noLicenceAASI.value,
+          aasiActiveFlag: state.checkedValueAASI.toString(),
+          aauiNo: state.noLicenceAAUI.value,
+          aauiActiveFlag: state.checkedValueAAJI.toString(),
+        ));
+        result.when(success: (response) {
+          emit(state.copyWith(
+              moveTo: Routes.userList,
+              submitStatus: FormzSubmissionStatus.success));
+        }, failure: (error) {
+          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+        });
+      } catch (error) {
+        print(error);
+      }
     }
   }
 }
