@@ -37,10 +37,28 @@ class IdentityNoInputEvent extends AddCandidatePageEvent {
   IdentityNoInputEvent(this.identityNo);
 }
 
+class IdentityImageInputEvent extends AddCandidatePageEvent {
+  final String identityImage;
+
+  IdentityImageInputEvent(this.identityImage);
+}
+
+class IdentitySelfieImageInputEvent extends AddCandidatePageEvent {
+  final String identitySelfieImage;
+
+  IdentitySelfieImageInputEvent(this.identitySelfieImage);
+}
+
 class KkNoInputEvent extends AddCandidatePageEvent {
   final String kkNo;
 
   KkNoInputEvent(this.kkNo);
+}
+
+class KkImageInputEvent extends AddCandidatePageEvent {
+  final String kkImage;
+
+  KkImageInputEvent(this.kkImage);
 }
 
 class AddressInputEvent extends AddCandidatePageEvent {
@@ -103,6 +121,12 @@ class AajiNoInputEvent extends AddCandidatePageEvent {
   AajiNoInputEvent(this.aajiNo);
 }
 
+class AajiImageInputEvent extends AddCandidatePageEvent {
+  final String aajiImage;
+
+  AajiImageInputEvent(this.aajiImage);
+}
+
 class AasiCheckedInputEvent extends AddCandidatePageEvent {
   final bool aasiChecked;
 
@@ -115,6 +139,12 @@ class AasiNoInputEvent extends AddCandidatePageEvent {
   AasiNoInputEvent(this.aasiNo);
 }
 
+class AasiImageInputEvent extends AddCandidatePageEvent {
+  final String aasiImage;
+
+  AasiImageInputEvent(this.aasiImage);
+}
+
 class AauiCheckedInputEvent extends AddCandidatePageEvent {
   final bool aauiChecked;
 
@@ -125,6 +155,12 @@ class AauiNoInputEvent extends AddCandidatePageEvent {
   final String aauiNo;
 
   AauiNoInputEvent(this.aauiNo);
+}
+
+class AauiImageInputEvent extends AddCandidatePageEvent {
+  final String aauiImage;
+
+  AauiImageInputEvent(this.aauiImage);
 }
 
 class MarriedCheckedInputEvent extends AddCandidatePageEvent {

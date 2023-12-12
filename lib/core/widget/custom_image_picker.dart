@@ -1,5 +1,5 @@
-import 'dart:io';
-
+import 'dart:convert';
+import 'dart:io' as io;
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,7 +27,6 @@ class CustomImagePicker extends StatefulWidget {
 }
 
 class _CustomImagePickerState extends State<CustomImagePicker> {
-  final ImagePicker _picker = ImagePicker();
   String? _selectedImage;
 
   @override
@@ -37,13 +36,6 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     _selectedImage = widget.initialImage?.path;
   }
 
-  Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _selectedImage = image?.path;
-    });
-    widget.onImagePicked(image!.path);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +90,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                             : Colors.grey.shade300,),
                       image:  _selectedImage != null
                           ? DecorationImage(
-                          image: FileImage(File(_selectedImage ?? '')),
+                          image: FileImage(io.File(_selectedImage ?? '')),
                           fit: BoxFit.fill):null),
                 ),
           const SizedBox(height: 5),
@@ -197,10 +189,13 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         CropAspectRatioPreset.ratio16x9,
       ]);
       if (croppedFile != null) {
+        final bytes = io.File(croppedFile.path).readAsBytesSync();
+        String base64Image = base64Encode(bytes);
         setState(() {
-          _selectedImage = croppedFile.path;
+          _selectedImage = croppedFile.path
+          ;
         });
-        widget.onImagePicked(croppedFile.path);
+        widget.onImagePicked(base64Image);
       }
     }
   }
