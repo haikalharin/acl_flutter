@@ -165,10 +165,13 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         CropAspectRatioPreset.ratio16x9,
       ]);
       if (croppedFile != null) {
+        final bytes = io.File(croppedFile.path).readAsBytesSync();
+        String base64Image = base64Encode(bytes);
         setState(() {
-          _selectedImage = croppedFile.path;
+          _selectedImage = croppedFile.path
+          ;
         });
-        widget.onImagePicked(croppedFile.path);
+        widget.onImagePicked(base64Image);
       }
     }
   }

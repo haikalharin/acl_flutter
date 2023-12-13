@@ -27,7 +27,38 @@ class AddCandidatePageBloc
       : super(AddAgentPageInitial()) {
     on<FetchMasterDataEvent>(fetchMasterData);
     on<FirstNameInputEvent>(firstNameInput);
+    on<MiddleNameInputEvent>(middleNameInput);
+    on<LastNameInputEvent>(lastNameInput);
+    on<DobInputEvent>(dobInput);
+    on<IdentityNoInputEvent>(identityNoInput);
+    on<IdentityImageInputEvent>(identityImageInput);
+    on<IdentitySelfieImageInputEvent>(identitySelfieImageInput);
+    on<KkNoInputEvent>(kkNoInput);
+    on<KkImageInputEvent>(kkImageInput);
+    on<AddressInputEvent>(addressInput);
+    on<RtRwInputEvent>(rtRwInput);
+    on<KecKelInputEvent>(kecKelInput);
+    on<PostalCodeInputEvent>(postalCodeInput);
+    on<CountryInputEvent>(countryInput);
     on<ProvinceInputEvent>(provinceInput);
+    on<CityInputEvent>(cityInput);
+    on<AajiCheckedInputEvent>(aajiCheckedInput);
+    on<AajiNoInputEvent>(noLicenceAAJIInput);
+    on<AajiImageInputEvent>(imageLicenceAAJIInput);
+    on<AasiCheckedInputEvent>(aasiCheckedInput);
+    on<AasiNoInputEvent>(noLicenceAASIInput);
+    on<AasiImageInputEvent>(imageLicenceAASIInput);
+    on<AauiCheckedInputEvent>(aauiCheckedInput);
+    on<AauiNoInputEvent>(noLicenceAAUIInput);
+    on<AauiImageInputEvent>(imageLicenceAAUIInput);
+    on<MarriedCheckedInputEvent>(marriedCheckedInputEvent);
+    on<FirstNamePartnerInputEvent>(firstNamePartnerInput);
+    on<MiddleNamePartnerInputEvent>(middleNamePartnerInput);
+    on<LastNamePartnerInputEvent>(lastNamePartnerInput);
+    on<DobPartnerInputEvent>(dobPartnerInput);
+    on<PartnerIdentityNoInputEvent>(partnerIdentityNoInput);
+    on<GenderPartnerInputEvent>(genderPartnerInput);
+    on<RelationPartnerInputEvent>(relationPartnerInput);
     on<AddAgentSubmittedEvent>(addAgentSubmitted);
     on<AddCandidatePageInitialEvent>(addAgentPageInitial);
   }
@@ -353,6 +384,34 @@ class AddCandidatePageBloc
         relation: event.relation,
       ));
     }
+  }
+
+  Future<void> aajiCheckedInput(AajiCheckedInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueAAJI: event.aajiChecked,
+    ));
+  }
+
+  Future<void> aasiCheckedInput(AasiCheckedInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueAASI: event.aasiChecked,
+    ));
+  }
+
+  Future<void> aauiCheckedInput(AauiCheckedInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueAAUI: event.aauiChecked,
+    ));
+  }
+
+  Future<void> marriedCheckedInputEvent(MarriedCheckedInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueMarriage: event.marriedChecked,
+    ));
   }
 
   Future<void> addAgentSubmitted(
