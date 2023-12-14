@@ -4,12 +4,27 @@ part of 'home_page_bloc.dart';
 abstract class HomePageEvent {}
 
 class FetchListMyAgentEvent extends HomePageEvent {
-  FetchListMyAgentEvent({this.filter = 0});
+  FetchListMyAgentEvent({
+    this.filter = 0,
+    this.isSearch = false,
+    this.keyword,
+  });
+
   final int? filter;
+  final bool? isSearch;
+  final String? keyword;
 }
+
 class FetchListBeAgentEvent extends HomePageEvent {
-  FetchListBeAgentEvent({this.filter = 0});
+  FetchListBeAgentEvent({
+    this.filter = 0,
+    this.isSearch = false,
+    this.keyword,
+  });
+
   final int? filter;
+  final bool? isSearch;
+  final String? keyword;
 }
 
 class FetchListNotifyEvent extends HomePageEvent {

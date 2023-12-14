@@ -17,8 +17,9 @@ enum EnvName { dev, staging, prod }
 
 class ListCandidatePage extends StatefulWidget {
   final bool isMyCandidate;
+  final TextEditingController searchTextController;
 
-  ListCandidatePage({super.key, required this.isMyCandidate});
+  ListCandidatePage({super.key, required this.isMyCandidate, required this.searchTextController});
 
   @override
   State<ListCandidatePage> createState() => _ListCandidatePageState();
@@ -43,22 +44,90 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
       listener: (context, state) {},
       child: BlocBuilder<HomePageBloc, HomePageState>(
         builder: (context, state) {
-          return state.submitStatus.isInProgress || state.submitStatus.isInitial
-              ? const SpinKitIndicator(type: SpinKitType.circle)
-              : state.submitStatus.isSuccess
-                  ? state.listAgentModel!.isEmpty &&
-                          !state.submitStatus.isInProgress
-                      ? Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Center(
-                              child: Text(
-                                  AppLocalizations.of(context)!.dataNotFound)))
-                      : Column(
+          return Column(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
                           children: [
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 8),
+                              child: TextFormField(
+                                controller: widget.searchTextController,
+                                textInputAction: TextInputAction.search,
+                                onFieldSubmitted: (keyWord) {
+                                  if (widget.isMyCandidate) {
+                                    getIt<HomePageBloc>().add(FetchListMyAgentEvent(isSearch: true,keyword:widget.searchTextController.text ));
+                                  } else {
+                                    getIt<HomePageBloc>().add(FetchListBeAgentEvent(isSearch: true,keyword:widget.searchTextController.text ));
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  prefixIconConstraints:
+                                  BoxConstraints(maxHeight: 35, maxWidth: 35),
+                                  prefixText: '',
+                                  prefixIcon: const Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child: Icon(
+                                      Icons.search,
+                                      color: Colors.deepPurple,
+                                    ),
+                                  ),
+                                  suffixIconConstraints:
+                                  BoxConstraints(maxWidth: 40, maxHeight: 21),
+                                  suffixIcon: InkWell(
+                                    onTap: () {
+                                      widget.searchTextController.clear();
+                                      if (widget.isMyCandidate) {
+                                        getIt<HomePageBloc>().add(FetchListMyAgentEvent());
+                                      } else {
+                                        getIt<HomePageBloc>().add(FetchListBeAgentEvent());
+                                      }
+                                    },
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                          color: Colors.deepPurple, shape: BoxShape.circle),
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  contentPadding: EdgeInsets.only(top: 5, left: 20, right: 20),
+                                  hintText: "Find by name...",
+                                  fillColor: Colors.white,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(
+                                      color: Colors.blue,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Expanded(
-                              child: Center(
+                              child: state.submitStatus.isInProgress || state.submitStatus.isInitial
+                                  ? const SpinKitIndicator(type: SpinKitType.circle)
+                                  : state.submitStatus.isSuccess
+                                  ? state.listAgentModel!.isEmpty &&
+                                  !state.submitStatus.isInProgress
+                                  ? Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                      child: Text(
+                                          AppLocalizations.of(context)!.dataNotFound)))
+                                  : Center(
                                   child: ListView.builder(
                                 itemCount: widget.isMyCandidate
                                     ? state.listAgentModel?.length
@@ -116,6 +185,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                     },
                                     child: Column(
                                       children: [
+
                                         index == 0 ? Container() : Divider(),
                                         ListTile(
                                           leading: const CircleAvatar(
@@ -155,7 +225,15 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                     ),
                                   );
                                 },
-                              )),
+                              )): Stack(children: [
+                                Center(
+                                  child: Container(
+                                      margin: EdgeInsets.only(),
+                                      child: Container(
+                                        child: Text(state.errorMessage ?? ''),
+                                      )),
+                                )
+                              ]),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
@@ -279,16 +357,8 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                               ),
                             ),
                           ],
-                        )
-                  : Stack(children: [
-                      Center(
-                        child: Container(
-                            margin: EdgeInsets.only(),
-                            child: Container(
-                              child: Text(state.errorMessage ?? ''),
-                            )),
-                      )
-                    ]);
+                        );
+
         },
       ),
     );

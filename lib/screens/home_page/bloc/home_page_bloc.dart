@@ -22,7 +22,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   final CandidateRepository agentRepository;
   final NotificationRepository notificationRepository;
 
-  HomePageBloc({required this.agentRepository,required this.notificationRepository}) : super(const HomePageState()) {
+  HomePageBloc(
+      {required this.agentRepository, required this.notificationRepository})
+      : super(const HomePageState()) {
     on<FetchListMyAgentEvent>(fetchListAgent);
     on<FetchListBeAgentEvent>(fetchListBeAgent);
     on<FetchListNotifyEvent>(fetchListNotify);
@@ -34,17 +36,15 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     try {
       LoginModel loginModel = await SecureStorage().getUser();
-      if(loginModel.uid!.isNotEmpty){
+      if (loginModel.uid!.isNotEmpty) {
         emit(state.copyWith(
-            loginModel: loginModel,
+          loginModel: loginModel,
         ));
       }
     } catch (error) {
       print(error);
     }
   }
-
-
 
   Future<void> fetchListAgent(
       FetchListMyAgentEvent event, Emitter<HomePageState> emit) async {
@@ -55,21 +55,35 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
           leaderCode: loginModel.uid ?? '');
       result.when(success: (response) {
         List<CandidateModel> listAgent = response.data;
-        if(event.filter == 1){
-         listAgent.sort((a, b) => (a.firstName??'').compareTo(b.firstName??''));
-        }else if(event.filter == 2){
-          listAgent.sort((a, b) => (b.firstName??'').compareTo(a.firstName??''));
-        }else if(event.filter == 3){
-          listAgent.sort((a, b) => (b.createDate??'').compareTo(a.createDate??''));
-        }else if(event.filter == 4){
-          listAgent.sort((a, b) => (b.submissionDate??'').compareTo(a.submissionDate??''));
+        if (event.filter == 1) {
+          listAgent
+              .sort((a, b) => (a.firstName ?? '').compareTo(b.firstName ?? ''));
+        } else if (event.filter == 2) {
+          listAgent
+              .sort((a, b) => (b.firstName ?? '').compareTo(a.firstName ?? ''));
+        } else if (event.filter == 3) {
+          listAgent.sort(
+              (a, b) => (b.createDate ?? '').compareTo(a.createDate ?? ''));
+        } else if (event.filter == 4) {
+          listAgent.sort((a, b) =>
+              (b.submissionDate ?? '').compareTo(a.submissionDate ?? ''));
+        }
+
+        if (event.isSearch == true) {
+          listAgent = listAgent
+              .where((o) =>
+                  ("${o.firstName ?? ''} ${o.middleName ?? ''} ${o.lastName ?? ''}")
+                      .toLowerCase()
+                      .contains((event.keyword ?? '').toLowerCase()))
+              .toList();
         }
         emit(state.copyWith(
             listAgentModel: listAgent,
             moveTo: Routes.homePage,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
-        emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
+        emit(state.copyWith(
+            submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
       print(error);
@@ -85,20 +99,34 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
           leaderCode: loginModel.uid ?? '');
       result.when(success: (response) {
         List<CandidateBeModel> listAgent = response.data;
-        if(event.filter == 1){
-          listAgent.sort((a, b) => (a.firstName??'').compareTo(b.firstName??''));
-        }else if(event.filter == 2){
-          listAgent.sort((a, b) => (b.firstName??'').compareTo(a.firstName??''));
-        } else if(event.filter == 3){
-          listAgent.sort((a, b) => (a.startDate??'').compareTo(b.startDate??''));
-        }else if(event.filter == 4){
-          listAgent.sort((a, b) => (a.reviewDate??'').compareTo(b.reviewDate??''));
+        if (event.filter == 1) {
+          listAgent
+              .sort((a, b) => (a.firstName ?? '').compareTo(b.firstName ?? ''));
+        } else if (event.filter == 2) {
+          listAgent
+              .sort((a, b) => (b.firstName ?? '').compareTo(a.firstName ?? ''));
+        } else if (event.filter == 3) {
+          listAgent
+              .sort((a, b) => (a.startDate ?? '').compareTo(b.startDate ?? ''));
+        } else if (event.filter == 4) {
+          listAgent.sort(
+              (a, b) => (a.reviewDate ?? '').compareTo(b.reviewDate ?? ''));
+        }
+
+        if (event.isSearch == true) {
+          listAgent = listAgent
+              .where((o) =>
+                  ("${o.firstName ?? ''} ${o.middleName ?? ''} ${o.lastName ?? ''}")
+                      .toLowerCase()
+                      .contains((event.keyword ?? '').toLowerCase()))
+              .toList();
         }
         emit(state.copyWith(
             listAgentBeModel: listAgent,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
-        emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
+        emit(state.copyWith(
+            submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
       print(error);
@@ -118,7 +146,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             listNotify: listNotify,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
-        emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
+        emit(state.copyWith(
+            submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
       print(error);

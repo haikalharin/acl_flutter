@@ -18,12 +18,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController _tabController;
+  final _searchTextController = TextEditingController(text: null);
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     getIt<HomePageBloc>().add(HomePageInitialEvent());
+    _tabController.addListener(_handleTabChange);
+  }
+
+  void _handleTabChange() {
+    _searchTextController.clear();
   }
 
   @override
@@ -89,14 +95,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     children: [
                       // Content for Tab 1
                       ListCandidatePage(
-                        isMyCandidate: true,
+                        isMyCandidate: true,searchTextController: _searchTextController,
                       ),
                       // Center(
                       //   child: Text('Tab 1 Content '+AppLocalizations.of(context)!.helloWorld,style: TextStyle(color: AclColors.blueDark),),
                       // ),
                       // Content for Tab 2
                       ListCandidatePage(
-                        isMyCandidate: false,
+                        isMyCandidate: false,searchTextController: _searchTextController,
                       ),
                       // Content for Tab 3
                       ListNotifyPage()
