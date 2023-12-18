@@ -1,3 +1,4 @@
+import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 
 import '../../../core/network/api_helper.dart';
@@ -17,6 +18,17 @@ class AddRegisterCandidateApi with ApiHelper<CandidateModel> {
     return await makeGetRequestWithResponseModel(
         dioClient.dio.post(
           ServiceUrl.addRegisterCandidate,
+          data: data,
+        ),
+        CandidateModel.fromJson);
+  }
+
+  Future<ResponseModel<CandidateModel>> addRegisterCandidateDoc(RequestCandidateDocModel requestCandidateDocModel) async {
+    Map<String, dynamic> data = requestCandidateDocModel.toJson();
+
+    return await makeGetRequestWithResponseModel(
+        dioClient.dio.post(
+          ServiceUrl.addRegisterCandidateDoc,
           data: data,
         ),
         CandidateModel.fromJson);

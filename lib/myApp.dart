@@ -8,7 +8,10 @@ import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
 import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
 import 'package:acl_flutter/viewmodel/comment/bloc/comment_bloc.dart';
 import 'package:acl_flutter/viewmodel/post/bloc/post_bloc.dart';
+import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,7 +24,11 @@ import 'core/router/routes.dart';
 import 'di.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  late final Dio _dio;
+   MyApp({Key? key}) : super(key: key){
+     _dio = Dio();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +81,9 @@ class LanguageCubit extends Cubit<Locale> {
   void changeStartLang() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? langCode = prefs.getString('lang');
-    print(langCode);
+    if (kDebugMode) {
+      print(langCode);
+    }
     if (langCode != null) {
       emit(Locale(langCode, ''));
     }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/remote_utils.dart';
@@ -17,7 +18,9 @@ class HttpUtil {
   }
 
   static dynamic getResponse(Response response) {
-    debugPrint('>>>>>>> ${response.data}');
+    if (kDebugMode) {
+      print('>>>>>>> ${response.data}');
+    }
     switch (response.statusCode) {
       case 200:
         return _getSuccessResponse(response);
@@ -30,7 +33,9 @@ class HttpUtil {
     final _responseJson = response.data;
     dynamic data = _responseJson;
     String dataString = _responseJson.toString();
-    debugPrint('>>>>>>> [RESPONSE] $_responseJson');
+    if (kDebugMode) {
+      print('>>>>>>> [RESPONSE] $_responseJson');
+    }
     if(!dataString.contains('data:')){
       data = {'data': _responseJson ?? ''};
     }
@@ -40,7 +45,9 @@ class HttpUtil {
   static dynamic _tokenExpired(Response response) {
     final _responseJson = json.decode(response.data);
 
-    debugPrint('>>>>>>> [Token Expired Response] $_responseJson');
+    if (kDebugMode) {
+      print('>>>>>>> [Token Expired Response] $_responseJson');
+    }
     // AppSharedPreference.clear();
     //FIX SCREEN ONBOARDING MENUMPUK SAAT SESSION EXPIRED
     // navigatorKey.currentState?.pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => const LoginPage(tokenExpired: true,)), (route) => false);

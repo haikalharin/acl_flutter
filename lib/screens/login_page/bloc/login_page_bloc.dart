@@ -6,6 +6,8 @@ import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:acl_flutter/main.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
@@ -82,7 +84,9 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
               password: password));
         });
       } catch (error) {
-        print(error);
+        if (kDebugMode) {
+          print(error);
+        }
       }
     } else{
       emit(state.copyWith(

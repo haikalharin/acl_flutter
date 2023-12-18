@@ -215,6 +215,10 @@ class AddAgentSubmittedEvent extends AddCandidatePageEvent {
   AddAgentSubmittedEvent();
 }
 
+class AddAgentDocSubmittedEvent extends AddCandidatePageEvent {
+  AddAgentDocSubmittedEvent();
+}
+
 class AddCandidatePageInitialEvent extends AddCandidatePageEvent {
   AddCandidatePageInitialEvent();
 }

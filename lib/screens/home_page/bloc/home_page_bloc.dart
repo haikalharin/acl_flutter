@@ -5,6 +5,8 @@ import 'package:acl_flutter/data/model/notification_model/notification_model.dar
 import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
@@ -42,7 +44,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
         ));
       }
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 
@@ -86,7 +90,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 
@@ -129,7 +135,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 
@@ -150,7 +158,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 }

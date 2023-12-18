@@ -16,3 +16,25 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 flutter packages pub run build_runner build --delete-conflicting-outputs
+
+To build apk or appbundle(to publish to the playstore) for each flavor you can use the commands(recommended) instead of using android studio.
+For prod you can use:
+APK
+flutter build apk --flavor production -t lib/main_prod.dart
+App Bundle
+flutter build appbundle --flavor production -t lib/main_prod.dart
+and for dev
+APK
+flutter build apk --flavor development -t lib/main_dev.dart
+App Bundle
+flutter build appbundle --flavor development -t lib/main_dev.dart
+
+IPA
+flutter build ipa --flavor prod -t lib/main_prod.dart
+App Bundle
+flutter build appbundle --flavor prod -t lib/main_prod.dart
+and for dev
+IPA
+flutter build ipa --flavor dev -t lib/main_dev.dart
+App Bundle
+flutter build appbundle --flavor dev -t lib/main_dev.dart

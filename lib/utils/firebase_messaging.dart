@@ -219,7 +219,7 @@
 //   Future onSelectNotification(String? payload) async {
 //     print("payload " + payload!);
 //     // if (payload != null) {
-//     //   debugPrint('notification payload: ' + payload);
+//     //   print('notification payload: ' + payload);
 //     //   // here set and put condition for property id
 //     //   var response = json.decode(payload) as Map;
 //     //   print("response : $response");
@@ -371,7 +371,7 @@
 //
 //     var payload = initialMessage?.data;
 //     if (payload != null) {
-//       debugPrint('notification payload: ' + payload.toString());
+//       print('notification payload: ' + payload.toString());
 //       // here set and put condition for property id
 //       var response = payload;
 //       print("response : $response");

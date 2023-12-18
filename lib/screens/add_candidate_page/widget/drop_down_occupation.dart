@@ -10,22 +10,28 @@ import '../../sidebar_page/sidebar_page.dart';
 class DropDownOccupation extends StatefulWidget {
   const DropDownOccupation(
       {Key? key,
-      required this.onChanged,
-      required this.items,
-      this.initialItem,
-      this.lable,
-      this.title,
-      this.icon,
-      this.errorText})
+        required this.onChanged,
+        required this.items,
+        this.onClear,
+        this.initialItem,
+        this.lable,
+        this.title,
+        this.icon,
+        this.errorText,
+        this.isMandatory = true,
+        this.isCheck = false})
       : super(key: key);
 
   final ValueChanged<CheckingstatusMasterReference> onChanged;
+  final Function? onClear;
   final List<CheckingstatusMasterReference> items;
   final CheckingstatusMasterReference? initialItem;
   final Widget? lable;
   final String? title;
   final String? errorText;
   final Icon? icon;
+  final bool isMandatory;
+  final bool isCheck;
 
   @override
   State<DropDownOccupation> createState() => _DropDownOccupationState();
@@ -60,7 +66,7 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
             Container(
                 margin: EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
-                  widget.errorText ?? '',
+                  widget.errorText != null ? widget.errorText! : '',
                   style: const TextStyle(
                     fontSize: 12.0,
                     color: AclColors.redAccent,

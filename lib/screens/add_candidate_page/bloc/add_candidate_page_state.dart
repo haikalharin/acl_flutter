@@ -40,13 +40,16 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   final DropdownFieldValidator relationId;
   final String? moveTo;
   final MasterDataModel? masterDataModel;
+  final CandidateModel? candidateModel;
   final bool checkedValueAAJI;
   final bool checkedValueAASI;
   final bool checkedNeedValueAAUI;
   final bool checkedValueAAUI;
   final bool checkedValueMarriage;
+  final String? message;
 
   const AddCandidatePageState({
+    this.message,
     this.firstName = const MandatoryFieldValidator.pure(),
     this.middleName = const MandatoryFieldValidator.pure(),
     this.lastName = const MandatoryFieldValidator.pure(),
@@ -80,10 +83,11 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     this.dobPartner = const MandatoryFieldValidator.pure(),
     this.identityNoPartner = const MandatoryFieldValidator.pure(),
     this.gender,
-    this.genderId= const DropdownFieldValidator.pure(),
+    this.genderId = const DropdownFieldValidator.pure(),
     this.relation,
-    this.relationId= const DropdownFieldValidator.pure(),
+    this.relationId = const DropdownFieldValidator.pure(),
     this.masterDataModel,
+    this.candidateModel,
     this.moveTo,
     this.checkedValueAAJI = false,
     this.checkedValueAASI = false,
@@ -96,11 +100,52 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   @override
   List<Object?> get props => [
         firstName,
-        middleName,
         submitStatus,
-        masterDataModel,
+        firstName,
+        middleName,
+        lastName,
+        dob,
+        identityNo,
+        identityImage,
+        identitySelfieImage,
+        kkNo,
+        kkImage,
+        address,
+        rtRw,
+        kecKel,
+        postalCode,
+        country,
+        countryId,
+        province,
         provinceId,
-        province
+        city,
+        cityId,
+        occupation,
+        occupationId,
+        noLicenceAAJI,
+        imageLicenceAAJI,
+        noLicenceAASI,
+        imageLicenceAASI,
+        noLicenceAAUI,
+        imageLicenceAAUI,
+        firstNamePartner,
+        middleNamePartner,
+        lastNamePartner,
+        dobPartner,
+        identityNoPartner,
+        gender,
+        genderId,
+        relation,
+        relationId,
+        moveTo,
+        masterDataModel,
+        candidateModel,
+        checkedValueAAJI,
+        checkedValueAASI,
+        checkedNeedValueAAUI,
+        checkedValueAAUI,
+        checkedValueMarriage,
+        message,
       ];
 
   @override
@@ -120,17 +165,18 @@ class AddCandidatePageState extends Equatable with FormzMixin {
       data.add(imageLicenceAAUI);
     }
 
-    if (checkedValueMarriage) {
-      data.add(firstNamePartner);
-      data.add(middleNamePartner);
-      data.add(lastNamePartner);
-      data.add(identityNoPartner);
-      data.add(dobPartner);
-    }
+    // if (checkedValueMarriage) {
+    //   data.add(firstNamePartner);
+    //   data.add(middleNamePartner);
+    //   data.add(lastNamePartner);
+    //   data.add(identityNoPartner);
+    //   data.add(dobPartner);
+    // }
     return data;
   }
 
   AddCandidatePageState copyWith({
+    String? message,
     MandatoryFieldValidator? firstName,
     MandatoryFieldValidator? middleName,
     MandatoryFieldValidator? lastName,
@@ -163,10 +209,10 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     MandatoryFieldValidator? lastNamePartner,
     MandatoryFieldValidator? dobPartner,
     MandatoryFieldValidator? identityNoPartner,
-     AajicityMasterReference? gender,
-     DropdownFieldValidator? genderId,
-     AajicityMasterReference? relation,
-     DropdownFieldValidator? relationId,
+    AajicityMasterReference? gender,
+    DropdownFieldValidator? genderId,
+    AajicityMasterReference? relation,
+    DropdownFieldValidator? relationId,
     MasterDataModel? masterDataModel,
     String? moveTo,
     bool? checkedValueAAJI,
@@ -174,9 +220,11 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     bool? checkedNeedValueAAUI,
     bool? checkedValueAAUI,
     bool? checkedValueMarriage,
+    CandidateModel? candidateModel,
     FormzSubmissionStatus? submitStatus,
   }) {
     return AddCandidatePageState(
+      message: message ?? this.message,
       firstName: firstName ?? this.firstName,
       middleName: middleName ?? this.middleName,
       lastName: lastName ?? this.lastName,
@@ -197,6 +245,7 @@ class AddCandidatePageState extends Equatable with FormzMixin {
       city: city ?? this.city,
       cityId: cityId ?? this.cityId,
       occupation: occupation ?? this.occupation,
+      occupationId: occupationId ?? this.occupationId,
       noLicenceAAJI: noLicenceAAJI ?? this.noLicenceAAJI,
       imageLicenceAAJI: imageLicenceAAJI ?? this.imageLicenceAAJI,
       noLicenceAASI: noLicenceAASI ?? this.noLicenceAASI,
@@ -213,6 +262,7 @@ class AddCandidatePageState extends Equatable with FormzMixin {
       relation: relation ?? this.relation,
       relationId: relationId ?? this.relationId,
       masterDataModel: masterDataModel ?? this.masterDataModel,
+      candidateModel: candidateModel ?? this.candidateModel,
       moveTo: moveTo ?? this.moveTo,
       checkedValueAAJI: checkedValueAAJI ?? this.checkedValueAAJI,
       checkedValueAASI: checkedValueAASI ?? this.checkedValueAASI,

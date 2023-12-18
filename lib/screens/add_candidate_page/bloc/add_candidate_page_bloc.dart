@@ -1,7 +1,11 @@
 import 'dart:async';
 
+import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
+import 'package:acl_flutter/data/model/sepouse/request_sepouse_model.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
@@ -11,6 +15,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../core/local_storage/secure_storage/secure_storage.dart';
 import '../../../core/router/routes.dart';
+import '../../../data/model/candidate/candidate_model.dart';
 import '../../../data/model/candidate/request_candidate_model.dart';
 import '../../../data/model/login_model/login_model.dart';
 import '../../../data/repository/candidate/candidate_repository.dart';
@@ -42,6 +47,7 @@ class AddCandidatePageBloc
     on<CountryInputEvent>(countryInput);
     on<ProvinceInputEvent>(provinceInput);
     on<CityInputEvent>(cityInput);
+    on<OccupationInputEvent>(occupationInput);
     on<AajiCheckedInputEvent>(aajiCheckedInput);
     on<AajiNoInputEvent>(noLicenceAAJIInput);
     on<AajiImageInputEvent>(imageLicenceAAJIInput);
@@ -60,6 +66,7 @@ class AddCandidatePageBloc
     on<GenderPartnerInputEvent>(genderPartnerInput);
     on<RelationPartnerInputEvent>(relationPartnerInput);
     on<AddAgentSubmittedEvent>(addAgentSubmitted);
+    on<AddAgentDocSubmittedEvent>(addAgentDocSubmitted);
     on<AddCandidatePageInitialEvent>(addAgentPageInitial);
   }
 
@@ -82,7 +89,9 @@ class AddCandidatePageBloc
         emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
       });
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 
@@ -386,22 +395,22 @@ class AddCandidatePageBloc
     }
   }
 
-  Future<void> aajiCheckedInput(AajiCheckedInputEvent event,
-      Emitter<AddCandidatePageState> emit) async {
+  Future<void> aajiCheckedInput(
+      AajiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueAAJI: event.aajiChecked,
     ));
   }
 
-  Future<void> aasiCheckedInput(AasiCheckedInputEvent event,
-      Emitter<AddCandidatePageState> emit) async {
+  Future<void> aasiCheckedInput(
+      AasiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueAASI: event.aasiChecked,
     ));
   }
 
-  Future<void> aauiCheckedInput(AauiCheckedInputEvent event,
-      Emitter<AddCandidatePageState> emit) async {
+  Future<void> aauiCheckedInput(
+      AauiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueAAUI: event.aauiChecked,
     ));
@@ -417,13 +426,11 @@ class AddCandidatePageBloc
   Future<void> addAgentSubmitted(
       AddAgentSubmittedEvent event, Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
-
-    Future.delayed(const Duration(seconds: 2));
     if (state.isValid) {
       try {
         LoginModel loginModel = await SecureStorage().getUser();
         final result = await candidateRepository
-            .addRegisterCandidat(RequestCandidateModel(
+            .addRegisterCandidate(RequestCandidateModel(
           firstName: state.firstName.value,
           middleName: state.middleName.value,
           lastName: state.lastName.value,
@@ -436,9 +443,9 @@ class AddCandidatePageBloc
           zipCode: state.postalCode.value.toString(),
           country: state.countryId.value.toString(),
           officeCode: state.occupationId.value.toString(),
-          officeCity: state.occupation?.longDescriptionInd??'',
-          leaderName: loginModel.name??'',
-          leaderAgentCode: loginModel.uid??'',
+          officeCity: state.occupation?.longDescriptionInd ?? '',
+          leaderName: loginModel.name ?? '',
+          leaderAgentCode: loginModel.uid ?? '',
           spouseIdCardNo: state.identityNoPartner.value,
           idCardNo: state.identityNo.value,
           occupation: state.occupationId.value.toString(),
@@ -450,16 +457,143 @@ class AddCandidatePageBloc
           aauiNo: state.noLicenceAAUI.value,
           aauiActiveFlag: state.checkedValueAAJI.toString(),
         ));
-        result.when(success: (response) {
-          emit(state.copyWith(
-              moveTo: Routes.userList,
-              submitStatus: FormzSubmissionStatus.success));
+        result.when(success: (response) async {
+          CandidateModel responseData = response.data;
+          List<FamilyDetail> listFamiliDetail = [
+            FamilyDetail(
+                idCardNo: state.identityNoPartner.value,
+                firstName: state.firstNamePartner.value,
+                gender: state.genderId.value.toString(),
+                relation: state.relationId.value.toString(),
+                dateOfBirth: state.dobPartner.value)
+          ];
+          if (state.checkedValueMarriage) {
+            final result = await candidateRepository.addRegisterSepouse(
+                RequestSepouseModel(
+                    candidateId: responseData.id,
+                    familyCardNo: state.kkNo.value,
+                    familyDetails: listFamiliDetail));
+            result.when(success: (response) async {
+              emit(state.copyWith(
+                  moveTo: Routes.userList,
+                  candidateModel: responseData,
+                  message: 'success-create-register',
+                  submitStatus: FormzSubmissionStatus.success));
+            }, failure: (error) {
+              emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+            });
+          } else {
+            emit(state.copyWith(
+                moveTo: Routes.userList,
+                candidateModel: responseData,
+                message: 'success-create-register',
+                submitStatus: FormzSubmissionStatus.success));
+          }
         }, failure: (error) {
           emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
         });
       } catch (error) {
-        print(error);
+        if (kDebugMode) {
+          print(error);
+        }
       }
+    }
+  }
+
+  Future<void> addAgentDocSubmitted(AddAgentDocSubmittedEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
+    if (state.isValid) {
+      try {
+        await _sendDoc().then((value) {
+          emit(state.copyWith(
+              moveTo: Routes.userList,
+              message: 'success-send-doc',
+              submitStatus: FormzSubmissionStatus.success));
+        });
+      } catch (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      }
+    }
+  }
+
+  Future<List<RequestCandidateDocModel>> _sendDoc() async {
+    try {
+      LoginModel loginModel = await SecureStorage().getUser();
+
+      List<RequestCandidateDocModel> listDoc = [];
+      if (state.imageLicenceAAJI.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateModel?.id.toString(),
+          docType: "LicenceAAJI",
+          name: "LicenceAAJI",
+          stringBase: state.imageLicenceAAJI.value,
+        ));
+      }
+      if (state.imageLicenceAASI.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateModel?.id.toString(),
+          docType: "LicenceAASI",
+          name: "LicenceAASI",
+          stringBase: state.imageLicenceAASI.value,
+        ));
+      }
+      if (state.imageLicenceAAUI.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateModel?.id.toString(),
+          docType: "LicenceAAJI",
+          name: "LicenceAAJI",
+          stringBase: state.imageLicenceAAJI.value,
+        ));
+      }
+      if (state.kkImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateModel?.id.toString(),
+          docType: "KK",
+          name: "KK",
+          stringBase: state.kkImage.value,
+        ));
+      }
+
+      if (state.identityImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateModel?.id.toString(),
+          docType: "KTP",
+          name: "KTP",
+          stringBase: state.identityImage.value,
+        ));
+      }
+
+      if (state.identitySelfieImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateModel?.id.toString(),
+          docType: "SelfieKTP",
+          name: "SelfieKTP",
+          stringBase: state.identitySelfieImage.value,
+        ));
+      }
+      for (var element in listDoc) {
+        final result =
+            await candidateRepository.addRegisterCandidateDoc(element);
+        result.when(
+            success: (response) async {},
+            failure: (error) {
+              if (kDebugMode) {
+                print(error);
+              }
+            });
+      }
+      return listDoc;
+    } catch (error) {
+      return [];
     }
   }
 }

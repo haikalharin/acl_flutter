@@ -39,7 +39,7 @@
 //     try {
 //       await  FirebaseRemoteConfig.instance.fetchAndActivate();
 //     } catch (exception) {
-//       debugPrint('Unable to fetch remote config. Cached or default values will '
+//       print('Unable to fetch remote config. Cached or default values will '
 //           'be');
 //     }
 //

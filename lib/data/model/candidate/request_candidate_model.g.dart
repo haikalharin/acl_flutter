@@ -29,17 +29,17 @@ RequestCandidateModel _$RequestCandidateModelFromJson(
       occupation: json['occupation'] as String?,
       occupationOther: json['occupationOther'] as String?,
       aajiNo: json['aajiNo'] as String?,
+      aajiActiveFlag: json['aajiActiveFlag'] as String?,
       prevCompany: json['prevCompany'] as String?,
       prevCompanyOthers: json['prevCompanyOthers'] as String?,
       idFamilyCardNo: json['idFamilyCardNo'] as String?,
       aasiNo: json['aasiNo'] as String?,
+      aasiActiveFlag: json['aasiActiveFlag'] as String?,
       prevCompanyAasi: json['prevCompanyAasi'] as String?,
       aauiNo: json['aauiNo'] as String?,
+      aauiActiveFlag: json['aauiActiveFlag'] as String?,
       prevCompanyAaui: json['prevCompanyAaui'] as String?,
-    )
-      ..aajiActiveFlag = json['aajiActiveFlag'] as String?
-      ..aasiActiveFlag = json['aasiActiveFlag'] as String?
-      ..aauiActiveFlag = json['aauiActiveFlag'] as String?;
+    );
 
 Map<String, dynamic> _$RequestCandidateModelToJson(
         RequestCandidateModel instance) =>

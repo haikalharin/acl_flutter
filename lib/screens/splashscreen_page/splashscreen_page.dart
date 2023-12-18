@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,17 +41,23 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
       skipOnboarding = _skipOnboarding;
       // _alice.showInspector();
     });
-    print('skip onboarding : $skipOnboarding');
+    if (kDebugMode) {
+      print('skip onboarding : $skipOnboarding');
+    }
   }
 
   Future<void> checkForUpdate() async {
     InAppUpdate.checkForUpdate().then((info) {
-      print("update info : $info");
+      if (kDebugMode) {
+        print("update info : $info");
+      }
       if(info.updateAvailability == UpdateAvailability.updateAvailable){
         InAppUpdate.performImmediateUpdate();
       }
     }).catchError((e) {
-      print("Error Perform Auto Update : $e");
+      if (kDebugMode) {
+        print("Error Perform Auto Update : $e");
+      }
     });
   }
 

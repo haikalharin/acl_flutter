@@ -4,6 +4,7 @@ import 'package:acl_flutter/data/api/comment/comment_api.dart';
 import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
 import 'package:acl_flutter/data/api/notify/notify_api.dart';
 import 'package:acl_flutter/data/api/post/post_api.dart';
+import 'package:acl_flutter/data/api/spouse/sepouse_api.dart';
 import 'package:acl_flutter/data/api/todo/todo_api.dart';
 import 'package:acl_flutter/data/api/user/user_api.dart';
 import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart';
@@ -85,6 +86,10 @@ Future<void> init() async {
   getIt.registerLazySingleton<AddRegisterCandidateApi>(
       () => AddRegisterCandidateApi(dioClient: getIt<DioClient>()));
 
+  // AddRegisterSepouse api
+  getIt.registerLazySingleton<AddRegisterSepouseApi>(
+      () => AddRegisterSepouseApi(dioClient: getIt<DioClient>()));
+
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),
@@ -116,7 +121,8 @@ Future<void> init() async {
         candidateBeApi: getIt<CandidateBeApi>(),
         masterDataApi: getIt<MasterDataApi>(),
         trackingCandidateApi: getIt<TrackingCandidateApi>(),
-        addRegisterCandidateApi: getIt<AddRegisterCandidateApi>()),
+        addRegisterCandidateApi: getIt<AddRegisterCandidateApi>(),
+        addRegisterSepouseApi: getIt<AddRegisterSepouseApi>()),
   );
 
   // Agent repository

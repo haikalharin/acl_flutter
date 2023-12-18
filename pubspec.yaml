@@ -58,6 +58,7 @@ dependencies:
   image_picker: ^1.0.4
   image_cropper: ^4.0.0
   search_choices: ^2.2.7
+  curl_logger_dio_interceptor: ^1.0.0
 
 dev_dependencies:
   flutter_test:
