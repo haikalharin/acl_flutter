@@ -1,6 +1,7 @@
 import 'package:acl_flutter/core/network/dio_client.dart';
 import 'package:acl_flutter/data/api/candidate/add_register_candidate_api.dart';
 import 'package:acl_flutter/data/api/comment/comment_api.dart';
+import 'package:acl_flutter/data/api/document/document_api.dart';
 import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
 import 'package:acl_flutter/data/api/notify/notify_api.dart';
 import 'package:acl_flutter/data/api/post/post_api.dart';
@@ -89,6 +90,9 @@ Future<void> init() async {
   // AddRegisterSepouse api
   getIt.registerLazySingleton<AddRegisterSepouseApi>(
       () => AddRegisterSepouseApi(dioClient: getIt<DioClient>()));
+// Document api
+  getIt.registerLazySingleton<DocumentApi>(
+      () => DocumentApi(dioClient: getIt<DioClient>()));
 
   // User repository
   getIt.registerLazySingleton<UserRepository>(
@@ -122,6 +126,7 @@ Future<void> init() async {
         masterDataApi: getIt<MasterDataApi>(),
         trackingCandidateApi: getIt<TrackingCandidateApi>(),
         addRegisterCandidateApi: getIt<AddRegisterCandidateApi>(),
+        documentApi: getIt<DocumentApi>(),
         addRegisterSepouseApi: getIt<AddRegisterSepouseApi>()),
   );
 

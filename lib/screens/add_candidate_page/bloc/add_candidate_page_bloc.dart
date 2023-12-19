@@ -9,13 +9,16 @@ import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
+import '../../../common/validators/identity_no_validator.dart';
 import '../../../common/validators/mandatory_dropdown_validator.dart';
 import '../../../common/validators/mandatory_field_validator.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../common/validators/zipcode_validator.dart';
 import '../../../core/local_storage/secure_storage/secure_storage.dart';
 import '../../../core/router/routes.dart';
 import '../../../data/model/candidate/candidate_model.dart';
+import '../../../data/model/candidate/candidate_register_model.dart';
 import '../../../data/model/candidate/request_candidate_model.dart';
 import '../../../data/model/login_model/login_model.dart';
 import '../../../data/repository/candidate/candidate_repository.dart';
@@ -75,8 +78,8 @@ class AddCandidatePageBloc
     emit(AddAgentPageInitial());
   }
 
-  Future<void> fetchMasterData(
-      FetchMasterDataEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> fetchMasterData(FetchMasterDataEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     try {
       final result = await candidateRepository.fetchMasterData();
@@ -95,41 +98,41 @@ class AddCandidatePageBloc
     }
   }
 
-  Future<void> firstNameInput(
-      FirstNameInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> firstNameInput(FirstNameInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final firstName = MandatoryFieldValidator.dirty(event.firstName);
     emit(state.copyWith(
       firstName: firstName,
     ));
   }
 
-  Future<void> middleNameInput(
-      MiddleNameInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> middleNameInput(MiddleNameInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final middleName = MandatoryFieldValidator.dirty(event.middleName);
     emit(state.copyWith(
       middleName: middleName,
     ));
   }
 
-  Future<void> lastNameInput(
-      LastNameInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> lastNameInput(LastNameInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final lastName = MandatoryFieldValidator.dirty(event.lastName);
     emit(state.copyWith(
       lastName: lastName,
     ));
   }
 
-  Future<void> dobInput(
-      DobInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> dobInput(DobInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final dob = MandatoryFieldValidator.dirty(event.dob);
     emit(state.copyWith(
       dob: dob,
     ));
   }
 
-  Future<void> identityNoInput(
-      IdentityNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
-    final identityNo = MandatoryFieldValidator.dirty(event.identityNo);
+  Future<void> identityNoInput(IdentityNoInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    final identityNo = IdentityNoValidator.dirty(event.identityNo);
     emit(state.copyWith(
       identityNo: identityNo,
     ));
@@ -146,62 +149,62 @@ class AddCandidatePageBloc
   Future<void> identitySelfieImageInput(IdentitySelfieImageInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
     final identitySelfieImage =
-        MandatoryFieldValidator.dirty(event.identitySelfieImage);
+    MandatoryFieldValidator.dirty(event.identitySelfieImage);
     emit(state.copyWith(
       identitySelfieImage: identitySelfieImage,
     ));
   }
 
-  Future<void> kkNoInput(
-      KkNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
-    final kkNo = MandatoryFieldValidator.dirty(event.kkNo);
+  Future<void> kkNoInput(KkNoInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    final kkNo = IdentityNoValidator.dirty(event.kkNo);
     emit(state.copyWith(
       kkNo: kkNo,
     ));
   }
 
-  Future<void> kkImageInput(
-      KkImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> kkImageInput(KkImageInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final kkImage = MandatoryFieldValidator.dirty(event.kkImage);
     emit(state.copyWith(
       kkImage: kkImage,
     ));
   }
 
-  Future<void> addressInput(
-      AddressInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> addressInput(AddressInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final address = MandatoryFieldValidator.dirty(event.address);
     emit(state.copyWith(
       address: address,
     ));
   }
 
-  Future<void> rtRwInput(
-      RtRwInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> rtRwInput(RtRwInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final rtRw = MandatoryFieldValidator.dirty(event.rtRw);
     emit(state.copyWith(
       rtRw: rtRw,
     ));
   }
 
-  Future<void> kecKelInput(
-      KecKelInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> kecKelInput(KecKelInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final kecKel = MandatoryFieldValidator.dirty(event.kecKel);
     emit(state.copyWith(
       kecKel: kecKel,
     ));
   }
 
-  Future<void> postalCodeInput(
-      PostalCodeInputEvent event, Emitter<AddCandidatePageState> emit) async {
-    final postalCode = MandatoryFieldValidator.dirty(event.postalCode);
+  Future<void> postalCodeInput(PostalCodeInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    final postalCode = ZipcodeValidator.dirty(event.postalCode);
     emit(state.copyWith(
       postalCode: postalCode,
     ));
   }
 
-  Future<void> countryInput(
-      CountryInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> countryInput(CountryInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     if (event.country.id == 0 || event.country.id == null) {
       const countryId = DropdownFieldValidator.pure();
       emit(state.copyWith(
@@ -217,8 +220,8 @@ class AddCandidatePageBloc
     }
   }
 
-  Future<void> provinceInput(
-      ProvinceInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> provinceInput(ProvinceInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     if (event.province.id == 0 || event.province.id == null) {
       const provinceId = DropdownFieldValidator.pure();
       emit(state.copyWith(
@@ -234,8 +237,8 @@ class AddCandidatePageBloc
     }
   }
 
-  Future<void> cityInput(
-      CityInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> cityInput(CityInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     if (event.city.id == 0 || event.city.id == null) {
       const cityId = DropdownFieldValidator.pure();
       emit(state.copyWith(
@@ -251,8 +254,8 @@ class AddCandidatePageBloc
     }
   }
 
-  Future<void> occupationInput(
-      OccupationInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> occupationInput(OccupationInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     if (event.occupation.id == 0 || event.occupation.id == null) {
       const occupationId = DropdownFieldValidator.pure();
       emit(state.copyWith(
@@ -261,7 +264,7 @@ class AddCandidatePageBloc
       ));
     } else {
       final occupationId =
-          DropdownFieldValidator.dirty(event.occupation.id ?? 0);
+      DropdownFieldValidator.dirty(event.occupation.id ?? 0);
       emit(state.copyWith(
         occupationId: occupationId,
         occupation: event.occupation,
@@ -269,48 +272,48 @@ class AddCandidatePageBloc
     }
   }
 
-  Future<void> noLicenceAAJIInput(
-      AajiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> noLicenceAAJIInput(AajiNoInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final noLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiNo);
     emit(state.copyWith(
       noLicenceAAJI: noLicenceAAJI,
     ));
   }
 
-  Future<void> imageLicenceAAJIInput(
-      AajiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> imageLicenceAAJIInput(AajiImageInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiImage);
     emit(state.copyWith(
       imageLicenceAAJI: imageLicenceAAJI,
     ));
   }
 
-  Future<void> noLicenceAASIInput(
-      AasiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> noLicenceAASIInput(AasiNoInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final noLicenceAASI = MandatoryFieldValidator.dirty(event.aasiNo);
     emit(state.copyWith(
       noLicenceAASI: noLicenceAASI,
     ));
   }
 
-  Future<void> imageLicenceAASIInput(
-      AasiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> imageLicenceAASIInput(AasiImageInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAASI = MandatoryFieldValidator.dirty(event.aasiImage);
     emit(state.copyWith(
       imageLicenceAASI: imageLicenceAASI,
     ));
   }
 
-  Future<void> noLicenceAAUIInput(
-      AauiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> noLicenceAAUIInput(AauiNoInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final noLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiNo);
     emit(state.copyWith(
       noLicenceAAUI: noLicenceAAUI,
     ));
   }
 
-  Future<void> imageLicenceAAUIInput(
-      AauiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> imageLicenceAAUIInput(AauiImageInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiImage);
     emit(state.copyWith(
       imageLicenceAAUI: imageLicenceAAUI,
@@ -320,7 +323,7 @@ class AddCandidatePageBloc
   Future<void> firstNamePartnerInput(FirstNamePartnerInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
     final firstNamePartner =
-        MandatoryFieldValidator.dirty(event.firstNamePartner);
+    MandatoryFieldValidator.dirty(event.firstNamePartner);
     emit(state.copyWith(
       firstNamePartner: firstNamePartner,
     ));
@@ -329,7 +332,7 @@ class AddCandidatePageBloc
   Future<void> middleNamePartnerInput(MiddleNamePartnerInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
     final middleNamePartner =
-        MandatoryFieldValidator.dirty(event.middleNamePartner);
+    MandatoryFieldValidator.dirty(event.middleNamePartner);
     emit(state.copyWith(
       middleNamePartner: middleNamePartner,
     ));
@@ -338,14 +341,14 @@ class AddCandidatePageBloc
   Future<void> lastNamePartnerInput(LastNamePartnerInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
     final lastNamePartner =
-        MandatoryFieldValidator.dirty(event.lastNamePartner);
+    MandatoryFieldValidator.dirty(event.lastNamePartner);
     emit(state.copyWith(
       lastName: lastNamePartner,
     ));
   }
 
-  Future<void> dobPartnerInput(
-      DobPartnerInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> dobPartnerInput(DobPartnerInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     final dobPartner = MandatoryFieldValidator.dirty(event.dobPartner);
     emit(state.copyWith(
       dobPartner: dobPartner,
@@ -355,7 +358,7 @@ class AddCandidatePageBloc
   Future<void> partnerIdentityNoInput(PartnerIdentityNoInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
     final identityNoPartner =
-        MandatoryFieldValidator.dirty(event.partnerIdentityNo);
+    IdentityNoValidator.dirty(event.partnerIdentityNo);
     emit(state.copyWith(
       identityNoPartner: identityNoPartner,
     ));
@@ -395,22 +398,22 @@ class AddCandidatePageBloc
     }
   }
 
-  Future<void> aajiCheckedInput(
-      AajiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> aajiCheckedInput(AajiCheckedInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueAAJI: event.aajiChecked,
     ));
   }
 
-  Future<void> aasiCheckedInput(
-      AasiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> aasiCheckedInput(AasiCheckedInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueAASI: event.aasiChecked,
     ));
   }
 
-  Future<void> aauiCheckedInput(
-      AauiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> aauiCheckedInput(AauiCheckedInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueAAUI: event.aauiChecked,
     ));
@@ -423,8 +426,8 @@ class AddCandidatePageBloc
     ));
   }
 
-  Future<void> addAgentSubmitted(
-      AddAgentSubmittedEvent event, Emitter<AddCandidatePageState> emit) async {
+  Future<void> addAgentSubmitted(AddAgentSubmittedEvent event,
+      Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     if (state.isValid) {
       try {
@@ -442,8 +445,6 @@ class AddCandidatePageBloc
           province: state.provinceId.value.toString(),
           zipCode: state.postalCode.value.toString(),
           country: state.countryId.value.toString(),
-          officeCode: state.occupationId.value.toString(),
-          officeCity: state.occupation?.longDescriptionInd ?? '',
           leaderName: loginModel.name ?? '',
           leaderAgentCode: loginModel.uid ?? '',
           spouseIdCardNo: state.identityNoPartner.value,
@@ -457,39 +458,49 @@ class AddCandidatePageBloc
           aauiNo: state.noLicenceAAUI.value,
           aauiActiveFlag: state.checkedValueAAJI.toString(),
         ));
-        result.when(success: (response) async {
-          CandidateModel responseData = response.data;
+        await result.when(success: (response) async {
+          CandidateRegisterModel responseData = response.data;
           List<FamilyDetail> listFamiliDetail = [
             FamilyDetail(
                 idCardNo: state.identityNoPartner.value,
                 firstName: state.firstNamePartner.value,
-                gender: state.genderId.value.toString(),
+                gender: state.gender?.longDescriptionEng??'',
                 relation: state.relationId.value.toString(),
                 dateOfBirth: state.dobPartner.value)
           ];
           if (state.checkedValueMarriage) {
             final result = await candidateRepository.addRegisterSepouse(
                 RequestSepouseModel(
-                    candidateId: responseData.id,
+                    candidateId: responseData.id.toString(),
                     familyCardNo: state.kkNo.value,
                     familyDetails: listFamiliDetail));
-            result.when(success: (response) async {
-              emit(state.copyWith(
-                  moveTo: Routes.userList,
-                  candidateModel: responseData,
-                  message: 'success-create-register',
-                  submitStatus: FormzSubmissionStatus.success));
-            }, failure: (error) {
+            await result.when(success: (response) async {
+              final result = await candidateRepository.addFolderDoc(responseData.id.toString());
+              await   result.when(success: (response)async  {
+                emit(state.copyWith(
+                    moveTo: Routes.userList,
+                    candidateRegisterModel: responseData,
+                    message: 'create-register',
+                    submitStatus: FormzSubmissionStatus.success));
+              }, failure: (error)async {
+                emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+              });
+            }, failure: (error)async {
               emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
             });
           } else {
-            emit(state.copyWith(
-                moveTo: Routes.userList,
-                candidateModel: responseData,
-                message: 'success-create-register',
-                submitStatus: FormzSubmissionStatus.success));
+            final result = await candidateRepository.addFolderDoc(responseData.id.toString());
+            await result.when(success: (response) async {
+              emit(state.copyWith(
+                  moveTo: Routes.userList,
+                  candidateRegisterModel: responseData,
+                  message: 'create-register',
+                  submitStatus: FormzSubmissionStatus.success));
+            }, failure: (error) async {
+              emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+            });
           }
-        }, failure: (error) {
+        }, failure: (error) async{
           emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
         });
       } catch (error) {
@@ -506,12 +517,19 @@ class AddCandidatePageBloc
     if (state.isValid) {
       try {
         await _sendDoc().then((value) {
-          emit(state.copyWith(
-              moveTo: Routes.userList,
-              message: 'success-send-doc',
-              submitStatus: FormzSubmissionStatus.success));
+          if(value == 0){
+            emit(state.copyWith(
+                moveTo: Routes.userList,
+                message: 'send-doc',
+                submitStatus: FormzSubmissionStatus.success));
+          } else{
+            emit(state.copyWith(
+                submitStatus: FormzSubmissionStatus.failure));
+          }
         });
       } catch (error) {
+        emit(state.copyWith(
+            submitStatus: FormzSubmissionStatus.failure));
         if (kDebugMode) {
           print(error);
         }
@@ -519,7 +537,7 @@ class AddCandidatePageBloc
     }
   }
 
-  Future<List<RequestCandidateDocModel>> _sendDoc() async {
+  Future<int?> _sendDoc() async {
     try {
       LoginModel loginModel = await SecureStorage().getUser();
 
@@ -527,36 +545,36 @@ class AddCandidatePageBloc
       if (state.imageLicenceAAJI.isValid) {
         listDoc.add(RequestCandidateDocModel(
           agentCode: loginModel.uid,
-          candidateId: state.candidateModel?.id.toString(),
-          docType: "LicenceAAJI",
-          name: "LicenceAAJI",
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "KARTU LISENSI AAJI",
+          name: "KARTU LISENSI AAJI",
           stringBase: state.imageLicenceAAJI.value,
         ));
       }
       if (state.imageLicenceAASI.isValid) {
         listDoc.add(RequestCandidateDocModel(
           agentCode: loginModel.uid,
-          candidateId: state.candidateModel?.id.toString(),
-          docType: "LicenceAASI",
-          name: "LicenceAASI",
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "KARTU LISENSI AASI",
+          name: "KARTU LISENSI AASI",
           stringBase: state.imageLicenceAASI.value,
         ));
       }
       if (state.imageLicenceAAUI.isValid) {
         listDoc.add(RequestCandidateDocModel(
           agentCode: loginModel.uid,
-          candidateId: state.candidateModel?.id.toString(),
-          docType: "LicenceAAJI",
-          name: "LicenceAAJI",
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "KARTU LISENSI AAUI",
+          name: "KARTU LISENSI AAUI",
           stringBase: state.imageLicenceAAJI.value,
         ));
       }
       if (state.kkImage.isValid) {
         listDoc.add(RequestCandidateDocModel(
           agentCode: loginModel.uid,
-          candidateId: state.candidateModel?.id.toString(),
-          docType: "KK",
-          name: "KK",
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "KARTU KELUARGA",
+          name: "KARTU KELUARGA",
           stringBase: state.kkImage.value,
         ));
       }
@@ -564,7 +582,7 @@ class AddCandidatePageBloc
       if (state.identityImage.isValid) {
         listDoc.add(RequestCandidateDocModel(
           agentCode: loginModel.uid,
-          candidateId: state.candidateModel?.id.toString(),
+          candidateId: state.candidateRegisterModel?.id.toString(),
           docType: "KTP",
           name: "KTP",
           stringBase: state.identityImage.value,
@@ -574,26 +592,28 @@ class AddCandidatePageBloc
       if (state.identitySelfieImage.isValid) {
         listDoc.add(RequestCandidateDocModel(
           agentCode: loginModel.uid,
-          candidateId: state.candidateModel?.id.toString(),
-          docType: "SelfieKTP",
-          name: "SelfieKTP",
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "FOTO DIRI BESERTA KTP",
+          name: "FOTO DIRI BESERTA KTP",
           stringBase: state.identitySelfieImage.value,
         ));
       }
+      int failureTotal =0;
       for (var element in listDoc) {
         final result =
-            await candidateRepository.addRegisterCandidateDoc(element);
-        result.when(
+        await candidateRepository.addRegisterCandidateDoc(element);
+        await result.when(
             success: (response) async {},
             failure: (error) {
-              if (kDebugMode) {
-                print(error);
-              }
+              failureTotal ++;
             });
       }
-      return listDoc;
+      return failureTotal;
     } catch (error) {
-      return [];
+      if (kDebugMode) {
+        print(error);
+      }
+  return 1;
     }
   }
 }

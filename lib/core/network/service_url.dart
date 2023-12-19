@@ -8,5 +8,6 @@ class ServiceUrl {
   static String listTracking = "${subHost}restcandidate/getCandidateTracking";
   static String addRegisterCandidate = "${subHost}restcandidate/registrationCandidateStart";
   static String addRegisterCandidateDoc = "${subHost}AclDms/uploadDoc";
+  static String addRegisterCandidateFolderDoc = "${subHost}AclDms/createFolder";
   static String addSepouseCandidate = "${subHost}restcandidate/insertFamilyCard";
 }

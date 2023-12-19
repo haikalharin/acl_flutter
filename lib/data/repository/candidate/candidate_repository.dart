@@ -1,15 +1,13 @@
-import 'package:acl_flutter/data/api/login/login_api.dart';
+import 'package:acl_flutter/data/api/document/document_api.dart';
 import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
 import 'package:acl_flutter/data/api/spouse/sepouse_api.dart';
 import 'package:acl_flutter/data/model/candidate/candidate_be_model.dart';
+import 'package:acl_flutter/data/model/candidate/candidate_folder_doc_model.dart';
 import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
-import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
-import 'package:acl_flutter/data/model/notification_model/notification_model.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:acl_flutter/data/model/sepouse/request_sepouse_model.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../../core/network/api_result.dart';
 import '../../../core/network/dio_exception.dart';
@@ -20,6 +18,7 @@ import '../../api/candidate/candiate_be_api.dart';
 import '../../api/candidate/candidate_api.dart';
 import '../../api/candidate/tracking_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';
+import '../../model/candidate/candidate_register_model.dart';
 import '../../model/candidate/request_candidate_model.dart';
 import '../../model/tracking_model/tracking_model.dart';
 
@@ -30,8 +29,10 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
   final TrackingCandidateApi trackingCandidateApi;
   final AddRegisterCandidateApi addRegisterCandidateApi;
   final AddRegisterSepouseApi addRegisterSepouseApi;
+  final DocumentApi documentApi;
 
   const CandidateRepository({
+    required this.documentApi,
     required this.addRegisterSepouseApi,
     required this.trackingCandidateApi,
     required this.candidateApi,
@@ -89,9 +90,9 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateModel>>> addRegisterCandidate(RequestCandidateModel requestCandidateModel) async {
+  Future<ApiResult<ResponseModel<CandidateRegisterModel>>> addRegisterCandidate(RequestCandidateModel requestCandidateModel) async {
     try {
-      final ResponseModel<CandidateModel> items =
+      final ResponseModel<CandidateRegisterModel> items =
       await addRegisterCandidateApi.addRegisterCandidate(requestCandidateModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
@@ -102,10 +103,10 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateModel>>> addRegisterCandidateDoc(RequestCandidateDocModel requestCandidateDocModel) async {
+  Future<ApiResult<ResponseModel<CandidateFolderDocModel>>> addRegisterCandidateDoc(RequestCandidateDocModel requestCandidateDocModel) async {
     try {
-      final ResponseModel<CandidateModel> items =
-      await addRegisterCandidateApi.addRegisterCandidateDoc(requestCandidateDocModel);
+      final ResponseModel<CandidateFolderDocModel> items =
+      await documentApi.addRegisterCandidateDoc(requestCandidateDocModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
@@ -115,10 +116,23 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateModel>>> addRegisterSepouse(RequestSepouseModel requestSepouseModel) async {
+  Future<ApiResult<ResponseModel<RequestSepouseModel>>> addRegisterSepouse(RequestSepouseModel requestSepouseModel) async {
     try {
-      final ResponseModel<CandidateModel> items =
+      final ResponseModel<RequestSepouseModel> items =
       await addRegisterSepouseApi.addRegisterSepouse(requestSepouseModel);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      var data = e;
+      print("$data");
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+
+  Future<ApiResult<ResponseModel<CandidateFolderDocModel>>> addFolderDoc(String candidateId) async {
+    try {
+      final ResponseModel<CandidateFolderDocModel> items =
+      await documentApi.addRegisterCandidateFolderDoc(candidateId);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
