@@ -22,7 +22,7 @@ class LoginApi with ApiHelper<LoginModel> {
       data.addAll({'password':password});
     }
 
-    return await makePostRequestWithResponse(dioClient.dioAuth.post(ServiceUrl.login, data: data,));
+    return await makePostRequestWithResponse(dioClient.dio.post(ServiceUrl.login, data: data,));
   }
 
 }

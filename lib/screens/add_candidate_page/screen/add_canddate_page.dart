@@ -166,7 +166,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             label: Text("Tanggal lahir"),
                             selectedDateTime: (DateTime date) {
                               var dateTime =
-                                  "${date.day}/${date.month}/${date.year}";
+                                  "${date.year}-${date.month}-${date.day}";
                               getIt<AddCandidatePageBloc>()
                                   .add(DobInputEvent(dateTime));
                             },

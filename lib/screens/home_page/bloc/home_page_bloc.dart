@@ -15,6 +15,7 @@ import '../../../core/router/routes.dart';
 import '../../../data/model/candidate/candidate_be_model.dart';
 import '../../../data/model/candidate/candidate_model.dart';
 import '../../../data/repository/notification/notification_repository.dart';
+import '../../../flavors.dart';
 
 part 'home_page_event.dart';
 

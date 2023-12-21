@@ -8,6 +8,7 @@ import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
 import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
 import 'package:acl_flutter/viewmodel/comment/bloc/comment_bloc.dart';
 import 'package:acl_flutter/viewmodel/post/bloc/post_bloc.dart';
+import 'package:alice/alice.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +23,7 @@ import 'common/app_theme.dart';
 import 'core/router/app_router.dart';
 import 'core/router/routes.dart';
 import 'di.dart';
-
+final Alice alice = Alice(showNotification: true,showInspectorOnShake: true);
 class MyApp extends StatelessWidget {
   late final Dio _dio;
    MyApp({Key? key}) : super(key: key){
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             locale: lang,
             theme: AppTheme.lightAppTheme,
-            navigatorKey: AppRouter.navigatorKey,
+            navigatorKey: alice.getNavigatorKey(),
             onGenerateRoute: AppRouter.generateRoute,
             initialRoute: Routes.splashScreen,
             localizationsDelegates: const [

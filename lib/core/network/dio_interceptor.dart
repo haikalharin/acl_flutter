@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
 
+import '../../myApp.dart';
 import '../local_storage/secure_storage/secure_storage.dart';
 import '../local_storage/shared_preference/app_shared_preference.dart';
 import '../router/app_router.dart';
@@ -55,7 +56,7 @@ class DioInterceptor extends Interceptor {
     if (err.response!.statusCode == 403 || err.response!.statusCode == 500) {
       SecureStorage().secureDeleteAll();
       AppSharedPreference.clear();
-      AppRouter.navigatorKey.currentState?.pushNamedAndRemoveUntil(
+      alice.getNavigatorKey()?.currentState?.pushNamedAndRemoveUntil(
         Routes.initialPage,
             (Route<dynamic> route) => false,
       );

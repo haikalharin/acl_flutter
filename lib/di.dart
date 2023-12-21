@@ -41,7 +41,7 @@ Future<void> init() async {
   getIt.registerLazySingleton<Dio>(() => Dio());
 
   getIt.registerLazySingleton<DioClient>(
-      () => DioClient(getIt<Dio>(), getIt<Dio>()));
+      () => DioClient(getIt<Dio>()));
 
   // User api
   getIt.registerLazySingleton<UserApi>(

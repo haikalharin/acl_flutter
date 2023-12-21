@@ -13,8 +13,6 @@ enum SubmitStatus { empty, loading, failure, success }
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= FlutterLocalNotificationsPlugin();
 void main() async {
   runZonedGuarded<Future<void>>(() async {
-
-
     if (kDebugMode) {
       print(F.appFlavor);
     }
@@ -23,10 +21,10 @@ void main() async {
     // await Sentry.captureException(error, stackTrace: stack);
     // await FirebaseCrashlytics.instance.recordError(error, stack);
   });
-
+  F.appFlavor = Flavor.DEVELOPMENT;
+  await Configurations().setConfigurationValues(config.devEnvironment);
   await init();
   WidgetsFlutterBinding.ensureInitialized();
-  await Configurations().setConfigurationValues(config.devEnvironment);
   runApp( MyApp());
 }
 

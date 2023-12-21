@@ -1,4 +1,4 @@
-package com.azlife.acl
+package co.id.az.acl
 
 import io.flutter.embedding.android.FlutterActivity
 
