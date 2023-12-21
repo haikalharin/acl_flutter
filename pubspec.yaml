@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -85,55 +85,6 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-#flavour
-flavorizr:
-  #  ide: "vscode"
-  app:
-    android:
-      flavorDimensions: "flavor-type"
-    ios:
-
-  flavors:
-    development:
-      app:
-        name: "Acl dev"
-
-      android:
-        applicationId: "co.id.az.acl.dev"
-        icon: "assets/ic_launcher.png"
-
-      ios:
-        bundleId: "co.id.az.acl.dev"
-    #        buildSettings:
-    #          # Development Team is visible in the apple developer portal
-    #          DEVELOPMENT_TEAM: YOURDEVTEAMID
-    #          PROVISIONING_PROFILE_SPECIFIER: "Dev-ProvisioningProfile"
-
-        staging:
-          app:
-            name: "Staging App"
-
-          android:
-            applicationId: "co.id.az.acl.staging"
-          ios:
-            bundleId: "co.id.az.acl.staging"
-    #        buildSettings:
-    #          DEVELOPMENT_TEAM: YOURSTAGINGTEAMID
-    #          PROVISIONING_PROFILE_SPECIFIER: "Staging-ProvisioningProfile"
-
-    production:
-      app:
-        name: "Komunitaz"
-
-      android:
-        applicationId: "co.id.az.acl"
-        icon: "assets/ic_launcher.png"
-      ios:
-        bundleId: "co.id.az.acl"
-#        buildSettings:
-#          DEVELOPMENT_TEAM: XH238TV6PN
-#          PROVISIONING_PROFILE_SPECIFIER: "Production-ProvisioningProfile"
-
 
 
 

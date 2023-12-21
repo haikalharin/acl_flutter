@@ -68,7 +68,7 @@ android {
             development {
             dimension "flavor-type"
             applicationId "co.id.az.acl.dev"
-            resValue "string", "app_name", "Acl dev"
+            resValue "string", "app_name", "Acl SIT"
         }
         production {
             dimension "flavor-type"
@@ -78,7 +78,7 @@ android {
         staging {
             dimension "flavor-type"
             applicationId "co.id.az.acl.staging"
-            resValue "string", "app_name", "Acl uat"
+            resValue "string", "app_name", "Acl UAT"
         }
     }
 
