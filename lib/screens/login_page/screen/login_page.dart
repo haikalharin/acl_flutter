@@ -2,14 +2,12 @@ import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/core/dialog/retry_dialog.dart';
 import 'package:acl_flutter/core/router/routes.dart';
 import 'package:acl_flutter/core/widget/text_input.dart';
-import 'package:acl_flutter/main.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
+import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../../core/widget/drop_down.dart';
-import '../../../core/widget/empty_widget.dart';
 import '../../../core/widget/spinkit_indicator.dart';
 import '../../../di.dart';
 
@@ -74,90 +72,131 @@ class _LoginPageScreenState extends State<LoginPage> {
                         ]));
           }
         },
-        child: Stack(
-          children: [
-            BlocBuilder<LoginPageBloc, LoginPageState>(
-                builder: (context, state) {
-              // if(state.status.isLoading){
-              //   return const SpinKitIndicator(type: SpinKitType.circle);
-              // } else if(state.status.isError){
-              //   return RetryDialog(
-              //       title: 'username dan password salah',
-              //       onCancelPressed: () => viewModel.add(LoginPageInitialEvent()) ,
-              //       onRetryPressed: () =>
-              //           viewModel.add(LoginSubmittedEvent()));
-              // }
-              return Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      TextInput(
-                        controller: username,
-                        keyboardType: TextInputType.number,
-                        icon: Icon(Icons.person),
-                        label: const Text("Username"),
-                        validator: (String? value) {
-                          if (value!.isNotEmpty ) return null;
-                          return "Username cannot be empty";
-                        },
-                        onChanged: (String input) {
-                          viewModel.add(UserNameInputEvent(input));
-                        },
-                      ),
-                      const SizedBox(height: 15),
-                      TextInput(
-                        controller: password,
-                        // initialValue: postBody,
-                        icon: Icon(Icons.password),
-                        label: const Text("Password"),
-                        obscureText: true,
-                        validator: (String? value) {
-                            if (state.password.isValid) return null;
-                            return "Password cannot be empty";
-                        },
-                        onChanged: (String input) {
-                          viewModel.add(PasswordInputEvent(input));
-                        },
-                      ),
-
-                      SizedBox(
-                        width: width * 0.4,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if(formKey.currentState!.validate()) {
-                              viewModel.add(LoginSubmittedEvent());
-                            }
-                          },
-                          child: Text("Login".toCapital),
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              BlocBuilder<LoginPageBloc, LoginPageState>(
+                  builder: (context, state) {
+                // if(state.status.isLoading){
+                //   return const SpinKitIndicator(type: SpinKitType.circle);
+                // } else if(state.status.isError){
+                //   return RetryDialog(
+                //       title: 'username dan password salah',
+                //       onCancelPressed: () => viewModel.add(LoginPageInitialEvent()) ,
+                //       onRetryPressed: () =>
+                //           viewModel.add(LoginSubmittedEvent()));
+                // }
+                return Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 250,
+                          child: Image.asset("assets/images/allianz_logo.png"),
                         ),
-                      )
-                    ],
+                        Center(
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              side: const BorderSide(
+                                color: Colors.grey,
+                                width: 1,
+                              ),
+                            ),
+                            margin: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Wrap(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.all(12),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            TextInput(
+                                              controller: username,
+                                              keyboardType: TextInputType.phone,
+                                              icon: Icon(Icons.person),
+                                              label: const Text("Username"),
+                                              validator: (String? value) {
+                                                if (state.userName.isNotValid) {
+                                                  return state.userName.invalidUserName;
+                                                }
+                                                return null;
+                                              },
+                                              onChanged: (String input) {
+                                                viewModel.add(UserNameInputEvent(input));
+                                              },
+                                            ),
+                                            const SizedBox(height: 15),
+                                            TextInput(
+                                              controller: password,
+                                              // initialValue: postBody,
+                                              icon: Icon(Icons.password),
+                                              label: const Text("Password"),
+                                              textCapitalization: TextCapitalization.none,
+                                              obscureText: true,
+                                              validator: (String? value) {
+                                                  if (state.password.isValid) return null;
+                                                  return "Password tidak boleh kosong";
+                                              },
+                                              onChanged: (String input) {
+                                                viewModel.add(PasswordInputEvent(input));
+                                              },
+                                            ),
+
+                                            Container(
+                                              margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                                              width: MediaQuery.of(context).size.width,
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  if(formKey.currentState!.validate()) {
+                                                    viewModel.add(LoginSubmittedEvent());
+                                                  }
+                                                },
+                                                child: Text("Login".toCapital),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(margin:EdgeInsets.symmetric(horizontal: 16),child: Text('Lupa Password?',style: TextStyle(color: AclColors.blueDark),))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
-            BlocBuilder<LoginPageBloc, LoginPageState>(
-              builder: (context, state) {
-                return state.submitStatus.isInProgress
-                    ? const SpinKitIndicator(type: SpinKitType.circle)
-                    : Container();
-              },
-            ),
-            // BlocBuilder<LoginPageBloc, LoginPageState>(
-            //   builder: (context, state) {
-            //     return state.status.isError
-            //         ? RetryDialog(
-            //             title: 'username dan password salah',
-            //             onCancelPressed: () => viewModel.add(LoginPageInitialEvent()) ,
-            //             onRetryPressed: () =>
-            //                 viewModel.add(LoginSubmittedEvent()))
-            //         : Container();
-            //   },
-            // ),
-          ],
+                );
+              }),
+              BlocBuilder<LoginPageBloc, LoginPageState>(
+                builder: (context, state) {
+                  return state.submitStatus.isInProgress
+                      ? const SpinKitIndicator(type: SpinKitType.circle)
+                      : Container();
+                },
+              ),
+              // BlocBuilder<LoginPageBloc, LoginPageState>(
+              //   builder: (context, state) {
+              //     return state.status.isError
+              //         ? RetryDialog(
+              //             title: 'username dan password salah',
+              //             onCancelPressed: () => viewModel.add(LoginPageInitialEvent()) ,
+              //             onRetryPressed: () =>
+              //                 viewModel.add(LoginSubmittedEvent()))
+              //         : Container();
+              //   },
+              // ),
+            ],
+          ),
         ),
       ),
     );

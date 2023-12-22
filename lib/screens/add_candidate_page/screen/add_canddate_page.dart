@@ -179,6 +179,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: Icon(Icons.add_card_rounded),
                             label: const Text("No KTP"),
+                            keyboardType: TextInputType.phone,
                             validator: (String? value) {
                               if (state.identityNo.isNotValid) {
                                 return state.identityNo.invalidIdentityNo;
@@ -210,9 +211,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: Icon(Icons.add_card_rounded),
                             label: const Text("No KK"),
+                            keyboardType: TextInputType.phone,
                             validator: (String? value) {
                               if (state.kkNo.isNotValid) {
-                                return state.kkNo.invalidIdentityNo;
+                                return "KK harus 16 digit";
                               }
                               return null;
                             },
@@ -609,6 +611,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: Icon(Icons.person),
                             isMandatory: checkedValueMarriage,
+                            keyboardType: TextInputType.phone,
                             label: const Text("No KTP Pasangan"),
                             // initialValue: postTitle,
                             validator: (String? value) {

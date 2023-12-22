@@ -4,12 +4,12 @@ part of 'login_page_bloc.dart';
 
 class LoginPageState extends Equatable with FormzMixin {
   final FormzSubmissionStatus submitStatus;
-  final MandatoryFieldValidator userName;
+  final UserNameValidator userName;
   final MandatoryFieldValidator password;
   final String? moveTo;
 
   const LoginPageState( {
-    this.userName = const MandatoryFieldValidator.pure(),
+    this.userName = const UserNameValidator.pure(),
     this.password = const MandatoryFieldValidator.pure(),
     this.moveTo,
     this.submitStatus = FormzSubmissionStatus.initial,
@@ -23,7 +23,7 @@ class LoginPageState extends Equatable with FormzMixin {
 
 
   LoginPageState copyWith({
-    MandatoryFieldValidator? userName,
+    UserNameValidator? userName,
     MandatoryFieldValidator? password,
     String? moveTo,
     FormzSubmissionStatus? submitStatus,

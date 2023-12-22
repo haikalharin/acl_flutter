@@ -38,10 +38,10 @@ class ButtonWidgetCustom extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
-            Icon(
+            icon != null?Icon(
               icon,
               color: Colors.white,
-            ),
+            ):Container(),
           ],
         ),
       ),

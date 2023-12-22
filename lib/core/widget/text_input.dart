@@ -18,7 +18,9 @@ class TextInput extends StatefulWidget {
     this.obscureText,
     this.keyboardType,
     this.autoValidateMode = AutovalidateMode.onUserInteraction,
-    this.hint, this.isMandatory = true,
+    this.hint,
+    this.isMandatory = true,
+    this.textCapitalization,
   }) : super(key: key);
 
   final String? initialValue;
@@ -36,6 +38,7 @@ class TextInput extends StatefulWidget {
   final bool? obscureText;
   final bool isMandatory;
   final TextInputType? keyboardType;
+  final TextCapitalization? textCapitalization;
 
   @override
   State<TextInput> createState() => _TextInputState();
@@ -45,7 +48,6 @@ class _TextInputState extends State<TextInput> {
   String? initialValue;
 
   _TextInputState();
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +61,12 @@ class _TextInputState extends State<TextInput> {
         textInputAction: TextInputAction.next,
         autovalidateMode: widget.autoValidateMode,
         cursorColor: Colors.grey,
-        maxLines: widget.obscureText != false || widget.obscureText != null ? 1 : widget.maxLine,
+        maxLines: widget.obscureText != false || widget.obscureText != null
+            ? 1
+            : widget.maxLine,
         obscureText: widget.obscureText ?? false,
+        textCapitalization:
+            widget.textCapitalization ?? TextCapitalization.characters,
         decoration: InputDecoration(
             hintText: widget.hint,
             label: Wrap(
@@ -69,21 +75,23 @@ class _TextInputState extends State<TextInput> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     widget.label ?? Container(),
-                    widget.isMandatory?Container(
-                        margin: EdgeInsets.only(left: 5, bottom: 5),
-                        child: const Text(
-                          '*',
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: AclColors.redAccent,
-                          ),
-                        )):Container(),
+                    widget.isMandatory
+                        ? Container(
+                            margin: EdgeInsets.only(left: 5, bottom: 5),
+                            child: const Text(
+                              '*',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: AclColors.redAccent,
+                              ),
+                            ))
+                        : Container(),
                   ],
                 ),
               ],
             ),
             prefixIcon: widget.icon),
-        onChanged:widget.onChanged,
+        onChanged: widget.onChanged,
         validator: widget.validator,
       ),
     );

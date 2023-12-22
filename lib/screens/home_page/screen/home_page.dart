@@ -77,9 +77,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     Tab(
                         child: Text(AppLocalizations.of(context)!.beRecruitment,
                             style: TextStyle(color: AclColors.blueDark))),
-                    Tab(
-                        child: Text(AppLocalizations.of(context)!.notification,
-                            style: TextStyle(color: AclColors.blueDark))),
+                    Stack(
+                      children: [
+                                Tab(
+                          child: Text(AppLocalizations.of(context)!.notification,
+                                style: TextStyle(color: AclColors.blueDark))),
+                              ],
+                    ),
                   ],
                 ),
                 Divider(

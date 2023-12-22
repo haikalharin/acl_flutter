@@ -1,11 +1,9 @@
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
-import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:formz/formz.dart';
-import 'package:intl/intl.dart';
 
 import '../../../core/widget/spinkit_indicator.dart';
 import '../../../di.dart';
@@ -93,11 +91,16 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                         ),
                                       ),
                                       child: Center(
-                                        child: Text(
-                                            AppLocalizations.of(context)!
-                                                .reload,
-                                            style: TextStyle(
-                                                color: AclColors.blueDark)),
+                                        child: InkWell(
+                                          onTap: (){
+                                            getIt<HomePageBloc>().add(FetchListNotifyEvent());
+                                          },
+                                          child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .reload,
+                                              style: TextStyle(
+                                                  color: AclColors.blueDark)),
+                                        ),
                                       ),
                                     ),
                                   ),

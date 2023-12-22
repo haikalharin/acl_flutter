@@ -9,8 +9,8 @@ class IdentityNoValidator extends FormzInput<String, IdentityNoValidationError> 
 
   @override
   IdentityNoValidationError? validator(String value) {
-    return value.length >= 16 ? null : IdentityNoValidationError.empty;
+    return value.length == 16 ? null : IdentityNoValidationError.empty;
   }
 
-  final String invalidIdentityNo = "IdentityNo harus 16 digit";
+  final String invalidIdentityNo = "Ktp harus 16 digit";
 }
