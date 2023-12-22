@@ -434,19 +434,19 @@ class AddCandidatePageBloc
         LoginModel loginModel = await SecureStorage().getUser();
         final result = await candidateRepository
             .addRegisterCandidate(RequestCandidateModel(
-          firstName: state.firstName.value,
-          middleName: state.middleName.value,
-          lastName: state.lastName.value,
+          firstName: state.firstName.value.toUpperCase(),
+          middleName: state.middleName.value.toUpperCase(),
+          lastName: state.lastName.value.toUpperCase(),
           dob: state.dob.value,
-          address1: state.address.value,
-          address2: state.rtRw.value,
-          address3: state.kecKel.value,
+          address1: state.address.value.toUpperCase(),
+          address2: state.rtRw.value.toUpperCase(),
+          address3: state.kecKel.value.toUpperCase(),
           city: state.cityId.value.toString(),
           province: state.provinceId.value.toString(),
-          zipCode: state.postalCode.value.toString(),
+          zipCode: state.postalCode.value,
           country: state.countryId.value.toString(),
-          leaderName: loginModel.name ?? '',
-          leaderAgentCode: loginModel.uid ?? '',
+          leaderName: (loginModel.name ?? '').toUpperCase(),
+          leaderAgentCode: (loginModel.uid ?? ''),
           spouseIdCardNo: state.identityNoPartner.value,
           idCardNo: state.identityNo.value,
           occupation: state.occupationId.value.toString(),
@@ -463,7 +463,7 @@ class AddCandidatePageBloc
           List<FamilyDetail> listFamiliDetail = [
             FamilyDetail(
                 idCardNo: state.identityNoPartner.value,
-                firstName: state.firstNamePartner.value,
+                firstName: state.firstNamePartner.value.toUpperCase(),
                 gender: state.gender?.longDescriptionEng??'',
                 relation: state.relationId.value.toString(),
                 dateOfBirth: state.dobPartner.value)

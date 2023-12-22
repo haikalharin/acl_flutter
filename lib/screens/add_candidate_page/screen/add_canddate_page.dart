@@ -295,6 +295,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: Icon(Icons.signpost_sharp),
                             label: const Text("Kode Pos"),
+                            keyboardType: TextInputType.phone,
                             validator: (String? value) {
                               if (state.postalCode.isNotValid) {
                                 return state.postalCode.invalidZipcode;
