@@ -10,4 +10,5 @@ class ServiceUrl {
   static String addRegisterCandidateDoc = "${subHost}AclDms/uploadDoc";
   static String addRegisterCandidateFolderDoc = "${subHost}AclDms/createFolder";
   static String addSepouseCandidate = "${subHost}restcandidate/insertFamilyCard";
+  static String submitPendingSimpleChecking = "${subHost}restcandidate/submitPendingSimpleChecking";
 }

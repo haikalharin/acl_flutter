@@ -153,25 +153,53 @@ class AddCandidatePageState extends Equatable with FormzMixin {
 
   @override
   List<FormzInput> get inputs {
-    List<FormzInput> data = [firstName];
+    List<FormzInput> data = [
+      firstName,
+      identityNo,
+      countryId,
+      provinceId,
+      cityId,
+      occupationId,
+      identityImage,
+      kkImage,
+      identitySelfieImage
+    ];
     if (checkedValueAAJI) {
       data.add(noLicenceAAJI);
       data.add(imageLicenceAAJI);
+    } else {
+      data.remove(noLicenceAAJI);
+      data.remove(imageLicenceAAJI);
     }
 
     if (checkedValueAASI) {
       data.add(noLicenceAASI);
       data.add(imageLicenceAASI);
+    } else {
+      data.remove(noLicenceAASI);
+      data.remove(imageLicenceAASI);
     }
+
     if (checkedValueAAUI) {
       data.add(noLicenceAAUI);
       data.add(imageLicenceAAUI);
+    } else {
+      data.remove(noLicenceAAUI);
+      data.remove(imageLicenceAAUI);
     }
 
     if (checkedValueMarriage) {
       data.add(firstNamePartner);
       data.add(identityNoPartner);
       data.add(dobPartner);
+      data.add(genderId);
+      data.add(relationId);
+    } else {
+      data.remove(firstNamePartner);
+      data.remove(identityNoPartner);
+      data.remove(dobPartner);
+      data.remove(genderId);
+      data.remove(relationId);
     }
     return data;
   }
@@ -226,7 +254,7 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     FormzSubmissionStatus? submitStatus,
   }) {
     return AddCandidatePageState(
-      message: message ,
+      message: message,
       firstName: firstName ?? this.firstName,
       middleName: middleName ?? this.middleName,
       lastName: lastName ?? this.lastName,

@@ -1,5 +1,6 @@
 import 'package:acl_flutter/core/network/dio_client.dart';
 import 'package:acl_flutter/data/api/candidate/add_register_candidate_api.dart';
+import 'package:acl_flutter/data/api/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/api/comment/comment_api.dart';
 import 'package:acl_flutter/data/api/document/document_api.dart';
 import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
@@ -40,8 +41,7 @@ Future<void> init() async {
   //Dio
   getIt.registerLazySingleton<Dio>(() => Dio());
 
-  getIt.registerLazySingleton<DioClient>(
-      () => DioClient(getIt<Dio>()));
+  getIt.registerLazySingleton<DioClient>(() => DioClient(getIt<Dio>()));
 
   // User api
   getIt.registerLazySingleton<UserApi>(
@@ -94,6 +94,10 @@ Future<void> init() async {
   getIt.registerLazySingleton<DocumentApi>(
       () => DocumentApi(dioClient: getIt<DioClient>()));
 
+  // PendingSimpleChecking api
+  getIt.registerLazySingleton<PendingSimpleCheckingApi>(
+      () => PendingSimpleCheckingApi(dioClient: getIt<DioClient>()));
+
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),
@@ -127,7 +131,8 @@ Future<void> init() async {
         trackingCandidateApi: getIt<TrackingCandidateApi>(),
         addRegisterCandidateApi: getIt<AddRegisterCandidateApi>(),
         documentApi: getIt<DocumentApi>(),
-        addRegisterSepouseApi: getIt<AddRegisterSepouseApi>()),
+        addRegisterSepouseApi: getIt<AddRegisterSepouseApi>(),
+        pendingSimpleCheckingApi: getIt<PendingSimpleCheckingApi>()),
   );
 
   // Agent repository

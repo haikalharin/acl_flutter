@@ -1,3 +1,4 @@
+import 'package:acl_flutter/data/api/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/api/document/document_api.dart';
 import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
 import 'package:acl_flutter/data/api/spouse/sepouse_api.dart';
@@ -20,6 +21,7 @@ import '../../api/candidate/tracking_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';
 import '../../model/candidate/candidate_register_model.dart';
 import '../../model/candidate/request_candidate_model.dart';
+import '../../model/candidate/request_pending_simple_checking_model.dart';
 import '../../model/tracking_model/tracking_model.dart';
 
 class CandidateRepository with RepositoryHelper<CandidateModel> {
@@ -30,6 +32,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
   final AddRegisterCandidateApi addRegisterCandidateApi;
   final AddRegisterSepouseApi addRegisterSepouseApi;
   final DocumentApi documentApi;
+  final PendingSimpleCheckingApi pendingSimpleCheckingApi;
 
   const CandidateRepository({
     required this.documentApi,
@@ -39,6 +42,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     required this.candidateBeApi,
     required this.masterDataApi,
     required this.addRegisterCandidateApi,
+    required this.pendingSimpleCheckingApi,
   });
 
   Future<ApiResult<ResponseModel<CandidateModel>>> fetchListMyAgent(
@@ -94,6 +98,19 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     try {
       final ResponseModel<CandidateRegisterModel> items =
       await addRegisterCandidateApi.addRegisterCandidate(requestCandidateModel);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      var data = e;
+      print("$data");
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+
+  Future<ApiResult<ResponseModel<CandidateRegisterModel>>> pendingSimpleChecking(RequestPendingSimpleCheckingModel requestPendingSimpleCheckingModel) async {
+    try {
+      final ResponseModel<CandidateRegisterModel> items =
+      await pendingSimpleCheckingApi.pendingSimpleChecking(requestPendingSimpleCheckingModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;

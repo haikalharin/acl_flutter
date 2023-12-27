@@ -52,7 +52,7 @@ class _DropDownRelationState extends State<DropDownRelation> {
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
-            Container(
+           widget.isMandatory? Container(
                 margin: EdgeInsets.only(left: 5, bottom: 5),
                 child: const Text(
                   '*',
@@ -60,7 +60,7 @@ class _DropDownRelationState extends State<DropDownRelation> {
                     fontSize: 12.0,
                     color: AclColors.redAccent,
                   ),
-                )),
+                )):Container(),
             Container(
                 margin: EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(

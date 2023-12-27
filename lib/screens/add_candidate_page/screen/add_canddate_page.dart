@@ -198,6 +198,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               getIt<AddCandidatePageBloc>()
                                   .add(IdentityImageInputEvent(value));
                             },
+                            errorText:  isCheck &&
+                                state.identityImage.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                           ),
                           const SizedBox(height: 8),
                           CustomImagePicker(
@@ -206,6 +210,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               getIt<AddCandidatePageBloc>()
                                   .add(IdentitySelfieImageInputEvent(value));
                             },
+                            errorText:  isCheck &&
+                                state.identitySelfieImage.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                           ),
                           const SizedBox(height: 8),
                           TextInput(
@@ -230,6 +238,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               getIt<AddCandidatePageBloc>()
                                   .add(KkImageInputEvent(value));
                             },
+                            errorText:  isCheck &&
+                                state.kkImage.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                           ),
                           const SizedBox(height: 8),
                           TextInput(
@@ -492,6 +504,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               getIt<AddCandidatePageBloc>()
                                   .add(AajiImageInputEvent(value));
                             },
+                            errorText: checkedValueAAJI && isCheck &&
+                                state.imageLicenceAAJI.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                           ),
                           const SizedBox(height: 16),
                           CheckboxListTile(
@@ -534,6 +550,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               getIt<AddCandidatePageBloc>()
                                   .add(AasiImageInputEvent(value));
                             },
+                            errorText: checkedValueAASI && isCheck &&
+                                state.imageLicenceAASI.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                           ),
                           const SizedBox(height: 16),
                           CheckboxListTile(
@@ -592,6 +612,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 getIt<AddCandidatePageBloc>()
                                     .add(AauiImageInputEvent(value));
                               },
+                              errorText: checkedValueAAUI && isCheck &&
+                                  state.imageLicenceAAUI.isNotValid
+                                  ? 'Mohon diisi'
+                                  : null,
                             ),
                           const SizedBox(height: 16),
                           CheckboxListTile(
@@ -709,6 +733,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                     ?.gender
                                     ?.masterReference ??
                                 [],
+                            errorText:  isCheck &&
+                                state.genderId.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                           ),
                           const SizedBox(height: 8),
                           DropDownRelation(
@@ -729,6 +757,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                     ?.relation
                                     ?.masterReference ??
                                 [],
+                            errorText:  isCheck &&
+                                state.relationId.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                           ),
                           SizedBox(
                             width: width * 0.4,
