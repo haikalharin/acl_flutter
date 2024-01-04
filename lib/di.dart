@@ -1,4 +1,5 @@
 import 'package:acl_flutter/core/network/dio_client.dart';
+import 'package:acl_flutter/core/network/dio_client_new.dart';
 import 'package:acl_flutter/data/api/candidate/add_register_candidate_api.dart';
 import 'package:acl_flutter/data/api/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/api/comment/comment_api.dart';
@@ -42,7 +43,11 @@ Future<void> init() async {
   //Dio
   getIt.registerLazySingleton<Dio>(() => Dio());
 
+  getIt.registerLazySingleton<Dio>(() => Dio(),instanceName: 'specialDio');
+
   getIt.registerLazySingleton<DioClient>(() => DioClient(getIt<Dio>()));
+
+  getIt.registerLazySingleton<DioClientNew>(() => DioClientNew(getIt<Dio>(instanceName: 'specialDio')));
 
   // User api
   getIt.registerLazySingleton<UserApi>(
@@ -62,7 +67,7 @@ Future<void> init() async {
 
   // Login api
   getIt.registerLazySingleton<LoginApi>(
-      () => LoginApi(dioClient: getIt<DioClient>()));
+      () => LoginApi(dioClient: getIt<DioClientNew>()));
 
   // Candidate api
   getIt.registerLazySingleton<CandidateApi>(
@@ -86,7 +91,7 @@ Future<void> init() async {
 
   // AddRegisterCandidate api
   getIt.registerLazySingleton<AddRegisterCandidateApi>(
-      () => AddRegisterCandidateApi(dioClient: getIt<DioClient>()));
+      () => AddRegisterCandidateApi(dioClient: getIt<DioClientNew>()));
 
   // AddRegisterSepouse api
   getIt.registerLazySingleton<AddRegisterSepouseApi>(

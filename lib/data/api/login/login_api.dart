@@ -2,11 +2,11 @@ import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../../core/network/api_helper.dart';
-import '../../../core/network/dio_client.dart';
+import '../../../core/network/dio_client_new.dart';
 import '../../../core/network/service_url.dart';
 
 class LoginApi with ApiHelper<LoginModel> {
-  final DioClient dioClient;
+  final DioClientNew dioClient;
 
   LoginApi({required this.dioClient});
 

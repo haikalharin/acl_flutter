@@ -2,6 +2,7 @@ import 'default_env.dart';
 
 class Configurations {
   static String _host = DefaultConfig.host;
+  static String _hostNew = DefaultConfig.hostNew;
   static String _sub_host = DefaultConfig.subHost;
   static String _imageHost = DefaultConfig.imageHost;
   static String _httpClientType = '';
@@ -20,6 +21,9 @@ class Configurations {
     _host = value['isVpn'] == false
         ? value['host'] ?? DefaultConfig.host
         : value['host_vpn'] ?? DefaultConfig.host;
+    _hostNew = value['isVpn'] == false
+        ? value['host_new'] ?? DefaultConfig.hostNew
+        : value['host_vpn'] ?? DefaultConfig.hostNew;
     _sub_host = value['isVpn'] == false
         ? value['sub_host'] ?? DefaultConfig.host
         : value['sub_host_vpn'] ?? DefaultConfig.host;
@@ -42,6 +46,8 @@ class Configurations {
   }
 
   static String get host => _host;
+
+  static String get hostNew => _hostNew;
 
   static String get sub_host => _sub_host;
 
