@@ -82,6 +82,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedValuePersonalContact = newValue ?? false;
+                                     checkedValueRefferal = false;
+                                     checkedNeedValueSocialMedia = false;
+                                     checkedValueAdvertisement = false;
+                                     checkedValueRecruitingCampus = false;
+                                     checkedValueJobFair = false;
+                                     checkedValueAAJIProgram = false;
+                                     checkedValueNasabah = false;
+                                     checkedValueOther = false;
                                   });
 
                                   // getIt<FaaCandidatePageBloc>().add(
@@ -97,6 +105,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedValueRefferal = newValue ?? false;
+                                    checkedValuePersonalContact = false;
+                                    checkedNeedValueSocialMedia = false;
+                                    checkedValueAdvertisement = false;
+                                    checkedValueRecruitingCampus = false;
+                                    checkedValueJobFair = false;
+                                    checkedValueAAJIProgram = false;
+                                    checkedValueNasabah = false;
+                                    checkedValueOther = false;
                                   });
 
                                   // getIt<FaaCandidatePageBloc>().add(
@@ -112,6 +128,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedNeedValueSocialMedia = newValue ?? false;
+                                    checkedValuePersonalContact = false;
+                                    checkedValueRefferal = false;
+                                    checkedValueAdvertisement = false;
+                                    checkedValueRecruitingCampus = false;
+                                    checkedValueJobFair = false;
+                                    checkedValueAAJIProgram = false;
+                                    checkedValueNasabah = false;
+                                    checkedValueOther = false;
                                   });
                                   // getIt<FaaCandidatePageBloc>().add(
                                   //     MarriedCheckedInputEvent(newValue ?? false));
@@ -126,6 +150,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedValueAdvertisement = newValue ?? false;
+                                    checkedValuePersonalContact = false;
+                                    checkedValueRefferal = false;
+                                    checkedNeedValueSocialMedia = false;
+                                    checkedValueRecruitingCampus = false;
+                                    checkedValueJobFair = false;
+                                    checkedValueAAJIProgram = false;
+                                    checkedValueNasabah = false;
+                                    checkedValueOther = false;
                                   });
                                   // getIt<FaaCandidatePageBloc>().add(
                                   //     MarriedCheckedInputEvent(newValue ?? false));
@@ -140,6 +172,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedValueRecruitingCampus = newValue ?? false;
+                                    checkedValuePersonalContact = false;
+                                    checkedValueRefferal = false;
+                                    checkedNeedValueSocialMedia = false;
+                                    checkedValueAdvertisement = false;
+                                    checkedValueJobFair = false;
+                                    checkedValueAAJIProgram = false;
+                                    checkedValueNasabah = false;
+                                    checkedValueOther = false;
                                   });
                                   // getIt<FaaCandidatePageBloc>().add(
                                   //     MarriedCheckedInputEvent(newValue ?? false));
@@ -154,6 +194,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedValueJobFair = newValue ?? false;
+                                    checkedValuePersonalContact = false;
+                                    checkedValueRefferal = false;
+                                    checkedNeedValueSocialMedia = false;
+                                    checkedValueAdvertisement = false;
+                                    checkedValueRecruitingCampus = false;
+                                    checkedValueAAJIProgram = false;
+                                    checkedValueNasabah = false;
+                                    checkedValueOther = false;
                                   });
                                   // getIt<FaaCandidatePageBloc>().add(
                                   //     MarriedCheckedInputEvent(newValue ?? false));
@@ -168,6 +216,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedValueAAJIProgram = newValue ?? false;
+                                    checkedValuePersonalContact = false;
+                                    checkedValueRefferal = false;
+                                    checkedNeedValueSocialMedia = false;
+                                    checkedValueAdvertisement = false;
+                                    checkedValueRecruitingCampus = false;
+                                    checkedValueJobFair = false;
+                                    checkedValueNasabah = false;
+                                    checkedValueOther = false;
                                   });
                                   // getIt<FaaCandidatePageBloc>().add(
                                   //     MarriedCheckedInputEvent(newValue ?? false));
@@ -182,6 +238,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedValueNasabah = newValue ?? false;
+                                    checkedValuePersonalContact = false;
+                                    checkedValueRefferal = false;
+                                    checkedNeedValueSocialMedia = false;
+                                    checkedValueAdvertisement = false;
+                                    checkedValueRecruitingCampus = false;
+                                    checkedValueJobFair = false;
+                                    checkedValueAAJIProgram = false;
+                                    checkedValueOther = false;
                                   });
                                   // getIt<FaaCandidatePageBloc>().add(
                                   //     MarriedCheckedInputEvent(newValue ?? false));
@@ -196,6 +260,14 @@ class _SourceOfRecruitingInformationState extends State<SourceOfRecruitingInform
                                 onChanged: (newValue) {
                                   setState(() {
                                     checkedValueOther = newValue ?? false;
+                                    checkedValuePersonalContact = false;
+                                    checkedValueRefferal = false;
+                                    checkedNeedValueSocialMedia = false;
+                                    checkedValueAdvertisement = false;
+                                    checkedValueRecruitingCampus = false;
+                                    checkedValueJobFair = false;
+                                    checkedValueAAJIProgram = false;
+                                    checkedValueNasabah = false;
                                   });
                                   // getIt<FaaCandidatePageBloc>().add(
                                   //     MarriedCheckedInputEvent(newValue ?? false));
