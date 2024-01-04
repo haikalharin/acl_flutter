@@ -3,32 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-import '../../../core/widget/custom_image_picker.dart';
-import '../../../core/widget/date_time_picker_form.dart';
-import '../../../core/widget/spinkit_indicator.dart';
-import '../../../core/widget/text_input.dart';
-import '../../../data/model/login_model/login_model.dart';
-import '../../../data/model/master_data_model/master_data_model.dart';
-import '../../../di.dart';
-import '../../../utils/acl_color.dart';
-import '../../add_candidate_page/widget/drop_down_city.dart';
-import '../../add_candidate_page/widget/drop_down_country.dart';
-import '../../add_candidate_page/widget/drop_down_gender.dart';
-import '../../add_candidate_page/widget/drop_down_occupation.dart';
-import '../../add_candidate_page/widget/drop_down_province.dart';
-import '../../add_candidate_page/widget/drop_down_relation.dart';
-import '../bloc/faa_candidate_page_bloc.dart';
+import '../../../../../core/widget/custom_image_picker.dart';
+import '../../../../../core/widget/date_time_picker_form.dart';
+import '../../../../../core/widget/spinkit_indicator.dart';
+import '../../../../../core/widget/text_input.dart';
+import '../../../../../data/model/login_model/login_model.dart';
+import '../../../../../data/model/master_data_model/master_data_model.dart';
+import '../../../../../di.dart';
+import '../../../../../utils/acl_color.dart';
+import '../../../../add_candidate_page/widget/drop_down_city.dart';
+import '../../../../add_candidate_page/widget/drop_down_country.dart';
+import '../../../../add_candidate_page/widget/drop_down_gender.dart';
+import '../../../../add_candidate_page/widget/drop_down_occupation.dart';
+import '../../../../add_candidate_page/widget/drop_down_province.dart';
+import '../../../../add_candidate_page/widget/drop_down_relation.dart';
+import '../../../bloc/faa_candidate_page_bloc.dart';
 
 enum Mode { create, update }
-class PrivateDataPage extends StatefulWidget {
+class PrivateData extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-   const PrivateDataPage({super.key, required this.formKey});
+   const PrivateData({super.key, required this.formKey});
 
   @override
-  State<PrivateDataPage> createState() => _PrivateDataPageState();
+  State<PrivateData> createState() => _PrivateDataState();
 }
 
-class _PrivateDataPageState extends State<PrivateDataPage> {
+class _PrivateDataState extends State<PrivateData> {
   var firstName = TextEditingController(text: "aaaaaa");
   var middleName = TextEditingController(text: "");
   var lastName = TextEditingController(text: "");
@@ -764,21 +764,6 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                                     : null,
                               ),
                               const SizedBox(height: 8),
-                              SizedBox(
-                                width: width * 0.4,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    if (widget.formKey.currentState!.validate()) {
-                                      getIt<FaaCandidatePageBloc>()
-                                          .add(AddAgentSubmittedEvent());
-                                    }
-                                    setState(() {
-                                      isCheck = true;
-                                    });
-                                  },
-                                  child: Text("Selanjutnya".toCapital),
-                                ),
-                              )
                             ],
                           ),
                         ),

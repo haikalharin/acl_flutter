@@ -6,6 +6,7 @@ import 'package:formz/formz.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../core/router/routes.dart';
 import '../../../core/widget/spinkit_indicator.dart';
 import '../../../data/model/candidate/candidate_model.dart';
 import '../../../di.dart';
@@ -90,9 +91,11 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle button press
+                      Navigator.of(context).pushNamed(
+                        Routes.faaFormCandidatePage,
+                      );
                     },
-                    child: const Text('Press Me'),
+                    child: const Text('Form FAA'),
                   ),
                 ),
                 // Second Widget

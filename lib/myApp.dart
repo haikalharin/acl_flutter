@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.lightAppTheme,
             navigatorKey: alice.getNavigatorKey(),
             onGenerateRoute: AppRouter.generateRoute,
-            initialRoute: Routes.faaFormCandidatePage,
+            initialRoute: Routes.splashScreen,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
