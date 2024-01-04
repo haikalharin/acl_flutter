@@ -1,10 +1,8 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 import 'package:in_app_update/in_app_update.dart';
 
@@ -13,9 +11,7 @@ import 'package:in_app_update/in_app_update.dart';
 import '../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
 import '../../di.dart';
-import '../../main_dev.dart' as dev;
 import 'bloc/splash_screen_bloc.dart';
-import 'package:intl/intl_standalone.dart';
 
 // late final FirebaseRemoteConfig remoteConfig;
 
@@ -29,16 +25,16 @@ class SplashscreenPage extends StatefulWidget {
 class _SplashscreenPageState extends State<SplashscreenPage> {
   bool? skipOnboarding = false;
   // static FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
-  bool _isLoading = true;
+  final bool _isLoading = true;
   late Color _color;
   // final Alice _alice = Alice(
   //     showNotification: true,
   //     darkTheme: false);
 
   void getFirstInstall() async{
-    bool? _skipOnboarding = await AppSharedPreference.getBool(AppSharedPreference.newInstall);
+    bool? skipOnboarding = await AppSharedPreference.getBool(AppSharedPreference.newInstall);
     setState(() {
-      skipOnboarding = _skipOnboarding;
+      skipOnboarding = skipOnboarding;
       // _alice.showInspector();
     });
     if (kDebugMode) {
@@ -70,7 +66,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
   void initState() {
     _init();
     getFirstInstall();
-    getIt<SplashscreenBloc>().add(SplashscreenCheckUserExist());
+    getIt<SplashscreenBloc>().add(const SplashscreenCheckUserExist());
     // _initializeRemoteConfig();
     checkForUpdate();
     super.initState();
@@ -139,7 +135,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
       child: BlocBuilder<SplashscreenBloc, SplashscreenState>(
         builder: (context, state) {
           return Scaffold(
-              body: Container(
+              body: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Image.asset("assets/images/allianz_logo.png" ),

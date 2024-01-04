@@ -9,7 +9,6 @@ import 'package:logger/logger.dart';
 import '../../myApp.dart';
 import '../local_storage/secure_storage/secure_storage.dart';
 import '../local_storage/shared_preference/app_shared_preference.dart';
-import '../router/app_router.dart';
 import '../router/routes.dart';
 
 class DioInterceptor extends Interceptor {
@@ -69,6 +68,8 @@ class DioInterceptor extends Interceptor {
   /// Api to get new token from refresh token
   ///
   Future<bool?> refreshToken() async {
+    return null;
+  
     ///call your refesh token api here
   }
 

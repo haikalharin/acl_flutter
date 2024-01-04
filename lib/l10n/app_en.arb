@@ -8,6 +8,9 @@
   "note": "Note",
   "language": "Language",
   "dataNotFound": "Data Not Found",
+  "privateData": "Private Data",
+  "experience": "Experience",
+  "education": "Education",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   }

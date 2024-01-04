@@ -41,13 +41,23 @@ class TextInput extends StatefulWidget {
   final TextCapitalization? textCapitalization;
 
   @override
-  State<TextInput> createState() => _TextInputState();
+  State<TextInput> createState() => _TextInputState(initialValue);
 }
 
 class _TextInputState extends State<TextInput> {
   String? initialValue;
+  TextEditingController? controller = TextEditingController(text: "");
 
-  _TextInputState();
+  _TextInputState(this.initialValue);
+
+  @override
+  void initState() {
+    if (widget.initialValue != null) {
+      controller?.text = widget.initialValue ?? '';
+      widget.onChanged!(widget.initialValue ?? '');
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +66,7 @@ class _TextInputState extends State<TextInput> {
       subtitle: TextFormField(
         focusNode: widget.focusNode,
         keyboardType: widget.keyboardType,
-        controller: widget.controller,
+        controller: widget.controller ?? controller,
         enabled: widget.enabled ?? true,
         textInputAction: TextInputAction.next,
         autovalidateMode: widget.autoValidateMode,
@@ -77,7 +87,7 @@ class _TextInputState extends State<TextInput> {
                     widget.label ?? Container(),
                     widget.isMandatory
                         ? Container(
-                            margin: EdgeInsets.only(left: 5, bottom: 5),
+                            margin: const EdgeInsets.only(left: 5, bottom: 5),
                             child: const Text(
                               '*',
                               style: TextStyle(

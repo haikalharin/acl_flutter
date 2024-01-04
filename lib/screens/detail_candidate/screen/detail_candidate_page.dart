@@ -45,7 +45,7 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail'),
+        title: const Text('Detail'),
       ),
       body: BlocListener<DetailCandidatePageBloc, DetailCandidatePageState>(
         listener: (context, state) {
@@ -61,9 +61,9 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                 ),
                 // First Widget
                 Card(
-                  margin: EdgeInsets.all(16.0),
+                  margin: const EdgeInsets.all(16.0),
                   child: Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,16 +71,16 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                         Text('Nama: ${widget.candidateModel?.firstName ?? ''} '
                             '${widget.candidateModel?.middleName ?? ''}'
                             ' ${widget.candidateModel?.lastName ?? ''}'),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text(
                             'Nama Pengguna: ${widget.candidateModel?.userId ?? ''}'),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text('Tanggal Lahir: $dob'),
-                        SizedBox(height: 16.0), // Spacer
+                        const SizedBox(height: 16.0), // Spacer
                       ],
                     ),
                   ),
@@ -92,20 +92,20 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                     onPressed: () {
                       // Handle button press
                     },
-                    child: Text('Press Me'),
+                    child: const Text('Press Me'),
                   ),
                 ),
                 // Second Widget
                 Expanded(
                   child: Card(
-                    margin: EdgeInsets.all(16.0),
+                    margin: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width,
                           color: AclColors.greyDivider,
                           padding: const EdgeInsets.all(16.0),
-                          child: Text(
+                          child: const Text(
                             'Status Aplikasi',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -120,7 +120,7 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                               : state.submitStatus.isSuccess
                                   ? state.listTrackModel!.isEmpty &&
                                           !state.submitStatus.isInProgress
-                                      ? Container(
+                                      ? SizedBox(
                                           width:
                                               MediaQuery.of(context).size.width,
                                           child: Center(
@@ -148,7 +148,7 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                                                           1000),
                                                 ),
                                                 child: Container(
-                                                  margin: EdgeInsets.all(1),
+                                                  margin: const EdgeInsets.all(1),
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
                                                       color: Colors.blue,
@@ -157,7 +157,7 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                                                     ),
                                                     color: AclColors.white,
                                                     borderRadius:
-                                                        BorderRadius.all(
+                                                        const BorderRadius.all(
                                                             Radius.circular(
                                                                 100.0)),
                                                   ),
@@ -187,7 +187,7 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                                   : Stack(children: [
                                       Center(
                                         child: Container(
-                                            margin: EdgeInsets.only(),
+                                            margin: const EdgeInsets.only(),
                                             child: Container(
                                               child: Text(
                                                   state.errorMessage ?? ''),

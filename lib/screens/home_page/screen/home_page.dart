@@ -1,5 +1,4 @@
 import 'package:acl_flutter/screens/home_page/screen/list_notify_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -57,12 +56,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       title: Text(
                         state.loginModel?.name ?? '',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: AclColors.white),
+                        style: const TextStyle(color: AclColors.white),
                       ),
                       subtitle: Text(
                         state.loginModel?.employeeNumber ?? '',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: AclColors.white),
+                        style: const TextStyle(color: AclColors.white),
                       ),
                     ),
                   ),
@@ -73,20 +72,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   tabs: [
                     Tab(
                         child: Text(AppLocalizations.of(context)!.myRecruitment,
-                            style: TextStyle(color: AclColors.blueDark))),
+                            style: const TextStyle(color: AclColors.blueDark))),
                     Tab(
                         child: Text(AppLocalizations.of(context)!.beRecruitment,
-                            style: TextStyle(color: AclColors.blueDark))),
+                            style: const TextStyle(color: AclColors.blueDark))),
                     Stack(
                       children: [
                                 Tab(
                           child: Text(AppLocalizations.of(context)!.notification,
-                                style: TextStyle(color: AclColors.blueDark))),
+                                style: const TextStyle(color: AclColors.blueDark))),
                               ],
                     ),
                   ],
                 ),
-                Divider(
+                const Divider(
                   // Add a Divider under the TabBar
                   height: 1,
                   color: Colors.black,
@@ -109,7 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         isMyCandidate: false,searchTextController: _searchTextController,
                       ),
                       // Content for Tab 3
-                      ListNotifyPage()
+                      const ListNotifyPage()
                     ],
                   ),
                 ),

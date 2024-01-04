@@ -2,7 +2,6 @@ import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/core/dialog/success_dialog.dart';
 import 'package:acl_flutter/screens/add_candidate_page/widget/drop_down_city.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -125,7 +124,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             controller: firstName,
-                            icon: Icon(Icons.person),
+                            icon: const Icon(Icons.person),
                             label: const Text("Nama Depan(sesuai KTP)"),
                             // initialValue: postTitle,
                             validator: (String? value) {
@@ -141,7 +140,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             controller: middleName,
                             isMandatory: false,
-                            icon: Icon(Icons.person),
+                            icon: const Icon(Icons.person),
                             label: const Text("Nama tengah(sesuai KTP)"),
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
@@ -152,7 +151,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             controller: lastName,
                             isMandatory: false,
-                            icon: Icon(Icons.person),
+                            icon: const Icon(Icons.person),
                             label: const Text("Nama belakang(sesuai KTP)"),
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
@@ -163,7 +162,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           DateTimePickerForm(
                             dateTime:
                                 mode == Mode.update ? DateTime.now() : null,
-                            label: Text("Tanggal lahir"),
+                            label: const Text("Tanggal lahir"),
                             selectedDateTime: (DateTime date) {
                               var dateTime =
                                   "${date.year}-${date.month}-${date.day}";
@@ -177,7 +176,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           TextInput(
-                            icon: Icon(Icons.add_card_rounded),
+                            icon: const Icon(Icons.add_card_rounded),
                             label: const Text("No KTP"),
                             keyboardType: TextInputType.phone,
                             validator: (String? value) {
@@ -217,7 +216,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           TextInput(
-                            icon: Icon(Icons.add_card_rounded),
+                            icon: const Icon(Icons.add_card_rounded),
                             label: const Text("No KK"),
                             keyboardType: TextInputType.phone,
                             validator: (String? value) {
@@ -248,7 +247,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             title: Row(
                               children: [
                                 Container(
-                                    margin: EdgeInsets.only(bottom: 8),
+                                    margin: const EdgeInsets.only(bottom: 8),
                                     child: const Text(
                                         'Alamat rumah (sesuai KTP)',
                                         style: TextStyle(
@@ -256,7 +255,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                           color: AclColors.greyDarkFontColor,
                                         ))),
                                 Container(
-                                    margin: EdgeInsets.only(left: 5, bottom: 5),
+                                    margin: const EdgeInsets.only(left: 5, bottom: 5),
                                     child: const Text(
                                       '*',
                                       style: TextStyle(
@@ -266,7 +265,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                     ))
                               ],
                             ),
-                            icon: Icon(Icons.add_location),
+                            icon: const Icon(Icons.add_location),
                             label: const Text("(Gedung.../Jalan...)"),
                             validator: (String? value) {
                               if (value!.isNotEmpty) return null;
@@ -279,7 +278,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           TextInput(
-                            icon: Icon(Icons.add_location),
+                            icon: const Icon(Icons.add_location),
                             label: const Text("(RT.../RW...)"),
                             validator: (String? value) {
                               if (value!.isNotEmpty) return null;
@@ -292,7 +291,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           TextInput(
-                            icon: Icon(Icons.add_location),
+                            icon: const Icon(Icons.add_location),
                             label: const Text("(Kelurahan.../Kecamatan...)"),
                             validator: (String? value) {
                               if (value!.isNotEmpty) return null;
@@ -305,7 +304,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           TextInput(
-                            icon: Icon(Icons.signpost_sharp),
+                            icon: const Icon(Icons.signpost_sharp),
                             label: const Text("Kode Pos"),
                             keyboardType: TextInputType.phone,
                             validator: (String? value) {
@@ -481,7 +480,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             isMandatory: checkedValueAAJI,
-                            icon: Icon(Icons.add_card_rounded),
+                            icon: const Icon(Icons.add_card_rounded),
                             label: const Text("No lisensi AAJI"),
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
@@ -527,7 +526,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             isMandatory: checkedValueAASI,
-                            icon: Icon(Icons.add_card_rounded),
+                            icon: const Icon(Icons.add_card_rounded),
                             label: const Text("No lisensi AASI"),
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
@@ -588,7 +587,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           if (checkedNeedValueAAUI)
                             TextInput(
                               isMandatory: checkedValueAAUI,
-                              icon: Icon(Icons.add_card_rounded),
+                              icon: const Icon(Icons.add_card_rounded),
                               label: const Text("No lisensi AAUI"),
                               onChanged: (String value) {
                                 getIt<AddCandidatePageBloc>()
@@ -634,7 +633,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           TextInput(
-                            icon: Icon(Icons.person),
+                            icon: const Icon(Icons.person),
                             isMandatory: checkedValueMarriage,
                             keyboardType: TextInputType.phone,
                             label: const Text("No KTP Pasangan"),
@@ -657,7 +656,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           TextInput(
-                            icon: Icon(Icons.person),
+                            icon: const Icon(Icons.person),
                             label: const Text("Nama Depan(sesuai KTP)"),
                             isMandatory: checkedValueMarriage,
                             validator: (String? value) {
@@ -676,7 +675,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             isMandatory: false,
-                            icon: Icon(Icons.person),
+                            icon: const Icon(Icons.person),
                             label: const Text("Nama tengah(sesuai KTP)"),
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
@@ -686,7 +685,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             isMandatory: false,
-                            icon: Icon(Icons.person),
+                            icon: const Icon(Icons.person),
                             label: const Text("Nama belakang(sesuai KTP)"),
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
@@ -697,7 +696,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           DateTimePickerForm(
                             dateTime:
                                 mode == Mode.update ? DateTime.now() : null,
-                            label: Text("Tanggal lahir pasangan"),
+                            label: const Text("Tanggal lahir pasangan"),
                             isMandatory: checkedValueMarriage,
                             selectedDateTime: (DateTime date) {
                               var dateTime =

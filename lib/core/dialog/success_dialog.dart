@@ -24,9 +24,9 @@ class SuccessDialog extends StatelessWidget {
           const SizedBox(height: 15),
           isProgressed ? const SpinKitIndicator(type: SpinKitType.circle) : const SizedBox(),
           const SizedBox(height: 15),
-          SizedBox(
+          const SizedBox(
             width: double.infinity,
-            child: const SizedBox()
+            child: SizedBox()
 
           )
         ],

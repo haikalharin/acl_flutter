@@ -5,17 +5,14 @@ import 'package:acl_flutter/data/model/notification_model/notification_model.dar
 import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/local_storage/secure_storage/secure_storage.dart';
 import '../../../core/router/routes.dart';
 import '../../../data/model/candidate/candidate_be_model.dart';
 import '../../../data/model/candidate/candidate_model.dart';
 import '../../../data/repository/notification/notification_repository.dart';
-import '../../../flavors.dart';
 
 part 'home_page_event.dart';
 

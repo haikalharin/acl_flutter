@@ -1,6 +1,7 @@
 import 'package:acl_flutter/core/router/routes.dart';
 import 'package:acl_flutter/screens/add_candidate_page/screen/add_canddate_page.dart';
 import 'package:acl_flutter/screens/detail_candidate/screen/detail_candidate_page.dart';
+import 'package:acl_flutter/screens/faa_form_candidate/screen/faa_form_candidate_page.dart';
 import 'package:acl_flutter/screens/home_page/screen/home_page.dart';
 import 'package:acl_flutter/screens/login_page/screen/login_page.dart';
 import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
@@ -19,19 +20,19 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splashScreen:
-        return MaterialPageRoute(builder: (_) => SplashscreenPage());
+        return MaterialPageRoute(builder: (_) => const SplashscreenPage());
       case Routes.userList:
-        return MaterialPageRoute(builder: (_) => UserListScreen());
+        return MaterialPageRoute(builder: (_) => const UserListScreen());
       case Routes.loginPage:
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return MaterialPageRoute(builder: (_) => const LoginPage());
       case Routes.navbarPage:
-        return MaterialPageRoute(builder: (_) => NavbarPage());
+        return MaterialPageRoute(builder: (_) => const NavbarPage());
       case Routes.initialPage:
-        return MaterialPageRoute(builder: (_) => InitialPage());
+        return MaterialPageRoute(builder: (_) => const InitialPage());
       case Routes.homePage:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
       case Routes.sidebarPage:
-        return MaterialPageRoute(builder: (_) => SideBarPage());
+        return MaterialPageRoute(builder: (_) => const SideBarPage());
       case Routes.addAgentPage:
         return MaterialPageRoute(builder: (_) => const AddCandidatePage());
       case Routes.detailCandidatePage:
@@ -40,6 +41,8 @@ class AppRouter {
                   candidateModel: getCandidateModel(settings.arguments),
                   isMyCandidate: getIsMyCandidate(settings.arguments),
                 ));
+      case Routes.faaFormCandidatePage:
+        return MaterialPageRoute(builder: (_) =>  const FaaFormCandidatePage());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

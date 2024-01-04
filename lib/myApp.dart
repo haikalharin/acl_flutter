@@ -1,5 +1,6 @@
 import 'package:acl_flutter/screens/add_candidate_page/bloc/add_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/detail_candidate/bloc/detail_candidate_page_bloc.dart';
+import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
@@ -9,9 +10,7 @@ import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
 import 'package:acl_flutter/viewmodel/comment/bloc/comment_bloc.dart';
 import 'package:acl_flutter/viewmodel/post/bloc/post_bloc.dart';
 import 'package:alice/alice.dart';
-import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +44,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<AddCandidatePageBloc>(create: (context) => getIt<AddCandidatePageBloc>()),
         BlocProvider<LanguageCubit>(create: (context) => getIt<LanguageCubit>()),
         BlocProvider<DetailCandidatePageBloc>(create: (context) => getIt<DetailCandidatePageBloc>()),
+        BlocProvider<FaaCandidatePageBloc>(create: (context) => getIt<FaaCandidatePageBloc>()),
         BlocProvider<LoginPageBloc>(
             create: (context) => getIt<LoginPageBloc>()),
       ],
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.lightAppTheme,
             navigatorKey: alice.getNavigatorKey(),
             onGenerateRoute: AppRouter.generateRoute,
-            initialRoute: Routes.splashScreen,
+            initialRoute: Routes.faaFormCandidatePage,
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

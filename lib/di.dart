@@ -13,6 +13,7 @@ import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart'
 import 'package:acl_flutter/myApp.dart';
 import 'package:acl_flutter/screens/add_candidate_page/bloc/add_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/detail_candidate/bloc/detail_candidate_page_bloc.dart';
+import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
@@ -180,5 +181,9 @@ Future<void> init() async {
 
   //detail candidate Bloc
   getIt.registerLazySingleton(() => DetailCandidatePageBloc(
+      candidateRepository: getIt<CandidateRepository>()));
+
+  //faa candidate Bloc
+  getIt.registerLazySingleton(() => FaaCandidatePageBloc(
       candidateRepository: getIt<CandidateRepository>()));
 }

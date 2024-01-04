@@ -11,5 +11,6 @@ class NoMandatoryFieldValidator extends FormzInput<String, NoMandatoryValidation
     if (value == ""){
       return null;
     }
+    return null;
   }
 }

@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
-import 'package:meta/meta.dart';
 
 import '../../../data/model/tracking_model/tracking_model.dart';
 

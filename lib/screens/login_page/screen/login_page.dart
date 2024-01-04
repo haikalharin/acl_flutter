@@ -49,7 +49,7 @@ class _LoginPageScreenState extends State<LoginPage> {
     final viewModel = getIt<LoginPageBloc>();
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
+      appBar: AppBar(title: const Text("Login")),
       body: BlocListener<LoginPageBloc, LoginPageState>(
         listener: (context, state) {
           if (state.submitStatus.isSuccess && state.moveTo == Routes.userList) {
@@ -92,7 +92,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                     key: formKey,
                     child: Column(
                       children: [
-                        Container(
+                        SizedBox(
                           height: 250,
                           child: Image.asset("assets/images/allianz_logo.png"),
                         ),
@@ -120,7 +120,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                                             TextInput(
                                               controller: username,
                                               keyboardType: TextInputType.phone,
-                                              icon: Icon(Icons.person),
+                                              icon: const Icon(Icons.person),
                                               label: const Text("Username"),
                                               validator: (String? value) {
                                                 if (state.userName.isNotValid) {
@@ -136,7 +136,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                                             TextInput(
                                               controller: password,
                                               // initialValue: postBody,
-                                              icon: Icon(Icons.password),
+                                              icon: const Icon(Icons.password),
                                               label: const Text("Password"),
                                               textCapitalization: TextCapitalization.none,
                                               obscureText: true,
@@ -164,7 +164,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                                           ],
                                         ),
                                       ),
-                                      Container(margin:EdgeInsets.symmetric(horizontal: 16),child: Text('Lupa Password?',style: TextStyle(color: AclColors.blueDark),))
+                                      Container(margin:const EdgeInsets.symmetric(horizontal: 16),child: const Text('Lupa Password?',style: TextStyle(color: AclColors.blueDark),))
                                     ],
                                   ),
                                 ),

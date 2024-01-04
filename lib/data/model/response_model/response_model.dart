@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 
 import '../base_model/pagination.dart';
 
@@ -76,7 +75,7 @@ class ResponseModel<T> {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['code'] = this.code;
     data['httpStatus'] = this.httpStatus;
     data['message'] = this.message;

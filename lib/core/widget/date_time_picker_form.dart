@@ -33,6 +33,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
       dateString.value = TextEditingValue(
           text:
               "${widget.dateTime!.day} / ${widget.dateTime!.month} / ${widget.dateTime!.year}");
+      widget.selectedDateTime(date);
     }
     super.initState();
   } //Get date from date picker
@@ -105,7 +106,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
       },
       child: TextInput(
         controller: dateString,
-        icon: Icon(Icons.date_range_rounded),
+        icon: const Icon(Icons.date_range_rounded),
         enabled: false,
         isMandatory: widget.isMandatory,
         label: widget.label,

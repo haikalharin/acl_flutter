@@ -40,7 +40,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -56,7 +56,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                           ))),
                   widget.isMandatory
                       ? Container(
-                          margin: EdgeInsets.only(left: 5, bottom: 5),
+                          margin: const EdgeInsets.only(left: 5, bottom: 5),
                           child: const Text(
                             '*',
                             style: TextStyle(
@@ -68,7 +68,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
 
                   widget.isMandatory
                       ? Container(
-                      margin: EdgeInsets.only(left: 5, bottom: 5),
+                      margin: const EdgeInsets.only(left: 5, bottom: 5),
                       child:  Text(
                         widget.errorText??'',
                         style: const TextStyle(
@@ -94,16 +94,16 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                           fit: BoxFit.fill):null),
                 ),
           const SizedBox(height: 5),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ElevatedButton(
               onPressed: () {
                 _showPicker(context);
               },
-              child: Text("Ambil Gambar"),
+              child: const Text("Ambil Gambar"),
             ),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ElevatedButton(
               style: ButtonStyle(
@@ -111,7 +111,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
               onPressed: () {
                 _deleteImage();
               },
-              child: Text("Hapus"),
+              child: const Text("Hapus"),
             ),
           ),
         ],
@@ -128,15 +128,15 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
               child: Wrap(
                 children: [
                   ListTile(
-                      leading: Icon(Icons.photo_library),
-                      title: Text('Photo Library'),
+                      leading: const Icon(Icons.photo_library),
+                      title: const Text('Photo Library'),
                       onTap: () async {
                         Navigator.pop(context);
                         pickAndCropImageGallery();
                       }),
                   ListTile(
-                    leading: Icon(Icons.photo_camera),
-                    title: Text('Camera'),
+                    leading: const Icon(Icons.photo_camera),
+                    title: const Text('Camera'),
                     onTap: () async {
                       Navigator.pop(context);
                       pickAndCropImageCamera();

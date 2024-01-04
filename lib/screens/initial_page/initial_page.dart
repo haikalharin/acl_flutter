@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:acl_flutter/core/widget/button_widget.dart';
 
@@ -31,7 +30,7 @@ class _InitialPageState extends State<InitialPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: 250,
               child: Image.asset("assets/images/allianz_logo.png"),
             ),
@@ -43,7 +42,7 @@ class _InitialPageState extends State<InitialPage> {
                 );
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ButtonWidgetCustom(
@@ -56,7 +55,7 @@ class _InitialPageState extends State<InitialPage> {
                         onCancelPressed: () => [Navigator.pop(context)]));
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ButtonWidgetCustom(

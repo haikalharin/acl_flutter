@@ -1,7 +1,5 @@
 import 'package:acl_flutter/core/router/routes.dart';
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
-import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,7 +17,7 @@ class ListCandidatePage extends StatefulWidget {
   final bool isMyCandidate;
   final TextEditingController searchTextController;
 
-  ListCandidatePage({super.key, required this.isMyCandidate, required this.searchTextController});
+  const ListCandidatePage({super.key, required this.isMyCandidate, required this.searchTextController});
 
   @override
   State<ListCandidatePage> createState() => _ListCandidatePageState();
@@ -48,11 +46,11 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 8),
+                              margin: const EdgeInsets.symmetric(horizontal: 8),
                               child: TextFormField(
                                 controller: widget.searchTextController,
                                 textInputAction: TextInputAction.search,
@@ -65,7 +63,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                 },
                                 decoration: InputDecoration(
                                   prefixIconConstraints:
-                                  BoxConstraints(maxHeight: 35, maxWidth: 35),
+                                  const BoxConstraints(maxHeight: 35, maxWidth: 35),
                                   prefixText: '',
                                   prefixIcon: const Padding(
                                     padding: EdgeInsets.only(left: 8, right: 8),
@@ -75,7 +73,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                     ),
                                   ),
                                   suffixIconConstraints:
-                                  BoxConstraints(maxWidth: 40, maxHeight: 21),
+                                  const BoxConstraints(maxWidth: 40, maxHeight: 21),
                                   suffixIcon: InkWell(
                                     onTap: () {
                                       widget.searchTextController.clear();
@@ -97,18 +95,18 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                       ),
                                     ),
                                   ),
-                                  contentPadding: EdgeInsets.only(top: 5, left: 20, right: 20),
+                                  contentPadding: const EdgeInsets.only(top: 5, left: 20, right: 20),
                                   hintText: "Find by name...",
                                   fillColor: Colors.white,
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.blue,
                                     ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.blue,
                                       width: 2.0,
                                     ),
@@ -122,7 +120,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                   : state.submitStatus.isSuccess
                                   ? state.listAgentModel!.isEmpty &&
                                   !state.submitStatus.isInProgress
-                                  ? Container(
+                                  ? SizedBox(
                                   width: MediaQuery.of(context).size.width,
                                   child: Center(
                                       child: Text(
@@ -186,7 +184,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                     child: Column(
                                       children: [
 
-                                        index == 0 ? Container() : Divider(),
+                                        index == 0 ? Container() : const Divider(),
                                         ListTile(
                                           leading: const CircleAvatar(
                                             // You can replace this with your user image
@@ -228,7 +226,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                               )): Stack(children: [
                                 Center(
                                   child: Container(
-                                      margin: EdgeInsets.only(),
+                                      margin: const EdgeInsets.only(),
                                       child: Container(
                                         child: Text(state.errorMessage ?? ''),
                                       )),
@@ -246,7 +244,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                         return Wrap(
                                           children: [
                                             ListTile(
-                                                leading: Icon(
+                                                leading: const Icon(
                                                     Icons.filter_list_sharp),
                                                 title: const Text('Name[Asc]'),
                                                 onTap: () async {
@@ -263,7 +261,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                   }
                                                 }),
                                             ListTile(
-                                                leading: Icon(
+                                                leading: const Icon(
                                                     Icons.filter_list_sharp),
                                                 title: const Text('Name[Dsc]'),
                                                 onTap: () async {
@@ -280,7 +278,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                   }
                                                 }),
                                             ListTile(
-                                                leading: Icon(
+                                                leading: const Icon(
                                                     Icons.filter_list_sharp),
                                                 title: const Text(
                                                     'Simple Checking Submission'),
@@ -298,7 +296,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                   }
                                                 }),
                                             ListTile(
-                                                leading: Icon(
+                                                leading: const Icon(
                                                     Icons.filter_list_sharp),
                                                 title: const Text(
                                                     'FAA Submission'),
@@ -316,7 +314,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                   }
                                                 }),
                                             ListTile(
-                                                leading: Icon(
+                                                leading: const Icon(
                                                     Icons.filter_list_sharp),
                                                 title: const Text('Default'),
                                                 onTap: () async {
@@ -350,7 +348,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                   child: Center(
                                     child: Text(
                                         AppLocalizations.of(context)!.sorted,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: AclColors.blueDark)),
                                   ),
                                 ),

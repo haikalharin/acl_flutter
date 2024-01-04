@@ -1,5 +1,4 @@
 import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,7 +9,7 @@ import '../../../di.dart';
 import '../../../utils/acl_color.dart';
 
 class ListNotifyPage extends StatefulWidget {
-  ListNotifyPage({super.key});
+  const ListNotifyPage({super.key});
 
   @override
   State<ListNotifyPage> createState() => _ListNotifyPageState();
@@ -38,7 +37,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
               : state.submitStatus.isSuccess
                   ? state.listAgentModel!.isEmpty &&
                           !state.submitStatus.isInProgress
-                      ? Container(
+                      ? SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Center(
                               child: Text(
@@ -58,9 +57,9 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                   //     state.listAgentModel?[index].createDate ?? "0000-00-00"));
                                   return Column(
                                     children: [
-                                      index == 0 ? Container() : Divider(),
+                                      index == 0 ? Container() : const Divider(),
                                       ListTile(
-                                        leading: Icon(Icons.mail_rounded),
+                                        leading: const Icon(Icons.mail_rounded),
                                         title: Text(
                                           "${state.listNotify?[index].alert} ${state.listAgentModel?[index].lastName ?? ''}",
                                           style: const TextStyle(
@@ -98,7 +97,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                           child: Text(
                                               AppLocalizations.of(context)!
                                                   .reload,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: AclColors.blueDark)),
                                         ),
                                       ),
@@ -121,7 +120,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                       child: Center(
                                         child: Text(
                                             AppLocalizations.of(context)!.note,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: AclColors.blueDark)),
                                       ),
                                     ),
@@ -134,7 +133,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                   : Stack(children: [
                       Center(
                         child: Container(
-                            margin: EdgeInsets.only(),
+                            margin: const EdgeInsets.only(),
                             child: Container(
                               child: Text(state.errorMessage ?? ''),
                             )),

@@ -1,8 +1,4 @@
 
-import '../flavors.dart';
-import '../main_dev.dart' as dev;
-import '../main_prod.dart' as prod;
-import 'firebase_service.dart';
 
 dynamic getDataValue(dynamic result) => result;
 

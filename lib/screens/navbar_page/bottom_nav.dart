@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/acl_color.dart';
-import '../post/screen/create_post_screen.dart';
 import '../user/user_list_screen.dart';
 
 
@@ -17,7 +16,7 @@ class NavbarPage extends StatefulWidget {
   final String? userId;
   final bool? isFromNotif;
 
-  NavbarPage(
+  const NavbarPage(
       {Key? key,
       this.initalIndex,
       this.userId,
@@ -164,11 +163,11 @@ class _NavbarPageState extends State<NavbarPage> with TickerProviderStateMixin {
   Widget _buildWidgetBody() {
     switch (indexSelected) {
       case 0:
-        return UserListScreen();
+        return const UserListScreen();
       case 1:
-        return UserListScreen();
+        return const UserListScreen();
       case 2:
-        return UserListScreen();
+        return const UserListScreen();
       default:
         return Container();
     }
@@ -182,16 +181,16 @@ class _NavbarPageState extends State<NavbarPage> with TickerProviderStateMixin {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Konfirmasi'),
-          content: Text('Apakah Anda Yakin Ingin Keluar?'),
+          title: const Text('Konfirmasi'),
+          content: const Text('Apakah Anda Yakin Ingin Keluar?'),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text('Tidak'),
+              child: const Text('Tidak'),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text('Ya'),
+              child: const Text('Ya'),
             ),
           ],
         );

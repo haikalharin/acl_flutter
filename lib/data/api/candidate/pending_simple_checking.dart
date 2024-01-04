@@ -4,7 +4,6 @@ import '../../../core/network/api_helper.dart';
 import '../../../core/network/dio_client.dart';
 import '../../../core/network/service_url.dart';
 import '../../model/candidate/candidate_register_model.dart';
-import '../../model/candidate/request_candidate_model.dart';
 import '../../model/candidate/request_pending_simple_checking_model.dart';
 
 class PendingSimpleCheckingApi with ApiHelper<CandidateRegisterModel> {

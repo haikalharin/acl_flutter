@@ -1,5 +1,4 @@
 import 'package:acl_flutter/data/api/login/login_api.dart';
-import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../../core/network/api_result.dart';

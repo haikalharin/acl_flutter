@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import '../../common/configurations/configurations.dart';
 import '../../flavors.dart';
 import '../../myApp.dart';
-import 'auth_interceptor.dart';
 
 class DioClient {
   final Dio dio;

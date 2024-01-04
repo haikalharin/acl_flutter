@@ -1,8 +1,6 @@
-import 'package:acl_flutter/common/configurations/configurations.dart';
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:dio/dio.dart';
 
-import '../../../core/local_storage/secure_storage/secure_storage.dart';
 import '../../../core/network/api_helper.dart';
 import '../../../core/network/dio_client.dart';
 import '../../../core/network/service_url.dart';

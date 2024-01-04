@@ -1,9 +1,6 @@
 import 'package:acl_flutter/core/network/api_result.dart';
 import 'package:acl_flutter/core/repository/repository_helper.dart';
-import 'package:acl_flutter/data/api/login/login_api.dart';
 import 'package:acl_flutter/data/api/user/user_api.dart';
-import 'package:acl_flutter/data/model/login_model/login_model.dart';
-import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:acl_flutter/data/model/user/user.dart';
 
 class UserRepository with RepositoryHelper<User> {

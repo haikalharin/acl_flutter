@@ -1,9 +1,7 @@
 import 'package:acl_flutter/utils/acl_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
-import '../../../data/model/login_model/login_model.dart';
 import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../sidebar_page/sidebar_page.dart';
 
@@ -44,14 +42,14 @@ class _DropDownGenderState extends State<DropDownGender> {
         Row(
           children: [
             Container(
-                margin: EdgeInsets.only(left: 15),
+                margin: const EdgeInsets.only(left: 15),
                 child: Text(widget.title ?? '',
                     style: const TextStyle(
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
             widget.isMandatory? Container(
-                margin: EdgeInsets.only(left: 5, bottom: 5),
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: const Text(
                   '*',
                   style: TextStyle(
@@ -60,7 +58,7 @@ class _DropDownGenderState extends State<DropDownGender> {
                   ),
                 )):Container(),
             Container(
-                margin: EdgeInsets.only(left: 5, bottom: 5),
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
                   widget.errorText ?? '',
                   style: const TextStyle(
@@ -72,7 +70,7 @@ class _DropDownGenderState extends State<DropDownGender> {
         ),
         const SizedBox(height: 5),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 15),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
             // hintText: _hint,
             borderRadius: BorderRadius.circular(10),
@@ -85,7 +83,7 @@ class _DropDownGenderState extends State<DropDownGender> {
           ),
           child: Row(
             children: [
-              Container(margin: EdgeInsets.only(left: 12), child: widget.icon),
+              Container(margin: const EdgeInsets.only(left: 12), child: widget.icon),
               Flexible(
                 flex: 1,
                 child: Container(
