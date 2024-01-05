@@ -78,7 +78,6 @@ class _PrivateDataState extends State<PrivateData> {
                             children: [
                               const SizedBox(height: 8),
                               TextInput(
-                                controller: firstName,
                                 icon: const Icon(Icons.person),
                                 label: const Text("Nama Depan(sesuai KTP)"),
                                 // initialValue: postTitle,
