@@ -120,6 +120,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                                             TextInput(
                                               controller: username,
                                               keyboardType: TextInputType.phone,
+                                              maxLength: 8,
                                               icon: const Icon(Icons.person),
                                               label: const Text("Username"),
                                               validator: (String? value) {

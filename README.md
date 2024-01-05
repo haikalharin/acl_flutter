@@ -21,20 +21,24 @@ To build apk or appbundle(to publish to the playstore) for each flavor you can u
 For prod you can use:
 APK
 flutter build apk --flavor production -t lib/main_prod.dart
+flutter build apk --release --flavor production -t lib/main_prod.dart
 App Bundle
 flutter build appbundle --flavor production -t lib/main_prod.dart
 and for dev
 APK
 flutter build apk --flavor development -t lib/main_dev.dart
+flutter build apk --release --flavor development -t lib/main_dev.dart
 App Bundle
 flutter build appbundle --flavor development -t lib/main_dev.dart
 
 IPA
 flutter build ipa --flavor prod -t lib/main_prod.dart
+flutter build ipa --release --flavor prod -t lib/main_prod.dart
 App Bundle
 flutter build appbundle --flavor prod -t lib/main_prod.dart
 and for dev
 IPA
 flutter build ipa --flavor dev -t lib/main_dev.dart
+flutter build ipa --release --flavor dev -t lib/main_dev.dart
 App Bundle
 flutter build appbundle --flavor dev -t lib/main_dev.dart

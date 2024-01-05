@@ -5,18 +5,20 @@ import 'package:formz/formz.dart';
 
 import '../../../../../core/widget/custom_image_picker.dart';
 import '../../../../../core/widget/date_time_picker_form.dart';
+import '../../../../../core/widget/dropdown/drop_down_department.dart';
+import '../../../../../core/widget/dropdown/drop_down_gender.dart';
+import '../../../../../core/widget/dropdown/drop_down_kpm.dart';
+import '../../../../../core/widget/dropdown/drop_down_marriage.dart';
+import '../../../../../core/widget/dropdown/drop_down_province.dart';
+import '../../../../../core/widget/dropdown/drop_down_religion.dart';
 import '../../../../../core/widget/spinkit_indicator.dart';
 import '../../../../../core/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
-import '../../../../add_candidate_page/widget/drop_down_city.dart';
-import '../../../../add_candidate_page/widget/drop_down_country.dart';
-import '../../../../add_candidate_page/widget/drop_down_gender.dart';
-import '../../../../add_candidate_page/widget/drop_down_occupation.dart';
-import '../../../../add_candidate_page/widget/drop_down_province.dart';
-import '../../../../add_candidate_page/widget/drop_down_relation.dart';
+import '../../../../../core/widget/dropdown/drop_down_city.dart';
+import '../../../../../core/widget/dropdown/drop_down_country.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
 
 enum Mode { create, update }
@@ -91,7 +93,6 @@ class _PrivateDataState extends State<PrivateData> {
                               ),
                               const SizedBox(height: 8),
                               TextInput(
-                                initialValue: 'sadsadssad',
                                 isMandatory: false,
                                 icon: const Icon(Icons.person),
                                 label: const Text("Nama tengah(sesuai KTP)"),
@@ -102,7 +103,6 @@ class _PrivateDataState extends State<PrivateData> {
                               ),
                               const SizedBox(height: 8),
                               TextInput(
-                                controller: lastName,
                                 isMandatory: false,
                                 icon: const Icon(Icons.person),
                                 label: const Text("Nama belakang(sesuai KTP)"),
@@ -135,7 +135,7 @@ class _PrivateDataState extends State<PrivateData> {
                                     current.masterDataModel !=
                                         previous.masterDataModel,
                                 builder: (context, state) {
-                                  return DropDownProvince(
+                                  return DropDownKpm(
                                     title: 'KPM',
                                     icon: const Icon(
                                       Icons.account_balance_rounded,
@@ -226,7 +226,7 @@ class _PrivateDataState extends State<PrivateData> {
                                     current.masterDataModel !=
                                         previous.masterDataModel,
                                 builder: (context, state) {
-                                  return DropDownProvince(
+                                  return DropDownDepartment(
                                     title: 'Jabatan',
                                     icon: const Icon(
                                       Icons.account_balance_rounded,
@@ -274,7 +274,7 @@ class _PrivateDataState extends State<PrivateData> {
                                     current.masterDataModel !=
                                         previous.masterDataModel,
                                 builder: (context, state) {
-                                  return DropDownProvince(
+                                  return DropDownMarriage(
                                     title: 'Status Pernikahan',
                                     icon: const Icon(
                                       Icons.account_balance_rounded,
@@ -374,7 +374,7 @@ class _PrivateDataState extends State<PrivateData> {
                                     current.masterDataModel !=
                                         previous.masterDataModel,
                                 builder: (context, state) {
-                                  return DropDownProvince(
+                                  return DropDownReligion(
                                     title: 'Agama',
                                     icon: const Icon(
                                       Icons.account_balance_rounded,

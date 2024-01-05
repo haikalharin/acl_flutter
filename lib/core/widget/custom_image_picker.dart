@@ -33,9 +33,14 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
   void initState() {
     super.initState();
     // Set the initial image if provided
-    _selectedImage = widget.initialImage?.path;
+    if (widget.initialImage != null) {
+      _selectedImage = widget.initialImage?.path;
+      List<int> bytes =
+          io.File(widget.initialImage?.path ?? '').readAsBytesSync();
+      String base64Image = base64Encode(bytes);
+      widget.onImagePicked(base64Image);
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,34 +70,36 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                             ),
                           ))
                       : Container(),
-
                   widget.isMandatory
                       ? Container(
-                      margin: const EdgeInsets.only(left: 5, bottom: 5),
-                      child:  Text(
-                        widget.errorText??'',
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          color: AclColors.redAccent,
-                        ),
-                      )):Container()
+                          margin: const EdgeInsets.only(left: 5, bottom: 5),
+                          child: Text(
+                            widget.errorText ?? '',
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                              color: AclColors.redAccent,
+                            ),
+                          ))
+                      : Container()
                 ],
               )),
-         Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 200,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all( width:  widget.errorText != null
-                          ?4:1,
-                        color: widget.errorText != null
-                            ? AclColors.redText
-                            : Colors.grey.shade300,),
-                      image:  _selectedImage != null
-                          ? DecorationImage(
-                          image: FileImage(io.File(_selectedImage ?? '')),
-                          fit: BoxFit.fill):null),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 200,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  width: widget.errorText != null ? 4 : 1,
+                  color: widget.errorText != null
+                      ? AclColors.redText
+                      : Colors.grey.shade300,
                 ),
+                image: _selectedImage != null
+                    ? DecorationImage(
+                        image: FileImage(io.File(_selectedImage ?? '')),
+                        fit: BoxFit.fill)
+                    : null),
+          ),
           const SizedBox(height: 5),
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -168,8 +175,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         List<int> bytes = io.File(croppedFile.path).readAsBytesSync();
         String base64Image = base64Encode(bytes);
         setState(() {
-          _selectedImage = croppedFile.path
-          ;
+          _selectedImage = croppedFile.path;
         });
         widget.onImagePicked(base64Image);
       }
@@ -195,8 +201,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         List<int> bytes = io.File(croppedFile.path).readAsBytesSync();
         String base64Image = base64Encode(bytes);
         setState(() {
-          _selectedImage = croppedFile.path
-          ;
+          _selectedImage = croppedFile.path;
         });
         widget.onImagePicked(base64Image);
       }

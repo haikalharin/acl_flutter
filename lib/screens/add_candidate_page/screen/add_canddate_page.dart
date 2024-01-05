@@ -1,6 +1,6 @@
 import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/core/dialog/success_dialog.dart';
-import 'package:acl_flutter/screens/add_candidate_page/widget/drop_down_city.dart';
+import 'package:acl_flutter/core/widget/dropdown/drop_down_city.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +10,10 @@ import '../../../core/dialog/retry_dialog.dart';
 import '../../../core/router/routes.dart';
 import '../../../core/widget/custom_image_picker.dart';
 import '../../../core/widget/date_time_picker_form.dart';
+import '../../../core/widget/dropdown/drop_down_gender.dart';
+import '../../../core/widget/dropdown/drop_down_occupation.dart';
+import '../../../core/widget/dropdown/drop_down_province.dart';
+import '../../../core/widget/dropdown/drop_down_relation.dart';
 import '../../../core/widget/spinkit_indicator.dart';
 import '../../../core/widget/text_input.dart';
 import '../../../data/model/login_model/login_model.dart';
@@ -17,11 +21,8 @@ import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../../di.dart';
 import '../../../utils/acl_color.dart';
 import '../bloc/add_candidate_page_bloc.dart';
-import '../widget/drop_down_country.dart';
-import '../widget/drop_down_gender.dart';
-import '../widget/drop_down_occupation.dart';
-import '../widget/drop_down_province.dart';
-import '../widget/drop_down_relation.dart';
+import '../../../core/widget/dropdown/drop_down_country.dart';
+
 
 enum Mode { create, update }
 
@@ -178,6 +179,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: const Icon(Icons.add_card_rounded),
                             label: const Text("No KTP"),
+                            maxLength: 16,
                             keyboardType: TextInputType.phone,
                             validator: (String? value) {
                               if (state.identityNo.isNotValid) {
@@ -218,6 +220,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: const Icon(Icons.add_card_rounded),
                             label: const Text("No KK"),
+                            maxLength: 16,
                             keyboardType: TextInputType.phone,
                             validator: (String? value) {
                               if (state.kkNo.isNotValid) {
@@ -307,6 +310,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             icon: const Icon(Icons.signpost_sharp),
                             label: const Text("Kode Pos"),
                             keyboardType: TextInputType.phone,
+                            maxLength: 5,
                             validator: (String? value) {
                               if (state.postalCode.isNotValid) {
                                 return state.postalCode.invalidZipcode;
@@ -636,6 +640,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             icon: const Icon(Icons.person),
                             isMandatory: checkedValueMarriage,
                             keyboardType: TextInputType.phone,
+                            maxLength: 16,
                             label: const Text("No KTP Pasangan"),
                             // initialValue: postTitle,
                             validator: (String? value) {

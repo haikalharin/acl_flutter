@@ -9,6 +9,7 @@ class TextInput extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.maxLine,
+    this.maxLength,
     this.controller,
     this.icon,
     this.label,
@@ -28,6 +29,7 @@ class TextInput extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
   final int? maxLine;
+  final int? maxLength;
   final Icon? icon;
   final Widget? label;
   final Widget? title;
@@ -65,6 +67,7 @@ class _TextInputState extends State<TextInput> {
       title: widget.title,
       subtitle: TextFormField(
         focusNode: widget.focusNode,
+        maxLength: widget.maxLength,
         keyboardType: widget.keyboardType,
         controller: widget.controller ?? controller,
         enabled: widget.enabled ?? true,
@@ -79,6 +82,7 @@ class _TextInputState extends State<TextInput> {
             widget.textCapitalization ?? TextCapitalization.characters,
         decoration: InputDecoration(
             hintText: widget.hint,
+            // counter: const Offstage(),
             label: Wrap(
               children: [
                 Row(

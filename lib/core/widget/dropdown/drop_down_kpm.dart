@@ -1,40 +1,50 @@
+import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/master_data_model/master_data_model.dart';
-import '../../sidebar_page/sidebar_page.dart';
 
-class DropDownCity extends StatefulWidget {
-  const DropDownCity(
+class DropDownKpm extends StatefulWidget {
+  const DropDownKpm(
       {Key? key,
-      required this.onChanged,
-      required this.items,
-      this.initialItem,
-      this.lable,
-      this.title,
-      this.icon,
-      this.errorText,
-      this.isMandatory = true,
-      this.readOnly = false})
+        required this.onChanged,
+        required this.items,
+        this.initialItem,
+        this.lable,
+        this.title,
+        this.icon,
+        this.errorText, this.readOnly = false})
       : super(key: key);
 
-  final ValueChanged<CityMasterReference> onChanged;
-  final List<CityMasterReference> items;
-  final CityMasterReference? initialItem;
+  final ValueChanged<AajicityMasterReference> onChanged;
+  final List<AajicityMasterReference> items;
+  final AajicityMasterReference? initialItem;
   final Widget? lable;
   final String? title;
   final String? errorText;
   final Icon? icon;
-  final bool isMandatory;
   final bool readOnly;
 
   @override
-  State<DropDownCity> createState() => _DropDownCityState();
+  State<DropDownKpm> createState() => _DropDownKpmState(initialItem);
 }
 
-class _DropDownCityState extends State<DropDownCity> {
-  CityMasterReference? selectedItem;
+
+class _DropDownKpmState extends State<DropDownKpm> {
+  AajicityMasterReference? initialItem;
+
+  _DropDownKpmState(this.initialItem);
+  @override
+  void didUpdateWidget(DropDownKpm oldWidget) {
+    if (initialItem != widget.initialItem) {
+      widget.onChanged(widget.initialItem??AajicityMasterReference());
+      setState(() {
+        initialItem = widget.initialItem;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,19 +105,19 @@ class _DropDownCityState extends State<DropDownCity> {
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
-                          (item) => DropdownMenuItem<CityMasterReference>(
-                            value: item,
-                            child: Text(
-                              language == Language.indonesia
-                                  ? item.longDescriptionInd ?? ''
-                                  : item.longDescriptionEng ?? '',
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
-                        )
+                          (item) => DropdownMenuItem<AajicityMasterReference>(
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    )
                         .toList(),
                     searchFn: (String keyword,
-                        List<DropdownMenuItem<CityMasterReference>> items) {
+                        List<DropdownMenuItem<AajicityMasterReference>> items) {
                       List<int> ret = [];
                       if (keyword.isNotEmpty) {
                         keyword.split(" ").forEach((k) {
@@ -117,13 +127,13 @@ class _DropDownCityState extends State<DropDownCity> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase())
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase()))) {
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -135,19 +145,19 @@ class _DropDownCityState extends State<DropDownCity> {
                       }
                       return (ret);
                     },
-                    value: selectedItem,
+                    value: initialItem,
                     hint: "Pilih",
                     searchHint: "Select one",
-                    onChanged: (CityMasterReference value) {
+                    onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
-                        selectedItem = value;
+                        initialItem = value;
                       });
                     },
-                    onClear: () {
-                      widget.onChanged(CityMasterReference());
+                    onClear: (){
+                      widget.onChanged(AajicityMasterReference());
                       setState(() {
-                        selectedItem = CityMasterReference();
+                        initialItem = AajicityMasterReference();
                       });
                     },
                     isExpanded: true,

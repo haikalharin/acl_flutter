@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/master_data_model/master_data_model.dart';
-import '../../sidebar_page/sidebar_page.dart';
+import '../../../screens/sidebar_page/sidebar_page.dart';
 
-class DropDownProvince extends StatefulWidget {
-  const DropDownProvince(
+class DropDownOccupation extends StatefulWidget {
+  const DropDownOccupation(
       {Key? key,
-      required this.onChanged,
-      required this.items,
-      this.onClear,
-      this.initialItem,
-      this.lable,
-      this.title,
-      this.icon,
-      this.errorText,
-      this.isMandatory = true,
-      this.isCheck = false})
+        required this.onChanged,
+        required this.items,
+        this.onClear,
+        this.initialItem,
+        this.lable,
+        this.title,
+        this.icon,
+        this.errorText,
+        this.isMandatory = true,
+        this.isCheck = false})
       : super(key: key);
 
-  final ValueChanged<AajicityMasterReference> onChanged;
+  final ValueChanged<CheckingstatusMasterReference> onChanged;
   final Function? onClear;
-  final List<AajicityMasterReference> items;
-  final AajicityMasterReference? initialItem;
+  final List<CheckingstatusMasterReference> items;
+  final CheckingstatusMasterReference? initialItem;
   final Widget? lable;
   final String? title;
   final String? errorText;
@@ -32,11 +32,23 @@ class DropDownProvince extends StatefulWidget {
   final bool isCheck;
 
   @override
-  State<DropDownProvince> createState() => _DropDownProvinceState();
+  State<DropDownOccupation> createState() => _DropDownOccupationState(initialItem);
 }
 
-class _DropDownProvinceState extends State<DropDownProvince> {
-  AajicityMasterReference? selectedItem;
+class _DropDownOccupationState extends State<DropDownOccupation> {
+  CheckingstatusMasterReference? initialItem;
+
+  _DropDownOccupationState(this.initialItem);
+  @override
+  void didUpdateWidget(DropDownOccupation oldWidget) {
+    if (initialItem != widget.initialItem) {
+      widget.onChanged(widget.initialItem??CheckingstatusMasterReference());
+      setState(() {
+        initialItem = widget.initialItem;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,19 +108,19 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
-                          (item) => DropdownMenuItem<AajicityMasterReference>(
-                            value: item,
-                            child: Text(
-                              language == Language.indonesia
-                                  ? item.longDescriptionInd ?? ''
-                                  : item.longDescriptionEng ?? '',
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
-                        )
+                          (item) => DropdownMenuItem<CheckingstatusMasterReference>(
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    )
                         .toList(),
                     searchFn: (String keyword,
-                        List<DropdownMenuItem<AajicityMasterReference>> items) {
+                        List<DropdownMenuItem<CheckingstatusMasterReference>> items) {
                       List<int> ret = [];
                       if (keyword.isNotEmpty) {
                         keyword.split(" ").forEach((k) {
@@ -118,13 +130,13 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase())
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase()))) {
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -136,19 +148,19 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                       }
                       return (ret);
                     },
-                    value: selectedItem,
+                    value: initialItem,
                     hint: "Pilih",
                     searchHint: "Select one",
-                    onChanged: (AajicityMasterReference value) {
+                    onChanged: (CheckingstatusMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
-                        selectedItem = value;
+                        initialItem = value;
                       });
                     },
                     onClear: (){
-                      widget.onChanged(AajicityMasterReference());
+                      widget.onChanged(CheckingstatusMasterReference());
                       setState(() {
-                        selectedItem = AajicityMasterReference();
+                        initialItem = CheckingstatusMasterReference();
                       });
                     },
                     isExpanded: true,

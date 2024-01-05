@@ -1,22 +1,20 @@
+import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
-
 import '../../../data/model/master_data_model/master_data_model.dart';
-import '../../sidebar_page/sidebar_page.dart';
 
-class DropDownRelation extends StatefulWidget {
-  const DropDownRelation(
+class DropDownDepartment extends StatefulWidget {
+  const DropDownDepartment(
       {Key? key,
-      required this.onChanged,
-      required this.items,
-      this.initialItem,
-      this.lable,
-      this.title,
-      this.icon,
-      this.errorText,
-      this.isMandatory = true, this.isCheck =false})
+        required this.onChanged,
+        required this.items,
+        this.initialItem,
+        this.lable,
+        this.title,
+        this.icon,
+        this.errorText, this.readOnly = false})
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
@@ -26,15 +24,27 @@ class DropDownRelation extends StatefulWidget {
   final String? title;
   final String? errorText;
   final Icon? icon;
-  final bool isMandatory;
-  final bool isCheck;
+  final bool readOnly;
 
   @override
-  State<DropDownRelation> createState() => _DropDownRelationState();
+  State<DropDownDepartment> createState() => _DropDownDepartmentState(initialItem);
 }
 
-class _DropDownRelationState extends State<DropDownRelation> {
-  AajicityMasterReference? selectedItem;
+
+class _DropDownDepartmentState extends State<DropDownDepartment> {
+  AajicityMasterReference? initialItem;
+
+  _DropDownDepartmentState(this.initialItem);
+  @override
+  void didUpdateWidget(DropDownDepartment oldWidget) {
+    if (initialItem != widget.initialItem) {
+      widget.onChanged(widget.initialItem??AajicityMasterReference());
+      setState(() {
+        initialItem = widget.initialItem;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +60,7 @@ class _DropDownRelationState extends State<DropDownRelation> {
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
-           widget.isMandatory? Container(
+            Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: const Text(
                   '*',
@@ -58,11 +68,11 @@ class _DropDownRelationState extends State<DropDownRelation> {
                     fontSize: 12.0,
                     color: AclColors.redAccent,
                   ),
-                )):Container(),
+                )),
             Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
-                 widget.errorText != null ? widget.errorText!: '',
+                  widget.errorText ?? '',
                   style: const TextStyle(
                     fontSize: 12.0,
                     color: AclColors.redAccent,
@@ -78,7 +88,8 @@ class _DropDownRelationState extends State<DropDownRelation> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: widget.errorText != null ? 4 : 1,
-              color: widget.errorText != null ? AclColors.redText
+              color: widget.errorText != null
+                  ? AclColors.redText
                   : Colors.grey.shade300,
             ),
           ),
@@ -90,6 +101,7 @@ class _DropDownRelationState extends State<DropDownRelation> {
                 child: Container(
                   // width: 200,
                   child: SearchChoices.single(
+                    readOnly: widget.readOnly,
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
@@ -133,19 +145,19 @@ class _DropDownRelationState extends State<DropDownRelation> {
                       }
                       return (ret);
                     },
-                    value: selectedItem,
+                    value: initialItem,
                     hint: "Pilih",
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
-                        selectedItem = value;
+                        initialItem = value;
                       });
                     },
                     onClear: (){
                       widget.onChanged(AajicityMasterReference());
                       setState(() {
-                        selectedItem = AajicityMasterReference();
+                        initialItem = AajicityMasterReference();
                       });
                     },
                     isExpanded: true,

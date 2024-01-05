@@ -1,22 +1,13 @@
-import 'package:acl_flutter/common/app_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 import '../../../../../core/widget/custom_image_picker.dart';
-import '../../../../../core/widget/date_time_picker_form.dart';
 import '../../../../../core/widget/spinkit_indicator.dart';
 import '../../../../../core/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
-import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
-import '../../../../add_candidate_page/widget/drop_down_city.dart';
-import '../../../../add_candidate_page/widget/drop_down_country.dart';
-import '../../../../add_candidate_page/widget/drop_down_gender.dart';
-import '../../../../add_candidate_page/widget/drop_down_occupation.dart';
-import '../../../../add_candidate_page/widget/drop_down_province.dart';
-import '../../../../add_candidate_page/widget/drop_down_relation.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
 
 enum Mode { create, update }

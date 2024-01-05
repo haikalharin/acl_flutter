@@ -11,12 +11,9 @@ import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
-import '../../../../add_candidate_page/widget/drop_down_city.dart';
-import '../../../../add_candidate_page/widget/drop_down_country.dart';
-import '../../../../add_candidate_page/widget/drop_down_gender.dart';
-import '../../../../add_candidate_page/widget/drop_down_occupation.dart';
-import '../../../../add_candidate_page/widget/drop_down_province.dart';
-import '../../../../add_candidate_page/widget/drop_down_relation.dart';
+import '../../../../../core/widget/dropdown/drop_down_city.dart';
+import '../../../../../core/widget/dropdown/drop_down_country.dart';
+
 import '../../../bloc/faa_candidate_page_bloc.dart';
 
 enum Mode { create, update }

@@ -2,11 +2,12 @@ import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
-import '../../../data/model/master_data_model/master_data_model.dart';
-import '../../sidebar_page/sidebar_page.dart';
 
-class DropDownGender extends StatefulWidget {
-  const DropDownGender(
+import '../../../data/model/master_data_model/master_data_model.dart';
+import '../../../screens/sidebar_page/sidebar_page.dart';
+
+class DropDownRelation extends StatefulWidget {
+  const DropDownRelation(
       {Key? key,
       required this.onChanged,
       required this.items,
@@ -15,7 +16,7 @@ class DropDownGender extends StatefulWidget {
       this.title,
       this.icon,
       this.errorText,
-      this.isMandatory = true})
+      this.isMandatory = true, this.isCheck =false})
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
@@ -26,13 +27,26 @@ class DropDownGender extends StatefulWidget {
   final String? errorText;
   final Icon? icon;
   final bool isMandatory;
+  final bool isCheck;
 
   @override
-  State<DropDownGender> createState() => _DropDownGenderState();
+  State<DropDownRelation> createState() => _DropDownRelationState(initialItem);
 }
 
-class _DropDownGenderState extends State<DropDownGender> {
-  AajicityMasterReference? selectedItem;
+class _DropDownRelationState extends State<DropDownRelation> {
+  AajicityMasterReference? initialItem;
+
+  _DropDownRelationState(this.initialItem);
+  @override
+  void didUpdateWidget(DropDownRelation oldWidget) {
+    if (initialItem != widget.initialItem) {
+      widget.onChanged(widget.initialItem??AajicityMasterReference());
+      setState(() {
+        initialItem = widget.initialItem;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +62,7 @@ class _DropDownGenderState extends State<DropDownGender> {
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
-            widget.isMandatory? Container(
+           widget.isMandatory? Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: const Text(
                   '*',
@@ -60,7 +74,7 @@ class _DropDownGenderState extends State<DropDownGender> {
             Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
-                  widget.errorText ?? '',
+                 widget.errorText != null ? widget.errorText!: '',
                   style: const TextStyle(
                     fontSize: 12.0,
                     color: AclColors.redAccent,
@@ -76,8 +90,7 @@ class _DropDownGenderState extends State<DropDownGender> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: widget.errorText != null ? 4 : 1,
-              color: widget.errorText != null
-                  ? AclColors.redText
+              color: widget.errorText != null ? AclColors.redText
                   : Colors.grey.shade300,
             ),
           ),
@@ -132,19 +145,19 @@ class _DropDownGenderState extends State<DropDownGender> {
                       }
                       return (ret);
                     },
-                    value: selectedItem,
+                    value: initialItem,
                     hint: "Pilih",
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       setState(() {
-                        selectedItem = value;
+                        initialItem = value;
                       });
                     },
                     onClear: (){
                       widget.onChanged(AajicityMasterReference());
                       setState(() {
-                        selectedItem = AajicityMasterReference();
+                        initialItem = AajicityMasterReference();
                       });
                     },
                     isExpanded: true,
