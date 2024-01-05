@@ -254,6 +254,7 @@ class _PrivateDataState extends State<PrivateData> {
                               TextInput(
                                 icon: const Icon(Icons.add_card_rounded),
                                 label: const Text("No KTP"),
+                                maxLength: 16,
                                 keyboardType: TextInputType.phone,
                                 validator: (String? value) {
                                   if (state.identityNo.isNotValid) {
@@ -463,6 +464,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 icon: const Icon(Icons.signpost_sharp),
                                 label: const Text("Kode Pos"),
                                 keyboardType: TextInputType.phone,
+                                maxLength: 5,
                                 validator: (String? value) {
                                   if (state.postalCode.isNotValid) {
                                     return state.postalCode.invalidZipcode;
