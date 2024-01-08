@@ -8,16 +8,16 @@ import '../../../screens/sidebar_page/sidebar_page.dart';
 class DropDownOccupation extends StatefulWidget {
   const DropDownOccupation(
       {Key? key,
-        required this.onChanged,
-        required this.items,
-        this.onClear,
-        this.initialItem,
-        this.lable,
-        this.title,
-        this.icon,
-        this.errorText,
-        this.isMandatory = true,
-        this.isCheck = false})
+      required this.onChanged,
+      required this.items,
+      this.onClear,
+      this.initialItem,
+      this.lable,
+      this.title,
+      this.icon,
+      this.errorText,
+      this.isMandatory = true,
+      this.isCheck = false})
       : super(key: key);
 
   final ValueChanged<CheckingstatusMasterReference> onChanged;
@@ -32,19 +32,23 @@ class DropDownOccupation extends StatefulWidget {
   final bool isCheck;
 
   @override
-  State<DropDownOccupation> createState() => _DropDownOccupationState(initialItem);
+  State<DropDownOccupation> createState() =>
+      _DropDownOccupationState(initialItem);
 }
 
 class _DropDownOccupationState extends State<DropDownOccupation> {
   CheckingstatusMasterReference? initialItem;
+  bool isInit = true;
 
   _DropDownOccupationState(this.initialItem);
+
   @override
   void didUpdateWidget(DropDownOccupation oldWidget) {
     if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem??CheckingstatusMasterReference());
+      widget.onChanged(widget.initialItem ?? CheckingstatusMasterReference());
       setState(() {
         initialItem = widget.initialItem;
+        isInit = false;
       });
     }
     super.didUpdateWidget(oldWidget);
@@ -99,7 +103,8 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
           ),
           child: Row(
             children: [
-              Container(margin: const EdgeInsets.only(left: 12), child: widget.icon),
+              Container(
+                  margin: const EdgeInsets.only(left: 12), child: widget.icon),
               Flexible(
                 flex: 1,
                 child: Container(
@@ -108,19 +113,21 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
-                          (item) => DropdownMenuItem<CheckingstatusMasterReference>(
-                        value: item,
-                        child: Text(
-                          language == Language.indonesia
-                              ? item.longDescriptionInd ?? ''
-                              : item.longDescriptionEng ?? '',
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    )
+                          (item) =>
+                              DropdownMenuItem<CheckingstatusMasterReference>(
+                            value: item,
+                            child: Text(
+                              language == Language.indonesia
+                                  ? item.longDescriptionInd ?? ''
+                                  : item.longDescriptionEng ?? '',
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        )
                         .toList(),
                     searchFn: (String keyword,
-                        List<DropdownMenuItem<CheckingstatusMasterReference>> items) {
+                        List<DropdownMenuItem<CheckingstatusMasterReference>>
+                            items) {
                       List<int> ret = [];
                       if (keyword.isNotEmpty) {
                         keyword.split(" ").forEach((k) {
@@ -130,13 +137,13 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase())
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase()))) {
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -153,15 +160,13 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
                     searchHint: "Select one",
                     onChanged: (CheckingstatusMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
-                        initialItem = value;
-                      });
+                      initialItem = value;
+                      isInit = false;
                     },
-                    onClear: (){
+                    onClear: () {
                       widget.onChanged(CheckingstatusMasterReference());
-                      setState(() {
-                        initialItem = CheckingstatusMasterReference();
-                      });
+                      initialItem = CheckingstatusMasterReference();
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),

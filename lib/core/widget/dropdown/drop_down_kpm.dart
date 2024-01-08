@@ -33,15 +33,19 @@ class DropDownKpm extends StatefulWidget {
 
 class _DropDownKpmState extends State<DropDownKpm> {
   AajicityMasterReference? initialItem;
+  bool isInit = true;
 
   _DropDownKpmState(this.initialItem);
   @override
   void didUpdateWidget(DropDownKpm oldWidget) {
-    if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem??AajicityMasterReference());
-      setState(() {
-        initialItem = widget.initialItem;
-      });
+    if(isInit) {
+      if (initialItem != widget.initialItem) {
+        widget.onChanged(widget.initialItem ?? AajicityMasterReference());
+        setState(() {
+          initialItem = widget.initialItem;
+          isInit = false;
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -150,15 +154,13 @@ class _DropDownKpmState extends State<DropDownKpm> {
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
                         initialItem = value;
-                      });
+                      isInit = false;
                     },
                     onClear: (){
                       widget.onChanged(AajicityMasterReference());
-                      setState(() {
                         initialItem = AajicityMasterReference();
-                      });
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),

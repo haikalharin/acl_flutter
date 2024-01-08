@@ -3,8 +3,14 @@ import 'package:dio/dio.dart';
 // ignore_for_file: deprecated_member_use
 
 import 'package:acl_flutter/common/app_extension.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
+
+import '../../myApp.dart';
+import '../local_storage/secure_storage/secure_storage.dart';
+import '../local_storage/shared_preference/app_shared_preference.dart';
+import '../router/routes.dart';
 
 
 class AuthInterceptor extends Interceptor {
@@ -28,6 +34,11 @@ class AuthInterceptor extends Interceptor {
     logger.i('Header  => ${options.headers}');
     logger.i('Body  => ${options.data}');
     ///for set token
+    final accessToken = await storage.read(key: AppSharedPreference.token);
+    //  final refreshToken = await storage.read(key: "refreshToken");
+    if(!options.path.contains('login')) {
+      options.headers["Authorization"] = "$accessToken";
+    }
     return super.onRequest(options, handler);
   }
 
@@ -40,22 +51,44 @@ class AuthInterceptor extends Interceptor {
     logger.d('Response => StatusCode: ${err.response?.statusCode}'); // Debug log
     logger.d('Response => Body: ${err.response?.data}'); // Debug log
 
-    // if (err.response == null) {
-    //   return;
-    // }
-    // if (err.response!.statusCode == 401) {
-    //   var res = await refreshToken();
-    //   if (res != null && res) {
-    //     await _retry(err.requestOptions);
-    //   }
-    // }
+    if (err.response == null) {
+      return;
+    }
+    if (err.response!.statusCode == 403 || err.response?.statusCode == 500) {
+      var response = await refreshToken();
+
+      if (response?.statusCode == 200) {
+        var newAccessToken = response?.headers.map['Authorization']?.first ?? '';
+        SecureStorage()
+            .setToken(newAccessToken);
+        err.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
+        await _retry(err.requestOptions);
+      } else {
+        SecureStorage().secureDeleteAll();
+        AppSharedPreference.clear();
+        alice.getNavigatorKey()?.currentState?.pushNamedAndRemoveUntil(
+          Routes.initialPage,
+              (Route<dynamic> route) => false,
+        );
+      }
+    }
     return super.onError(err, handler);
   }
 
   /// Api to get new token from refresh token
   ///
-  Future<bool?> refreshToken() async {
-    return null;
+  Future<Response?> refreshToken() async {
+    Response? response ;
+    try {
+      response = await dio.post(
+        '/path/to/your/endpoint',
+      );
+
+      print(response.data);
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return response;
   
     ///call your refesh token api here
   }

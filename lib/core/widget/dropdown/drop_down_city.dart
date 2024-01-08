@@ -35,14 +35,20 @@ class DropDownCity extends StatefulWidget {
 
 class _DropDownCityState extends State<DropDownCity> {
   CityMasterReference? initialItem;
+  bool isInit = true;
+
   _DropDownCityState(this.initialItem);
+
   @override
   void didUpdateWidget(DropDownCity oldWidget) {
-    if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem??CityMasterReference());
-      setState(() {
-        initialItem = widget.initialItem;
-      });
+    if (isInit) {
+      if (initialItem != widget.initialItem) {
+        widget.onChanged(widget.initialItem ?? CityMasterReference());
+        setState(() {
+          initialItem = widget.initialItem;
+          isInit = false;
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -96,7 +102,8 @@ class _DropDownCityState extends State<DropDownCity> {
           ),
           child: Row(
             children: [
-              Container(margin: const EdgeInsets.only(left: 12), child: widget.icon),
+              Container(
+                  margin: const EdgeInsets.only(left: 12), child: widget.icon),
               Flexible(
                 flex: 1,
                 child: Container(
@@ -151,15 +158,13 @@ class _DropDownCityState extends State<DropDownCity> {
                     searchHint: "Select one",
                     onChanged: (CityMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
-                        initialItem = value;
-                      });
+                      initialItem = value;
+                      isInit = false;
                     },
                     onClear: () {
                       widget.onChanged(CityMasterReference());
-                      setState(() {
-                        initialItem = CityMasterReference();
-                      });
+                      initialItem = CityMasterReference();
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),

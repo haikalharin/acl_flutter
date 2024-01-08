@@ -33,15 +33,19 @@ class DropDownCountry extends StatefulWidget {
 
 class _DropDownCountryState extends State<DropDownCountry> {
   AajicityMasterReference? initialItem;
+  bool isInit = true;
 
   _DropDownCountryState(this.initialItem);
   @override
   void didUpdateWidget(DropDownCountry oldWidget) {
-    if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem??AajicityMasterReference());
-      setState(() {
-        initialItem = widget.initialItem;
-      });
+    if(isInit) {
+      if (initialItem != widget.initialItem) {
+        widget.onChanged(widget.initialItem ?? AajicityMasterReference());
+        setState(() {
+          initialItem = widget.initialItem;
+          isInit = false;
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -150,9 +154,8 @@ class _DropDownCountryState extends State<DropDownCountry> {
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
                         initialItem = value;
-                      });
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),

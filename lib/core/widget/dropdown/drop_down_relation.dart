@@ -2,7 +2,6 @@ import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
-
 import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../../screens/sidebar_page/sidebar_page.dart';
 
@@ -16,7 +15,8 @@ class DropDownRelation extends StatefulWidget {
       this.title,
       this.icon,
       this.errorText,
-      this.isMandatory = true, this.isCheck =false})
+      this.isMandatory = true,
+      this.isCheck = false})
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
@@ -35,15 +35,20 @@ class DropDownRelation extends StatefulWidget {
 
 class _DropDownRelationState extends State<DropDownRelation> {
   AajicityMasterReference? initialItem;
+  bool isInit = true;
 
   _DropDownRelationState(this.initialItem);
+
   @override
   void didUpdateWidget(DropDownRelation oldWidget) {
-    if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem??AajicityMasterReference());
-      setState(() {
-        initialItem = widget.initialItem;
-      });
+    if (isInit) {
+      if (initialItem != widget.initialItem) {
+        widget.onChanged(widget.initialItem ?? AajicityMasterReference());
+        setState(() {
+          initialItem = widget.initialItem;
+          isInit = false;
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -62,19 +67,21 @@ class _DropDownRelationState extends State<DropDownRelation> {
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
-           widget.isMandatory? Container(
-                margin: const EdgeInsets.only(left: 5, bottom: 5),
-                child: const Text(
-                  '*',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: AclColors.redAccent,
-                  ),
-                )):Container(),
+            widget.isMandatory
+                ? Container(
+                    margin: const EdgeInsets.only(left: 5, bottom: 5),
+                    child: const Text(
+                      '*',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: AclColors.redAccent,
+                      ),
+                    ))
+                : Container(),
             Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
-                 widget.errorText != null ? widget.errorText!: '',
+                  widget.errorText != null ? widget.errorText! : '',
                   style: const TextStyle(
                     fontSize: 12.0,
                     color: AclColors.redAccent,
@@ -90,13 +97,15 @@ class _DropDownRelationState extends State<DropDownRelation> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: widget.errorText != null ? 4 : 1,
-              color: widget.errorText != null ? AclColors.redText
+              color: widget.errorText != null
+                  ? AclColors.redText
                   : Colors.grey.shade300,
             ),
           ),
           child: Row(
             children: [
-              Container(margin: const EdgeInsets.only(left: 12), child: widget.icon),
+              Container(
+                  margin: const EdgeInsets.only(left: 12), child: widget.icon),
               Flexible(
                 flex: 1,
                 child: Container(
@@ -106,15 +115,15 @@ class _DropDownRelationState extends State<DropDownRelation> {
                     items: widget.items
                         .map(
                           (item) => DropdownMenuItem<AajicityMasterReference>(
-                        value: item,
-                        child: Text(
-                          language == Language.indonesia
-                              ? item.longDescriptionInd ?? ''
-                              : item.longDescriptionEng ?? '',
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    )
+                            value: item,
+                            child: Text(
+                              language == Language.indonesia
+                                  ? item.longDescriptionInd ?? ''
+                                  : item.longDescriptionEng ?? '',
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        )
                         .toList(),
                     searchFn: (String keyword,
                         List<DropdownMenuItem<AajicityMasterReference>> items) {
@@ -127,13 +136,13 @@ class _DropDownRelationState extends State<DropDownRelation> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase())
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase()))) {
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -150,15 +159,13 @@ class _DropDownRelationState extends State<DropDownRelation> {
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
-                        initialItem = value;
-                      });
+                      initialItem = value;
+                      isInit = false;
                     },
-                    onClear: (){
+                    onClear: () {
                       widget.onChanged(AajicityMasterReference());
-                      setState(() {
-                        initialItem = AajicityMasterReference();
-                      });
+                      initialItem = AajicityMasterReference();
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),

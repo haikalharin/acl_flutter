@@ -37,16 +37,20 @@ class DropDownProvince extends StatefulWidget {
 
 class _DropDownProvinceState extends State<DropDownProvince> {
   AajicityMasterReference? initialItem;
+  bool isInit = true;
 
   _DropDownProvinceState(this.initialItem);
   @override
   void didUpdateWidget(DropDownProvince oldWidget) {
+   if(isInit){
     if (initialItem != widget.initialItem) {
       widget.onChanged(widget.initialItem??AajicityMasterReference());
       setState(() {
         initialItem = widget.initialItem;
+        isInit =false;
       });
     }
+   }
     super.didUpdateWidget(oldWidget);
   }
 
@@ -153,15 +157,13 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
                         initialItem = value;
-                      });
+                        isInit =false;
                     },
                     onClear: (){
                       widget.onChanged(AajicityMasterReference());
-                      setState(() {
                         initialItem = AajicityMasterReference();
-                      });
+                        isInit =false;
                     },
                     isExpanded: true,
                   ),

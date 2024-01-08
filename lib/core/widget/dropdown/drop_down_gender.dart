@@ -33,15 +33,18 @@ class DropDownGender extends StatefulWidget {
 
 class _DropDownGenderState extends State<DropDownGender> {
   AajicityMasterReference? initialItem;
-
+ bool isInit = true;
   _DropDownGenderState(this.initialItem);
   @override
   void didUpdateWidget(DropDownGender oldWidget) {
-    if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem??AajicityMasterReference());
-      setState(() {
-        initialItem = widget.initialItem;
-      });
+    if(isInit) {
+      if (initialItem != widget.initialItem) {
+        widget.onChanged(widget.initialItem ?? AajicityMasterReference());
+        setState(() {
+          initialItem = widget.initialItem;
+          isInit = false;
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -149,15 +152,13 @@ class _DropDownGenderState extends State<DropDownGender> {
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
                         initialItem = value;
-                      });
+                      isInit = false;
                     },
                     onClear: (){
                       widget.onChanged(AajicityMasterReference());
-                      setState(() {
                         initialItem = AajicityMasterReference();
-                      });
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),

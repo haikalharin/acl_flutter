@@ -8,13 +8,14 @@ import '../../../data/model/master_data_model/master_data_model.dart';
 class DropDownDepartment extends StatefulWidget {
   const DropDownDepartment(
       {Key? key,
-        required this.onChanged,
-        required this.items,
-        this.initialItem,
-        this.lable,
-        this.title,
-        this.icon,
-        this.errorText, this.readOnly = false})
+      required this.onChanged,
+      required this.items,
+      this.initialItem,
+      this.lable,
+      this.title,
+      this.icon,
+      this.errorText,
+      this.readOnly = false})
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
@@ -27,21 +28,26 @@ class DropDownDepartment extends StatefulWidget {
   final bool readOnly;
 
   @override
-  State<DropDownDepartment> createState() => _DropDownDepartmentState(initialItem);
+  State<DropDownDepartment> createState() =>
+      _DropDownDepartmentState(initialItem);
 }
-
 
 class _DropDownDepartmentState extends State<DropDownDepartment> {
   AajicityMasterReference? initialItem;
+  bool isInit = true;
 
   _DropDownDepartmentState(this.initialItem);
+
   @override
   void didUpdateWidget(DropDownDepartment oldWidget) {
-    if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem??AajicityMasterReference());
-      setState(() {
-        initialItem = widget.initialItem;
-      });
+    if (isInit) {
+      if (initialItem != widget.initialItem) {
+        widget.onChanged(widget.initialItem ?? AajicityMasterReference());
+        setState(() {
+          initialItem = widget.initialItem;
+          isInit = false;
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -95,7 +101,8 @@ class _DropDownDepartmentState extends State<DropDownDepartment> {
           ),
           child: Row(
             children: [
-              Container(margin: const EdgeInsets.only(left: 12), child: widget.icon),
+              Container(
+                  margin: const EdgeInsets.only(left: 12), child: widget.icon),
               Flexible(
                 flex: 1,
                 child: Container(
@@ -106,15 +113,15 @@ class _DropDownDepartmentState extends State<DropDownDepartment> {
                     items: widget.items
                         .map(
                           (item) => DropdownMenuItem<AajicityMasterReference>(
-                        value: item,
-                        child: Text(
-                          language == Language.indonesia
-                              ? item.longDescriptionInd ?? ''
-                              : item.longDescriptionEng ?? '',
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    )
+                            value: item,
+                            child: Text(
+                              language == Language.indonesia
+                                  ? item.longDescriptionInd ?? ''
+                                  : item.longDescriptionEng ?? '',
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        )
                         .toList(),
                     searchFn: (String keyword,
                         List<DropdownMenuItem<AajicityMasterReference>> items) {
@@ -127,13 +134,13 @@ class _DropDownDepartmentState extends State<DropDownDepartment> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase())
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase()))) {
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -150,15 +157,13 @@ class _DropDownDepartmentState extends State<DropDownDepartment> {
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
                         initialItem = value;
-                      });
+                      isInit = false;
                     },
-                    onClear: (){
+                    onClear: () {
                       widget.onChanged(AajicityMasterReference());
-                      setState(() {
-                        initialItem = AajicityMasterReference();
-                      });
+                      initialItem = AajicityMasterReference();
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),

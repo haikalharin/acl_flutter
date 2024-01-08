@@ -8,13 +8,14 @@ import '../../../data/model/master_data_model/master_data_model.dart';
 class DropDownReligion extends StatefulWidget {
   const DropDownReligion(
       {Key? key,
-        required this.onChanged,
-        required this.items,
-        this.initialItem,
-        this.lable,
-        this.title,
-        this.icon,
-        this.errorText, this.readOnly = false})
+      required this.onChanged,
+      required this.items,
+      this.initialItem,
+      this.lable,
+      this.title,
+      this.icon,
+      this.errorText,
+      this.readOnly = false})
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
@@ -30,18 +31,22 @@ class DropDownReligion extends StatefulWidget {
   State<DropDownReligion> createState() => _DropDownReligionState(initialItem);
 }
 
-
 class _DropDownReligionState extends State<DropDownReligion> {
   AajicityMasterReference? initialItem;
+  bool isInit = true;
 
   _DropDownReligionState(this.initialItem);
+
   @override
   void didUpdateWidget(DropDownReligion oldWidget) {
-    if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem??AajicityMasterReference());
-      setState(() {
-        initialItem = widget.initialItem;
-      });
+    if (isInit) {
+      if (initialItem != widget.initialItem) {
+        widget.onChanged(widget.initialItem ?? AajicityMasterReference());
+        setState(() {
+          initialItem = widget.initialItem;
+          isInit = false;
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -95,7 +100,8 @@ class _DropDownReligionState extends State<DropDownReligion> {
           ),
           child: Row(
             children: [
-              Container(margin: const EdgeInsets.only(left: 12), child: widget.icon),
+              Container(
+                  margin: const EdgeInsets.only(left: 12), child: widget.icon),
               Flexible(
                 flex: 1,
                 child: Container(
@@ -106,15 +112,15 @@ class _DropDownReligionState extends State<DropDownReligion> {
                     items: widget.items
                         .map(
                           (item) => DropdownMenuItem<AajicityMasterReference>(
-                        value: item,
-                        child: Text(
-                          language == Language.indonesia
-                              ? item.longDescriptionInd ?? ''
-                              : item.longDescriptionEng ?? '',
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    )
+                            value: item,
+                            child: Text(
+                              language == Language.indonesia
+                                  ? item.longDescriptionInd ?? ''
+                                  : item.longDescriptionEng ?? '',
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        )
                         .toList(),
                     searchFn: (String keyword,
                         List<DropdownMenuItem<AajicityMasterReference>> items) {
@@ -127,13 +133,13 @@ class _DropDownReligionState extends State<DropDownReligion> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase())
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(k.toLowerCase()))) {
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -150,15 +156,13 @@ class _DropDownReligionState extends State<DropDownReligion> {
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
-                      setState(() {
-                        initialItem = value;
-                      });
+                      initialItem = value;
+                      isInit = false;
                     },
-                    onClear: (){
+                    onClear: () {
                       widget.onChanged(AajicityMasterReference());
-                      setState(() {
-                        initialItem = AajicityMasterReference();
-                      });
+                      initialItem = AajicityMasterReference();
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),
