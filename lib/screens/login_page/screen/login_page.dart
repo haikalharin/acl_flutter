@@ -173,7 +173,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 16,),
+                        const SizedBox(height: 16,),
                         BlocBuilder<LoginPageBloc, LoginPageState>(
                           builder: (context, state) {
                             return state.submitStatus.isInProgress
