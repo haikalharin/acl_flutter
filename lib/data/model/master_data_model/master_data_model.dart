@@ -944,6 +944,8 @@ class MasterReferenceAll {
   Aajicity? azOfficephoneno;
   @JsonKey(name: "PREVCOMPANYAASI")
   Aajicity? prevcompanyaasi;
+  @JsonKey(name: "PREVCOMPANYAAUI")
+  Aajicity? prevcompanyaaui;
   @JsonKey(name: "RELATION")
   Aajicity? relation;
   @JsonKey(name: "AZ FAXNO")
@@ -1054,6 +1056,7 @@ class MasterReferenceAll {
     this.reprinttype,
     this.azOfficephoneno,
     this.prevcompanyaasi,
+    this.prevcompanyaaui,
     this.relation,
     this.azFaxno,
     this.checkingreason,
@@ -1146,6 +1149,7 @@ class MasterReferenceAll {
     City? reprinttype,
     Aajicity? azOfficephoneno,
     Aajicity? prevcompanyaasi,
+    Aajicity? prevcompanyaaui,
     Aajicity? relation,
     Aajicity? azFaxno,
     Aajicity? checkingreason,
@@ -1237,6 +1241,7 @@ class MasterReferenceAll {
         reprinttype: reprinttype ?? this.reprinttype,
         azOfficephoneno: azOfficephoneno ?? this.azOfficephoneno,
         prevcompanyaasi: prevcompanyaasi ?? this.prevcompanyaasi,
+        prevcompanyaaui: prevcompanyaaui ?? this.prevcompanyaaui,
         relation: relation ?? this.relation,
         azFaxno: azFaxno ?? this.azFaxno,
         checkingreason: checkingreason ?? this.checkingreason,

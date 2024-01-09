@@ -121,6 +121,12 @@ class AajiNoInputEvent extends AddCandidatePageEvent {
   AajiNoInputEvent(this.aajiNo);
 }
 
+class AajiPrevCompanyInputEvent extends AddCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AajiPrevCompanyInputEvent(this.prevCompany);
+}
+
 class AajiImageInputEvent extends AddCandidatePageEvent {
   final String aajiImage;
 
@@ -139,6 +145,12 @@ class AasiNoInputEvent extends AddCandidatePageEvent {
   AasiNoInputEvent(this.aasiNo);
 }
 
+class AasiPrevCompanyInputEvent extends AddCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AasiPrevCompanyInputEvent(this.prevCompany);
+}
+
 class AasiImageInputEvent extends AddCandidatePageEvent {
   final String aasiImage;
 
@@ -155,6 +167,12 @@ class AauiNoInputEvent extends AddCandidatePageEvent {
   final String aauiNo;
 
   AauiNoInputEvent(this.aauiNo);
+}
+
+class AauiPrevCompanyInputEvent extends AddCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AauiPrevCompanyInputEvent(this.prevCompany);
 }
 
 class AauiImageInputEvent extends AddCandidatePageEvent {

@@ -92,8 +92,11 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(
-                        Routes.faaFormCandidatePage,
-                      );
+                          Routes.detailCandidatePage,
+                          arguments: {
+                            'candidate_model':
+                            widget.candidateModel,
+                          });
                     },
                     child: const Text('Form FAA'),
                   ),

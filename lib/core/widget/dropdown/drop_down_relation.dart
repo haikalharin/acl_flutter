@@ -16,6 +16,7 @@ class DropDownRelation extends StatefulWidget {
       this.icon,
       this.errorText,
       this.isMandatory = true,
+      this.readOnly = false,
       this.isCheck = false})
       : super(key: key);
 
@@ -27,6 +28,7 @@ class DropDownRelation extends StatefulWidget {
   final String? errorText;
   final Icon? icon;
   final bool isMandatory;
+  final bool readOnly;
   final bool isCheck;
 
   @override
@@ -111,6 +113,7 @@ class _DropDownRelationState extends State<DropDownRelation> {
                 child: Container(
                   // width: 200,
                   child: SearchChoices.single(
+                    readOnly: widget.readOnly,
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(

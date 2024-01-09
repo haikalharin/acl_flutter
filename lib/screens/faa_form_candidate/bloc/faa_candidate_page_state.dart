@@ -42,6 +42,7 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
   final MasterDataModel? masterDataModel;
   final CandidateModel? candidateModel;
   final CandidateRegisterModel? candidateRegisterModel;
+  final CandidateDataModel? candidateDataModel;
   final bool checkedValueAAJI;
   final bool checkedValueAASI;
   final bool checkedNeedValueAAUI;
@@ -90,6 +91,7 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
     this.masterDataModel,
     this.candidateModel,
     this.candidateRegisterModel,
+    this.candidateDataModel,
     this.moveTo,
     this.checkedValueAAJI = false,
     this.checkedValueAASI = false,
@@ -142,6 +144,7 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
         moveTo,
         masterDataModel,
         candidateModel,
+        candidateDataModel,
         candidateRegisterModel,
         checkedValueAAJI,
         checkedValueAASI,
@@ -251,6 +254,7 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
     bool? checkedValueMarriage,
     CandidateModel? candidateModel,
     CandidateRegisterModel? candidateRegisterModel,
+    CandidateDataModel? candidateDataModel,
     FormzSubmissionStatus? submitStatus,
   }) {
     return FaaCandidatePageState(
@@ -293,6 +297,7 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
       relationId: relationId ?? this.relationId,
       masterDataModel: masterDataModel ?? this.masterDataModel,
       candidateModel: candidateModel ?? this.candidateModel,
+      candidateDataModel: candidateDataModel ?? this.candidateDataModel,
       candidateRegisterModel:
           candidateRegisterModel ?? this.candidateRegisterModel,
       moveTo: moveTo ?? this.moveTo,

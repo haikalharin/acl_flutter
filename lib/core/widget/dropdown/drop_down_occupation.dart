@@ -17,6 +17,7 @@ class DropDownOccupation extends StatefulWidget {
       this.icon,
       this.errorText,
       this.isMandatory = true,
+      this.readOnly = false,
       this.isCheck = false})
       : super(key: key);
 
@@ -29,6 +30,7 @@ class DropDownOccupation extends StatefulWidget {
   final String? errorText;
   final Icon? icon;
   final bool isMandatory;
+  final bool readOnly;
   final bool isCheck;
 
   @override
@@ -44,12 +46,14 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
 
   @override
   void didUpdateWidget(DropDownOccupation oldWidget) {
-    if (initialItem != widget.initialItem) {
-      widget.onChanged(widget.initialItem ?? CheckingstatusMasterReference());
-      setState(() {
-        initialItem = widget.initialItem;
-        isInit = false;
-      });
+    if(isInit) {
+      if (initialItem != widget.initialItem) {
+        widget.onChanged(widget.initialItem ?? CheckingstatusMasterReference());
+        setState(() {
+          initialItem = widget.initialItem;
+          isInit = false;
+        });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -110,6 +114,7 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
                 child: Container(
                   // width: 200,
                   child: SearchChoices.single(
+                    readOnly: widget.readOnly,
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(

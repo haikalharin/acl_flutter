@@ -1,3 +1,4 @@
+import 'package:acl_flutter/data/model/candidate/candidate_model.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/tab_widget/private_data_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,8 @@ import '../bloc/faa_candidate_page_bloc.dart';
 enum Mode { create, update }
 
 class FaaFormCandidatePage extends StatefulWidget {
-  const FaaFormCandidatePage({super.key});
+  CandidateModel candidateModel;
+   FaaFormCandidatePage({super.key,required this.candidateModel});
 
   @override
   State<FaaFormCandidatePage> createState() => _FaaFormCandidatePageState();
@@ -45,11 +47,15 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
         .width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('FAA Form'),
+        title: const Text('FAA Form'),
       ),
       body: BlocListener<FaaCandidatePageBloc, FaaCandidatePageState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state.submitStatus.isSuccess) {
+            if (state.message == 'success-get-master-data') {
+              getIt<FaaCandidatePageBloc>().add(FetchCandidateDataEvent(widget.candidateModel.id??''));
+            }
+          }
         },
         child: BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
           builder: (context, state) {
@@ -102,11 +108,11 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
                         ),
                         Center(
                             child: Container(
-                              child: Text('On Progress'),
+                              child: const Text('On Progress'),
                             )),
                         Center(
                             child: Container(
-                              child: Text('On Progress'),
+                              child: const Text('On Progress'),
                             ))
                       ],
                     ),

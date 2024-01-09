@@ -7,6 +7,11 @@ class FetchMasterDataEvent extends FaaCandidatePageEvent {
   FetchMasterDataEvent();
 }
 
+class FetchCandidateDataEvent extends FaaCandidatePageEvent {
+  final String candidateId;
+  FetchCandidateDataEvent(this.candidateId);
+}
+
 class FirstNameInputEvent extends FaaCandidatePageEvent {
   final String firstName;
 

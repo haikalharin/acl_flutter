@@ -15,6 +15,7 @@ import 'package:equatable/equatable.dart';
 import '../../../common/validators/zipcode_validator.dart';
 import '../../../core/local_storage/secure_storage/secure_storage.dart';
 import '../../../core/router/routes.dart';
+import '../../../data/model/candidate/candidate_data_model.dart';
 import '../../../data/model/candidate/candidate_model.dart';
 import '../../../data/model/candidate/candidate_register_model.dart';
 import '../../../data/model/candidate/request_candidate_model.dart';
@@ -70,6 +71,7 @@ class FaaCandidatePageBloc
     on<AddAgentSubmittedEvent>(addAgentSubmitted);
     on<AddAgentDocSubmittedEvent>(addAgentDocSubmitted);
     on<FaaCandidatePageInitialEvent>(addAgentPageInitial);
+    on<FetchCandidateDataEvent>(fetchCandidateData);
   }
 
   Future<void> addAgentPageInitial(FaaCandidatePageInitialEvent event,
@@ -85,7 +87,27 @@ class FaaCandidatePageBloc
       result.when(success: (response) {
         emit(state.copyWith(
             masterDataModel: response.data,
-            moveTo: Routes.addAgentPage,
+            message: 'success-get-master-data',
+            submitStatus: FormzSubmissionStatus.success));
+      }, failure: (error) {
+        emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+      });
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+  }
+
+  Future<void> fetchCandidateData(
+      FetchCandidateDataEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
+    try {
+      final result = await candidateRepository.getCandidateData(event.candidateId);
+      result.when(success: (response) {
+        emit(state.copyWith(
+            masterDataModel: response.data,
+            message: 'success-get-master-data',
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
         emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));

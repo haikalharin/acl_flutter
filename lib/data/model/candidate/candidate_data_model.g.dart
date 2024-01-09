@@ -1,25 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_candidate_data_model.dart';
+part of 'candidate_data_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetCandidateDataModel _$GetCandidateDataModelFromJson(
-        Map<String, dynamic> json) =>
-    GetCandidateDataModel(
+CandidateDataModel _$CandidateDataModelFromJson(Map<String, dynamic> json) =>
+    CandidateDataModel(
       success: json['success'] as bool?,
       message: json['message'] as String?,
       httpCode: json['httpCode'] as int?,
       data: json['data'] == null
           ? null
-          : GetCandidateDataModelData.fromJson(
+          : CandidateDataModelData.fromJson(
               json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$GetCandidateDataModelToJson(
-        GetCandidateDataModel instance) =>
+Map<String, dynamic> _$CandidateDataModelToJson(CandidateDataModel instance) =>
     <String, dynamic>{
       'success': instance.success,
       'message': instance.message,
@@ -27,9 +25,9 @@ Map<String, dynamic> _$GetCandidateDataModelToJson(
       'data': instance.data,
     };
 
-GetCandidateDataModelData _$GetCandidateDataModelDataFromJson(
+CandidateDataModelData _$CandidateDataModelDataFromJson(
         Map<String, dynamic> json) =>
-    GetCandidateDataModelData(
+    CandidateDataModelData(
       code: json['code'] as int?,
       message: json['message'] as String?,
       httpStatus: json['httpStatus'] as String?,
@@ -38,8 +36,8 @@ GetCandidateDataModelData _$GetCandidateDataModelDataFromJson(
           : DataData.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$GetCandidateDataModelDataToJson(
-        GetCandidateDataModelData instance) =>
+Map<String, dynamic> _$CandidateDataModelDataToJson(
+        CandidateDataModelData instance) =>
     <String, dynamic>{
       'code': instance.code,
       'message': instance.message,
@@ -58,7 +56,7 @@ DataData _$DataDataFromJson(Map<String, dynamic> json) => DataData(
       title: json['title'] as int?,
       position: json['position'] as int?,
       placeOfBirth: json['placeOfBirth'],
-      dob: json['dob'] == null ? null : DateTime.parse(json['dob'] as String),
+      dob: json['dob'] as String?,
       gender: json['gender'] as int?,
       weight: json['weight'] as int?,
       high: json['high'] as int?,
@@ -198,7 +196,7 @@ Map<String, dynamic> _$DataDataToJson(DataData instance) => <String, dynamic>{
       'title': instance.title,
       'position': instance.position,
       'placeOfBirth': instance.placeOfBirth,
-      'dob': instance.dob?.toIso8601String(),
+      'dob': instance.dob,
       'gender': instance.gender,
       'weight': instance.weight,
       'high': instance.high,

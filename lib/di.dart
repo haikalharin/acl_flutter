@@ -28,6 +28,7 @@ import 'package:get_it/get_it.dart';
 
 import 'data/api/candidate/candiate_be_api.dart';
 import 'data/api/candidate/candidate_api.dart';
+import 'data/api/candidate/get_candidate_data_api.dart';
 import 'data/api/candidate/tracking_candidate_api.dart';
 import 'data/api/login/login_api.dart';
 import 'data/repository/comment/comment_repository.dart';
@@ -138,6 +139,7 @@ Future<void> init() async {
         addRegisterCandidateApi: getIt<AddRegisterCandidateApi>(),
         documentApi: getIt<DocumentApi>(),
         addRegisterSepouseApi: getIt<AddRegisterSepouseApi>(),
+        getCandidateDataApi: getIt<GetCandidateDataApi>(),
         pendingSimpleCheckingApi: getIt<PendingSimpleCheckingApi>()),
   );
 

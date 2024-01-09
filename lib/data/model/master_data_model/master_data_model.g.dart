@@ -624,6 +624,9 @@ MasterReferenceAll _$MasterReferenceAllFromJson(Map<String, dynamic> json) =>
       prevcompanyaasi: json['PREVCOMPANYAASI'] == null
           ? null
           : Aajicity.fromJson(json['PREVCOMPANYAASI'] as Map<String, dynamic>),
+      prevcompanyaaui: json['PREVCOMPANYAAUI'] == null
+          ? null
+          : Aajicity.fromJson(json['PREVCOMPANYAAUI'] as Map<String, dynamic>),
       relation: json['RELATION'] == null
           ? null
           : Aajicity.fromJson(json['RELATION'] as Map<String, dynamic>),
@@ -756,6 +759,7 @@ Map<String, dynamic> _$MasterReferenceAllToJson(MasterReferenceAll instance) =>
       'REPRINTTYPE': instance.reprinttype,
       'AZ OFFICEPHONENO': instance.azOfficephoneno,
       'PREVCOMPANYAASI': instance.prevcompanyaasi,
+      'PREVCOMPANYAAUI': instance.prevcompanyaaui,
       'RELATION': instance.relation,
       'AZ FAXNO': instance.azFaxno,
       'CHECKINGREASON': instance.checkingreason,

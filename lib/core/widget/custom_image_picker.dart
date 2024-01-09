@@ -11,6 +11,7 @@ class CustomImagePicker extends StatefulWidget {
   final XFile? initialImage; // Add this property
   final String? title; // Add this property
   final bool isMandatory; // Add this property
+  final bool readOnly; // Add this property
   final String? errorText; // Add this property
 
   const CustomImagePicker({
@@ -19,7 +20,8 @@ class CustomImagePicker extends StatefulWidget {
     required this.title,
     this.initialImage,
     this.isMandatory = true,
-    this.errorText, // Provide an initial image from the state
+    this.errorText,
+    this.readOnly = false, // Provide an initial image from the state
   });
 
   @override
@@ -104,8 +106,12 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(widget.readOnly?AclColors.grey:AclColors.blueDark)),
               onPressed: () {
-                _showPicker(context);
+                if (!widget.readOnly) {
+                  _showPicker(context);
+                }
               },
               child: const Text("Ambil Gambar"),
             ),
@@ -114,9 +120,11 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
             width: MediaQuery.of(context).size.width,
             child: ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(AclColors.jingga)),
+                  backgroundColor: MaterialStateProperty.all(widget.readOnly?AclColors.grey:AclColors.jingga)),
               onPressed: () {
-                _deleteImage();
+                if (!widget.readOnly) {
+                  _deleteImage();
+                }
               },
               child: const Text("Hapus"),
             ),

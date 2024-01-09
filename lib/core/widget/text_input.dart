@@ -15,6 +15,7 @@ class TextInput extends StatefulWidget {
     this.label,
     this.title,
     this.enabled,
+    this.readOnly = false,
     this.focusNode,
     this.obscureText,
     this.keyboardType,
@@ -34,6 +35,7 @@ class TextInput extends StatefulWidget {
   final Widget? label;
   final Widget? title;
   final bool? enabled;
+  final bool readOnly;
   final TextEditingController? controller;
   final AutovalidateMode autoValidateMode;
   final FocusNode? focusNode;
@@ -66,6 +68,7 @@ class _TextInputState extends State<TextInput> {
     return ListTile(
       title: widget.title,
       subtitle: TextFormField(
+        readOnly: widget.readOnly,
         focusNode: widget.focusNode,
         maxLength: widget.maxLength,
         keyboardType: widget.keyboardType,

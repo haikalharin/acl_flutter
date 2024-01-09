@@ -17,9 +17,11 @@ import '../../../core/repository/repository_helper.dart';
 import '../../api/candidate/add_register_candidate_api.dart';
 import '../../api/candidate/candiate_be_api.dart';
 import '../../api/candidate/candidate_api.dart';
+import '../../api/candidate/get_candidate_data_api.dart';
 import '../../api/candidate/tracking_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';
 import '../../model/candidate/candidate_register_model.dart';
+import '../../model/candidate/candidate_data_model.dart';
 import '../../model/candidate/request_candidate_model.dart';
 import '../../model/candidate/request_pending_simple_checking_model.dart';
 import '../../model/tracking_model/tracking_model.dart';
@@ -33,6 +35,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
   final AddRegisterSepouseApi addRegisterSepouseApi;
   final DocumentApi documentApi;
   final PendingSimpleCheckingApi pendingSimpleCheckingApi;
+  final GetCandidateDataApi getCandidateDataApi;
 
   const CandidateRepository({
     required this.documentApi,
@@ -43,6 +46,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     required this.masterDataApi,
     required this.addRegisterCandidateApi,
     required this.pendingSimpleCheckingApi,
+    required this.getCandidateDataApi,
   });
 
   Future<ApiResult<ResponseModel<CandidateModel>>> fetchListMyAgent(
@@ -150,6 +154,19 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     try {
       final ResponseModel<CandidateFolderDocModel> items =
       await documentApi.addRegisterCandidateFolderDoc(candidateId);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      var data = e;
+      print("$data");
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+
+  Future<ApiResult<ResponseModel<CandidateDataModel>>> getCandidateData(String candidateId) async {
+    try {
+      final ResponseModel<CandidateDataModel> items =
+      await getCandidateDataApi.addRegisterCandidate(candidateId);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;

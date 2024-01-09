@@ -1,18 +1,18 @@
 // To parse this JSON data, do
 //
-//     final getCandidateDataModel = getCandidateDataModelFromJson(jsonString);
+//     final candidateDataModel = candidateDataModelFromJson(jsonString);
 
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
-part 'get_candidate_data_model.g.dart';
+part 'candidate_data_model.g.dart';
 
-GetCandidateDataModel getCandidateDataModelFromJson(String str) => GetCandidateDataModel.fromJson(json.decode(str));
+CandidateDataModel candidateDataModelFromJson(String str) => CandidateDataModel.fromJson(json.decode(str));
 
-String getCandidateDataModelToJson(GetCandidateDataModel data) => json.encode(data.toJson());
+String candidateDataModelToJson(CandidateDataModel data) => json.encode(data.toJson());
 
 @JsonSerializable()
-class GetCandidateDataModel {
+class CandidateDataModel {
   @JsonKey(name: "success")
   bool? success;
   @JsonKey(name: "message")
@@ -20,35 +20,35 @@ class GetCandidateDataModel {
   @JsonKey(name: "httpCode")
   int? httpCode;
   @JsonKey(name: "data")
-  GetCandidateDataModelData? data;
+  CandidateDataModelData? data;
 
-  GetCandidateDataModel({
+  CandidateDataModel({
     this.success,
     this.message,
     this.httpCode,
     this.data,
   });
 
-  GetCandidateDataModel copyWith({
+  CandidateDataModel copyWith({
     bool? success,
     String? message,
     int? httpCode,
-    GetCandidateDataModelData? data,
+    CandidateDataModelData? data,
   }) =>
-      GetCandidateDataModel(
+      CandidateDataModel(
         success: success ?? this.success,
         message: message ?? this.message,
         httpCode: httpCode ?? this.httpCode,
         data: data ?? this.data,
       );
 
-  factory GetCandidateDataModel.fromJson(Map<String, dynamic> json) => _$GetCandidateDataModelFromJson(json);
+  factory CandidateDataModel.fromJson(Map<String, dynamic> json) => _$CandidateDataModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetCandidateDataModelToJson(this);
+  Map<String, dynamic> toJson() => _$CandidateDataModelToJson(this);
 }
 
 @JsonSerializable()
-class GetCandidateDataModelData {
+class CandidateDataModelData {
   @JsonKey(name: "code")
   int? code;
   @JsonKey(name: "message")
@@ -58,29 +58,29 @@ class GetCandidateDataModelData {
   @JsonKey(name: "data")
   DataData? data;
 
-  GetCandidateDataModelData({
+  CandidateDataModelData({
     this.code,
     this.message,
     this.httpStatus,
     this.data,
   });
 
-  GetCandidateDataModelData copyWith({
+  CandidateDataModelData copyWith({
     int? code,
     String? message,
     String? httpStatus,
     DataData? data,
   }) =>
-      GetCandidateDataModelData(
+      CandidateDataModelData(
         code: code ?? this.code,
         message: message ?? this.message,
         httpStatus: httpStatus ?? this.httpStatus,
         data: data ?? this.data,
       );
 
-  factory GetCandidateDataModelData.fromJson(Map<String, dynamic> json) => _$GetCandidateDataModelDataFromJson(json);
+  factory CandidateDataModelData.fromJson(Map<String, dynamic> json) => _$CandidateDataModelDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetCandidateDataModelDataToJson(this);
+  Map<String, dynamic> toJson() => _$CandidateDataModelDataToJson(this);
 }
 
 @JsonSerializable()
@@ -106,7 +106,7 @@ class DataData {
   @JsonKey(name: "placeOfBirth")
   dynamic placeOfBirth;
   @JsonKey(name: "dob")
-  DateTime? dob;
+  String? dob;
   @JsonKey(name: "gender")
   int? gender;
   @JsonKey(name: "weight")
@@ -502,7 +502,7 @@ class DataData {
     int? title,
     int? position,
     dynamic placeOfBirth,
-    DateTime? dob,
+    String? dob,
     int? gender,
     int? weight,
     int? high,

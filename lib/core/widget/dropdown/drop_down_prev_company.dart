@@ -1,12 +1,12 @@
-import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/master_data_model/master_data_model.dart';
+import '../../../screens/sidebar_page/sidebar_page.dart';
 
-class DropDownMarriage extends StatefulWidget {
-  const DropDownMarriage(
+class DropDownPrevCompany extends StatefulWidget {
+  const DropDownPrevCompany(
       {Key? key,
       required this.onChanged,
       required this.items,
@@ -15,7 +15,9 @@ class DropDownMarriage extends StatefulWidget {
       this.title,
       this.icon,
       this.errorText,
-      this.readOnly = false})
+      this.readOnly = true,
+      this.isMandatory = true,
+      })
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
@@ -25,21 +27,20 @@ class DropDownMarriage extends StatefulWidget {
   final String? title;
   final String? errorText;
   final Icon? icon;
+  final bool isMandatory;
   final bool readOnly;
 
   @override
-  State<DropDownMarriage> createState() => _DropDownMarriageState(initialItem);
+  State<DropDownPrevCompany> createState() => _DropDownPrevCompanyState(initialItem);
 }
 
-class _DropDownMarriageState extends State<DropDownMarriage> {
+class _DropDownPrevCompanyState extends State<DropDownPrevCompany> {
   AajicityMasterReference? initialItem;
-  bool isInit = true;
-
-  _DropDownMarriageState(this.initialItem);
-
+ bool isInit = true;
+  _DropDownPrevCompanyState(this.initialItem);
   @override
-  void didUpdateWidget(DropDownMarriage oldWidget) {
-    if (isInit) {
+  void didUpdateWidget(DropDownPrevCompany oldWidget) {
+    if(isInit) {
       if (initialItem != widget.initialItem) {
         widget.onChanged(widget.initialItem ?? AajicityMasterReference());
         setState(() {
@@ -65,7 +66,7 @@ class _DropDownMarriageState extends State<DropDownMarriage> {
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
-            Container(
+            widget.isMandatory? Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: const Text(
                   '*',
@@ -73,7 +74,7 @@ class _DropDownMarriageState extends State<DropDownMarriage> {
                     fontSize: 12.0,
                     color: AclColors.redAccent,
                   ),
-                )),
+                )):Container(),
             Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
@@ -100,8 +101,7 @@ class _DropDownMarriageState extends State<DropDownMarriage> {
           ),
           child: Row(
             children: [
-              Container(
-                  margin: const EdgeInsets.only(left: 12), child: widget.icon),
+              Container(margin: const EdgeInsets.only(left: 12), child: widget.icon),
               Flexible(
                 flex: 1,
                 child: Container(
@@ -112,15 +112,15 @@ class _DropDownMarriageState extends State<DropDownMarriage> {
                     items: widget.items
                         .map(
                           (item) => DropdownMenuItem<AajicityMasterReference>(
-                            value: item,
-                            child: Text(
-                              language == Language.indonesia
-                                  ? item.longDescriptionInd ?? ''
-                                  : item.longDescriptionEng ?? '',
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
-                        )
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    )
                         .toList(),
                     searchFn: (String keyword,
                         List<DropdownMenuItem<AajicityMasterReference>> items) {
@@ -133,13 +133,13 @@ class _DropDownMarriageState extends State<DropDownMarriage> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase())
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase()))) {
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -156,12 +156,12 @@ class _DropDownMarriageState extends State<DropDownMarriage> {
                     searchHint: "Select one",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
-                      initialItem = value;
+                        initialItem = value;
                       isInit = false;
                     },
-                    onClear: () {
+                    onClear: (){
                       widget.onChanged(AajicityMasterReference());
-                      initialItem = AajicityMasterReference();
+                        initialItem = AajicityMasterReference();
                       isInit = false;
                     },
                     isExpanded: true,

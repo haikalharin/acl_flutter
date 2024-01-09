@@ -24,10 +24,16 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   final CheckingstatusMasterReference? occupation;
   final DropdownFieldValidator occupationId;
   final MandatoryFieldValidator noLicenceAAJI;
+  final AajicityMasterReference? prevCompanyAAJI;
+  final DropdownFieldValidator prevCompanyAAJIId;
   final MandatoryFieldValidator imageLicenceAAJI;
   final MandatoryFieldValidator noLicenceAASI;
+  final AajicityMasterReference? prevCompanyAASI;
+  final DropdownFieldValidator prevCompanyAASIId;
   final MandatoryFieldValidator imageLicenceAASI;
   final MandatoryFieldValidator noLicenceAAUI;
+  final AajicityMasterReference? prevCompanyAAUI;
+  final DropdownFieldValidator prevCompanyAAUIId;
   final MandatoryFieldValidator imageLicenceAAUI;
   final MandatoryFieldValidator firstNamePartner;
   final MandatoryFieldValidator middleNamePartner;
@@ -73,10 +79,16 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     this.occupation,
     this.occupationId = const DropdownFieldValidator.pure(),
     this.noLicenceAAJI = const MandatoryFieldValidator.pure(),
+    this.prevCompanyAAJI,
+    this.prevCompanyAAJIId = const DropdownFieldValidator.pure(),
     this.imageLicenceAAJI = const MandatoryFieldValidator.pure(),
     this.noLicenceAASI = const MandatoryFieldValidator.pure(),
+    this.prevCompanyAASI,
+    this.prevCompanyAASIId = const DropdownFieldValidator.pure(),
     this.imageLicenceAASI = const MandatoryFieldValidator.pure(),
     this.noLicenceAAUI = const MandatoryFieldValidator.pure(),
+    this.prevCompanyAAUI,
+    this.prevCompanyAAUIId = const DropdownFieldValidator.pure(),
     this.imageLicenceAAUI = const MandatoryFieldValidator.pure(),
     this.firstNamePartner = const MandatoryFieldValidator.pure(),
     this.middleNamePartner = const MandatoryFieldValidator.pure(),
@@ -125,10 +137,16 @@ class AddCandidatePageState extends Equatable with FormzMixin {
         occupation,
         occupationId,
         noLicenceAAJI,
+        prevCompanyAAJI,
+        prevCompanyAAJIId,
         imageLicenceAAJI,
         noLicenceAASI,
+        prevCompanyAASI,
+        prevCompanyAASIId,
         imageLicenceAASI,
         noLicenceAAUI,
+        prevCompanyAAUI,
+        prevCompanyAAUIId,
         imageLicenceAAUI,
         firstNamePartner,
         middleNamePartner,
@@ -166,25 +184,31 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     ];
     if (checkedValueAAJI) {
       data.add(noLicenceAAJI);
+      data.add(prevCompanyAAJIId);
       data.add(imageLicenceAAJI);
     } else {
       data.remove(noLicenceAAJI);
+      data.remove(prevCompanyAAJIId);
       data.remove(imageLicenceAAJI);
     }
 
     if (checkedValueAASI) {
       data.add(noLicenceAASI);
+      data.add(prevCompanyAASIId);
       data.add(imageLicenceAASI);
     } else {
       data.remove(noLicenceAASI);
+      data.remove(prevCompanyAASIId);
       data.remove(imageLicenceAASI);
     }
 
     if (checkedValueAAUI) {
       data.add(noLicenceAAUI);
+      data.add(prevCompanyAAUIId);
       data.add(imageLicenceAAUI);
     } else {
       data.remove(noLicenceAAUI);
+      data.remove(prevCompanyAAUIId);
       data.remove(imageLicenceAAUI);
     }
 
@@ -228,10 +252,16 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     CheckingstatusMasterReference? occupation,
     DropdownFieldValidator? occupationId,
     MandatoryFieldValidator? noLicenceAAJI,
+    AajicityMasterReference? prevCompanyAAJI,
+    DropdownFieldValidator? prevCompanyAAJIId,
     MandatoryFieldValidator? imageLicenceAAJI,
     MandatoryFieldValidator? noLicenceAASI,
+    AajicityMasterReference? prevCompanyAASI,
+    DropdownFieldValidator? prevCompanyAASIId,
     MandatoryFieldValidator? imageLicenceAASI,
     MandatoryFieldValidator? noLicenceAAUI,
+    AajicityMasterReference? prevCompanyAAUI,
+    DropdownFieldValidator? prevCompanyAAUIId,
     MandatoryFieldValidator? imageLicenceAAUI,
     MandatoryFieldValidator? firstNamePartner,
     MandatoryFieldValidator? middleNamePartner,
@@ -277,10 +307,16 @@ class AddCandidatePageState extends Equatable with FormzMixin {
       occupation: occupation ?? this.occupation,
       occupationId: occupationId ?? this.occupationId,
       noLicenceAAJI: noLicenceAAJI ?? this.noLicenceAAJI,
+      prevCompanyAAJI: prevCompanyAAJI ?? this.prevCompanyAAJI,
+      prevCompanyAAJIId: prevCompanyAAJIId ?? this.prevCompanyAAJIId,
       imageLicenceAAJI: imageLicenceAAJI ?? this.imageLicenceAAJI,
       noLicenceAASI: noLicenceAASI ?? this.noLicenceAASI,
+      prevCompanyAASI: prevCompanyAASI ?? this.prevCompanyAASI,
+      prevCompanyAASIId: prevCompanyAASIId ?? this.prevCompanyAASIId,
       imageLicenceAASI: imageLicenceAASI ?? this.imageLicenceAASI,
       noLicenceAAUI: noLicenceAAUI ?? this.noLicenceAAUI,
+      prevCompanyAAUI: prevCompanyAAUI ?? this.prevCompanyAAUI,
+      prevCompanyAAUIId: prevCompanyAAUIId ?? this.prevCompanyAAUIId,
       imageLicenceAAUI: imageLicenceAAUI ?? this.imageLicenceAAUI,
       firstNamePartner: firstNamePartner ?? this.firstNamePartner,
       middleNamePartner: middleNamePartner ?? this.middleNamePartner,

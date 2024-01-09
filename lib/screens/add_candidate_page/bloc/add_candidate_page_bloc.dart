@@ -52,6 +52,7 @@ class AddCandidatePageBloc
     on<OccupationInputEvent>(occupationInput);
     on<AajiCheckedInputEvent>(aajiCheckedInput);
     on<AajiNoInputEvent>(noLicenceAAJIInput);
+    on<AajiPrevCompanyInputEvent>(aajiPrevCompanyInput);
     on<AajiImageInputEvent>(imageLicenceAAJIInput);
     on<AasiCheckedInputEvent>(aasiCheckedInput);
     on<AasiNoInputEvent>(noLicenceAASIInput);
@@ -279,6 +280,23 @@ class AddCandidatePageBloc
     ));
   }
 
+  Future<void> aajiPrevCompanyInput(AajiPrevCompanyInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
+      const prevCompanyId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        prevCompanyAAJIId: prevCompanyId,
+        prevCompanyAAJI: null,
+      ));
+    } else {
+      final prevCompanyId = DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      emit(state.copyWith(
+        prevCompanyAAJIId: prevCompanyId,
+        prevCompanyAAJI: event.prevCompany,
+      ));
+    }
+  }
+
   Future<void> imageLicenceAAJIInput(
       AajiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiImage);
@@ -293,6 +311,22 @@ class AddCandidatePageBloc
     emit(state.copyWith(
       noLicenceAASI: noLicenceAASI,
     ));
+  }
+  Future<void> aasiPrevCompanyInput(AasiPrevCompanyInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
+      const prevCompanyId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        prevCompanyAASIId: prevCompanyId,
+        prevCompanyAASI: null,
+      ));
+    } else {
+      final prevCompanyId = DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      emit(state.copyWith(
+        prevCompanyAASIId: prevCompanyId,
+        prevCompanyAASI: event.prevCompany,
+      ));
+    }
   }
 
   Future<void> imageLicenceAASIInput(
@@ -310,6 +344,24 @@ class AddCandidatePageBloc
       noLicenceAAUI: noLicenceAAUI,
     ));
   }
+
+  Future<void> aauiPrevCompanyInput(AauiPrevCompanyInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
+      const prevCompanyId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        prevCompanyAAUIId: prevCompanyId,
+        prevCompanyAAUI: null,
+      ));
+    } else {
+      final prevCompanyId = DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      emit(state.copyWith(
+        prevCompanyAAUIId: prevCompanyId,
+        prevCompanyAAUI: event.prevCompany,
+      ));
+    }
+  }
+
 
   Future<void> imageLicenceAAUIInput(
       AauiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
@@ -451,12 +503,15 @@ class AddCandidatePageBloc
           idCardNo: state.identityNo.value,
           occupation: state.occupationId.value.toString(),
           occupationOther: '',
-          aajiNo: state.noLicenceAAJI.value,
           aajiActiveFlag: state.checkedValueAAJI.toString(),
-          aasiNo: state.noLicenceAASI.value,
+          aajiNo: state.noLicenceAAJI.value,
+          prevCompany: state.prevCompanyAAJIId.toString(),
           aasiActiveFlag: state.checkedValueAASI.toString(),
+          aasiNo: state.noLicenceAASI.value,
+          prevCompanyAasi: state.prevCompanyAASIId.toString(),
+          aauiActiveFlag: state.checkedValueAAUI.toString(),
           aauiNo: state.noLicenceAAUI.value,
-          aauiActiveFlag: state.checkedValueAAJI.toString(),
+          prevCompanyAaui: state.prevCompanyAAUIId.toString(),
         ));
         await result.when(success: (response) async {
           CandidateRegisterModel responseData = response.data;
@@ -490,12 +545,15 @@ class AddCandidatePageBloc
             idCardNo: state.identityNo.value,
             occupation: state.occupationId.value.toString(),
             occupationOther: '',
-            aajiNo: state.noLicenceAAJI.value,
             aajiActiveFlag: state.checkedValueAAJI.toString(),
-            aasiNo: state.noLicenceAASI.value,
+            aajiNo: state.noLicenceAAJI.value,
+            prevCompany: state.prevCompanyAAJIId.toString(),
             aasiActiveFlag: state.checkedValueAASI.toString(),
+            aasiNo: state.noLicenceAASI.value,
+            prevCompanyAasi: state.prevCompanyAASIId.toString(),
+            aauiActiveFlag: state.checkedValueAAUI.toString(),
             aauiNo: state.noLicenceAAUI.value,
-            aauiActiveFlag: state.checkedValueAAJI.toString(),
+            prevCompanyAaui: state.prevCompanyAAUIId.toString(),
           ));
 
           await result.when(success: (response) async {

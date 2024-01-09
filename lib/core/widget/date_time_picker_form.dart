@@ -7,13 +7,17 @@ class DateTimePickerForm extends StatefulWidget {
       required this.selectedDateTime,
       this.dateTime,
       this.label,
-      this.validator, this.isMandatory = true})
+      this.validator,
+      this.isMandatory = true,
+      this.readOnly = false
+      })
       : super(key: key);
 
   final void Function(DateTime date) selectedDateTime;
   final DateTime? dateTime;
   final Widget? label;
   final bool isMandatory;
+  final bool readOnly;
   final FormFieldValidator<String>? validator;
 
   @override
@@ -96,13 +100,15 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
 
     return InkWell(
       onTap: () async {
-        DateTime? newDate = await pickDate();
-        setDate(newDate);
-        setState(() {
-          dateString.text = "${date.day} / ${date.month} / ${date.year}";
-          dateString.value = TextEditingValue(
-              text: "${date.day} / ${date.month} / ${date.year}");
-        });
+        if(!widget.readOnly) {
+          DateTime? newDate = await pickDate();
+          setDate(newDate);
+          setState(() {
+            dateString.text = "${date.day} / ${date.month} / ${date.year}";
+            dateString.value = TextEditingValue(
+                text: "${date.day} / ${date.month} / ${date.year}");
+          });
+        }
       },
       child: TextInput(
         controller: dateString,
@@ -110,7 +116,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
         enabled: false,
         isMandatory: widget.isMandatory,
         label: widget.label,
-        validator:widget.validator,
+        validator: widget.validator,
       ),
     );
   }

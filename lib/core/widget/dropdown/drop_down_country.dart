@@ -14,7 +14,8 @@ class DropDownCountry extends StatefulWidget {
       this.lable,
       this.title,
       this.icon,
-      this.errorText, this.readOnly = false})
+      this.errorText,
+      this.readOnly = false})
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
