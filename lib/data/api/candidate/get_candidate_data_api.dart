@@ -1,12 +1,12 @@
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 
 import '../../../core/network/api_helper.dart';
-import '../../../core/network/dio_client_new.dart';
+import '../../../core/network/dio_client.dart';
 import '../../../core/network/service_url.dart';
 import '../../model/candidate/candidate_data_model.dart';
 
 class GetCandidateDataApi with ApiHelper<CandidateDataModel> {
-  final DioClientNew dioClient;
+  final DioClient dioClient;
 
   GetCandidateDataApi({required this.dioClient});
 

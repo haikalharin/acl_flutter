@@ -105,6 +105,10 @@ Future<void> init() async {
   getIt.registerLazySingleton<PendingSimpleCheckingApi>(
       () => PendingSimpleCheckingApi(dioClient: getIt<DioClient>()));
 
+  // GetCandidateData api
+  getIt.registerLazySingleton<GetCandidateDataApi>(
+          () => GetCandidateDataApi(dioClient: getIt<DioClient>()));
+
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),
