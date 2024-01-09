@@ -92,7 +92,7 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(
-                          Routes.detailCandidatePage,
+                          Routes.faaFormCandidatePage,
                           arguments: {
                             'candidate_model':
                             widget.candidateModel,
