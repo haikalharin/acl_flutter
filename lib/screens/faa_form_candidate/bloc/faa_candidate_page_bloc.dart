@@ -106,8 +106,7 @@ class FaaCandidatePageBloc
       final result = await candidateRepository.getCandidateData(event.candidateId);
       result.when(success: (response) {
         emit(state.copyWith(
-            masterDataModel: response.data,
-            message: 'success-get-master-data',
+            candidateModel: response.data,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
         emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));

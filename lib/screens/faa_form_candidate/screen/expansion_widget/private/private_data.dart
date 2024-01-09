@@ -78,8 +78,8 @@ class _PrivateDataState extends State<PrivateData> {
                             TextInput(
                               icon: const Icon(Icons.person),
                               label: const Text("Nama Depan(sesuai KTP)"),
-                              initialValue: state.candidateDataModel?.data?.data
-                                      ?.firstName,
+                              initialValue: state
+                                  .candidateDataModel?.data?.data?.firstName,
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
                                 return "Mohon diisi";
@@ -91,8 +91,8 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              initialValue: state.candidateDataModel?.data?.data
-                                      ?.middleName,
+                              initialValue: state
+                                  .candidateDataModel?.data?.data?.middleName,
                               isMandatory: false,
                               icon: const Icon(Icons.person),
                               label: const Text("Nama tengah(sesuai KTP)"),
@@ -103,8 +103,8 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              initialValue: state.candidateDataModel?.data?.data
-                                      ?.lastName,
+                              initialValue: state
+                                  .candidateDataModel?.data?.data?.lastName,
                               isMandatory: false,
                               icon: const Icon(Icons.person),
                               label: const Text("Nama belakang(sesuai KTP)"),
@@ -234,7 +234,8 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              initialValue: state.candidateDataModel?.data?.data?.idCardNo,
+                              initialValue: state
+                                  .candidateDataModel?.data?.data?.idCardNo,
                               icon: const Icon(Icons.add_card_rounded),
                               label: const Text("No KTP"),
                               maxLength: 16,
@@ -268,15 +269,20 @@ class _PrivateDataState extends State<PrivateData> {
                                     // getIt<FaaCandidatePageBloc>()
                                     //     .add(ProvinceInputEvent(value));
                                   },
-                                  initialItem: state
+                                  initialItem: state.candidateDataModel != null
+                                      ?state
                                       .masterDataModel
                                       ?.masterData
                                       ?.masterReferenceAll
                                       ?.maritalstatus
                                       ?.masterReference
-                                      ?.where((element) => element.id == state.candidateDataModel?.data?.data?.maritalStatus)
+                                      ?.where((element) =>
+                                          element.id ==
+                                          (state.candidateDataModel?.data?.data
+                                                  ?.maritalStatus ??
+                                              0))
                                       .toList()
-                                      .first,
+                                      .first:null,
                                   items: state
                                           .masterDataModel
                                           ?.masterData
@@ -308,9 +314,8 @@ class _PrivateDataState extends State<PrivateData> {
                             const SizedBox(height: 8),
                             DateTimePickerForm(
                               dateTime: DateTime.parse(
-                                state.candidateDataModel?.data?.data
-                                    ?.dob ??
-                                    '',
+                                state.candidateDataModel?.data?.data?.dob ??
+                                    '2020-01-01',
                               ),
                               label: const Text("Tanggal lahir"),
                               selectedDateTime: (DateTime date) {
@@ -335,15 +340,21 @@ class _PrivateDataState extends State<PrivateData> {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(GenderPartnerInputEvent(value));
                               },
-                              initialItem: state
-                                  .masterDataModel
-                                  ?.masterData
-                                  ?.masterReferenceAll
-                                  ?.gender
-                                  ?.masterReference
-                                  ?.where((element) => element.id == state.candidateDataModel?.data?.data?.gender)
-                                  .toList()
-                                  .first,
+                              initialItem: state.candidateDataModel != null
+                                  ? state
+                                      .masterDataModel
+                                      ?.masterData
+                                      ?.masterReferenceAll
+                                      ?.gender
+                                      ?.masterReference
+                                      ?.where((element) =>
+                                          element.id ==
+                                          (state.candidateDataModel?.data?.data
+                                                  ?.gender ??
+                                              0))
+                                      .toList()
+                                      .first
+                                  : null,
                               items: state
                                       .masterDataModel
                                       ?.masterData
@@ -425,7 +436,8 @@ class _PrivateDataState extends State<PrivateData> {
                                       ))
                                 ],
                               ),
-                              initialValue: state.candidateDataModel?.data?.data?.address1,
+                              initialValue: state
+                                  .candidateDataModel?.data?.data?.address1,
                               icon: const Icon(Icons.add_location),
                               label: const Text("(Gedung.../Jalan...)"),
                               validator: (String? value) {
@@ -439,7 +451,8 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              initialValue: state.candidateDataModel?.data?.data?.address2,
+                              initialValue: state
+                                  .candidateDataModel?.data?.data?.address2,
                               icon: const Icon(Icons.add_location),
                               label: const Text("(RT.../RW...)"),
                               validator: (String? value) {
@@ -453,7 +466,8 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              initialValue: state.candidateDataModel?.data?.data?.address3,
+                              initialValue: state
+                                  .candidateDataModel?.data?.data?.address3,
                               icon: const Icon(Icons.add_location),
                               label: const Text("(Kelurahan.../Kecamatan...)"),
                               validator: (String? value) {
@@ -467,7 +481,9 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              initialValue: state.candidateDataModel?.data?.data?.zipCode.toString(),
+                              initialValue: state
+                                  .candidateDataModel?.data?.data?.zipCode
+                                  .toString(),
                               icon: const Icon(Icons.signpost_sharp),
                               label: const Text("Kode Pos"),
                               keyboardType: TextInputType.phone,
@@ -498,7 +514,8 @@ class _PrivateDataState extends State<PrivateData> {
                                         .add(CountryInputEvent(value));
                                   },
                                   readOnly: true,
-                                  initialItem: state
+                                  initialItem: state.candidateDataModel != null
+                                      ?state
                                       .masterDataModel
                                       ?.masterData
                                       ?.masterReferenceAll
@@ -506,7 +523,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       ?.masterReference
                                       ?.where((element) => element.id == 744)
                                       .toList()
-                                      .first,
+                                      .first:null,
                                   items: state
                                           .masterDataModel
                                           ?.masterData
@@ -542,15 +559,20 @@ class _PrivateDataState extends State<PrivateData> {
                                     getIt<FaaCandidatePageBloc>()
                                         .add(ProvinceInputEvent(value));
                                   },
-                                  initialItem: state
+                                  initialItem: state.candidateDataModel != null
+                                      ?state
                                       .masterDataModel
                                       ?.masterData
                                       ?.masterReferenceAll
                                       ?.province
                                       ?.masterReference
-                                      ?.where((element) => element.id == state.candidateDataModel?.data?.data?.province)
+                                      ?.where((element) =>
+                                          element.id ==
+                                          (state.candidateDataModel?.data?.data
+                                                  ?.province ??
+                                              0))
                                       .toList()
-                                      .first,
+                                      .first:null,
                                   items: state
                                           .masterDataModel
                                           ?.masterData
@@ -586,15 +608,20 @@ class _PrivateDataState extends State<PrivateData> {
                                     getIt<FaaCandidatePageBloc>()
                                         .add(CityInputEvent(value));
                                   },
-                                  initialItem: state
+                                  initialItem:state.candidateDataModel != null
+                                      ? state
                                       .masterDataModel
                                       ?.masterData
                                       ?.masterReferenceAll
                                       ?.city
                                       ?.masterReference
-                                      ?.where((element) => element.id == state.candidateDataModel?.data?.data?.city)
+                                      ?.where((element) =>
+                                          element.id ==
+                                          (state.candidateDataModel?.data?.data
+                                                  ?.city ??
+                                              0))
                                       .toList()
-                                      .first,
+                                      .first: null,
                                   items: state
                                           .masterDataModel
                                           ?.masterData
@@ -638,7 +665,8 @@ class _PrivateDataState extends State<PrivateData> {
                             BlocBuilder<FaaCandidatePageBloc,
                                 FaaCandidatePageState>(
                               buildWhen: (current, previous) =>
-                              current.occupationId != previous.occupationId ||
+                                  current.occupationId !=
+                                      previous.occupationId ||
                                   current.masterDataModel !=
                                       previous.masterDataModel,
                               builder: (context, state) {
@@ -653,24 +681,29 @@ class _PrivateDataState extends State<PrivateData> {
                                     getIt<FaaCandidatePageBloc>()
                                         .add(OccupationInputEvent(value));
                                   },
-                                  initialItem: state
+                                  initialItem:state.candidateDataModel != null
+                                      ? state
                                       .masterDataModel
                                       ?.masterData
                                       ?.masterReferenceAll
                                       ?.occupationtype
                                       ?.masterReference
-                                      ?.where((element) => element.id == state.candidateDataModel?.data?.data?.occupation)
+                                      ?.where((element) =>
+                                          element.id ==
+                                          (state.candidateDataModel?.data?.data
+                                                  ?.occupation ??
+                                              0))
                                       .toList()
-                                      .first,
+                                      .first:null,
                                   items: state
-                                      .masterDataModel
-                                      ?.masterData
-                                      ?.masterReferenceAll
-                                      ?.occupationtype
-                                      ?.masterReference ??
+                                          .masterDataModel
+                                          ?.masterData
+                                          ?.masterReferenceAll
+                                          ?.occupationtype
+                                          ?.masterReference ??
                                       [],
                                   errorText: isCheck == true &&
-                                      state.occupationId.isNotValid
+                                          state.occupationId.isNotValid
                                       ? 'Mohon diisi'
                                       : null,
                                 );
