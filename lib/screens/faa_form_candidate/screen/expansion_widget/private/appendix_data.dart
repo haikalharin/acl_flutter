@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 
 import '../../../../../core/widget/custom_image_picker.dart';
-import '../../../../../core/widget/spinkit_indicator.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
@@ -117,11 +115,6 @@ class _AppendixDataState extends State<AppendixData> {
                             ],
                           ),
                         ),
-                        state.submitStatus.isInProgress
-                            ? const Center(
-                            child: SpinKitIndicator(type: SpinKitType.circle))
-                            : Container(),
-
                         // state.submitStatus.isFailure
                         //     ? showDialog(
                         //   context: context,

@@ -13,32 +13,32 @@ String candidateDataModelToJson(CandidateDataModel data) => json.encode(data.toJ
 
 @JsonSerializable()
 class CandidateDataModel {
-  @JsonKey(name: "success")
-  bool? success;
+  @JsonKey(name: "code")
+  int? code;
   @JsonKey(name: "message")
   String? message;
-  @JsonKey(name: "httpCode")
-  int? httpCode;
+  @JsonKey(name: "httpStatus")
+  String? httpStatus;
   @JsonKey(name: "data")
-  CandidateDataModelData? data;
+  Data? data;
 
   CandidateDataModel({
-    this.success,
+    this.code,
     this.message,
-    this.httpCode,
+    this.httpStatus,
     this.data,
   });
 
   CandidateDataModel copyWith({
-    bool? success,
+    int? code,
     String? message,
-    int? httpCode,
-    CandidateDataModelData? data,
+    String? httpStatus,
+    Data? data,
   }) =>
       CandidateDataModel(
-        success: success ?? this.success,
+        code: code ?? this.code,
         message: message ?? this.message,
-        httpCode: httpCode ?? this.httpCode,
+        httpStatus: httpStatus ?? this.httpStatus,
         data: data ?? this.data,
       );
 
@@ -48,43 +48,7 @@ class CandidateDataModel {
 }
 
 @JsonSerializable()
-class CandidateDataModelData {
-  @JsonKey(name: "code")
-  int? code;
-  @JsonKey(name: "message")
-  String? message;
-  @JsonKey(name: "httpStatus")
-  String? httpStatus;
-  @JsonKey(name: "data")
-  DataData? data;
-
-  CandidateDataModelData({
-    this.code,
-    this.message,
-    this.httpStatus,
-    this.data,
-  });
-
-  CandidateDataModelData copyWith({
-    int? code,
-    String? message,
-    String? httpStatus,
-    DataData? data,
-  }) =>
-      CandidateDataModelData(
-        code: code ?? this.code,
-        message: message ?? this.message,
-        httpStatus: httpStatus ?? this.httpStatus,
-        data: data ?? this.data,
-      );
-
-  factory CandidateDataModelData.fromJson(Map<String, dynamic> json) => _$CandidateDataModelDataFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CandidateDataModelDataToJson(this);
-}
-
-@JsonSerializable()
-class DataData {
+class Data {
   @JsonKey(name: "id")
   int? id;
   @JsonKey(name: "userId")
@@ -354,7 +318,7 @@ class DataData {
   @JsonKey(name: "paymentTransactionList")
   dynamic paymentTransactionList;
 
-  DataData({
+  Data({
     this.id,
     this.userId,
     this.agentCode,
@@ -491,7 +455,7 @@ class DataData {
     this.paymentTransactionList,
   });
 
-  DataData copyWith({
+  Data copyWith({
     int? id,
     String? userId,
     dynamic agentCode,
@@ -627,7 +591,7 @@ class DataData {
     dynamic cpdRegisterInfo,
     dynamic paymentTransactionList,
   }) =>
-      DataData(
+      Data(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         agentCode: agentCode ?? this.agentCode,
@@ -764,9 +728,9 @@ class DataData {
         paymentTransactionList: paymentTransactionList ?? this.paymentTransactionList,
       );
 
-  factory DataData.fromJson(Map<String, dynamic> json) => _$DataDataFromJson(json);
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DataDataToJson(this);
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 }
 
 @JsonSerializable()

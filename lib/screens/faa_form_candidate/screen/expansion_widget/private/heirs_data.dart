@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 
-import '../../../../../core/widget/spinkit_indicator.dart';
 import '../../../../../core/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../di.dart';
@@ -92,10 +90,6 @@ class _HeirsDataState extends State<HeirsData> {
                             ],
                           ),
                         ),
-                        state.submitStatus.isInProgress
-                            ? const Center(
-                            child: SpinKitIndicator(type: SpinKitType.circle))
-                            : Container(),
 
                         // state.submitStatus.isFailure
                         //     ? showDialog(

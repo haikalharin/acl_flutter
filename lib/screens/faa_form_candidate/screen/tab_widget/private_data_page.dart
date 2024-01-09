@@ -2,7 +2,9 @@ import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/p
 import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/heirs_data.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/private_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/faa_candidate_page_bloc.dart';
 import '../expansion_widget/private/appendix_data.dart';
 import '../expansion_widget/private/npwp_and_bank_data.dart';
 import '../expansion_widget/private/source_of_recruiting_information.dart';
@@ -22,7 +24,9 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
   Widget build(BuildContext context) {
     Mode mode = Mode.create;
     var width = MediaQuery.of(context).size.width;
-    return  SingleChildScrollView(
+    return  BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
+  builder: (context, state) {
+    return SingleChildScrollView(
       child: Column(children: [
         PrivateData(formKey: widget.formKey),
         const SizedBox(height: 8),
@@ -37,6 +41,8 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
         AppendixData(formKey: widget.formKey),
       ],),
     );
+  },
+);
 
   }
 }

@@ -8,36 +8,15 @@ part of 'candidate_data_model.dart';
 
 CandidateDataModel _$CandidateDataModelFromJson(Map<String, dynamic> json) =>
     CandidateDataModel(
-      success: json['success'] as bool?,
-      message: json['message'] as String?,
-      httpCode: json['httpCode'] as int?,
-      data: json['data'] == null
-          ? null
-          : CandidateDataModelData.fromJson(
-              json['data'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$CandidateDataModelToJson(CandidateDataModel instance) =>
-    <String, dynamic>{
-      'success': instance.success,
-      'message': instance.message,
-      'httpCode': instance.httpCode,
-      'data': instance.data,
-    };
-
-CandidateDataModelData _$CandidateDataModelDataFromJson(
-        Map<String, dynamic> json) =>
-    CandidateDataModelData(
       code: json['code'] as int?,
       message: json['message'] as String?,
       httpStatus: json['httpStatus'] as String?,
       data: json['data'] == null
           ? null
-          : DataData.fromJson(json['data'] as Map<String, dynamic>),
+          : Data.fromJson(json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$CandidateDataModelDataToJson(
-        CandidateDataModelData instance) =>
+Map<String, dynamic> _$CandidateDataModelToJson(CandidateDataModel instance) =>
     <String, dynamic>{
       'code': instance.code,
       'message': instance.message,
@@ -45,7 +24,7 @@ Map<String, dynamic> _$CandidateDataModelDataToJson(
       'data': instance.data,
     };
 
-DataData _$DataDataFromJson(Map<String, dynamic> json) => DataData(
+Data _$DataFromJson(Map<String, dynamic> json) => Data(
       id: json['id'] as int?,
       userId: json['userId'] as String?,
       agentCode: json['agentCode'],
@@ -185,7 +164,7 @@ DataData _$DataDataFromJson(Map<String, dynamic> json) => DataData(
       paymentTransactionList: json['paymentTransactionList'],
     );
 
-Map<String, dynamic> _$DataDataToJson(DataData instance) => <String, dynamic>{
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'id': instance.id,
       'userId': instance.userId,
       'agentCode': instance.agentCode,
