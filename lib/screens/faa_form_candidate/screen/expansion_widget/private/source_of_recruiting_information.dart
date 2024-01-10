@@ -143,6 +143,7 @@ class _SourceOfRecruitingInformationState
                             return "Mohon diisi";
                           },
                           onChanged: (String value) {
+                            dataString = value;
                             getIt<FaaCandidatePageBloc>()
                                 .add(FirstNameInputEvent(value));
                           },
