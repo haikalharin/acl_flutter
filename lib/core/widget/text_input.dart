@@ -56,7 +56,10 @@ class _TextInputState extends State<TextInput> {
 
   @override
   void initState() {
-    if (widget.initialValue != null) {
+    if (widget.controller != null) {
+      controller = widget.controller ;
+      widget.onChanged!(widget.controller?.value.text ?? '');
+    } else if (widget.initialValue != null) {
       controller?.text = widget.initialValue ?? '';
       widget.onChanged!(widget.initialValue ?? '');
     }
@@ -72,7 +75,7 @@ class _TextInputState extends State<TextInput> {
         focusNode: widget.focusNode,
         maxLength: widget.maxLength,
         keyboardType: widget.keyboardType,
-        controller: widget.controller ?? controller,
+        controller:  controller,
         enabled: widget.enabled ?? true,
         textInputAction: TextInputAction.next,
         autovalidateMode: widget.autoValidateMode,

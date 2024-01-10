@@ -15,7 +15,7 @@ class DropDownPrevCompany extends StatefulWidget {
       this.title,
       this.icon,
       this.errorText,
-      this.readOnly = true,
+      this.readOnly = false,
       this.isMandatory = true,
       })
       : super(key: key);

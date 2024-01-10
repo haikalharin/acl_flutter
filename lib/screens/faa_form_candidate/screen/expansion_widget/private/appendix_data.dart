@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/widget/custom_image_picker.dart';
+import '../../../../../core/widget/dropdown/drop_down_general.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
@@ -68,33 +69,25 @@ class _AppendixDataState extends State<AppendixData> {
                               BlocBuilder<FaaCandidatePageBloc,
                                   FaaCandidatePageState>(
                                 builder: (context, state) {
-                                  return DropDownCity(
+                                  return DropDownGeneral(
                                     title: 'Lain lain',
-                                    readOnly:
-                                    state.provinceId.isValid ? false : true,
                                     icon: const Icon(
                                       Icons.account_balance_rounded,
                                       color: AclColors.greyDarkFontColor,
                                     ),
-                                    onChanged: (CityMasterReference value) {
-                                      getIt<FaaCandidatePageBloc>()
-                                          .add(CityInputEvent(value));
+                                    onChanged: (AajicityMasterReference value) {
                                     },
                                     items: state
                                         .masterDataModel
                                         ?.masterData
                                         ?.masterReferenceAll
-                                        ?.city
-                                        ?.masterReference
-                                        ?.where((element) =>
-                                    element.referTo ==
-                                        state.provinceId.value)
-                                        .toList() ??
+                                        ?.sourceinformation
+                                        ?.masterReference ??
                                         [],
-                                    errorText:
-                                    isCheck == true && state.cityId.isNotValid
-                                        ? 'Mohon diisi'
-                                        : null,
+                                    // errorText:
+                                    // isCheck == true && state.cityId.isNotValid
+                                    //     ? 'Mohon diisi'
+                                    //     : null,
                                   );
                                 },
                               ),

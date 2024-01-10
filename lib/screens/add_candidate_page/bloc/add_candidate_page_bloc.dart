@@ -7,6 +7,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 
+import '../../../common/app_string.dart';
 import '../../../common/validators/identity_no_validator.dart';
 import '../../../common/validators/mandatory_dropdown_validator.dart';
 import '../../../common/validators/mandatory_field_validator.dart';
@@ -573,11 +574,13 @@ class AddCandidatePageBloc
                       message: 'create-register',
                       submitStatus: FormzSubmissionStatus.success));
                 }, failure: (error) async {
-                  emit(state.copyWith(
-                      submitStatus: FormzSubmissionStatus.failure));
+                  var message = error == AppString.internalServerError? 'session is over':error;
+                  emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
+
                 });
               }, failure: (error) async {
-                emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+                var message = error == AppString.internalServerError? 'session is over':error;
+                emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
               });
             } else {
               final result = await candidateRepository
@@ -589,17 +592,20 @@ class AddCandidatePageBloc
                     message: 'create-register',
                     submitStatus: FormzSubmissionStatus.success));
               }, failure: (error) async {
-                emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+                var message = error == AppString.internalServerError? 'session is over':error;
+                emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
               });
             }
           }, failure: (error) async {
-            emit(state.copyWith(
-                submitStatus: FormzSubmissionStatus.failure));
+            var message = error == AppString.internalServerError? 'session is over':error;
+            emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
+
           });
 
 
         }, failure: (error) async {
-          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+          var message = error == AppString.internalServerError? 'session is over':error;
+          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
         });
       } catch (error) {
         if (kDebugMode) {

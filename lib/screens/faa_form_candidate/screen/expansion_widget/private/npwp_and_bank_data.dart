@@ -68,11 +68,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 icon: const Icon(Icons.person),
                                 label: const Text("No NPWP"),
                                 keyboardType: TextInputType.phone,
-                                // initialValue: postTitle,
-                                validator: (String? value) {
-                                  if (value!.isNotEmpty) return null;
-                                  return "Mohon diisi";
-                                },
+                                isMandatory: false,
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(FirstNameInputEvent(value));

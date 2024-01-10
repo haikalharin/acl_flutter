@@ -116,7 +116,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
               child: const Text("Ambil Gambar"),
             ),
           ),
-          SizedBox(
+         if(_selectedImage != null) SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ElevatedButton(
               style: ButtonStyle(

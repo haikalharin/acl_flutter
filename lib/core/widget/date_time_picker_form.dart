@@ -9,8 +9,8 @@ class DateTimePickerForm extends StatefulWidget {
       this.label,
       this.validator,
       this.isMandatory = true,
-      this.readOnly = false
-      })
+      this.readOnly = false,
+      this.controller})
       : super(key: key);
 
   final void Function(DateTime date) selectedDateTime;
@@ -18,6 +18,7 @@ class DateTimePickerForm extends StatefulWidget {
   final Widget? label;
   final bool isMandatory;
   final bool readOnly;
+  final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
 
   @override
@@ -32,6 +33,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
   void initState() {
     if (widget.dateTime == null) {
       date = DateTime.now();
+      dateString = widget.controller??TextEditingController(text: "");
     } else {
       date = widget.dateTime!;
       dateString.value = TextEditingValue(
@@ -100,7 +102,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
 
     return InkWell(
       onTap: () async {
-        if(!widget.readOnly) {
+        if (!widget.readOnly) {
           DateTime? newDate = await pickDate();
           setDate(newDate);
           setState(() {
@@ -117,6 +119,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
         isMandatory: widget.isMandatory,
         label: widget.label,
         validator: widget.validator,
+        onChanged: (value){},
       ),
     );
   }

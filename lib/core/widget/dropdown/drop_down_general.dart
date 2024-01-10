@@ -5,21 +5,20 @@ import 'package:search_choices/search_choices.dart';
 import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../../screens/sidebar_page/sidebar_page.dart';
 
-class DropDownRelation extends StatefulWidget {
-   DropDownRelation(
-      {Key? key,
-      required this.onChanged,
-      required this.items,
-      this.initialItem,
-      this.lable,
-      this.title,
-      this.icon,
-      this.errorText,
-      this.isMandatory = true,
-      this.readOnly = false,
-        this.isInit = true,
-      this.isCheck = false})
-      : super(key: key);
+class DropDownGeneral extends StatefulWidget {
+  DropDownGeneral({
+    Key? key,
+    required this.onChanged,
+    required this.items,
+    this.initialItem,
+    this.isInit = true,
+    this.lable,
+    this.title,
+    this.icon,
+    this.errorText,
+    this.readOnly = false,
+    this.isMandatory = true,
+  }) : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
   final List<AajicityMasterReference> items;
@@ -30,20 +29,20 @@ class DropDownRelation extends StatefulWidget {
   final Icon? icon;
   final bool isMandatory;
   final bool readOnly;
-  final bool isCheck;
   bool isInit;
 
   @override
-  State<DropDownRelation> createState() => _DropDownRelationState(initialItem);
+  State<DropDownGeneral> createState() => _DropDownGeneralState(initialItem);
 }
 
-class _DropDownRelationState extends State<DropDownRelation> {
+class _DropDownGeneralState extends State<DropDownGeneral> {
   AajicityMasterReference? initialItem;
+  // bool isInit = true;
 
-  _DropDownRelationState(this.initialItem);
+  _DropDownGeneralState(this.initialItem);
 
   @override
-  void didUpdateWidget(DropDownRelation oldWidget) {
+  void didUpdateWidget(DropDownGeneral oldWidget) {
     if (widget.isInit) {
       if (initialItem != widget.initialItem) {
         widget.onChanged(widget.initialItem ?? AajicityMasterReference());
@@ -84,7 +83,7 @@ class _DropDownRelationState extends State<DropDownRelation> {
             Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
-                  widget.errorText != null ? widget.errorText! : '',
+                  widget.errorText ?? '',
                   style: const TextStyle(
                     fontSize: 12.0,
                     color: AclColors.redAccent,
