@@ -10,6 +10,7 @@ import 'package:logger/logger.dart';
 
 import '../../data/model/login_model/login_model.dart';
 import '../../myApp.dart';
+import '../../utils/remote_utils.dart';
 import '../local_storage/secure_storage/secure_storage.dart';
 import '../local_storage/shared_preference/app_shared_preference.dart';
 import '../router/routes.dart';
@@ -92,6 +93,7 @@ class DioInterceptor extends Interceptor with ApiHelper<dynamic> {
   Future<Response?> refreshToken(DioError err, ErrorInterceptorHandler handler) async {
     Response? response ;
     try {
+      var deviceId = await getId();
       LoginModel loginModel = await SecureStorage().getUser();
       Map<String, dynamic> data = {"userId":loginModel.uid,"fullName":loginModel.name,"group":["acl"]};
       response = await dio.post(
