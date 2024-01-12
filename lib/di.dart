@@ -68,7 +68,7 @@ Future<void> init() async {
 
   // Login api
   getIt.registerLazySingleton<LoginApi>(
-      () => LoginApi(dioClient: getIt<DioClientNew>()));
+      () => LoginApi(dioClient: getIt<DioClient>()));
 
   // Candidate api
   getIt.registerLazySingleton<CandidateApi>(
@@ -92,7 +92,7 @@ Future<void> init() async {
 
   // AddRegisterCandidate api
   getIt.registerLazySingleton<AddRegisterCandidateApi>(
-      () => AddRegisterCandidateApi(dioClient: getIt<DioClientNew>()));
+      () => AddRegisterCandidateApi(dioClient: getIt<DioClient>()));
 
   // AddRegisterSepouse api
   getIt.registerLazySingleton<AddRegisterSepouseApi>(

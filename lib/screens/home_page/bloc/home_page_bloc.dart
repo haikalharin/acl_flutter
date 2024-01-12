@@ -84,8 +84,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             moveTo: Routes.homePage,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
-        emit(state.copyWith(
-            submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
+        // emit(state.copyWith(
+        //     submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
       if (kDebugMode) {
@@ -129,8 +129,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             listAgentBeModel: listAgent,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
-        emit(state.copyWith(
-            submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
+        // emit(state.copyWith(
+        //     submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
       if (kDebugMode) {
@@ -152,8 +152,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             listNotify: listNotify,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
-        emit(state.copyWith(
-            submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
+        // emit(state.copyWith(
+        //     submitStatus: FormzSubmissionStatus.failure, errorMessage: error));
       });
     } catch (error) {
       if (kDebugMode) {

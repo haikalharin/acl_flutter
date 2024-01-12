@@ -12,40 +12,51 @@ class DioClient {
   final Dio dio;
 
   DioClient(this.dio) {
-    Iterable<Interceptor> interceptor =[];
+    Iterable<Interceptor> interceptor = [];
 
-    if( F.appFlavor == Flavor.DEVELOPMENT){
-      if(kReleaseMode){
-        interceptor = [DioInterceptor(dio),alice.getDioInterceptor()];
-      } else{
-        interceptor = [DioInterceptor(dio), CurlLoggerDioInterceptor(printOnSuccess: true),alice.getDioInterceptor()];
+    if (F.appFlavor == Flavor.DEVELOPMENT) {
+      if (kReleaseMode) {
+        interceptor = [DioInterceptor(dio), alice.getDioInterceptor()];
+      } else {
+        interceptor = [
+          alice.getDioInterceptor(),
+          DioInterceptor(dio),
+          CurlLoggerDioInterceptor(printOnSuccess: true),
+        ];
       }
     }
 
-    if( F.appFlavor == Flavor.STAGING){
-      if(kReleaseMode){
-        interceptor = [DioInterceptor(dio),alice.getDioInterceptor()];
-      } else{
-        interceptor = [DioInterceptor(dio), CurlLoggerDioInterceptor(printOnSuccess: true),alice.getDioInterceptor()];
+    if (F.appFlavor == Flavor.STAGING) {
+      if (kReleaseMode) {
+        interceptor = [DioInterceptor(dio), alice.getDioInterceptor()];
+      } else {
+        interceptor = [
+          alice.getDioInterceptor(),
+          DioInterceptor(dio),
+          CurlLoggerDioInterceptor(printOnSuccess: true),
+        ];
       }
     }
 
-    if( F.appFlavor == Flavor.PRODUCTION){
-      if(kReleaseMode){
+    if (F.appFlavor == Flavor.PRODUCTION) {
+      if (kReleaseMode) {
         interceptor = [DioInterceptor(dio)];
-      } else{
-        interceptor = [DioInterceptor(dio), CurlLoggerDioInterceptor(printOnSuccess: true),alice.getDioInterceptor()];
+      } else {
+        interceptor = [
+          alice.getDioInterceptor(),
+          DioInterceptor(dio),
+          CurlLoggerDioInterceptor(printOnSuccess: true),
+
+        ];
       }
     }
 
-
-      dio
-        ..options.baseUrl = Configurations.host
-        ..options.headers = ApiConfig.header
-        ..options.connectTimeout = ApiConfig.connectionTimeout
-        ..options.receiveTimeout = ApiConfig.receiveTimeout
-        ..options.responseType = ResponseType.json
-        ..interceptors.addAll(interceptor);
-
+    dio
+      ..options.baseUrl = Configurations.hostNew
+      ..options.headers = ApiConfig.header
+      ..options.connectTimeout = ApiConfig.connectionTimeout
+      ..options.receiveTimeout = ApiConfig.receiveTimeout
+      ..options.responseType = ResponseType.json
+      ..interceptors.addAll(interceptor);
   }
 }

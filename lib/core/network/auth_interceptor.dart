@@ -4,9 +4,11 @@ import 'package:dio/dio.dart';
 
 import 'package:acl_flutter/common/app_extension.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';
 
+import '../../data/model/login_model/login_model.dart';
 import '../../myApp.dart';
 import '../local_storage/secure_storage/secure_storage.dart';
 import '../local_storage/shared_preference/app_shared_preference.dart';
@@ -54,15 +56,19 @@ class AuthInterceptor extends Interceptor {
     if (err.response == null) {
       return;
     }
-    if (err.response!.statusCode == 403 || err.response?.statusCode == 500) {
-      var response = await refreshToken();
+    if (err.response!.statusCode == 403) {
+
+      var response = await refreshToken(err,handler);
 
       if (response?.statusCode == 200) {
-        var newAccessToken = response?.headers.map['Authorization']?.first ?? '';
+        SecureStorage()
+            .setToken(response?.data['data'] ?? '');
+        var newAccessToken = response?.data['data'] ?? '';
         SecureStorage()
             .setToken(newAccessToken);
         err.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
-        await _retry(err.requestOptions);
+        var cloneReq = await _retry(err.requestOptions);
+        return handler.resolve(cloneReq);
       } else {
         SecureStorage().secureDeleteAll();
         AppSharedPreference.clear();
@@ -70,26 +76,37 @@ class AuthInterceptor extends Interceptor {
           Routes.initialPage,
               (Route<dynamic> route) => false,
         );
+        return super.onError(err, handler);
       }
+
+    } else{
+      return super.onError(err, handler);
     }
-    return super.onError(err, handler);
+
   }
 
   /// Api to get new token from refresh token
   ///
-  Future<Response?> refreshToken() async {
+  Future<Response?> refreshToken(DioError err, ErrorInterceptorHandler handler) async {
     Response? response ;
     try {
+      LoginModel loginModel = await SecureStorage().getUser();
+      Map<String, dynamic> data = {"userId":loginModel.uid,"fullName":loginModel.name,"group":["acl"]};
       response = await dio.post(
-        '/path/to/your/endpoint',
+          'https://acl-api-nonprd.allianz.co.id/v2/acl/api/authentication/login/token/generation',
+          data: data
       );
 
-      print(response.data);
+      if (kDebugMode) {
+        print(response.data);
+      }
     } on DioError catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
     }
     return response;
-  
+
     ///call your refesh token api here
   }
 
@@ -113,6 +130,7 @@ class AuthInterceptor extends Interceptor {
     return super.onResponse(response, handler);
   }
 }
+
 
 
 // class RefreshTokenInterceptor extends Interceptor {

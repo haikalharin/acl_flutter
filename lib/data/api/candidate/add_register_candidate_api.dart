@@ -1,13 +1,13 @@
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 
 import '../../../core/network/api_helper.dart';
-import '../../../core/network/dio_client_new.dart';
+import '../../../core/network/dio_client.dart';
 import '../../../core/network/service_url.dart';
 import '../../model/candidate/candidate_register_model.dart';
 import '../../model/candidate/request_candidate_model.dart';
 
 class AddRegisterCandidateApi with ApiHelper<CandidateRegisterModel> {
-  final DioClientNew dioClient;
+  final DioClient dioClient;
 
   AddRegisterCandidateApi({required this.dioClient});
 
