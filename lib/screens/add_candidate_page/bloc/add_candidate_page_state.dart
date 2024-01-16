@@ -107,7 +107,7 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     this.checkedValueAASI = false,
     this.checkedNeedValueAAUI = false,
     this.checkedValueAAUI = false,
-    this.checkedValueMarriage = false,
+    this.checkedValueMarriage = true,
     this.submitStatus = FormzSubmissionStatus.initial,
   });
 

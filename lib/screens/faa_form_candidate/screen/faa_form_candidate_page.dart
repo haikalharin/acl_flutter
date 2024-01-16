@@ -26,6 +26,12 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
   final _searchTextController = TextEditingController(text: null);
   final formKey = GlobalKey<FormState>();
 
+  int _tabindex = 0;
+
+
+
+
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +42,9 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
 
   void _handleTabChange() {
     _searchTextController.clear();
+   setState(() {
+     _tabController.index = _tabindex;
+   });
   }
 
   @override
@@ -65,19 +74,30 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
                   isScrollable: true,
                   controller: _tabController,
                   tabs: [
-                    Tab(
-                        child: Text(AppLocalizations.of(context)!.privateData,
-                            style: const TextStyle(color: AclColors.blueDark))),
-                    Tab(
-                        child: Text(AppLocalizations.of(context)!.experience,
-                            style: const TextStyle(color: AclColors.blueDark))),
-                    Stack(
-                      children: [
-                        Tab(
-                            child: Text(AppLocalizations.of(context)!.education,
-                                style: const TextStyle(
-                                    color: AclColors.blueDark))),
-                      ],
+                    GestureDetector(
+                      child: Tab(
+                          child: Text(AppLocalizations.of(context)!.privateData,
+                              style: const TextStyle(color: AclColors.blueDark))),
+                      onTap: (){
+                        _tabindex = 0;
+                      },
+                    ),
+                    GestureDetector(
+                      child: Tab(
+                          child: Text(AppLocalizations.of(context)!.experience,
+                              style: const TextStyle(color: AclColors.blueDark))),
+                      onTap: (){
+                        _tabindex = 1;
+                      },
+                    ),
+                    GestureDetector(
+                      child: Tab(
+                          child: Text(AppLocalizations.of(context)!.education,
+                              style: const TextStyle(
+                                  color: AclColors.blueDark))),
+                      onTap: (){
+                        _tabindex = 2;
+                      },
                     ),
                   ],
                 ),

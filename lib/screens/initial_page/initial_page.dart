@@ -68,6 +68,14 @@ class _InitialPageState extends State<InitialPage> {
                         onCancelPressed: () => [Navigator.pop(context)]));
               },
             ),
+            const SizedBox(
+              height: 36,
+            ),
+            Container(
+                child: Text(
+              "\"Khusus calon agen baru\" bisa mengikuti 3 ujian lisensi yaitu AAJI, AASI, AAUI",
+              textAlign: TextAlign.center,
+            ))
           ],
         ),
       ),

@@ -213,9 +213,9 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                                               index]
                                                           .userId ??
                                                       ''),
-                                              faaDate == ''
-                                                  ? Text('SC: $startDate')
-                                                  : Text('FAA: $faaDate'),
+                                              Text('SC: $startDate'),
+                                              const SizedBox(height: 2,),
+                                              Text('FAA: $faaDate'),
                                             ],
                                           ),
                                         ),

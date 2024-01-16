@@ -288,7 +288,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             icon: const Icon(Icons.add_location),
                             isMandatory: false,
                             label: const Text("(RT.../RW...)"),
-
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(RtRwInputEvent(value));
@@ -395,44 +394,46 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           if (state.provinceId.isValid)
                             const SizedBox(height: 8),
-                            BlocBuilder<AddCandidatePageBloc,
-                                AddCandidatePageState>(
-                              buildWhen: (current, previous) =>
-                                  current.cityId != previous.cityId ||
-                                  current.provinceId != previous.provinceId ||
-                                  current.masterDataModel !=
-                                      previous.masterDataModel,
-                              builder: (context, state) {
-                                return   state.provinceId.isValid?DropDownCity(
-                                  title: 'Kota',
-                                  // readOnly:
-                                  //     state.provinceId.isValid ? false : true,
-                                  icon: const Icon(
-                                    Icons.account_balance_rounded,
-                                    color: AclColors.greyDarkFontColor,
-                                  ),
-                                  onChanged: (CityMasterReference value) {
-                                    getIt<AddCandidatePageBloc>()
-                                        .add(CityInputEvent(value));
-                                  },
-                                  items: state
-                                          .masterDataModel
-                                          ?.masterData
-                                          ?.masterReferenceAll
-                                          ?.city
-                                          ?.masterReference
-                                          ?.where((element) =>
-                                              element.referTo ==
-                                              state.provinceId.value)
-                                          .toList() ??
-                                      [],
-                                  errorText:
-                                      isCheck == true && state.cityId.isNotValid
+                          BlocBuilder<AddCandidatePageBloc,
+                              AddCandidatePageState>(
+                            buildWhen: (current, previous) =>
+                                current.cityId != previous.cityId ||
+                                current.provinceId != previous.provinceId ||
+                                current.masterDataModel !=
+                                    previous.masterDataModel,
+                            builder: (context, state) {
+                              return state.provinceId.isValid
+                                  ? DropDownCity(
+                                      title: 'Kota',
+                                      // readOnly:
+                                      //     state.provinceId.isValid ? false : true,
+                                      icon: const Icon(
+                                        Icons.account_balance_rounded,
+                                        color: AclColors.greyDarkFontColor,
+                                      ),
+                                      onChanged: (CityMasterReference value) {
+                                        getIt<AddCandidatePageBloc>()
+                                            .add(CityInputEvent(value));
+                                      },
+                                      items: state
+                                              .masterDataModel
+                                              ?.masterData
+                                              ?.masterReferenceAll
+                                              ?.city
+                                              ?.masterReference
+                                              ?.where((element) =>
+                                                  element.referTo ==
+                                                  state.provinceId.value)
+                                              .toList() ??
+                                          [],
+                                      errorText: isCheck == true &&
+                                              state.cityId.isNotValid
                                           ? 'Mohon diisi'
                                           : null,
-                                ):Container();
-                              },
-                            ),
+                                    )
+                                  : Container();
+                            },
+                          ),
                           const SizedBox(height: 8),
                           BlocBuilder<AddCandidatePageBloc,
                               AddCandidatePageState>(
@@ -481,27 +482,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             controlAffinity: ListTileControlAffinity
                                 .leading, //  <-- leading Checkbox
                           ),
-                          const SizedBox(height: 8),
-                          TextInput(
-                            isMandatory: checkedValueAAJI,
-                            maxLength: 10,
-                            keyboardType: TextInputType.phone,
-                            icon: const Icon(Icons.add_card_rounded),
-                            label: const Text("No lisensi AAJI"),
-                            onChanged: (String value) {
-                              getIt<AddCandidatePageBloc>()
-                                  .add(AajiNoInputEvent(value));
-                            },
-                            validator: (String? value) {
-                              if (checkedValueAAJI) {
-                                if (value!.isNotEmpty) return null;
-                                return "Mohon diisi";
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 8),
+                          if (checkedValueAAJI) const SizedBox(height: 8),
                           if (checkedValueAAJI)
                             DropDownPrevCompany(
                               title: 'Perusahaan sebelumnya',
@@ -526,6 +507,26 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                   ? 'Mohon diisi'
                                   : null,
                             ),
+                          const SizedBox(height: 8),
+                          TextInput(
+                            isMandatory: checkedValueAAJI,
+                            maxLength: 10,
+                            keyboardType: TextInputType.phone,
+                            icon: const Icon(Icons.add_card_rounded),
+                            label: const Text("No lisensi AAJI"),
+                            onChanged: (String value) {
+                              getIt<AddCandidatePageBloc>()
+                                  .add(AajiNoInputEvent(value));
+                            },
+                            validator: (String? value) {
+                              if (checkedValueAAJI) {
+                                if (value!.isNotEmpty) return null;
+                                return "Mohon diisi";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
                           const SizedBox(height: 8),
                           CustomImagePicker(
                             title: 'Foto Lisensi AAJI',
@@ -556,26 +557,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 .leading, //  <-- leading Checkbox
                           ),
                           const SizedBox(height: 8),
-                          TextInput(
-                            isMandatory: checkedValueAASI,
-                            maxLength: 16,
-                            keyboardType: TextInputType.phone,
-                            icon: const Icon(Icons.add_card_rounded),
-                            label: const Text("No lisensi AASI"),
-                            onChanged: (String value) {
-                              getIt<AddCandidatePageBloc>()
-                                  .add(AasiNoInputEvent(value));
-                            },
-                            validator: (String? value) {
-                              if (checkedValueAASI) {
-                                if (value!.isNotEmpty) return null;
-                                return "Mohon diisi";
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 8),
+                          if (checkedValueAASI) const SizedBox(height: 8),
                           if (checkedValueAASI)
                             DropDownPrevCompany(
                               title: 'Perusahaan sebelumnya',
@@ -600,6 +582,25 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                   ? 'Mohon diisi'
                                   : null,
                             ),
+                          TextInput(
+                            isMandatory: checkedValueAASI,
+                            maxLength: 16,
+                            keyboardType: TextInputType.phone,
+                            icon: const Icon(Icons.add_card_rounded),
+                            label: const Text("No lisensi AASI"),
+                            onChanged: (String value) {
+                              getIt<AddCandidatePageBloc>()
+                                  .add(AasiNoInputEvent(value));
+                            },
+                            validator: (String? value) {
+                              if (checkedValueAASI) {
+                                if (value!.isNotEmpty) return null;
+                                return "Mohon diisi";
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
                           const SizedBox(height: 8),
                           CustomImagePicker(
                             title: 'Foto Lisensi AASI',
@@ -626,9 +627,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 FocusScope.of(context)
                                     .requestFocus(FocusNode());
                                 WidgetsBinding.instance.addPostFrameCallback(
-                                    (_) => aauiController.clear());
+                                        (_) => aauiController.clear());
                               });
-                              //remove focus
 
                               getIt<AddCandidatePageBloc>()
                                   .add(AauiCheckedInputEvent(false)); // cl
@@ -636,8 +636,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             controlAffinity: ListTileControlAffinity
                                 .leading, //  <-- leading Checkbox
                           ),
-                          if (checkedNeedValueAAUI) const SizedBox(height: 8),
-                          if (checkedNeedValueAAUI)
+                          checkedNeedValueAAUI? const SizedBox(height: 8):Container(),
+                          checkedNeedValueAAUI?
                             CheckboxListTile(
                               title: const Text(
                                   "Apakah Anda pernah bekerja di perusahaan asuransi utama sebelumnya?"),
@@ -651,31 +651,9 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               },
                               controlAffinity: ListTileControlAffinity
                                   .leading, //  <-- leading Checkbox
-                            ),
-                          if (checkedNeedValueAAUI) const SizedBox(height: 8),
-                          if (checkedNeedValueAAUI)
-                            TextInput(
-                              controller: aauiController,
-                              maxLength: 28,
-                              keyboardType: TextInputType.phone,
-                              isMandatory: checkedValueAAUI,
-                              icon: const Icon(Icons.add_card_rounded),
-                              label: const Text("No lisensi AAUI"),
-                              onChanged: (String value) {
-                                getIt<AddCandidatePageBloc>()
-                                    .add(AauiNoInputEvent(value));
-                              },
-                              validator: (String? value) {
-                                if (checkedValueAAUI) {
-                                  if (value!.isNotEmpty) return null;
-                                  return "Mohon diisi";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                          if (checkedNeedValueAAUI) const SizedBox(height: 8),
-                          if (checkedValueAAUI)
+                            ):Container(),
+                          checkedValueAAUI? const SizedBox(height: 8):Container(),
+                          checkedValueAAUI?
                             DropDownPrevCompany(
                               title: 'Perusahaan sebelumnya',
                               isMandatory: checkedValueAAUI,
@@ -698,9 +676,31 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               errorText: isCheck && state.genderId.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
-                            ),
-                          if (checkedNeedValueAAUI) const SizedBox(height: 8),
-                          if (checkedNeedValueAAUI)
+                            ):Container(),
+                          checkedNeedValueAAUI? const SizedBox(height: 8):Container(),
+                          checkedNeedValueAAUI?
+                            TextInput(
+                              controller: aauiController,
+                              maxLength: 28,
+                              keyboardType: TextInputType.phone,
+                              isMandatory: checkedValueAAUI,
+                              icon: const Icon(Icons.add_card_rounded),
+                              label: const Text("No lisensi AAUI"),
+                              onChanged: (String value) {
+                                getIt<AddCandidatePageBloc>()
+                                    .add(AauiNoInputEvent(value));
+                              },
+                              validator: (String? value) {
+                                if (checkedValueAAUI) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ):Container(),
+                         checkedNeedValueAAUI? const SizedBox(height: 8):Container(),
+                          checkedNeedValueAAUI?
                             CustomImagePicker(
                               title: 'Foto Lisensi AAUI',
                               isMandatory: checkedValueAAUI,
@@ -713,7 +713,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                       state.imageLicenceAAUI.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
-                            ),
+                            ):Container(),
                           const SizedBox(height: 16),
                           CheckboxListTile(
                             title: const Text("Menikah"),
@@ -721,26 +721,25 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             onChanged: (newValue) {
                               setState(() {
                                 checkedValueMarriage = newValue ?? true;
-                                if(newValue == false) {
-                                  if(isCheck) {
+                                if (newValue == false) {
+                                  if (isCheck) {
                                     formKey.currentState!.validate();
                                   }
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());
-                                  WidgetsBinding.instance.addPostFrameCallback(
-                                          (_) =>
-                                      [
-                                        noIdentitySpouse.clear(),
-                                        firstNameSpouse.clear(),
-                                        middleNameSpouse.clear(),
-                                        lastNameSpouse.clear(),
-                                        dobSpouse.clear(),
-                                      ]);
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) => [
+                                            noIdentitySpouse.clear(),
+                                            firstNameSpouse.clear(),
+                                            middleNameSpouse.clear(),
+                                            lastNameSpouse.clear(),
+                                            dobSpouse.clear(),
+                                          ]);
                                   setState(() {
                                     initialGenderSpouse = null;
                                     initialRelationSpouse = null;
-                                    isInitGender =true;
-                                    isInitRelation =true;
+                                    isInitGender = true;
+                                    isInitRelation = true;
                                   });
                                 }
                               });
