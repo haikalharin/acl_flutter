@@ -98,7 +98,7 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
                             widget.candidateModel,
                           });
                     },
-                    child: const Text('Form FAA'),
+                    child: const Text('Form Aplikasi Agent'),
                   ),
                 ),
                 // Second Widget

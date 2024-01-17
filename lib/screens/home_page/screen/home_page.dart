@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             return Column(
               children: [
                 Container(
-                  height: 200,
+                  height: 150,
                   color: AclColors.blueDark,
                   child: Center(
                     child: ListTile(

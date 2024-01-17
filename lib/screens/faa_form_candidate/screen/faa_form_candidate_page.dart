@@ -103,7 +103,9 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FAA Form'),
+        centerTitle: false,
+        titleSpacing: 0,
+        title: const Text('Form Aplikasi Agent',style: TextStyle(fontSize: 16),),
       ),
       body: BlocListener<FaaCandidatePageBloc, FaaCandidatePageState>(
         listener: (context, state) {
