@@ -54,9 +54,11 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   final bool checkedValueAAUI;
   final bool checkedValueMarriage;
   final String? message;
+  final String? loadingMessage;
 
   const AddCandidatePageState({
     this.message = '',
+    this.loadingMessage = '',
     this.firstName = const MandatoryFieldValidator.pure(),
     this.middleName = const MandatoryFieldValidator.pure(),
     this.lastName = const MandatoryFieldValidator.pure(),
@@ -167,6 +169,7 @@ class AddCandidatePageState extends Equatable with FormzMixin {
         checkedValueAAUI,
         checkedValueMarriage,
         message,
+        loadingMessage,
       ];
 
   @override
@@ -286,6 +289,7 @@ class AddCandidatePageState extends Equatable with FormzMixin {
 
   AddCandidatePageState copyWith({
     String? message,
+    String? loadingMessage,
     MandatoryFieldValidator? firstName,
     MandatoryFieldValidator? middleName,
     MandatoryFieldValidator? lastName,
@@ -341,6 +345,7 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   }) {
     return AddCandidatePageState(
       message: message,
+      loadingMessage: loadingMessage?? this.loadingMessage,
       firstName: firstName ?? this.firstName,
       middleName: middleName ?? this.middleName,
       lastName: lastName ?? this.lastName,

@@ -82,8 +82,11 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-          titleSpacing: 0,
-        title: const Text('Permintaan Pemeriksaan',style: TextStyle(fontSize: 16),),
+        titleSpacing: 0,
+        title: const Text(
+          'Permintaan Pemeriksaan',
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       body: BlocListener<AddCandidatePageBloc, AddCandidatePageState>(
         listener: (context, state) async {
@@ -664,14 +667,15 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                   value: checkedPrevCompanyAAUI,
                                   onChanged: (newValue) {
                                     setState(() {
-                                      checkedPrevCompanyAAUI = newValue ?? false;
+                                      checkedPrevCompanyAAUI =
+                                          newValue ?? false;
                                     });
                                     if (newValue = true) {
                                       getIt<AddCandidatePageBloc>()
                                           .add(AauiCheckedInputEvent(newValue));
                                     } else {
                                       setState(() {
-                                        checkedPrevCompanyAAUI =  false;
+                                        checkedPrevCompanyAAUI = false;
                                       });
                                       getIt<AddCandidatePageBloc>()
                                           .add(AauiCheckedInputEvent(false));
@@ -974,13 +978,21 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                     ),
                   ),
                   state.submitStatus.isInProgress
-                      ? Container(
-                          color: Colors.white.withAlpha(90),
-                          child: const Center(
-                              child: ProgressDialog(
-                            title: '',
-                            isProgressed: true,
-                          )))
+                      ? state.loadingMessage == 'waiting-fetch-master'
+                          ? Container(
+                              color: Colors.white.withAlpha(90),
+                              child: const Center(
+                                  child: ProgressDialog(
+                                title: 'Sedang memuat data',
+                                isProgressed: true,
+                              )))
+                          : Container(
+                              color: Colors.white.withAlpha(90),
+                              child: const Center(
+                                  child: ProgressDialog(
+                                title: '',
+                                isProgressed: true,
+                              )))
                       : Container(),
 
                   // state.submitStatus.isFailure

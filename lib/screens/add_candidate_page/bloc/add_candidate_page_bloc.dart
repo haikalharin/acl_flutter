@@ -87,13 +87,16 @@ class AddCandidatePageBloc
 
   Future<void> fetchMasterData(
       FetchMasterDataEvent event, Emitter<AddCandidatePageState> emit) async {
-    emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
+    emit(state.copyWith(
+      submitStatus: FormzSubmissionStatus.inProgress,
+      loadingMessage: 'waiting-fetch-master',
+    ));
     try {
       final result = await candidateRepository.fetchMasterData();
       result.when(success: (response) {
         emit(state.copyWith(
             masterDataModel: response.data,
-            moveTo: Routes.addAgentPage,
+            loadingMessage: null,
             submitStatus: FormzSubmissionStatus.success));
       }, failure: (error) {
         emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
@@ -282,7 +285,7 @@ class AddCandidatePageBloc
   Future<void> noLicenceAAJIInput(
       AajiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final noLicenceAAJI = AajiNoValidator.dirty(event.aajiNo);
-    if (event.aajiNo == '' ) {
+    if (event.aajiNo == '') {
       emit(state.copyWith(noLicenceAAJI: const AajiNoValidator.pure()));
     } else {
       emit(state.copyWith(
@@ -312,11 +315,11 @@ class AddCandidatePageBloc
   Future<void> imageLicenceAAJIInput(
       AajiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiImage);
-    if(event.aajiImage == ''){
+    if (event.aajiImage == '') {
       emit(state.copyWith(
         imageLicenceAAJI: const MandatoryFieldValidator.pure(),
       ));
-    }else {
+    } else {
       emit(state.copyWith(
         imageLicenceAAJI: imageLicenceAAJI,
       ));
@@ -326,7 +329,7 @@ class AddCandidatePageBloc
   Future<void> noLicenceAASIInput(
       AasiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final noLicenceAASI = AasiNoValidator.dirty(event.aasiNo);
-    if (event.aasiNo == '' ) {
+    if (event.aasiNo == '') {
       emit(state.copyWith(noLicenceAASI: const AasiNoValidator.pure()));
     } else {
       emit(state.copyWith(
@@ -356,11 +359,11 @@ class AddCandidatePageBloc
   Future<void> imageLicenceAASIInput(
       AasiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAASI = MandatoryFieldValidator.dirty(event.aasiImage);
-    if(event.aasiImage == ''){
+    if (event.aasiImage == '') {
       emit(state.copyWith(
         imageLicenceAASI: const MandatoryFieldValidator.pure(),
       ));
-    }else {
+    } else {
       emit(state.copyWith(
         imageLicenceAASI: imageLicenceAASI,
       ));
@@ -370,7 +373,7 @@ class AddCandidatePageBloc
   Future<void> noLicenceAAUIInput(
       AauiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final noLicenceAAUI = AauiNoValidator.dirty(event.aauiNo);
-    if (event.aauiNo == '' ) {
+    if (event.aauiNo == '') {
       emit(state.copyWith(noLicenceAAUI: const AauiNoValidator.pure()));
     } else {
       emit(state.copyWith(
@@ -400,11 +403,11 @@ class AddCandidatePageBloc
   Future<void> imageLicenceAAUIInput(
       AauiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiImage);
-    if(event.aauiImage == ''){
+    if (event.aauiImage == '') {
       emit(state.copyWith(
         imageLicenceAAUI: const MandatoryFieldValidator.pure(),
       ));
-    }else {
+    } else {
       emit(state.copyWith(
         imageLicenceAAUI: imageLicenceAAUI,
       ));
