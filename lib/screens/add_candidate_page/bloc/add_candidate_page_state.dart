@@ -23,15 +23,15 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   final DropdownFieldValidator cityId;
   final CheckingstatusMasterReference? occupation;
   final DropdownFieldValidator occupationId;
-  final MandatoryFieldValidator noLicenceAAJI;
+  final AajiNoValidator noLicenceAAJI;
   final AajicityMasterReference? prevCompanyAAJI;
   final DropdownFieldValidator prevCompanyAAJIId;
   final MandatoryFieldValidator imageLicenceAAJI;
-  final MandatoryFieldValidator noLicenceAASI;
+  final AasiNoValidator noLicenceAASI;
   final AajicityMasterReference? prevCompanyAASI;
   final DropdownFieldValidator prevCompanyAASIId;
   final MandatoryFieldValidator imageLicenceAASI;
-  final MandatoryFieldValidator noLicenceAAUI;
+  final AauiNoValidator noLicenceAAUI;
   final AajicityMasterReference? prevCompanyAAUI;
   final DropdownFieldValidator prevCompanyAAUIId;
   final MandatoryFieldValidator imageLicenceAAUI;
@@ -48,9 +48,9 @@ class AddCandidatePageState extends Equatable with FormzMixin {
   final MasterDataModel? masterDataModel;
   final CandidateModel? candidateModel;
   final CandidateRegisterModel? candidateRegisterModel;
-  final bool checkedValueAAJI;
-  final bool checkedValueAASI;
-  final bool checkedNeedValueAAUI;
+  final bool checkedPrevCompanyValueAAJI;
+  final bool checkedPrevCompanyValueAASI;
+  final bool checkedPrevCompanyValueAAUI;
   final bool checkedValueAAUI;
   final bool checkedValueMarriage;
   final String? message;
@@ -78,15 +78,15 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     this.cityId = const DropdownFieldValidator.pure(),
     this.occupation,
     this.occupationId = const DropdownFieldValidator.pure(),
-    this.noLicenceAAJI = const MandatoryFieldValidator.pure(),
+    this.noLicenceAAJI = const AajiNoValidator.pure(),
     this.prevCompanyAAJI,
     this.prevCompanyAAJIId = const DropdownFieldValidator.pure(),
     this.imageLicenceAAJI = const MandatoryFieldValidator.pure(),
-    this.noLicenceAASI = const MandatoryFieldValidator.pure(),
+    this.noLicenceAASI = const AasiNoValidator.pure(),
     this.prevCompanyAASI,
     this.prevCompanyAASIId = const DropdownFieldValidator.pure(),
     this.imageLicenceAASI = const MandatoryFieldValidator.pure(),
-    this.noLicenceAAUI = const MandatoryFieldValidator.pure(),
+    this.noLicenceAAUI = const AauiNoValidator.pure(),
     this.prevCompanyAAUI,
     this.prevCompanyAAUIId = const DropdownFieldValidator.pure(),
     this.imageLicenceAAUI = const MandatoryFieldValidator.pure(),
@@ -103,9 +103,9 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     this.candidateModel,
     this.candidateRegisterModel,
     this.moveTo,
-    this.checkedValueAAJI = false,
-    this.checkedValueAASI = false,
-    this.checkedNeedValueAAUI = false,
+    this.checkedPrevCompanyValueAAJI = false,
+    this.checkedPrevCompanyValueAASI = false,
+    this.checkedPrevCompanyValueAAUI = false,
     this.checkedValueAAUI = false,
     this.checkedValueMarriage = true,
     this.submitStatus = FormzSubmissionStatus.initial,
@@ -161,9 +161,9 @@ class AddCandidatePageState extends Equatable with FormzMixin {
         masterDataModel,
         candidateModel,
         candidateRegisterModel,
-        checkedValueAAJI,
-        checkedValueAASI,
-        checkedNeedValueAAUI,
+        checkedPrevCompanyValueAAJI,
+        checkedPrevCompanyValueAASI,
+        checkedPrevCompanyValueAAUI,
         checkedValueAAUI,
         checkedValueMarriage,
         message,
@@ -182,9 +182,26 @@ class AddCandidatePageState extends Equatable with FormzMixin {
       kkImage,
       identitySelfieImage
     ];
-    if (checkedValueAAJI) {
-      data.add(noLicenceAAJI);
+    if (checkedPrevCompanyValueAAJI) {
+      if (data.contains(noLicenceAAJI)) {
+        data.remove(noLicenceAAJI);
+      }
+      if (data.contains(imageLicenceAAJI)) {
+        data.remove(imageLicenceAAJI);
+      }
       data.add(prevCompanyAAJIId);
+      data.add(noLicenceAAJI);
+      data.add(imageLicenceAAJI);
+    } else if (checkedPrevCompanyValueAAJI == false &&
+        (noLicenceAAJI.isValid || imageLicenceAAJI.isValid)) {
+      data.remove(prevCompanyAAJIId);
+      if (data.contains(noLicenceAAJI)) {
+        data.remove(noLicenceAAJI);
+      }
+      if (data.contains(imageLicenceAAJI)) {
+        data.remove(imageLicenceAAJI);
+      }
+      data.add(noLicenceAAJI);
       data.add(imageLicenceAAJI);
     } else {
       data.remove(noLicenceAAJI);
@@ -192,9 +209,26 @@ class AddCandidatePageState extends Equatable with FormzMixin {
       data.remove(imageLicenceAAJI);
     }
 
-    if (checkedValueAASI) {
-      data.add(noLicenceAASI);
+    if (checkedPrevCompanyValueAASI) {
+      if (data.contains(noLicenceAASI)) {
+        data.remove(noLicenceAASI);
+      }
+      if (data.contains(imageLicenceAASI)) {
+        data.remove(imageLicenceAASI);
+      }
       data.add(prevCompanyAASIId);
+      data.add(noLicenceAASI);
+      data.add(imageLicenceAASI);
+    } else if (checkedPrevCompanyValueAASI == false &&
+        (noLicenceAASI.isValid || imageLicenceAASI.isValid)) {
+      data.remove(prevCompanyAASIId);
+      if (data.contains(noLicenceAASI)) {
+        data.remove(noLicenceAASI);
+      }
+      if (data.contains(imageLicenceAASI)) {
+        data.remove(imageLicenceAASI);
+      }
+      data.add(noLicenceAASI);
       data.add(imageLicenceAASI);
     } else {
       data.remove(noLicenceAASI);
@@ -203,15 +237,37 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     }
 
     if (checkedValueAAUI) {
-      data.add(noLicenceAAUI);
-      data.add(prevCompanyAAUIId);
-      data.add(imageLicenceAAUI);
+      if (checkedPrevCompanyValueAAUI) {
+        if (data.contains(noLicenceAAUI)) {
+          data.remove(noLicenceAAUI);
+        }
+        if (data.contains(imageLicenceAAUI)) {
+          data.remove(imageLicenceAAUI);
+        }
+        data.add(prevCompanyAAUIId);
+        data.add(noLicenceAAUI);
+        data.add(imageLicenceAAUI);
+      } else if (checkedPrevCompanyValueAAUI == false &&
+          (noLicenceAAUI.isValid || imageLicenceAAUI.isValid)) {
+        data.remove(prevCompanyAAUIId);
+        if (data.contains(noLicenceAAUI)) {
+          data.remove(noLicenceAAUI);
+        }
+        if (data.contains(imageLicenceAAUI)) {
+          data.remove(imageLicenceAAUI);
+        }
+        data.add(noLicenceAAUI);
+        data.add(imageLicenceAAUI);
+      } else {
+        data.remove(noLicenceAAUI);
+        data.remove(prevCompanyAAUIId);
+        data.remove(imageLicenceAAUI);
+      }
     } else {
       data.remove(noLicenceAAUI);
       data.remove(prevCompanyAAUIId);
       data.remove(imageLicenceAAUI);
     }
-
     if (checkedValueMarriage) {
       data.add(firstNamePartner);
       data.add(identityNoPartner);
@@ -251,15 +307,15 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     DropdownFieldValidator? cityId,
     CheckingstatusMasterReference? occupation,
     DropdownFieldValidator? occupationId,
-    MandatoryFieldValidator? noLicenceAAJI,
+    AajiNoValidator? noLicenceAAJI,
     AajicityMasterReference? prevCompanyAAJI,
     DropdownFieldValidator? prevCompanyAAJIId,
     MandatoryFieldValidator? imageLicenceAAJI,
-    MandatoryFieldValidator? noLicenceAASI,
+    AasiNoValidator? noLicenceAASI,
     AajicityMasterReference? prevCompanyAASI,
     DropdownFieldValidator? prevCompanyAASIId,
     MandatoryFieldValidator? imageLicenceAASI,
-    MandatoryFieldValidator? noLicenceAAUI,
+    AauiNoValidator? noLicenceAAUI,
     AajicityMasterReference? prevCompanyAAUI,
     DropdownFieldValidator? prevCompanyAAUIId,
     MandatoryFieldValidator? imageLicenceAAUI,
@@ -274,9 +330,9 @@ class AddCandidatePageState extends Equatable with FormzMixin {
     DropdownFieldValidator? relationId,
     MasterDataModel? masterDataModel,
     String? moveTo,
-    bool? checkedValueAAJI,
-    bool? checkedValueAASI,
-    bool? checkedNeedValueAAUI,
+    bool? checkedPrevCompanyValueAAJI,
+    bool? checkedPrevCompanyValueAASI,
+    bool? checkedPrevCompanyValueAAUI,
     bool? checkedValueAAUI,
     bool? checkedValueMarriage,
     CandidateModel? candidateModel,
@@ -332,9 +388,12 @@ class AddCandidatePageState extends Equatable with FormzMixin {
       candidateRegisterModel:
           candidateRegisterModel ?? this.candidateRegisterModel,
       moveTo: moveTo ?? this.moveTo,
-      checkedValueAAJI: checkedValueAAJI ?? this.checkedValueAAJI,
-      checkedValueAASI: checkedValueAASI ?? this.checkedValueAASI,
-      checkedNeedValueAAUI: checkedNeedValueAAUI ?? this.checkedNeedValueAAUI,
+      checkedPrevCompanyValueAAJI:
+          checkedPrevCompanyValueAAJI ?? this.checkedPrevCompanyValueAAJI,
+      checkedPrevCompanyValueAASI:
+          checkedPrevCompanyValueAASI ?? this.checkedPrevCompanyValueAASI,
+      checkedPrevCompanyValueAAUI:
+          checkedPrevCompanyValueAAUI ?? this.checkedPrevCompanyValueAAUI,
       checkedValueAAUI: checkedValueAAUI ?? this.checkedValueAAUI,
       checkedValueMarriage: checkedValueMarriage ?? this.checkedValueMarriage,
       submitStatus: submitStatus ?? this.submitStatus,

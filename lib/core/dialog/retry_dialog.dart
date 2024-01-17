@@ -48,7 +48,7 @@ class RetryDialog extends StatelessWidget {
               const SizedBox(width: 15),
               ElevatedButton(
                 onPressed: onCancelPressed,
-                child: const Text("cancel"),
+                child: const Text("oke"),
               ),
             ],
           )

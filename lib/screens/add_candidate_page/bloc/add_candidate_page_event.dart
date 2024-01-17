@@ -163,6 +163,12 @@ class AauiCheckedInputEvent extends AddCandidatePageEvent {
   AauiCheckedInputEvent([this.aauiChecked = false]);
 }
 
+class AauiCheckedPrevCompanyInputEvent extends AddCandidatePageEvent {
+  final bool aauiCheckedPrevCompany;
+
+  AauiCheckedPrevCompanyInputEvent([this.aauiCheckedPrevCompany = false]);
+}
+
 class AauiNoInputEvent extends AddCandidatePageEvent {
   final String aauiNo;
 

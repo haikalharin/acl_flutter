@@ -61,7 +61,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                       ListTile(
                                         leading: const Icon(Icons.mail_rounded),
                                         title: Text(
-                                          "${state.listNotify?[index].alert} ${state.listAgentModel?[index].lastName ?? ''}",
+                                          "${state.listNotify?[index].alert}",
                                           style: const TextStyle(
                                               color: AclColors.blueDark),
                                         ),

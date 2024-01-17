@@ -8,6 +8,9 @@ import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 
 import '../../../common/app_string.dart';
+import '../../../common/validators/aaji_no_validator.dart';
+import '../../../common/validators/aasi_no_validator.dart';
+import '../../../common/validators/aaui_no_validator.dart';
 import '../../../common/validators/identity_no_validator.dart';
 import '../../../common/validators/mandatory_dropdown_validator.dart';
 import '../../../common/validators/mandatory_field_validator.dart';
@@ -57,9 +60,12 @@ class AddCandidatePageBloc
     on<AajiImageInputEvent>(imageLicenceAAJIInput);
     on<AasiCheckedInputEvent>(aasiCheckedInput);
     on<AasiNoInputEvent>(noLicenceAASIInput);
+    on<AasiPrevCompanyInputEvent>(aasiPrevCompanyInput);
     on<AasiImageInputEvent>(imageLicenceAASIInput);
     on<AauiCheckedInputEvent>(aauiCheckedInput);
+    on<AauiCheckedPrevCompanyInputEvent>(aauiCheckedPrevCompanyInput);
     on<AauiNoInputEvent>(noLicenceAAUIInput);
+    on<AauiPrevCompanyInputEvent>(aauiPrevCompanyInput);
     on<AauiImageInputEvent>(imageLicenceAAUIInput);
     on<MarriedCheckedInputEvent>(marriedCheckedInputEvent);
     on<FirstNamePartnerInputEvent>(firstNamePartnerInput);
@@ -275,10 +281,14 @@ class AddCandidatePageBloc
 
   Future<void> noLicenceAAJIInput(
       AajiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
-    final noLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiNo);
-    emit(state.copyWith(
-      noLicenceAAJI: noLicenceAAJI,
-    ));
+    final noLicenceAAJI = AajiNoValidator.dirty(event.aajiNo);
+    if (event.aajiNo == '' ) {
+      emit(state.copyWith(noLicenceAAJI: const AajiNoValidator.pure()));
+    } else {
+      emit(state.copyWith(
+        noLicenceAAJI: noLicenceAAJI,
+      ));
+    }
   }
 
   Future<void> aajiPrevCompanyInput(AajiPrevCompanyInputEvent event,
@@ -290,7 +300,8 @@ class AddCandidatePageBloc
         prevCompanyAAJI: null,
       ));
     } else {
-      final prevCompanyId = DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      final prevCompanyId =
+          DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
       emit(state.copyWith(
         prevCompanyAAJIId: prevCompanyId,
         prevCompanyAAJI: event.prevCompany,
@@ -301,18 +312,29 @@ class AddCandidatePageBloc
   Future<void> imageLicenceAAJIInput(
       AajiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiImage);
-    emit(state.copyWith(
-      imageLicenceAAJI: imageLicenceAAJI,
-    ));
+    if(event.aajiImage == ''){
+      emit(state.copyWith(
+        imageLicenceAAJI: const MandatoryFieldValidator.pure(),
+      ));
+    }else {
+      emit(state.copyWith(
+        imageLicenceAAJI: imageLicenceAAJI,
+      ));
+    }
   }
 
   Future<void> noLicenceAASIInput(
       AasiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
-    final noLicenceAASI = MandatoryFieldValidator.dirty(event.aasiNo);
-    emit(state.copyWith(
-      noLicenceAASI: noLicenceAASI,
-    ));
+    final noLicenceAASI = AasiNoValidator.dirty(event.aasiNo);
+    if (event.aasiNo == '' ) {
+      emit(state.copyWith(noLicenceAASI: const AasiNoValidator.pure()));
+    } else {
+      emit(state.copyWith(
+        noLicenceAASI: noLicenceAASI,
+      ));
+    }
   }
+
   Future<void> aasiPrevCompanyInput(AasiPrevCompanyInputEvent event,
       Emitter<AddCandidatePageState> emit) async {
     if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
@@ -322,7 +344,8 @@ class AddCandidatePageBloc
         prevCompanyAASI: null,
       ));
     } else {
-      final prevCompanyId = DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      final prevCompanyId =
+          DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
       emit(state.copyWith(
         prevCompanyAASIId: prevCompanyId,
         prevCompanyAASI: event.prevCompany,
@@ -333,17 +356,27 @@ class AddCandidatePageBloc
   Future<void> imageLicenceAASIInput(
       AasiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAASI = MandatoryFieldValidator.dirty(event.aasiImage);
-    emit(state.copyWith(
-      imageLicenceAASI: imageLicenceAASI,
-    ));
+    if(event.aasiImage == ''){
+      emit(state.copyWith(
+        imageLicenceAASI: const MandatoryFieldValidator.pure(),
+      ));
+    }else {
+      emit(state.copyWith(
+        imageLicenceAASI: imageLicenceAASI,
+      ));
+    }
   }
 
   Future<void> noLicenceAAUIInput(
       AauiNoInputEvent event, Emitter<AddCandidatePageState> emit) async {
-    final noLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiNo);
-    emit(state.copyWith(
-      noLicenceAAUI: noLicenceAAUI,
-    ));
+    final noLicenceAAUI = AauiNoValidator.dirty(event.aauiNo);
+    if (event.aauiNo == '' ) {
+      emit(state.copyWith(noLicenceAAUI: const AauiNoValidator.pure()));
+    } else {
+      emit(state.copyWith(
+        noLicenceAAUI: noLicenceAAUI,
+      ));
+    }
   }
 
   Future<void> aauiPrevCompanyInput(AauiPrevCompanyInputEvent event,
@@ -355,7 +388,8 @@ class AddCandidatePageBloc
         prevCompanyAAUI: null,
       ));
     } else {
-      final prevCompanyId = DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      final prevCompanyId =
+          DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
       emit(state.copyWith(
         prevCompanyAAUIId: prevCompanyId,
         prevCompanyAAUI: event.prevCompany,
@@ -363,13 +397,18 @@ class AddCandidatePageBloc
     }
   }
 
-
   Future<void> imageLicenceAAUIInput(
       AauiImageInputEvent event, Emitter<AddCandidatePageState> emit) async {
     final imageLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiImage);
-    emit(state.copyWith(
-      imageLicenceAAUI: imageLicenceAAUI,
-    ));
+    if(event.aauiImage == ''){
+      emit(state.copyWith(
+        imageLicenceAAUI: const MandatoryFieldValidator.pure(),
+      ));
+    }else {
+      emit(state.copyWith(
+        imageLicenceAAUI: imageLicenceAAUI,
+      ));
+    }
   }
 
   Future<void> firstNamePartnerInput(FirstNamePartnerInputEvent event,
@@ -453,14 +492,14 @@ class AddCandidatePageBloc
   Future<void> aajiCheckedInput(
       AajiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
-      checkedValueAAJI: event.aajiChecked,
+      checkedPrevCompanyValueAAJI: event.aajiChecked,
     ));
   }
 
   Future<void> aasiCheckedInput(
       AasiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
-      checkedValueAASI: event.aasiChecked,
+      checkedPrevCompanyValueAASI: event.aasiChecked,
     ));
   }
 
@@ -468,6 +507,14 @@ class AddCandidatePageBloc
       AauiCheckedInputEvent event, Emitter<AddCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueAAUI: event.aauiChecked,
+    ));
+  }
+
+  Future<void> aauiCheckedPrevCompanyInput(
+      AauiCheckedPrevCompanyInputEvent event,
+      Emitter<AddCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedPrevCompanyValueAAUI: event.aauiCheckedPrevCompany,
     ));
   }
 
@@ -480,8 +527,8 @@ class AddCandidatePageBloc
 
   Future<void> addAgentSubmitted(
       AddAgentSubmittedEvent event, Emitter<AddCandidatePageState> emit) async {
-    emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     if (state.isValid) {
+      emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
       try {
         LoginModel loginModel = await SecureStorage().getUser();
         final result = await candidateRepository
@@ -504,15 +551,13 @@ class AddCandidatePageBloc
           idCardNo: state.identityNo.value,
           occupation: state.occupationId.value.toString(),
           occupationOther: '',
-          aajiActiveFlag: state.checkedValueAAJI.toString(),
           aajiNo: state.noLicenceAAJI.value,
-          prevCompany: state.prevCompanyAAJIId.toString(),
-          aasiActiveFlag: state.checkedValueAASI.toString(),
+          prevCompany: state.prevCompanyAAJIId.value.toString(),
           aasiNo: state.noLicenceAASI.value,
-          prevCompanyAasi: state.prevCompanyAASIId.toString(),
+          prevCompanyAasi: state.prevCompanyAASIId.value.toString(),
           aauiActiveFlag: state.checkedValueAAUI.toString(),
           aauiNo: state.noLicenceAAUI.value,
-          prevCompanyAaui: state.prevCompanyAAUIId.toString(),
+          prevCompanyAaui: state.prevCompanyAAUIId.value.toString(),
         ));
         await result.when(success: (response) async {
           CandidateRegisterModel responseData = response.data;
@@ -546,15 +591,15 @@ class AddCandidatePageBloc
             idCardNo: state.identityNo.value,
             occupation: state.occupationId.value.toString(),
             occupationOther: '',
-            aajiActiveFlag: state.checkedValueAAJI.toString(),
+            aajiActiveFlag: state.checkedPrevCompanyValueAAJI.toString(),
             aajiNo: state.noLicenceAAJI.value,
-            prevCompany: state.prevCompanyAAJIId.toString(),
-            aasiActiveFlag: state.checkedValueAASI.toString(),
+            prevCompany: state.prevCompanyAAJIId.value.toString(),
+            aasiActiveFlag: state.checkedPrevCompanyValueAASI.toString(),
             aasiNo: state.noLicenceAASI.value,
-            prevCompanyAasi: state.prevCompanyAASIId.toString(),
+            prevCompanyAasi: state.prevCompanyAASIId.value.toString(),
             aauiActiveFlag: state.checkedValueAAUI.toString(),
             aauiNo: state.noLicenceAAUI.value,
-            prevCompanyAaui: state.prevCompanyAAUIId.toString(),
+            prevCompanyAaui: state.prevCompanyAAUIId.value.toString(),
           ));
 
           await result.when(success: (response) async {
@@ -574,13 +619,18 @@ class AddCandidatePageBloc
                       message: 'create-register',
                       submitStatus: FormzSubmissionStatus.success));
                 }, failure: (error) async {
-                  var message = error == AppString.internalServerError? 'session is over':error;
-                  emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
-
+                  var message =
+                      error == AppString.forbidden ? 'session is over' : error;
+                  emit(state.copyWith(
+                      submitStatus: FormzSubmissionStatus.failure,
+                      message: message));
                 });
               }, failure: (error) async {
-                var message = error == AppString.internalServerError? 'session is over':error;
-                emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
+                var message =
+                    error == AppString.forbidden ? 'session is over' : error;
+                emit(state.copyWith(
+                    submitStatus: FormzSubmissionStatus.failure,
+                    message: message));
               });
             } else {
               final result = await candidateRepository
@@ -592,26 +642,36 @@ class AddCandidatePageBloc
                     message: 'create-register',
                     submitStatus: FormzSubmissionStatus.success));
               }, failure: (error) async {
-                var message = error == AppString.internalServerError? 'session is over':error;
-                emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
+                var message =
+                    error == AppString.forbidden ? 'session is over' : error;
+                emit(state.copyWith(
+                    submitStatus: FormzSubmissionStatus.failure,
+                    message: message));
               });
             }
           }, failure: (error) async {
-            var message = error == AppString.internalServerError? 'session is over':error;
-            emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
-
+            var message =
+                error == AppString.forbidden ? 'session is over' : error;
+            emit(state.copyWith(
+                submitStatus: FormzSubmissionStatus.failure, message: message));
           });
-
-
         }, failure: (error) async {
-          var message = error == AppString.internalServerError? 'session is over':error;
-          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure, message: message));
+          var message =
+              error == AppString.forbidden ? 'session is over' : error;
+          emit(state.copyWith(
+              submitStatus: FormzSubmissionStatus.failure, message: message));
         });
       } catch (error) {
         if (kDebugMode) {
           print(error);
         }
+        emit(state.copyWith(
+            submitStatus: FormzSubmissionStatus.failure, message: 'error'));
       }
+    } else {
+      var message = 'Mohon lengkapi data';
+      emit(state.copyWith(
+          submitStatus: FormzSubmissionStatus.failure, message: message));
     }
   }
 

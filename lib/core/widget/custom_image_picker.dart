@@ -221,7 +221,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
       setState(() {
         _selectedImage = null;
       });
-      widget.onImagePicked(null);
+      widget.onImagePicked('');
     }
   }
 }

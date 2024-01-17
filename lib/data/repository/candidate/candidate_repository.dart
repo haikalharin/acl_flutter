@@ -9,6 +9,7 @@ import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart'
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:acl_flutter/data/model/sepouse/request_sepouse_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../core/network/api_result.dart';
 import '../../../core/network/dio_exception.dart';
@@ -92,7 +93,9 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
-      print("$data");
+      if (kDebugMode) {
+        print("$data");
+      }
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }
@@ -105,7 +108,9 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
-      print("$data");
+      if (kDebugMode) {
+        print("$data");
+      }
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }
@@ -118,7 +123,9 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
-      print("$data");
+      if (kDebugMode) {
+        print("$data");
+      }
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }

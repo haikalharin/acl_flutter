@@ -1,3 +1,4 @@
+import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/aaji_data.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/heirs_data.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/private_data.dart';
@@ -8,6 +9,7 @@ import '../../bloc/faa_candidate_page_bloc.dart';
 import '../expansion_widget/private/appendix_data.dart';
 import '../expansion_widget/private/npwp_and_bank_data.dart';
 import '../expansion_widget/private/source_of_recruiting_information.dart';
+import '../faa_form_candidate_page.dart';
 
 enum Mode { create, update }
 class PrivateDataPage extends StatefulWidget {
@@ -39,6 +41,23 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
         SourceOfRecruitingInformation(formKey: widget.formKey),
         const SizedBox(height: 8),
         AppendixData(formKey: widget.formKey),
+        const SizedBox(height: 16),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 16),
+          width: MediaQuery.of(context).size.width,
+          child: ElevatedButton(
+            onPressed: () {
+              if (widget.formKey.currentState!.validate()) {
+                // getIt<AddCandidatePageBloc>()
+                //     .add(AddAgentSubmittedEvent());
+               }
+
+                isSuccesPrivateTab = true;
+
+            },
+            child: Text("Selanjutnya".toCapital),
+          ),
+        )
       ],),
     );
   },

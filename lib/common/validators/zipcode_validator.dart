@@ -9,7 +9,7 @@ class ZipcodeValidator extends FormzInput<String, ZipcodeValidationError> {
 
   @override
   ZipcodeValidationError? validator(String value) {
-    return value.length <= 5 ? null : ZipcodeValidationError.empty;
+    return value.length == 5 ? null : ZipcodeValidationError.empty;
   }
 
   final String invalidZipcode = "value tidak boleh lebih dari 5 digit";

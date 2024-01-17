@@ -15,25 +15,28 @@ class ProgressDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text("Please wait"),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(title),
-          const SizedBox(height: 15),
-          isProgressed ? const SpinKitIndicator(type: SpinKitType.circle) : const SizedBox(),
-          const SizedBox(height: 15),
-          SizedBox(
-            width: double.infinity,
-            child: isProgressed
-                ? const SizedBox()
-                : ElevatedButton(
-                    onPressed: onPressed,
-                    child: const Text("Success"),
-                  ),
-          )
-        ],
+    return WillPopScope(
+      onWillPop: () { return Future.value(false); },
+      child: AlertDialog(
+        title: const Text("Mohon tunggu"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(title),
+            const SizedBox(height: 15),
+            isProgressed ? const SpinKitIndicator(type: SpinKitType.circle) : const SizedBox(),
+            const SizedBox(height: 15),
+            SizedBox(
+              width: double.infinity,
+              child: isProgressed
+                  ? const SizedBox()
+                  : ElevatedButton(
+                      onPressed: onPressed,
+                      child: const Text("Success"),
+                    ),
+            )
+          ],
+        ),
       ),
     );
   }

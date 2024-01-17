@@ -44,19 +44,19 @@ class _SideBarPageState extends State<SideBarPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const ListTile(
       title: Text(
-        'Home',
+        'Menu',
         style: optionStyle,
       ),
     ),
     const ListTile(
       title: Text(
-        'user list',
+        'Menu',
         style: optionStyle,
       ),
     ),
     const ListTile(
       title: Text(
-        'Home',
+        'Menu',
         style: optionStyle,
       ),
     ),
@@ -123,7 +123,7 @@ class _SideBarPageState extends State<SideBarPage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.home),
-                    title: const Text('Home'),
+                    title: const Text('Halaman Utama'),
                     selected: selectedIndex == 0,
                     onTap: () => [_onItemTapped(0), Navigator.pop(context)],
                   ),

@@ -71,16 +71,34 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   controller: _tabController,
                   tabs: [
                     Tab(
-                        child: Text(AppLocalizations.of(context)!.myRecruitment,
-                            style: const TextStyle(color: AclColors.blueDark))),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.person_add_alt_1_sharp,color: AclColors.blueDark,),
+                            Text(AppLocalizations.of(context)!.myRecruitment,
+                                style: const TextStyle(color: AclColors.blueDark)),
+                          ],
+                        )),
                     Tab(
-                        child: Text(AppLocalizations.of(context)!.beRecruitment,
-                            style: const TextStyle(color: AclColors.blueDark))),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.contact_mail,color: AclColors.blueDark,),
+                            Text(AppLocalizations.of(context)!.beRecruitment,
+                                style: const TextStyle(color: AclColors.blueDark)),
+                          ],
+                        )),
                     Stack(
                       children: [
                                 Tab(
-                          child: Text(AppLocalizations.of(context)!.notification,
-                                style: const TextStyle(color: AclColors.blueDark))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.notifications_active,color: AclColors.blueDark,),
+                              Text(AppLocalizations.of(context)!.notification,
+                                    style: const TextStyle(color: AclColors.blueDark)),
+                            ],
+                          )),
                               ],
                     ),
                   ],
