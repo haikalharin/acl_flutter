@@ -78,7 +78,7 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
                   '*',
                   style: TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 )),
             Container(
@@ -87,7 +87,7 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
                   widget.errorText != null ? widget.errorText! : '',
                   style: const TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 ))
           ],
@@ -162,7 +162,7 @@ class _DropDownOccupationState extends State<DropDownOccupation> {
                     },
                     value: initialItem,
                     hint: "Pilih",
-                    searchHint: "Select one",
+                    searchHint: "Pilih salah satu",
                     onChanged: (CheckingstatusMasterReference value) {
                       widget.onChanged(value);
                       initialItem = value;

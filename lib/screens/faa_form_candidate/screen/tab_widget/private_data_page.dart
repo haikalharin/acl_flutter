@@ -13,14 +13,15 @@ import '../faa_form_candidate_page.dart';
 
 enum Mode { create, update }
 class PrivateDataPage extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-   const PrivateDataPage({super.key, required this.formKey});
+   const PrivateDataPage({super.key,});
 
   @override
   State<PrivateDataPage> createState() => _PrivateDataPageState();
 }
 
 class _PrivateDataPageState extends State<PrivateDataPage> {
+  final formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +31,24 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
   builder: (context, state) {
     return SingleChildScrollView(
       child: Column(children: [
-        PrivateData(formKey: widget.formKey),
+        PrivateData(formKey: formKey),
         const SizedBox(height: 8),
-        HeirsData(formKey: widget.formKey),
+        HeirsData(formKey: formKey),
         const SizedBox(height: 8),
-        AajiData(formKey: widget.formKey),
+        AajiData(formKey: formKey),
         const SizedBox(height: 8),
-        NpwpAndBankData(formKey: widget.formKey),
+        NpwpAndBankData(formKey: formKey),
         const SizedBox(height: 8),
-        SourceOfRecruitingInformation(formKey: widget.formKey),
+        SourceOfRecruitingInformation(formKey: formKey),
         const SizedBox(height: 8),
-        AppendixData(formKey: widget.formKey),
+        AppendixData(formKey: formKey),
         const SizedBox(height: 16),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 16),
           width: MediaQuery.of(context).size.width,
           child: ElevatedButton(
             onPressed: () {
-              if (widget.formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 // getIt<AddCandidatePageBloc>()
                 //     .add(AddAgentSubmittedEvent());
                }

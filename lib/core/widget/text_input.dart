@@ -102,7 +102,7 @@ class _TextInputState extends State<TextInput> {
                               '*',
                               style: TextStyle(
                                 fontSize: 12.0,
-                                color: AclColors.redAccent,
+                                color: AclColors.red,
                               ),
                             ))
                         : Container(),

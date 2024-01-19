@@ -108,7 +108,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                     ),
                     contentPadding:
                         const EdgeInsets.only(top: 5, left: 20, right: 20),
-                    hintText: "Find by name...",
+                    hintText: "cari nama...",
                     fillColor: Colors.white,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -207,10 +207,10 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                           ),
                                           title: Text(
                                             widget.isMyCandidate
-                                                ? "${state.listAgentModel?[index].firstName} ${state.listAgentModel?[index].lastName ?? ''}"
-                                                : "${state.listAgentBeModel?[index].firstName} ${state.listAgentBeModel?[index].lastName ?? ''}",
+                                                ? "${state.listAgentModel?[index].firstName} ${state.listAgentModel?[index].middleName} ${state.listAgentModel?[index].lastName ?? ''}"
+                                                : "${state.listAgentBeModel?[index].firstName} ${state.listAgentBeModel?[index].middleName} ${state.listAgentBeModel?[index].lastName ?? ''}",
                                             style: const TextStyle(
-                                                color: AclColors.blueDark),
+                                                color: AclColors.primaryBlue),
                                           ),
                                           subtitle: Column(
                                             crossAxisAlignment:
@@ -342,14 +342,14 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                       color: Colors.white,
                       border: Border(
                         top: BorderSide(
-                          color: AclColors.blueDark, // Color of the border
+                          color: AclColors.primaryBlue, // Color of the border
                           width: 1.0, // Width of the border
                         ),
                       ),
                     ),
                     child: Center(
                       child: Text(AppLocalizations.of(context)!.sorted,
-                          style: const TextStyle(color: AclColors.blueDark)),
+                          style: const TextStyle(color: AclColors.primaryBlue)),
                     ),
                   ),
                 ),

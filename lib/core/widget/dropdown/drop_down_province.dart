@@ -17,6 +17,7 @@ class DropDownProvince extends StatefulWidget {
       this.icon,
       this.errorText,
       this.isMandatory = true,
+      this.readOnly = false,
       this.isCheck = false})
       : super(key: key);
 
@@ -30,6 +31,7 @@ class DropDownProvince extends StatefulWidget {
   final Icon? icon;
   final bool isMandatory;
   final bool isCheck;
+  final bool readOnly;
 
   @override
   State<DropDownProvince> createState() => _DropDownProvinceState(initialItem);
@@ -74,7 +76,7 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                   '*',
                   style: TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 )),
             Container(
@@ -83,7 +85,7 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                   widget.errorText != null ? widget.errorText! : '',
                   style: const TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 ))
           ],
@@ -109,6 +111,7 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                 child: Container(
                   // width: 200,
                   child: SearchChoices.single(
+                    readOnly: widget.readOnly,
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
@@ -154,7 +157,7 @@ class _DropDownProvinceState extends State<DropDownProvince> {
                     },
                     value: initialItem,
                     hint: "Pilih",
-                    searchHint: "Select one",
+                    searchHint: "Pilih salah satu",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                         initialItem = value;

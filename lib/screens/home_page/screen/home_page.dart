@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               children: [
                 Container(
                   height: 150,
-                  color: AclColors.blueDark,
+                  color: AclColors.primaryBlue,
                   child: Center(
                     child: ListTile(
                       title: Text(
@@ -74,18 +74,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.person_add_alt_1_sharp,color: AclColors.blueDark,),
+                            Icon(Icons.person_add_alt_1_sharp,color: AclColors.primaryBlue,),
                             Text(AppLocalizations.of(context)!.myRecruitment,
-                                style: const TextStyle(color: AclColors.blueDark)),
+                                style: const TextStyle(color: AclColors.primaryBlue)),
                           ],
                         )),
                     Tab(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.contact_mail,color: AclColors.blueDark,),
+                            Icon(Icons.contact_mail,color: AclColors.primaryBlue,),
                             Text(AppLocalizations.of(context)!.beRecruitment,
-                                style: const TextStyle(color: AclColors.blueDark)),
+                                style: const TextStyle(color: AclColors.primaryBlue)),
                           ],
                         )),
                     Stack(
@@ -94,9 +94,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.notifications_active,color: AclColors.blueDark,),
+                              Icon(Icons.notifications_active,color: AclColors.primaryBlue,),
                               Text(AppLocalizations.of(context)!.notification,
-                                    style: const TextStyle(color: AclColors.blueDark)),
+                                    style: const TextStyle(color: AclColors.primaryBlue)),
                             ],
                           )),
                               ],

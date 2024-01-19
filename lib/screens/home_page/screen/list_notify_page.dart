@@ -63,7 +63,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                         title: Text(
                                           "${state.listNotify?[index].alert}",
                                           style: const TextStyle(
-                                              color: AclColors.blueDark),
+                                              color: AclColors.primaryBlue),
                                         ),
                                       ),
                                     ],
@@ -84,7 +84,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                         border: Border(
                                           top: BorderSide(
                                             color: AclColors
-                                                .blueDark, // Color of the border
+                                                .primaryBlue, // Color of the border
                                             width: 1.0, // Width of the border
                                           ),
                                         ),
@@ -98,7 +98,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                               AppLocalizations.of(context)!
                                                   .reload,
                                               style: const TextStyle(
-                                                  color: AclColors.blueDark)),
+                                                  color: AclColors.primaryBlue)),
                                         ),
                                       ),
                                     ),
@@ -112,7 +112,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                         border: Border(
                                           top: BorderSide(
                                             color: AclColors
-                                                .blueDark, // Color of the border
+                                                .primaryBlue, // Color of the border
                                             width: 1.0, // Width of the border
                                           ),
                                         ),
@@ -121,7 +121,7 @@ class _ListNotifyPageState extends State<ListNotifyPage> {
                                         child: Text(
                                             AppLocalizations.of(context)!.note,
                                             style: const TextStyle(
-                                                color: AclColors.blueDark)),
+                                                color: AclColors.primaryBlue)),
                                       ),
                                     ),
                                   ),

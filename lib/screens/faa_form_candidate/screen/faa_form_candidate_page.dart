@@ -1,5 +1,7 @@
 import 'package:acl_flutter/data/model/candidate/candidate_model.dart';
+import 'package:acl_flutter/screens/faa_form_candidate/screen/tab_widget/education_data_page.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/tab_widget/private_data_page.dart';
+import 'package:acl_flutter/screens/faa_form_candidate/screen/tab_widget/work_experience_data_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -37,7 +39,6 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
   @override
   void initState() {
     super.initState();
-    getIt<FaaCandidatePageBloc>().add(FetchMasterDataEvent());
     isSuccesPrivateTab = false;
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabChange);
@@ -45,6 +46,7 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
 
   @override
   void dispose() {
+    getIt<FaaCandidatePageBloc>().add(FaaCandidatePageInitialEvent());
     isSuccesPrivateTab = false;
     super.dispose();
   }
@@ -54,6 +56,7 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
     if (_tabController.indexIsChanging) {
       switch (_tabController.index) {
         case 0:
+          getIt<FaaCandidatePageBloc>().add(TabTypeInputEvent(TabType.private));
           // showDialog(
           //   context: context,
           //   builder: (BuildContext context) {
@@ -65,24 +68,28 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
           // );
           break;
         case 1:
-          if (isSuccesPrivateTab) {
-            _tabController.index = 1;
-          } else {
-            _tabController.index = 0;
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return RetryDialog(
-                  title: "Belum Tersedia",
-                  onCancelPressed: () {
-                    Navigator.pop(context);
-                  },
-                );
-              },
-            );
-          }
+          getIt<FaaCandidatePageBloc>()
+              .add(TabTypeInputEvent(TabType.experience));
+          // if (isSuccesPrivateTab) {
+          //   _tabController.index = 1;
+          // } else {
+          //   _tabController.index = 0;
+          //   showDialog(
+          //     context: context,
+          //     builder: (BuildContext context) {
+          //       return RetryDialog(
+          //         title: "Belum Tersedia",
+          //         onCancelPressed: () {
+          //           Navigator.pop(context);
+          //         },
+          //       );
+          //     },
+          //   );
+          // }
           break;
         case 2:
+          getIt<FaaCandidatePageBloc>()
+              .add(TabTypeInputEvent(TabType.education));
           // showDialog(
           //   context: context,
           //   builder: (BuildContext context) {
@@ -105,15 +112,15 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
       appBar: AppBar(
         centerTitle: false,
         titleSpacing: 0,
-        title: const Text('Form Aplikasi Agent',style: TextStyle(fontSize: 16),),
+        title: const Text(
+          'Form Aplikasi Agent',
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       body: BlocListener<FaaCandidatePageBloc, FaaCandidatePageState>(
         listener: (context, state) {
           if (state.submitStatus.isSuccess) {
-            if (state.message == 'success-get-master-data') {
-              getIt<FaaCandidatePageBloc>()
-                  .add(FetchCandidateDataEvent(widget.candidateModel.id ?? ''));
-            }
+            if (state.message == 'success-get-master-data') {}
           }
         },
         child: BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
@@ -130,13 +137,16 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
                   tabs: [
                     Tab(
                         child: Text(AppLocalizations.of(context)!.privateData,
-                            style: const TextStyle(color: AclColors.blueDark))),
+                            style:
+                                const TextStyle(color: AclColors.primaryBlue))),
                     Tab(
                         child: Text(AppLocalizations.of(context)!.experience,
-                            style: const TextStyle(color: AclColors.blueDark))),
+                            style:
+                                const TextStyle(color: AclColors.primaryBlue))),
                     Tab(
                         child: Text(AppLocalizations.of(context)!.education,
-                            style: const TextStyle(color: AclColors.blueDark))),
+                            style:
+                                const TextStyle(color: AclColors.primaryBlue))),
                   ],
                 ),
                 const Divider(
@@ -145,40 +155,15 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
                   color: Colors.black,
                 ),
                 Expanded(
-                  child: Form(
-                    key: formKey,
-                    child: TabBarView(
-                      physics: const BouncingScrollPhysics(
-                          decelerationRate: ScrollDecelerationRate.normal),
-                      controller: _tabController,
-                      children: [
-                        // Content for Tab 1
-                        Stack(
-                          children: [
-                            PrivateDataPage(
-                              formKey: formKey,
-                            ),
-                            state.submitStatus.isInProgress
-                                ? Container(
-                                    color: Colors.white.withAlpha(90),
-                                    child: const Center(
-                                        child: ProgressDialog(
-                                      title: 'Sedang memuat data',
-                                      isProgressed: true,
-                                    )))
-                                : Container(),
-                          ],
-                        ),
-                        Center(
-                            child: Container(
-                          child: const Text('On Progress'),
-                        )),
-                        Center(
-                            child: Container(
-                          child: const Text('On Progress'),
-                        ))
-                      ],
-                    ),
+                  child: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _tabController,
+                    children: const [
+                      // Content for Tab 1
+                      PrivateDataPage(),
+                      WorkExperienceDataPage(),
+                      EducationDataPage(),
+                    ],
                   ),
                 ),
               ],

@@ -9,12 +9,12 @@ class AppTheme {
 
   static ThemeData lightAppTheme = ThemeData(
     appBarTheme: const AppBarTheme(
-      color: AclColors.blueDark,
+      color: AclColors.primaryBlue,
       centerTitle: true,
     ),
     dialogTheme: const DialogTheme(
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: AclColors.blueDark, width: 1.0),
+        side: BorderSide(color: AclColors.primaryBlue, width: 1.0),
         borderRadius: BorderRadius.all(
           Radius.circular(15.0),
         ),
@@ -27,11 +27,11 @@ class AppTheme {
         border: inputBorder),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor:  AclColors.blueDark,
+        backgroundColor:  AclColors.blueButton,
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: AclColors.blueDark,
+      backgroundColor: AclColors.primaryBlue,
     ),
     fontFamily: AppString.appFont,
     textButtonTheme: TextButtonThemeData(
@@ -47,10 +47,10 @@ class AppTheme {
         borderRadius: BorderRadius.all(Radius.circular(8)),
         side: BorderSide(color: Colors.grey, width: 2),
       ),
-      dialHandColor:  AclColors.blueDark,
+      dialHandColor:  AclColors.primaryBlue,
       hourMinuteColor: MaterialStateColor.resolveWith((states) =>
           states.contains(MaterialState.selected)
-              ? AclColors.blueDark
+              ? AclColors.primaryBlue
               : Colors.black12),
       hourMinuteTextColor: MaterialStateColor.resolveWith((states) =>
           states.contains(MaterialState.selected)
@@ -63,7 +63,7 @@ class AppTheme {
       dayPeriodColor: Colors.transparent,
       dayPeriodTextColor: MaterialStateColor.resolveWith((states) =>
           states.contains(MaterialState.selected)
-              ? AclColors.blueDark
+              ? AclColors.primaryBlue
               : Colors.black12),
       hourMinuteShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),

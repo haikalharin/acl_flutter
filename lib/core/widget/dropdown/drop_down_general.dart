@@ -76,7 +76,7 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                       '*',
                       style: TextStyle(
                         fontSize: 12.0,
-                        color: AclColors.redAccent,
+                        color: AclColors.red,
                       ),
                     ))
                 : Container(),
@@ -86,7 +86,7 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                   widget.errorText ?? '',
                   style: const TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 ))
           ],
@@ -159,7 +159,7 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                     },
                     value: initialItem,
                     hint: "Pilih",
-                    searchHint: "Select one",
+                    searchHint: "Pilih salah satu",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       initialItem = value;

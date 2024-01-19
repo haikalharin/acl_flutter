@@ -72,7 +72,7 @@ class _DropDownPrevCompanyState extends State<DropDownPrevCompany> {
                   '*',
                   style: TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 )):Container(),
             Container(
@@ -81,7 +81,7 @@ class _DropDownPrevCompanyState extends State<DropDownPrevCompany> {
                   widget.errorText ?? '',
                   style: const TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 ))
           ],
@@ -153,7 +153,7 @@ class _DropDownPrevCompanyState extends State<DropDownPrevCompany> {
                     },
                     value: initialItem,
                     hint: "Pilih",
-                    searchHint: "Select one",
+                    searchHint: "Pilih salah satu",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                         initialItem = value;

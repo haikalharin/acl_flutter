@@ -58,7 +58,7 @@ class _LoginPageScreenState extends State<LoginPage> {
             getIt<LoginPageBloc>().add(LoginPageInitialEvent());
             Navigator.of(context).pushNamedAndRemoveUntil(
               Routes.sidebarPage,
-                  (Route<dynamic> route) => false,
+              (Route<dynamic> route) => false,
             );
           } else if (state.submitStatus.isInProgress) {
             const SpinKitIndicator(type: SpinKitType.circle);
@@ -111,11 +111,13 @@ class _LoginPageScreenState extends State<LoginPage> {
                                 Container(
                                   margin: const EdgeInsets.all(12),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             TextInput(
                                               controller: username,
@@ -125,12 +127,14 @@ class _LoginPageScreenState extends State<LoginPage> {
                                               label: const Text("Username"),
                                               validator: (String? value) {
                                                 if (state.userName.isNotValid) {
-                                                  return state.userName.invalidUserName;
+                                                  return state
+                                                      .userName.invalidUserName;
                                                 }
                                                 return null;
                                               },
                                               onChanged: (String input) {
-                                                viewModel.add(UserNameInputEvent(input));
+                                                viewModel.add(
+                                                    UserNameInputEvent(input));
                                               },
                                             ),
                                             const SizedBox(height: 15),
@@ -139,24 +143,33 @@ class _LoginPageScreenState extends State<LoginPage> {
                                               // initialValue: postBody,
                                               icon: const Icon(Icons.password),
                                               label: const Text("Password"),
-                                              textCapitalization: TextCapitalization.none,
+                                              textCapitalization:
+                                                  TextCapitalization.none,
                                               obscureText: true,
                                               validator: (String? value) {
-                                                  if (state.password.isValid) return null;
-                                                  return "Password tidak boleh kosong";
+                                                if (state.password.isValid)
+                                                  return null;
+                                                return "Password tidak boleh kosong";
                                               },
                                               onChanged: (String input) {
-                                                viewModel.add(PasswordInputEvent(input));
+                                                viewModel.add(
+                                                    PasswordInputEvent(input));
                                               },
                                             ),
-
                                             Container(
-                                              margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                                              width: MediaQuery.of(context).size.width,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 8),
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
                                               child: ElevatedButton(
                                                 onPressed: () {
-                                                  if(formKey.currentState!.validate()) {
-                                                    viewModel.add(LoginSubmittedEvent());
+                                                  if (formKey.currentState!
+                                                      .validate()) {
+                                                    viewModel.add(
+                                                        LoginSubmittedEvent());
                                                   }
                                                 },
                                                 child: Text("Login".toCapital),
@@ -165,7 +178,14 @@ class _LoginPageScreenState extends State<LoginPage> {
                                           ],
                                         ),
                                       ),
-                                      Container(margin:const EdgeInsets.symmetric(horizontal: 16),child: const Text('Lupa Password?',style: TextStyle(color: AclColors.blueDark),))
+                                      Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 16),
+                                          child: const Text(
+                                            'Lupa Password?',
+                                            style: TextStyle(
+                                                color: AclColors.primaryBlue),
+                                          ))
                                     ],
                                   ),
                                 ),
@@ -173,11 +193,14 @@ class _LoginPageScreenState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 16,),
+                        const SizedBox(
+                          height: 16,
+                        ),
                         BlocBuilder<LoginPageBloc, LoginPageState>(
                           builder: (context, state) {
                             return state.submitStatus.isInProgress
-                                ? const SpinKitIndicator(type: SpinKitType.circle)
+                                ? const SpinKitIndicator(
+                                    type: SpinKitType.circle)
                                 : Container();
                           },
                         ),

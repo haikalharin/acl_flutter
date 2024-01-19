@@ -68,7 +68,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                             '*',
                             style: TextStyle(
                               fontSize: 12.0,
-                              color: AclColors.redAccent,
+                              color: AclColors.red,
                             ),
                           ))
                       : Container(),
@@ -79,7 +79,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                             widget.errorText ?? '',
                             style: const TextStyle(
                               fontSize: 12.0,
-                              color: AclColors.redAccent,
+                              color: AclColors.red,
                             ),
                           ))
                       : Container()
@@ -101,13 +101,25 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                         image: FileImage(io.File(_selectedImage ?? '')),
                         fit: BoxFit.fill)
                     : null),
+            child: _selectedImage == null
+                ? Center(
+                    child: Container(
+                      child: Icon(
+                        Icons.camera_alt,
+                        size: 100,
+                        color: AclColors.grey,
+                      ),
+                    ),
+                  )
+                : null,
           ),
           const SizedBox(height: 5),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(widget.readOnly?AclColors.grey:AclColors.blueDark)),
+                  backgroundColor: MaterialStateProperty.all(
+                      widget.readOnly ? AclColors.grey : AclColors.blueButton)),
               onPressed: () {
                 if (!widget.readOnly) {
                   _showPicker(context);
@@ -116,19 +128,21 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
               child: const Text("Ambil Gambar"),
             ),
           ),
-         if(_selectedImage != null) SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(widget.readOnly?AclColors.grey:AclColors.jingga)),
-              onPressed: () {
-                if (!widget.readOnly) {
-                  _deleteImage();
-                }
-              },
-              child: const Text("Hapus"),
+          if (_selectedImage != null)
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        widget.readOnly ? AclColors.grey : AclColors.jingga)),
+                onPressed: () {
+                  if (!widget.readOnly) {
+                    _deleteImage();
+                  }
+                },
+                child: const Text("Hapus"),
+              ),
             ),
-          ),
         ],
       ),
     );

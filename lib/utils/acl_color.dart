@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 class AclColors {
-  static const Color red = Color(0xFFD12B34);
+  static const Color red = Color(0xFFF4511E);
   static const Color primer = Color(0xFF75B3EB);
   static const Color bgPoin = Color(0xFF6EC4FA);
   static const Color primerSoft = Color(0xFFE1EEFA);
@@ -24,9 +24,9 @@ class AclColors {
   static const Color periwinkle = Color(0xFF8775B8);
   static const Color rosePink = Color(0xFFFF9999);
   static const Color blackBack = Color(0xFF2B3A42);
-  static const Color blueDark = Color(0xFF3B8AD2);
-  static const Color blueClipper = Color(0xFF69A4DB);
-  static const Color blueBorder = Color(0xFFE1EEFA);
+  static const Color primaryBlue = Color(0xFF003781);
+  static const Color blueButton = Color(0xFF69A4DB);
+  static const Color blueBorder = Color(0xFF007AB3);
   static const Color greenMight = Color(0xFF65E3C5);
   static const Color purple = Color(0xFF8775B8);
   static const Color blueCircle = Color(0xFFA6CFF5);

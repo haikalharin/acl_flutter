@@ -1,12 +1,16 @@
 import 'package:acl_flutter/core/widget/text_input.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/acl_color.dart';
+
 class DateTimePickerForm extends StatefulWidget {
   const DateTimePickerForm(
       {Key? key,
       required this.selectedDateTime,
       this.dateTime,
       this.label,
+      this.title,
+      this.errorText,
       this.validator,
       this.isMandatory = true,
       this.readOnly = false,
@@ -16,6 +20,8 @@ class DateTimePickerForm extends StatefulWidget {
   final void Function(DateTime date) selectedDateTime;
   final DateTime? dateTime;
   final Widget? label;
+  final String? title;
+  final String? errorText;
   final bool isMandatory;
   final bool readOnly;
   final TextEditingController? controller;
@@ -33,7 +39,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
   void initState() {
     if (widget.dateTime == null) {
       date = DateTime.now();
-      dateString = widget.controller??TextEditingController(text: "");
+      dateString = widget.controller ?? TextEditingController(text: "");
     } else {
       date = widget.dateTime!;
       dateString.value = TextEditingValue(
@@ -106,20 +112,57 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
           DateTime? newDate = await pickDate();
           setDate(newDate);
           setState(() {
-            dateString.text = "${date.day} / ${date.month} / ${date.year}";
-            dateString.value = TextEditingValue(
-                text: "${date.day} / ${date.month} / ${date.year}");
+            if (newDate != null) {
+              dateString.text = "${newDate.day} / ${newDate.month} / ${newDate.year}";
+              dateString.value = TextEditingValue(
+                  text: "${newDate.day} / ${newDate.month} / ${newDate.year}");
+            }
           });
         }
       },
-      child: TextInput(
-        controller: dateString,
-        icon: const Icon(Icons.date_range_rounded),
-        enabled: false,
-        isMandatory: widget.isMandatory,
-        label: widget.label,
-        validator: widget.validator,
-        onChanged: (value){},
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                  margin: const EdgeInsets.only(left: 15),
+                  child: Text(widget.title ?? '',
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        color: AclColors.greyDarkFontColor,
+                      ))),
+              Container(
+                  margin: const EdgeInsets.only(left: 5, bottom: 5),
+                  child: const Text(
+                    '*',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: AclColors.red,
+                    ),
+                  )),
+              Container(
+                  margin: const EdgeInsets.only(left: 5, bottom: 5),
+                  child: Text(
+                    widget.errorText ?? '',
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      color: AclColors.red,
+                    ),
+                  ))
+            ],
+          ),
+          const SizedBox(height: 5),
+          TextInput(
+            controller: dateString,
+            icon: const Icon(Icons.date_range_rounded),
+            enabled: false,
+            isMandatory: false,
+            label: widget.label,
+            validator: widget.validator,
+            onChanged: (value) {},
+          ),
+        ],
       ),
     );
   }

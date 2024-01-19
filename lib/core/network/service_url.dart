@@ -6,10 +6,10 @@ class ServiceUrl {
   static String listNotify = "${subHost}notification/getPushNotificationListAuth";
   static String masterData = "${subHost}startup/init-cores";
   static String listTracking = "${subHost}restcandidate/getCandidateTracking";
-  static String addRegisterCandidate = "${subHost}restcandidate/registrationCandidateStart";
   static String getCandidateData = "${subHost}restcandidate/getCandidateData";
-  static String addRegisterCandidateDoc = "${subHost}AclDms/uploadDoc";
-  static String addRegisterCandidateFolderDoc = "${subHost}AclDms/createFolder";
-  static String addSepouseCandidate = "${subHost}restcandidate/insertFamilyCard";
+  static String addRegisterCandidate = "${subHost}restcandidate/registrationCandidateStart";
   static String submitPendingSimpleChecking = "${subHost}restcandidate/submitPendingSimpleChecking";
+  static String addRegisterCandidateFolderDoc = "${subHost}AclDms/createFolder";
+  static String addRegisterCandidateDoc = "${subHost}AclDms/uploadDoc";
+  static String addSepouseCandidate = "${subHost}restcandidate/insertFamilyCard";
 }

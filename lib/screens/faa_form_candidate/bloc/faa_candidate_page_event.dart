@@ -12,6 +12,76 @@ class FetchCandidateDataEvent extends FaaCandidatePageEvent {
   FetchCandidateDataEvent(this.candidateId);
 }
 
+class TabTypeInputEvent extends FaaCandidatePageEvent {
+  final TabType tabType;
+
+  TabTypeInputEvent(this.tabType);
+}
+
+class CheckEmployeeInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  CheckEmployeeInputEvent(this.value);
+}
+class UnitNameExperienceInputEvent extends FaaCandidatePageEvent {
+  final String unitName;
+
+  UnitNameExperienceInputEvent(this.unitName);
+}
+class LastDepartmentExperienceInputEvent extends FaaCandidatePageEvent {
+  final String lastDepartment;
+
+  LastDepartmentExperienceInputEvent(this.lastDepartment);
+}
+class DirectLeaderExperienceInputEvent extends FaaCandidatePageEvent {
+  final String leader;
+
+  DirectLeaderExperienceInputEvent(this.leader);
+}
+
+class RecentStatusEmployeeExperienceInputEvent extends FaaCandidatePageEvent {
+  final String status;
+
+  RecentStatusEmployeeExperienceInputEvent(this.status);
+}
+
+class CompanyNameExperienceInputEvent extends FaaCandidatePageEvent {
+  final String companyName;
+
+  CompanyNameExperienceInputEvent(this.companyName);
+}
+class CompanyTypeExperienceInputEvent extends FaaCandidatePageEvent {
+  final String companyType;
+
+  CompanyTypeExperienceInputEvent(this.companyType);
+}
+class DepartmentExperienceInputEvent extends FaaCandidatePageEvent {
+  final String department;
+
+  DepartmentExperienceInputEvent(this.department);
+}
+
+class StartWorkingExperienceInputEvent extends FaaCandidatePageEvent {
+  final DateTime startWorking;
+
+  StartWorkingExperienceInputEvent(this.startWorking);
+}
+class EndWorkingExperienceInputEvent extends FaaCandidatePageEvent {
+  final DateTime endWorking;
+
+  EndWorkingExperienceInputEvent(this.endWorking);
+}
+
+class CheckStillWorkingInputEvent extends FaaCandidatePageEvent {
+  final bool? isCheck;
+
+  CheckStillWorkingInputEvent([this.isCheck= false]);
+}
+
+class AddWorkingExperienceEvent extends FaaCandidatePageEvent {
+  AddWorkingExperienceEvent();
+}
+
 class FirstNameInputEvent extends FaaCandidatePageEvent {
   final String firstName;
 

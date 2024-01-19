@@ -76,7 +76,7 @@ class _DropDownGenderState extends State<DropDownGender> {
                       '*',
                       style: TextStyle(
                         fontSize: 12.0,
-                        color: AclColors.redAccent,
+                        color: AclColors.red,
                       ),
                     ))
                 : Container(),
@@ -86,7 +86,7 @@ class _DropDownGenderState extends State<DropDownGender> {
                   widget.errorText ?? '',
                   style: const TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 ))
           ],
@@ -159,7 +159,7 @@ class _DropDownGenderState extends State<DropDownGender> {
                     },
                     value: initialItem,
                     hint: "Pilih",
-                    searchHint: "Select one",
+                    searchHint: "Pilih salah satu",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       initialItem = value;

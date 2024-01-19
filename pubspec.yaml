@@ -132,6 +132,20 @@ flutter:
           weight: 400
         - asset: assets/fonts/Roboto-Thin.ttf
           weight: 100
+    - family: NeoSansPro
+      fonts:
+        - asset: assets/fonts/NeoSansPro-Black.OTF
+          weight: 900
+        - asset: assets/fonts/NeoSansPro-Bold.OTF
+          weight: 700
+        - asset: assets/fonts/NeoSansPro-Light.OTF
+          weight: 300
+        - asset: assets/fonts/NeoSansPro-Medium.OTF
+          weight: 500
+        - asset: assets/fonts/NeoSansPro-Regular.OTF
+          weight: 400
+        - asset: assets/fonts/NeoSansPro-Light.OTF
+          weight: 100
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

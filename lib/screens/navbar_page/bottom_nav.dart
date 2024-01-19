@@ -65,7 +65,7 @@ class _NavbarPageState extends State<NavbarPage> with TickerProviderStateMixin {
   Widget _bottomNavigatorBar({int? indexSelected}) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: AclColors.blueDark,
+      selectedItemColor: AclColors.primaryBlue,
       unselectedItemColor: Colors.black,
       showUnselectedLabels: true,
       currentIndex: indexSelected ?? 0,

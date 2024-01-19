@@ -80,11 +80,6 @@ class _SideBarPageState extends State<SideBarPage> {
             appBar: AppBar(
               title: _widgetOptions[selectedIndex],
               actions: [
-                PopupMenu<UserStatus>(
-                  icon: Icons.filter_list_outlined,
-                  items: UserStatus.values,
-                  onChanged: (value) {},
-                ),
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pushNamed(Routes.addAgentPage);
@@ -92,6 +87,11 @@ class _SideBarPageState extends State<SideBarPage> {
                   child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       child: const Icon(Icons.add)),
+                ),
+                PopupMenu<UserStatus>(
+                  icon: Icons.filter_list_outlined,
+                  items: UserStatus.values,
+                  onChanged: (value) {},
                 ),
               ],
             ),
@@ -114,7 +114,7 @@ class _SideBarPageState extends State<SideBarPage> {
                       ),
                     ),
                     decoration: const BoxDecoration(
-                      color: AclColors.blueDark,
+                      color: AclColors.primaryBlue,
                       image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage(

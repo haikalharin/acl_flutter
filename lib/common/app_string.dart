@@ -19,8 +19,9 @@ class AppString {
   static const internalServerError = "Internal server error";
   static const badGateway = "Bad gateway";
 
-  static const appFont = "Roboto";
+  static const appFont = "NeoSansPro";
 
-
-
+  static const textExperience =
+      "Apakah anda pernah bekerja sebagai Agen/Leader "
+      "di PT Asuransi Allianz Life Indonesia/PT Asuransi Allianz Life Syariah Indonesia?";
 }

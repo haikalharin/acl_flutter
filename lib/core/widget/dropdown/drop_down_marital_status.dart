@@ -71,7 +71,7 @@ class _DropDownMaritalStatusState extends State<DropDownMaritalStatus> {
                   '*',
                   style: TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 )),
             Container(
@@ -80,7 +80,7 @@ class _DropDownMaritalStatusState extends State<DropDownMaritalStatus> {
                   widget.errorText ?? '',
                   style: const TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 ))
           ],
@@ -153,7 +153,7 @@ class _DropDownMaritalStatusState extends State<DropDownMaritalStatus> {
                     },
                     value: initialItem,
                     hint: "Pilih",
-                    searchHint: "Select one",
+                    searchHint: "Pilih salah satu",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       initialItem = value;

@@ -1,7 +1,22 @@
 part of 'faa_candidate_page_bloc.dart';
 
-class FaaCandidatePageState extends Equatable with FormzMixin {
+class FaaCandidatePageState with FormzMixin {
   final FormzSubmissionStatus submitStatus;
+  final TabType tabType;
+  final MandatoryFieldValidator checkIsEmployee;
+  final MandatoryFieldValidator unitName;
+  final MandatoryFieldValidator lastDepartment;
+  final MandatoryFieldValidator directLeader;
+  final MandatoryFieldValidator recentStatus;
+  final MandatoryFieldValidator companyName;
+  final MandatoryFieldValidator companyType;
+  final MandatoryFieldValidator department;
+  final bool checkedStillWorking;
+  final MandatoryFieldValidator startWorking;
+  final DateTime? startWorkingDate;
+  final MandatoryFieldValidator endWorking;
+  final DateTime? endWorkingDate;
+  final AddCompanyModel? addCompanyModel;
   final MandatoryFieldValidator firstName;
   final MandatoryFieldValidator middleName;
   final MandatoryFieldValidator lastName;
@@ -48,10 +63,28 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
   final bool checkedNeedValueAAUI;
   final bool checkedValueAAUI;
   final bool checkedValueMarriage;
+  final bool isJustAddExperience;
   final String? message;
+  final AddCompanyModel? addEducationModel;
 
-  const FaaCandidatePageState({
+  const FaaCandidatePageState( {
     this.message = '',
+    this.tabType = TabType.private,
+    this.unitName = const MandatoryFieldValidator.pure(),
+    this.lastDepartment = const MandatoryFieldValidator.pure(),
+    this.directLeader = const MandatoryFieldValidator.pure(),
+    this.recentStatus = const MandatoryFieldValidator.pure(),
+    this.checkIsEmployee = const MandatoryFieldValidator.pure(),
+    this.companyName = const MandatoryFieldValidator.pure(),
+    this.companyType = const MandatoryFieldValidator.pure(),
+    this.department = const MandatoryFieldValidator.pure(),
+    this.checkedStillWorking = false,
+    this.startWorking = const MandatoryFieldValidator.pure(),
+    this.startWorkingDate,
+    this.endWorking = const MandatoryFieldValidator.pure(),
+    this.endWorkingDate,
+    this.addCompanyModel,
+    this.isJustAddExperience = false,
     this.firstName = const MandatoryFieldValidator.pure(),
     this.middleName = const MandatoryFieldValidator.pure(),
     this.lastName = const MandatoryFieldValidator.pure(),
@@ -98,117 +131,61 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
     this.checkedNeedValueAAUI = false,
     this.checkedValueAAUI = false,
     this.checkedValueMarriage = false,
+    this.addEducationModel,
     this.submitStatus = FormzSubmissionStatus.initial,
   });
 
   @override
-  List<Object?> get props => [
-        firstName,
-        submitStatus,
-        firstName,
-        middleName,
-        lastName,
-        dob,
-        identityNo,
-        identityImage,
-        identitySelfieImage,
-        kkNo,
-        kkImage,
-        address,
-        rtRw,
-        kecKel,
-        postalCode,
-        country,
-        countryId,
-        province,
-        provinceId,
-        city,
-        cityId,
-        occupation,
-        occupationId,
-        noLicenceAAJI,
-        imageLicenceAAJI,
-        noLicenceAASI,
-        imageLicenceAASI,
-        noLicenceAAUI,
-        imageLicenceAAUI,
-        firstNamePartner,
-        middleNamePartner,
-        lastNamePartner,
-        dobPartner,
-        identityNoPartner,
-        gender,
-        genderId,
-        relation,
-        relationId,
-        moveTo,
-        masterDataModel,
-        candidateModel,
-        candidateDataModel,
-        candidateRegisterModel,
-        checkedValueAAJI,
-        checkedValueAASI,
-        checkedNeedValueAAUI,
-        checkedValueAAUI,
-        checkedValueMarriage,
-        message,
-      ];
-
-  @override
   List<FormzInput> get inputs {
-    List<FormzInput> data = [
-      firstName,
-      identityNo,
-      countryId,
-      provinceId,
-      cityId,
-      occupationId,
-      identityImage,
-      kkImage,
-      identitySelfieImage
-    ];
-    if (checkedValueAAJI) {
-      data.add(noLicenceAAJI);
-      data.add(imageLicenceAAJI);
-    } else {
-      data.remove(noLicenceAAJI);
-      data.remove(imageLicenceAAJI);
-    }
+    List<FormzInput> data = [];
 
-    if (checkedValueAASI) {
-      data.add(noLicenceAASI);
-      data.add(imageLicenceAASI);
+    if (tabType == TabType.experience) {
+      if (isJustAddExperience) {
+        data.clear();
+        data.add(companyName);
+        data.add(companyType);
+        data.add(department);
+        data.add(startWorking);
+        data.add(endWorking);
+      } else {
+        data.clear();
+        data.add(companyName);
+        data.add(companyType);
+        data.add(department);
+        data.add(startWorking);
+        data.add(endWorking);
+        data.add(checkIsEmployee);
+        data.add(unitName);
+        data.add(lastDepartment);
+        data.add(directLeader);
+        data.add(recentStatus);
+      }
+    } else if (tabType == TabType.education) {
+      data.clear();
     } else {
-      data.remove(noLicenceAASI);
-      data.remove(imageLicenceAASI);
-    }
-
-    if (checkedValueAAUI) {
-      data.add(noLicenceAAUI);
-      data.add(imageLicenceAAUI);
-    } else {
-      data.remove(noLicenceAAUI);
-      data.remove(imageLicenceAAUI);
-    }
-
-    if (checkedValueMarriage) {
-      data.add(firstNamePartner);
-      data.add(identityNoPartner);
-      data.add(dobPartner);
-      data.add(genderId);
-      data.add(relationId);
-    } else {
-      data.remove(firstNamePartner);
-      data.remove(identityNoPartner);
-      data.remove(dobPartner);
-      data.remove(genderId);
-      data.remove(relationId);
+      data.clear();
     }
     return data;
   }
 
   FaaCandidatePageState copyWith({
     String? message,
+    TabType? tabType,
+    bool? isJustAddExperience,
+    MandatoryFieldValidator? checkIsEmployee,
+     MandatoryFieldValidator? unitName,
+     MandatoryFieldValidator? lastDepartment,
+     MandatoryFieldValidator? directLeader,
+    MandatoryFieldValidator? recentStatus,
+    MandatoryFieldValidator? companyName,
+    MandatoryFieldValidator? companyType,
+    MandatoryFieldValidator? department,
+    bool? checkedStillWorking,
+    MandatoryFieldValidator? startWorking,
+    DateTime? startWorkingDate,
+    MandatoryFieldValidator? endWorking,
+    DateTime? endWorkingDate,
+    AddCompanyModel? addCompanyModel,
     MandatoryFieldValidator? firstName,
     MandatoryFieldValidator? middleName,
     MandatoryFieldValidator? lastName,
@@ -255,10 +232,27 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
     CandidateModel? candidateModel,
     CandidateRegisterModel? candidateRegisterModel,
     CandidateDataModel? candidateDataModel,
+    AddCompanyModel? addEducationModel,
     FormzSubmissionStatus? submitStatus,
   }) {
     return FaaCandidatePageState(
       message: message,
+      isJustAddExperience: isJustAddExperience ?? this.isJustAddExperience,
+      tabType: tabType ?? this.tabType,
+      checkIsEmployee: checkIsEmployee ?? this.checkIsEmployee,
+      unitName: unitName ?? this.unitName,
+      lastDepartment: lastDepartment ?? this.lastDepartment,
+      directLeader: directLeader ?? this.directLeader,
+      recentStatus: recentStatus ?? this.recentStatus,
+      companyName: companyName ?? this.companyName,
+      companyType: companyType ?? this.companyType,
+      department: department ?? this.department,
+      checkedStillWorking: checkedStillWorking ?? this.checkedStillWorking,
+      startWorking: startWorking ?? this.startWorking,
+      startWorkingDate: startWorkingDate ?? this.startWorkingDate,
+      endWorking: endWorking ?? this.endWorking,
+      endWorkingDate: endWorkingDate ?? this.endWorkingDate,
+      addCompanyModel: addCompanyModel ?? this.addCompanyModel,
       firstName: firstName ?? this.firstName,
       middleName: middleName ?? this.middleName,
       lastName: lastName ?? this.lastName,
@@ -306,9 +300,35 @@ class FaaCandidatePageState extends Equatable with FormzMixin {
       checkedNeedValueAAUI: checkedNeedValueAAUI ?? this.checkedNeedValueAAUI,
       checkedValueAAUI: checkedValueAAUI ?? this.checkedValueAAUI,
       checkedValueMarriage: checkedValueMarriage ?? this.checkedValueMarriage,
+      addEducationModel: addEducationModel ?? this.addEducationModel,
       submitStatus: submitStatus ?? this.submitStatus,
     );
   }
 }
 
 class AddAgentPageInitial extends FaaCandidatePageState {}
+
+class AddCompanyModel {
+  AddCompanyModel({
+    this.companyName,
+    this.companyType,
+    this.department,
+    this.checkedStillWorking,
+    this.startWorking,
+    this.startWorkingDate,
+    this.endWorking,
+    this.endWorkingDate,
+  });
+
+  String? companyName;
+  String? companyType;
+  String? department;
+  bool? checkedStillWorking;
+  String? startWorking;
+  DateTime? startWorkingDate;
+  String? endWorking;
+  DateTime? endWorkingDate;
+
+}
+
+enum TabType { private, experience, education }

@@ -72,7 +72,7 @@ class _DropDownDepartmentState extends State<DropDownDepartment> {
                   '*',
                   style: TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 )),
             Container(
@@ -81,7 +81,7 @@ class _DropDownDepartmentState extends State<DropDownDepartment> {
                   widget.errorText ?? '',
                   style: const TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.redAccent,
+                    color: AclColors.red,
                   ),
                 ))
           ],
@@ -154,7 +154,7 @@ class _DropDownDepartmentState extends State<DropDownDepartment> {
                     },
                     value: initialItem,
                     hint: "Pilih",
-                    searchHint: "Select one",
+                    searchHint: "Pilih salah satu",
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                         initialItem = value;

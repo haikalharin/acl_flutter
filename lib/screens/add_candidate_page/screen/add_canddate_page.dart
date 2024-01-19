@@ -174,7 +174,12 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           DateTimePickerForm(
-                            label: const Text("Tanggal lahir"),
+                            label: const Text("Pilih Tanggal"),
+                            title: "Tanggal lahir",
+                            errorText: isCheck == true &&
+                                state.dob.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                             selectedDateTime: (DateTime date) {
                               var dateTime =
                                   "${date.year}-${date.month}-${date.day}";
@@ -273,7 +278,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                       '*',
                                       style: TextStyle(
                                         fontSize: 12.0,
-                                        color: AclColors.redAccent,
+                                        color: AclColors.red,
                                       ),
                                     ))
                               ],
@@ -880,7 +885,12 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           DateTimePickerForm(
                             controller: dobSpouse,
-                            label: const Text("Tanggal lahir pasangan"),
+                            label: const Text("Pilih Tanggal"),
+                            title: "Tanggal lahir pasangan",
+                            errorText: isCheck == true &&
+                                state.dobPartner.isNotValid
+                                ? 'Mohon diisi'
+                                : null,
                             isMandatory: checkedValueMarriage,
                             readOnly: !checkedValueMarriage,
                             selectedDateTime: (DateTime date) {
