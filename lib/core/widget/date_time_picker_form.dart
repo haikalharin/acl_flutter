@@ -155,7 +155,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
           const SizedBox(height: 5),
           TextInput(
             controller: dateString,
-            icon: const Icon(Icons.date_range_rounded),
+            icon: const Icon(Icons.date_range),
             enabled: false,
             isMandatory: false,
             label: widget.label,

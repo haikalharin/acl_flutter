@@ -207,8 +207,8 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                           ),
                                           title: Text(
                                             widget.isMyCandidate
-                                                ? "${state.listAgentModel?[index].firstName} ${state.listAgentModel?[index].middleName} ${state.listAgentModel?[index].lastName ?? ''}"
-                                                : "${state.listAgentBeModel?[index].firstName} ${state.listAgentBeModel?[index].middleName} ${state.listAgentBeModel?[index].lastName ?? ''}",
+                                                ? "${state.listAgentModel?[index].firstName} ${state.listAgentModel?[index].middleName??''} ${state.listAgentModel?[index].lastName ?? ''}"
+                                                : "${state.listAgentBeModel?[index].firstName} ${state.listAgentBeModel?[index].middleName??''} ${state.listAgentBeModel?[index].lastName ?? ''}",
                                             style: const TextStyle(
                                                 color: AclColors.primaryBlue),
                                           ),
@@ -231,7 +231,7 @@ class _ListCandidatePageState extends State<ListCandidatePage> {
                                               const SizedBox(
                                                 height: 2,
                                               ),
-                                              Text('FAA: $faaDate'),
+                                              faaDate != ''?Text('FAA: $faaDate'):Container(),
                                             ],
                                           ),
                                         ),

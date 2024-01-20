@@ -14,6 +14,7 @@ import '../../../../core/router/routes.dart';
 import '../../../../core/widget/button_widget.dart';
 import '../../../../core/widget/dropdown/drop_down_marital_status.dart';
 import '../../../../core/widget/dropdown/drop_down_string.dart';
+import '../../../../core/widget/dropdown/drop_down_string_underline.dart';
 import '../../../../core/widget/text_input.dart';
 import '../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../di.dart';
@@ -51,66 +52,140 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const SizedBox(height: 8),
-                            state.addCompanyModel != null
+                            state.addCompanyModel != null &&
+                                    state.addCompanyModel?.companyType != null
                                 ? Card(
                                     margin: const EdgeInsets.all(16.0),
                                     child: Container(
                                       padding: const EdgeInsets.all(16.0),
                                       width: MediaQuery.of(context).size.width,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(state.addCompanyModel
-                                                  ?.companyName ??
-                                              ''),
-                                          const SizedBox(
-                                            height: 8,
+                                          Container(
+                                            margin: EdgeInsets.only(right: 8),
+                                            padding: EdgeInsets.all(4),
+                                            decoration: const BoxDecoration(
+                                                color: AclColors.primaryBlue,
+                                                shape: BoxShape.circle),
+                                            child: const Center(
+                                              child: Icon(
+                                                Icons.chrome_reader_mode_outlined,
+                                                color: Colors.white,
+                                                size: 24,
+                                              ),
+                                            ),
                                           ),
-                                          Text(
-                                              '${state.addCompanyModel?.startWorkingDate?.year ?? ''}-'
-                                              '${state.addCompanyModel?.endWorkingDate?.year ?? ''}'),
-                                          const SizedBox(
-                                            height: 8,
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(state.addCompanyModel
+                                                        ?.companyName ??
+                                                    ''),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Text(
+                                                    '${state.addCompanyModel?.startWorkingDate?.year ?? ''}-'
+                                                    '${state.addCompanyModel?.endWorkingDate?.year ?? ''}'),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    InkWell(
+                                                        onTap: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AddWorkExperienceDialog(
+                                                                onCancelPressed:
+                                                                    () => Navigator
+                                                                        .pop(
+                                                                            context),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        child: const Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.create,
+                                                              size: 14,
+                                                              color: AclColors
+                                                                  .green,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2,
+                                                            ),
+                                                            Text('Ubah'),
+                                                          ],
+                                                        )),
+                                                    SizedBox(
+                                                      width: 16,
+                                                    ),
+                                                    InkWell(
+                                                        onTap: () {
+                                                          getIt<FaaCandidatePageBloc>().add(
+                                                              AddWorkingExperienceEvent(
+                                                                  isDelete:
+                                                                      true));
+                                                        },
+                                                        child: Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Container(
+                                                              decoration: const BoxDecoration(
+                                                                  color:
+                                                                      AclColors
+                                                                          .red,
+                                                                  shape: BoxShape
+                                                                      .circle),
+                                                              child:
+                                                                  const Center(
+                                                                child: Icon(
+                                                                  Icons.close,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 12,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2,
+                                                            ),
+                                                            Text('Hapus'),
+                                                          ],
+                                                        ))
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 16.0),
+                                                // Spacer
+                                              ],
+                                            ),
                                           ),
-                                          Row(
-                                            children: [
-                                              InkWell(
-                                                  onTap: () {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return AddWorkExperienceDialog(
-                                                          title:
-                                                              "Pengalaman Kerja",
-                                                          onCancelPressed: () =>
-                                                              Navigator.pop(
-                                                                  context),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Text('Ubah')),
-                                              Text('Hapus')
-                                            ],
-                                          ),
-                                          const SizedBox(height: 16.0),
-                                          // Spacer
                                         ],
                                       ),
                                     ),
                                   )
                                 : ButtonWidgetCustom(
-                                    text: "Tambah",
+                                    text: "Tambah Pekerjaan",
                                     backgroudColor: AclColors.greyDivider,
-                                    textColor: AclColors.black,
+                                    textColor: AclColors.greyDarkFontColor,
                                     function: () {
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
                                           return AddWorkExperienceDialog(
-                                            title: "Pengalaman Kerja",
                                             onCancelPressed: () =>
                                                 Navigator.pop(context),
                                           );
@@ -118,9 +193,16 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                       );
                                     },
                                   ),
-                            const SizedBox(height: 8),
-                            DropDownString(
+                            const SizedBox(height: 16),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Divider(),
+                            ),
+                            const SizedBox(height: 16),
+                            DropDownStringUnderline(
                               title: AppString.textExperience,
+                              displayClearIcon: false,
                               icon: const Icon(
                                 Icons.add_chart,
                                 color: AclColors.greyDarkFontColor,
@@ -130,11 +212,11 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                     .add(CheckEmployeeInputEvent(value));
                               },
                               initialItem: 'Tidak',
-                              items: const ['Ya','Tidak'],
-                              errorText: isCheck &&
-                                      state.checkIsEmployee.isNotValid
-                                  ? 'Mohon diisi'
-                                  : null,
+                              items: const ['Ya', 'Tidak'],
+                              errorText:
+                                  isCheck && state.checkIsEmployee.isNotValid
+                                      ? 'Mohon diisi'
+                                      : null,
                             ),
                             state.checkIsEmployee.value.isNotEmpty &&
                                     state.checkIsEmployee.value == 'Ya'
@@ -142,7 +224,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                     children: [
                                       const SizedBox(height: 8),
                                       TextInput(
-                                        icon: const Icon(Icons.person),
+                                        icon: const Icon(Icons.maps_home_work),
                                         label: const Text("Nama Unit"),
                                         // initialValue: postTitle,
                                         validator: (String? value) {
@@ -157,7 +239,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                       ),
                                       const SizedBox(height: 8),
                                       TextInput(
-                                        icon: const Icon(Icons.person),
+                                        icon: const Icon(Icons.account_circle),
                                         label: const Text("Jabatan Terakhir"),
                                         // initialValue: postTitle,
                                         validator: (String? value) {
@@ -196,7 +278,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                           return DropDownGeneral(
                                             title: 'Status saat ini',
                                             icon: const Icon(
-                                              Icons.account_balance_rounded,
+                                              Icons.group,
                                               color:
                                                   AclColors.greyDarkFontColor,
                                             ),
@@ -237,7 +319,8 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                                     ?.masterReference ??
                                                 [],
                                             errorText: isCheck == true &&
-                                                    state.recentStatus.isNotValid
+                                                    state
+                                                        .recentStatus.isNotValid
                                                 ? 'Mohon diisi'
                                                 : null,
                                           );

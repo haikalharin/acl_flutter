@@ -1,56 +1,48 @@
+import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/master_data_model/master_data_model.dart';
-import '../../../screens/sidebar_page/sidebar_page.dart';
 
-class DropDownString extends StatefulWidget {
-  const DropDownString(
+class DropDownGeneralSecond extends StatefulWidget {
+  const DropDownGeneralSecond(
       {Key? key,
         required this.onChanged,
         required this.items,
-        this.onClear,
         this.initialItem,
         this.lable,
         this.title,
         this.icon,
         this.errorText,
-        this.isMandatory = true,
-        this.displayClearIcon = true,
-        this.readOnly = false,
-        this.isCheck = false})
+        this.readOnly = false})
       : super(key: key);
 
-  final ValueChanged<String> onChanged;
-  final Function? onClear;
-  final List<String> items;
-  final String? initialItem;
+  final ValueChanged<CityMasterReference> onChanged;
+  final List<CityMasterReference> items;
+  final CityMasterReference? initialItem;
   final Widget? lable;
   final String? title;
   final String? errorText;
   final Icon? icon;
-  final bool isMandatory;
   final bool readOnly;
-  final bool isCheck;
-  final bool displayClearIcon;
 
   @override
-  State<DropDownString> createState() =>
-      _DropDownStringState(initialItem);
+  State<DropDownGeneralSecond> createState() =>
+      _DropDownGeneralSecondState(initialItem);
 }
 
-class _DropDownStringState extends State<DropDownString> {
-  String? initialItem;
+class _DropDownGeneralSecondState extends State<DropDownGeneralSecond> {
+  CityMasterReference? initialItem;
   bool isInit = true;
 
-  _DropDownStringState(this.initialItem);
+  _DropDownGeneralSecondState(this.initialItem);
 
   @override
-  void didUpdateWidget(DropDownString oldWidget) {
-    if(isInit) {
+  void didUpdateWidget(DropDownGeneralSecond oldWidget) {
+    if (isInit) {
       if (initialItem != widget.initialItem) {
-        widget.onChanged(widget.initialItem ?? '');
+        widget.onChanged(widget.initialItem ?? CityMasterReference());
         setState(() {
           initialItem = widget.initialItem;
           isInit = false;
@@ -67,44 +59,31 @@ class _DropDownStringState extends State<DropDownString> {
       children: [
         Row(
           children: [
-            Expanded(
-              child: Container(
-                  margin: const EdgeInsets.only(left: 15),
-                  child: RichText(
-                    textAlign: TextAlign.start,
-                    maxLines: 5,
-                    text: TextSpan(
-                      // Note: Styles for TextSpans must be explicitly defined.
-                      // Child text spans will inherit styles from parent
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.black,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: widget.title ?? '',
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                              color: AclColors.greyDarkFontColor,
-                            )),
-                        widget.isMandatory
-                            ? const TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: AclColors.red,
-                                ))
-                            : const TextSpan(),
-                        TextSpan(
-                            text: widget.errorText ?? '',
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            color: AclColors.red,
-                          ),),
-                      ],
-                    ),
-                  )),
-            ),
+            Container(
+                margin: const EdgeInsets.only(left: 15),
+                child: Text(widget.title ?? '',
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      color: AclColors.greyDarkFontColor,
+                    ))),
+            Container(
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
+                child: const Text(
+                  '*',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: AclColors.red,
+                  ),
+                )),
+            Container(
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
+                child: Text(
+                  widget.errorText ?? '',
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    color: AclColors.red,
+                  ),
+                ))
           ],
         ),
         const SizedBox(height: 5),
@@ -130,25 +109,22 @@ class _DropDownStringState extends State<DropDownString> {
                   // width: 200,
                   child: SearchChoices.single(
                     readOnly: widget.readOnly,
-                    displayClearIcon: widget.displayClearIcon,
                     underline: DropdownButtonHideUnderline(child: Container()),
                     items: widget.items
                         .map(
-                          (item) =>
-                          DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              language == Language.indonesia
-                                  ? item
-                                  : item,
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
+                          (item) => DropdownMenuItem<CityMasterReference>(
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
                     )
                         .toList(),
                     searchFn: (String keyword,
-                        List<DropdownMenuItem<String>>
-                        items) {
+                        List<DropdownMenuItem<CityMasterReference>> items) {
                       List<int> ret = [];
                       if (keyword.isNotEmpty) {
                         keyword.split(" ").forEach((k) {
@@ -157,11 +133,11 @@ class _DropDownStringState extends State<DropDownString> {
                             if (!ret.contains(i) &&
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
-                                    ? item.value!
+                                    ? item.value!.longDescriptionInd!
                                     .toString()
                                     .toLowerCase()
                                     .contains(k.toLowerCase())
-                                    : item.value!
+                                    : item.value!.longDescriptionEng!
                                     .toString()
                                     .toLowerCase()
                                     .contains(k.toLowerCase()))) {
@@ -179,14 +155,14 @@ class _DropDownStringState extends State<DropDownString> {
                     value: initialItem,
                     hint: "Pilih",
                     searchHint: "Pilih salah satu",
-                    onChanged: (String value) {
+                    onChanged: (CityMasterReference value) {
                       widget.onChanged(value);
                       initialItem = value;
                       isInit = false;
                     },
                     onClear: () {
-                      widget.onChanged('');
-                      initialItem = '';
+                      widget.onChanged(CityMasterReference());
+                      initialItem = CityMasterReference();
                       isInit = false;
                     },
                     isExpanded: true,

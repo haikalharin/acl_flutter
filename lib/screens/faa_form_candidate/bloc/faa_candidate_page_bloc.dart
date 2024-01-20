@@ -38,7 +38,8 @@ class FaaCandidatePageBloc
     on<UnitNameExperienceInputEvent>(unitNameExperienceInput);
     on<LastDepartmentExperienceInputEvent>(lastDepartmentExperienceInput);
     on<DirectLeaderExperienceInputEvent>(directLeaderExperienceInput);
-    on<RecentStatusEmployeeExperienceInputEvent>(recentStatusEmployeeExperienceInput);
+    on<RecentStatusEmployeeExperienceInputEvent>(
+        recentStatusEmployeeExperienceInput);
     on<CompanyNameExperienceInputEvent>(companyNameExperienceInput);
     on<CompanyTypeExperienceInputEvent>(companyTypeExperienceInput);
     on<DepartmentExperienceInputEvent>(departmentExperienceInput);
@@ -156,6 +157,7 @@ class FaaCandidatePageBloc
       checkIsEmployee: value,
     ));
   }
+
   Future<void> unitNameExperienceInput(UnitNameExperienceInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.unitName);
@@ -163,21 +165,27 @@ class FaaCandidatePageBloc
       unitName: value,
     ));
   }
-  Future<void> lastDepartmentExperienceInput(LastDepartmentExperienceInputEvent event,
+
+  Future<void> lastDepartmentExperienceInput(
+      LastDepartmentExperienceInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.lastDepartment);
     emit(state.copyWith(
       lastDepartment: value,
     ));
   }
-  Future<void> directLeaderExperienceInput(DirectLeaderExperienceInputEvent event,
+
+  Future<void> directLeaderExperienceInput(
+      DirectLeaderExperienceInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.leader);
     emit(state.copyWith(
       directLeader: value,
     ));
   }
-  Future<void> recentStatusEmployeeExperienceInput(RecentStatusEmployeeExperienceInputEvent event,
+
+  Future<void> recentStatusEmployeeExperienceInput(
+      RecentStatusEmployeeExperienceInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.status);
     emit(state.copyWith(
@@ -248,33 +256,45 @@ class FaaCandidatePageBloc
       isJustAddExperience: true,
       submitStatus: FormzSubmissionStatus.inProgress,
     ));
-    if (state.isValid) {
-      try {
-        final value = AddCompanyModel(
-          companyName: state.companyName.value,
-          companyType: state.companyType.value,
-          department: state.department.value,
-          checkedStillWorking: state.checkedStillWorking,
-          startWorking: state.startWorking.value,
-          startWorkingDate: state.startWorkingDate,
-          endWorking: state.endWorking.value,
-          endWorkingDate: state.endWorkingDate,
-        );
-        emit(state.copyWith(
-          addCompanyModel: value,
-          isJustAddExperience: false,
-          message: 'success-add-experience',
-          submitStatus: FormzSubmissionStatus.success,
-        ));
-      } catch (e) {
+    if (event.isDelete) {
+      emit(state.copyWith(
+        addCompanyModel: AddCompanyModel(),
+        companyName: MandatoryFieldValidator.pure(),
+        unitName: MandatoryFieldValidator.pure(),
+        department: MandatoryFieldValidator.pure(),
+        startWorking: MandatoryFieldValidator.pure(),
+        endWorking: MandatoryFieldValidator.pure(),
+        submitStatus: FormzSubmissionStatus.success,
+      ));
+    } else {
+      if (state.isValid) {
+        try {
+          final value = AddCompanyModel(
+            companyName: state.companyName.value,
+            companyType: state.companyType.value,
+            department: state.department.value,
+            checkedStillWorking: state.checkedStillWorking,
+            startWorking: state.startWorking.value,
+            startWorkingDate: state.startWorkingDate,
+            endWorking: state.endWorking.value,
+            endWorkingDate: state.endWorkingDate,
+          );
+          emit(state.copyWith(
+            addCompanyModel: value,
+            isJustAddExperience: false,
+            message: 'success-add-experience',
+            submitStatus: FormzSubmissionStatus.success,
+          ));
+        } catch (e) {
+          emit(state.copyWith(
+            submitStatus: FormzSubmissionStatus.failure,
+          ));
+        }
+      } else {
         emit(state.copyWith(
           submitStatus: FormzSubmissionStatus.failure,
         ));
       }
-    } else {
-      emit(state.copyWith(
-        submitStatus: FormzSubmissionStatus.failure,
-      ));
     }
   }
 

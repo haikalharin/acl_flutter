@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.person_add_alt_1_sharp,color: AclColors.primaryBlue,),
+                            Icon(Icons.group,color: AclColors.primaryBlue,),
                             Text(AppLocalizations.of(context)!.myRecruitment,
                                 style: const TextStyle(color: AclColors.primaryBlue)),
                           ],

@@ -79,7 +79,8 @@ class CheckStillWorkingInputEvent extends FaaCandidatePageEvent {
 }
 
 class AddWorkingExperienceEvent extends FaaCandidatePageEvent {
-  AddWorkingExperienceEvent();
+  final bool isDelete;
+  AddWorkingExperienceEvent({this.isDelete = false});
 }
 
 class FirstNameInputEvent extends FaaCandidatePageEvent {

@@ -1,4 +1,6 @@
 import 'package:acl_flutter/core/widget/date_time_picker.dart';
+import 'package:acl_flutter/core/widget/dropdown/drop_down_general.dart';
+import 'package:acl_flutter/core/widget/dropdown/drop_down_general_second.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
@@ -9,12 +11,15 @@ import 'package:formz/formz.dart';
 import '../../../../../core/widget/button_widget.dart';
 import '../../../../../core/widget/custom_check.dart';
 import '../../../../../core/widget/date_time_picker_form.dart';
+import '../../../../../core/widget/dropdown/drop_down_relation.dart';
+import '../../../../../core/widget/dropdown/drop_down_string.dart';
 import '../../../../../core/widget/spinkit_indicator.dart';
 import '../../../../../core/widget/text_input.dart';
+import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 
-class AddWorkExperienceDialog extends StatefulWidget {
-  const AddWorkExperienceDialog(
+class AddEducationDialog extends StatefulWidget {
+  const AddEducationDialog(
       {Key? key,
       required this.onCancelPressed,
       this.onRetryPressed})
@@ -24,11 +29,11 @@ class AddWorkExperienceDialog extends StatefulWidget {
   final VoidCallback? onCancelPressed;
 
   @override
-  State<AddWorkExperienceDialog> createState() =>
-      _AddWorkExperienceDialogState();
+  State<AddEducationDialog> createState() =>
+      _AddEducationDialogState();
 }
 
-class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
+class _AddEducationDialogState extends State<AddEducationDialog> {
   bool checkedValueStillWorking = false;
   bool isCheck = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -53,7 +58,7 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                 title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Tambah Pekerjaan"),
+                      const Text("Tambah Pendidikan"),
                       InkWell(
                           onTap: () {
                             Navigator.pop(context);
@@ -76,10 +81,32 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                         child: Column(
                           children: <Widget>[
                             const SizedBox(height: 8),
+                            DropDownGeneralSecond(
+                              title: 'Jenjang',
+                              icon: const Icon(
+                                Icons.add_chart,
+                                color: AclColors.greyDarkFontColor,
+                              ),
+                              onChanged: (CityMasterReference value) {
+                              },
+                              items: state
+                                  .masterDataModel
+                                  ?.masterData
+                                  ?.masterReferenceAll
+                                  ?.educationtype
+                                  ?.masterReference ??
+                                  [],
+                              errorText: isCheck &&
+                                  state.relationId.isNotValid
+                                  ? 'Mohon diisi'
+                                  : null,
+                            ),
+
+                            const SizedBox(height: 8),
                             TextInput(
                               initialValue: state.addCompanyModel?.companyName,
                               icon: const Icon(Icons.person),
-                              label: const Text("Nama perusahaan"),
+                              label: const Text("Nama Sekolah/kursus"),
                               // initialValue: postTitle,
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
@@ -94,24 +121,10 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                             TextInput(
                               initialValue: state.addCompanyModel?.companyType,
                               icon: const Icon(Icons.work),
-                              label: const Text("Jenis perusahaan"),
+                              label: const Text("Keterangan"),
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>().add(
                                     CompanyTypeExperienceInputEvent(value));
-                              },
-                              validator: (String? value) {
-                                if (value!.isNotEmpty) return null;
-                                return "Mohon diisi";
-                              },
-                            ),
-                            const SizedBox(height: 8),
-                            TextInput(
-                              initialValue: state.addCompanyModel?.department,
-                              icon: const Icon(Icons.maps_home_work_outlined),
-                              label: const Text("jabatan"),
-                              onChanged: (String value) {
-                                getIt<FaaCandidatePageBloc>()
-                                    .add(DepartmentExperienceInputEvent(value));
                               },
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
@@ -128,7 +141,7 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                                         )
                                       : null,
                               label: const Text("Pilih Tanggal"),
-                              title: "Mulai masa bekerja",
+                              title: "Mulai masa belajar",
                               errorText: isCheck == true &&
                                       state.startWorking.isNotValid
                                   ? 'Mohon diisi'
@@ -142,31 +155,10 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                                 return "Mohon diisi";
                               },
                             ),
-                            const SizedBox(height: 8),
-                            BlocBuilder<FaaCandidatePageBloc,
-                                FaaCandidatePageState>(
-                              builder: (context, state) {
-                                return CustomCheck(
-                                  lable: const Text("Masih Bekerja"),
-                                  initialItem: checkedValueStillWorking,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      checkedValueStillWorking = newValue;
-                                    });
-                                    var date = DateTime.now();
-                                    getIt<FaaCandidatePageBloc>().add(
-                                        EndWorkingExperienceInputEvent(date));
-                                    getIt<FaaCandidatePageBloc>().add(
-                                        CheckStillWorkingInputEvent(newValue));
-                                  },
-                                );
-                              },
-                            ),
-                            !checkedValueStillWorking
-                                ? const SizedBox(height: 8)
-                                : Container(),
-                            !checkedValueStillWorking
-                                ? DateTimePickerForm(
+
+                             const SizedBox(height: 8),
+
+                           DateTimePickerForm(
                                     dateTime: state
                                                 .addCompanyModel?.endWorking !=
                                             null
@@ -176,7 +168,7 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                                           )
                                         : null,
                                     label: const Text("Pilih Tanggal"),
-                                    title: "Berakhir masa bekerja",
+                                    title: "Berakhir masa belajar",
                                     errorText: isCheck == true &&
                                             state.endWorking.isNotValid
                                         ? 'Mohon diisi'
@@ -189,8 +181,26 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                                       if (value!.isNotEmpty) return null;
                                       return "Mohon diisi";
                                     },
-                                  )
-                                : Container(),
+                                  ),
+                            const SizedBox(height: 8),
+                            DropDownString(
+                              title: 'selesai',
+                              displayClearIcon: false,
+                              icon: const Icon(
+                                Icons.add_chart,
+                                color: AclColors.greyDarkFontColor,
+                              ),
+                              onChanged: (String value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(CheckEmployeeInputEvent(value));
+                              },
+                              // initialItem: 'Tidak',
+                              items: const ['Ya', 'Tidak'],
+                              errorText:
+                              isCheck && state.checkIsEmployee.isNotValid
+                                  ? 'Mohon diisi'
+                                  : null,
+                            ),
                             const SizedBox(height: 8),
                           ],
                         ),

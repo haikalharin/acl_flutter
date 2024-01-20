@@ -17,6 +17,7 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator endWorking;
   final DateTime? endWorkingDate;
   final AddCompanyModel? addCompanyModel;
+  final AddEducationModel? addEducationModel;
   final MandatoryFieldValidator firstName;
   final MandatoryFieldValidator middleName;
   final MandatoryFieldValidator lastName;
@@ -65,7 +66,6 @@ class FaaCandidatePageState with FormzMixin {
   final bool checkedValueMarriage;
   final bool isJustAddExperience;
   final String? message;
-  final AddCompanyModel? addEducationModel;
 
   const FaaCandidatePageState( {
     this.message = '',
@@ -147,18 +147,16 @@ class FaaCandidatePageState with FormzMixin {
         data.add(department);
         data.add(startWorking);
         data.add(endWorking);
-      } else {
+      } else if (checkIsEmployee.value == 'Ya') {
         data.clear();
-        data.add(companyName);
-        data.add(companyType);
-        data.add(department);
-        data.add(startWorking);
-        data.add(endWorking);
         data.add(checkIsEmployee);
         data.add(unitName);
         data.add(lastDepartment);
         data.add(directLeader);
         data.add(recentStatus);
+      } else{
+        data.clear();
+        data.add(checkIsEmployee);
       }
     } else if (tabType == TabType.education) {
       data.clear();
@@ -232,7 +230,7 @@ class FaaCandidatePageState with FormzMixin {
     CandidateModel? candidateModel,
     CandidateRegisterModel? candidateRegisterModel,
     CandidateDataModel? candidateDataModel,
-    AddCompanyModel? addEducationModel,
+    AddEducationModel? addEducationModel,
     FormzSubmissionStatus? submitStatus,
   }) {
     return FaaCandidatePageState(
@@ -331,4 +329,27 @@ class AddCompanyModel {
 
 }
 
+class AddEducationModel {
+  AddEducationModel({
+    this.level,
+    this.schoolName,
+    this.description,
+    this.startLearning,
+    this.startLearningDate,
+    this.endLearning,
+    this.endLearningDate,
+    this.endStatus,
+  });
+
+  String? level;
+  String? schoolName;
+  String? description;
+  String? startLearning;
+  DateTime? startLearningDate;
+  String? endLearning;
+  DateTime? endLearningDate;
+  String? endStatus;
+
+
+}
 enum TabType { private, experience, education }

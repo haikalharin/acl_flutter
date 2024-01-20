@@ -1,24 +1,22 @@
+import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/master_data_model/master_data_model.dart';
-import '../../../screens/sidebar_page/sidebar_page.dart';
 
 class DropDownGeneral extends StatefulWidget {
-  DropDownGeneral({
-    Key? key,
-    required this.onChanged,
-    required this.items,
-    this.initialItem,
-    this.isInit = true,
-    this.lable,
-    this.title,
-    this.icon,
-    this.errorText,
-    this.readOnly = false,
-    this.isMandatory = true,
-  }) : super(key: key);
+  const DropDownGeneral(
+      {Key? key,
+        required this.onChanged,
+        required this.items,
+        this.initialItem,
+        this.lable,
+        this.title,
+        this.icon,
+        this.errorText,
+        this.readOnly = false})
+      : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
   final List<AajicityMasterReference> items;
@@ -27,28 +25,27 @@ class DropDownGeneral extends StatefulWidget {
   final String? title;
   final String? errorText;
   final Icon? icon;
-  final bool isMandatory;
   final bool readOnly;
-  bool isInit;
 
   @override
-  State<DropDownGeneral> createState() => _DropDownGeneralState(initialItem);
+  State<DropDownGeneral> createState() =>
+      _DropDownGeneralState(initialItem);
 }
 
 class _DropDownGeneralState extends State<DropDownGeneral> {
   AajicityMasterReference? initialItem;
-  // bool isInit = true;
+  bool isInit = true;
 
   _DropDownGeneralState(this.initialItem);
 
   @override
   void didUpdateWidget(DropDownGeneral oldWidget) {
-    if (widget.isInit) {
+    if (isInit) {
       if (initialItem != widget.initialItem) {
         widget.onChanged(widget.initialItem ?? AajicityMasterReference());
         setState(() {
           initialItem = widget.initialItem;
-          widget.isInit = false;
+          isInit = false;
         });
       }
     }
@@ -69,17 +66,15 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
-            widget.isMandatory
-                ? Container(
-                    margin: const EdgeInsets.only(left: 5, bottom: 5),
-                    child: const Text(
-                      '*',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: AclColors.red,
-                      ),
-                    ))
-                : Container(),
+            Container(
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
+                child: const Text(
+                  '*',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: AclColors.red,
+                  ),
+                )),
             Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(
@@ -118,15 +113,15 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                     items: widget.items
                         .map(
                           (item) => DropdownMenuItem<AajicityMasterReference>(
-                            value: item,
-                            child: Text(
-                              language == Language.indonesia
-                                  ? item.longDescriptionInd ?? ''
-                                  : item.longDescriptionEng ?? '',
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                          ),
-                        )
+                        value: item,
+                        child: Text(
+                          language == Language.indonesia
+                              ? item.longDescriptionInd ?? ''
+                              : item.longDescriptionEng ?? '',
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    )
                         .toList(),
                     searchFn: (String keyword,
                         List<DropdownMenuItem<AajicityMasterReference>> items) {
@@ -139,13 +134,13 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                                 k.isNotEmpty &&
                                 (language == Language.indonesia
                                     ? item.value!.longDescriptionInd!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase())
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase())
                                     : item.value!.longDescriptionEng!
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(k.toLowerCase()))) {
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(k.toLowerCase()))) {
                               ret.add(i);
                             }
                             i++;
@@ -163,12 +158,12 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                     onChanged: (AajicityMasterReference value) {
                       widget.onChanged(value);
                       initialItem = value;
-                      widget.isInit = false;
+                      isInit = false;
                     },
                     onClear: () {
                       widget.onChanged(AajicityMasterReference());
                       initialItem = AajicityMasterReference();
-                      widget.isInit = false;
+                      isInit = false;
                     },
                     isExpanded: true,
                   ),

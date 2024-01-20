@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/faa_candidate_page_bloc.dart';
+import '../expansion_widget/private/aasi_data.dart';
 import '../expansion_widget/private/appendix_data.dart';
 import '../expansion_widget/private/npwp_and_bank_data.dart';
 import '../expansion_widget/private/source_of_recruiting_information.dart';
@@ -36,6 +37,8 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
         HeirsData(formKey: formKey),
         const SizedBox(height: 8),
         AajiData(formKey: formKey),
+        const SizedBox(height: 8),
+        AasiData(formKey: formKey),
         const SizedBox(height: 8),
         NpwpAndBankData(formKey: formKey),
         const SizedBox(height: 8),
