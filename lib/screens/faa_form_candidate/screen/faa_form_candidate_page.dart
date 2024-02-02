@@ -18,7 +18,7 @@ import '../bloc/faa_candidate_page_bloc.dart';
 
 enum Mode { create, update }
 
-bool isSuccesPrivateTab = false;
+bool isSuccesPrivateTab = true;
 bool isSuccesWorkExperienceTab = false;
 bool isSuccesEducationTab = false;
 
@@ -42,7 +42,7 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
   @override
   void initState() {
     super.initState();
-    isSuccesPrivateTab = false;
+    isSuccesPrivateTab = true;
     isSuccesWorkExperienceTab = false;
     isSuccesEducationTab = false;
     _tabController = TabController(length: 3, vsync: this);
@@ -51,7 +51,7 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
 
   @override
   void dispose() {
-    isSuccesPrivateTab = false;
+    isSuccesPrivateTab = true;
     isSuccesWorkExperienceTab = false;
     isSuccesEducationTab = false;
     super.dispose();
