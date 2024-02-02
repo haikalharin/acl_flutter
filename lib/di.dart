@@ -1,16 +1,20 @@
 import 'package:acl_flutter/core/network/dio_client.dart';
 import 'package:acl_flutter/core/network/dio_client_new.dart';
-import 'package:acl_flutter/data/api/candidate/add_register_candidate_api.dart';
-import 'package:acl_flutter/data/api/candidate/pending_simple_checking.dart';
-import 'package:acl_flutter/data/api/comment/comment_api.dart';
-import 'package:acl_flutter/data/api/document/document_api.dart';
-import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
-import 'package:acl_flutter/data/api/notify/notify_api.dart';
-import 'package:acl_flutter/data/api/post/post_api.dart';
-import 'package:acl_flutter/data/api/spouse/sepouse_api.dart';
-import 'package:acl_flutter/data/api/todo/todo_api.dart';
-import 'package:acl_flutter/data/api/user/user_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate/add_register_candidate_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate/start_process_instance_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_education_candidate_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_work_eexperience_candidate_api.dart';
+import 'package:acl_flutter/data/remote_data_source/comment/comment_api.dart';
+import 'package:acl_flutter/data/remote_data_source/document/document_api.dart';
+import 'package:acl_flutter/data/remote_data_source/master_data/master_data_api.dart';
+import 'package:acl_flutter/data/remote_data_source/notify/notify_api.dart';
+import 'package:acl_flutter/data/remote_data_source/post/post_api.dart';
+import 'package:acl_flutter/data/remote_data_source/spouse/sepouse_api.dart';
+import 'package:acl_flutter/data/remote_data_source/todo/todo_api.dart';
+import 'package:acl_flutter/data/remote_data_source/user/user_api.dart';
 import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart';
+import 'package:acl_flutter/data/repository/candidate_faa_repository/candidate_faa_repository.dart';
 import 'package:acl_flutter/myApp.dart';
 import 'package:acl_flutter/screens/add_candidate_page/bloc/add_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/detail_candidate/bloc/detail_candidate_page_bloc.dart';
@@ -19,18 +23,16 @@ import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
 import 'package:acl_flutter/screens/splashscreen_page/bloc/splash_screen_bloc.dart';
-import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
-import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
 import 'package:acl_flutter/viewmodel/comment/bloc/comment_bloc.dart';
 import 'package:acl_flutter/viewmodel/post/bloc/post_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-import 'data/api/candidate/candiate_be_api.dart';
-import 'data/api/candidate/candidate_api.dart';
-import 'data/api/candidate/get_candidate_data_api.dart';
-import 'data/api/candidate/tracking_candidate_api.dart';
-import 'data/api/login/login_api.dart';
+import 'data/remote_data_source/candidate/candiate_be_api.dart';
+import 'data/remote_data_source/candidate/candidate_api.dart';
+import 'data/remote_data_source/candidate/get_candidate_data_api.dart';
+import 'data/remote_data_source/candidate/tracking_candidate_api.dart';
+import 'data/remote_data_source/login/login_api.dart';
 import 'data/repository/comment/comment_repository.dart';
 import 'data/repository/login/login_repository.dart';
 import 'data/repository/notification/notification_repository.dart';
@@ -44,11 +46,12 @@ Future<void> init() async {
   //Dio
   getIt.registerLazySingleton<Dio>(() => Dio());
 
-  getIt.registerLazySingleton<Dio>(() => Dio(),instanceName: 'specialDio');
+  getIt.registerLazySingleton<Dio>(() => Dio(), instanceName: 'specialDio');
 
   getIt.registerLazySingleton<DioClient>(() => DioClient(getIt<Dio>()));
 
-  getIt.registerLazySingleton<DioClientNew>(() => DioClientNew(getIt<Dio>(instanceName: 'specialDio')));
+  getIt.registerLazySingleton<DioClientNew>(
+      () => DioClientNew(getIt<Dio>(instanceName: 'specialDio')));
 
   // User api
   getIt.registerLazySingleton<UserApi>(
@@ -107,7 +110,19 @@ Future<void> init() async {
 
   // GetCandidateData api
   getIt.registerLazySingleton<GetCandidateDataApi>(
-          () => GetCandidateDataApi(dioClient: getIt<DioClient>()));
+      () => GetCandidateDataApi(dioClient: getIt<DioClient>()));
+
+  // StartProcessInstance api
+  getIt.registerLazySingleton<StartProcessInstanceApi>(
+      () => StartProcessInstanceApi(dioClient: getIt<DioClient>()));
+
+  // AddWorkExperienceCandidate api
+  getIt.registerLazySingleton<AddWorkExperienceCandidateApi>(
+      () => AddWorkExperienceCandidateApi(dioClient: getIt<DioClient>()));
+
+  // AddEducationeCandidate api
+  getIt.registerLazySingleton<AddEducationCandidateApi>(
+      () => AddEducationCandidateApi(dioClient: getIt<DioClient>()));
 
   // User repository
   getIt.registerLazySingleton<UserRepository>(
@@ -136,25 +151,30 @@ Future<void> init() async {
   // Agent repository
   getIt.registerLazySingleton<CandidateRepository>(
     () => CandidateRepository(
-        candidateApi: getIt<CandidateApi>(),
-        candidateBeApi: getIt<CandidateBeApi>(),
-        masterDataApi: getIt<MasterDataApi>(),
-        trackingCandidateApi: getIt<TrackingCandidateApi>(),
-        addRegisterCandidateApi: getIt<AddRegisterCandidateApi>(),
-        documentApi: getIt<DocumentApi>(),
-        addRegisterSepouseApi: getIt<AddRegisterSepouseApi>(),
-        getCandidateDataApi: getIt<GetCandidateDataApi>(),
-        pendingSimpleCheckingApi: getIt<PendingSimpleCheckingApi>()),
+      candidateApi: getIt<CandidateApi>(),
+      candidateBeApi: getIt<CandidateBeApi>(),
+      masterDataApi: getIt<MasterDataApi>(),
+      trackingCandidateApi: getIt<TrackingCandidateApi>(),
+      addRegisterCandidateApi: getIt<AddRegisterCandidateApi>(),
+      documentApi: getIt<DocumentApi>(),
+      addRegisterSepouseApi: getIt<AddRegisterSepouseApi>(),
+      getCandidateDataApi: getIt<GetCandidateDataApi>(),
+      pendingSimpleCheckingApi: getIt<PendingSimpleCheckingApi>(),
+      startProcessInstanceApi: getIt<StartProcessInstanceApi>(),
+    ),
+  );
+
+  // CandidateFaa repository
+  getIt.registerLazySingleton<CandidateFaaRepository>(
+    () => CandidateFaaRepository(
+        addWorkExperienceCandidateApi: getIt<AddWorkExperienceCandidateApi>(),
+        addEducationCandidateApi: getIt<AddEducationCandidateApi>()),
   );
 
   // Agent repository
   getIt.registerLazySingleton<NotificationRepository>(
     () => NotificationRepository(notifyApi: getIt<NotifyApi>()),
   );
-
-  //_Todo Bloc
-  getIt.registerLazySingleton(
-      () => TodoBloc(todoRepository: getIt<TodoRepository>()));
 
   //Post Bloc
   getIt.registerLazySingleton(
@@ -164,17 +184,13 @@ Future<void> init() async {
   getIt.registerLazySingleton(
       () => CommentBloc(commentRepository: getIt<CommentRepository>()));
 
-  //User Bloc
-  getIt.registerLazySingleton(
-      () => UserBloc(userRepository: getIt<UserRepository>()));
-
   //Login Bloc
   getIt.registerLazySingleton(
       () => LoginPageBloc(loginRepository: getIt<LoginRepository>()));
 
   //Home Bloc
   getIt.registerLazySingleton(() => HomePageBloc(
-      agentRepository: getIt<CandidateRepository>(),
+      candidateRepository: getIt<CandidateRepository>(),
       notificationRepository: getIt<NotificationRepository>()));
 
   //Splashscreen Bloc
@@ -196,5 +212,6 @@ Future<void> init() async {
 
   //faa candidate Bloc
   getIt.registerLazySingleton(() => FaaCandidatePageBloc(
-      candidateRepository: getIt<CandidateRepository>()));
+      candidateRepository: getIt<CandidateRepository>(),
+      candidateFaaRepository: getIt<CandidateFaaRepository>()));
 }

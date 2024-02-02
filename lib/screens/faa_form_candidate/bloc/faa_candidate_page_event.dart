@@ -3,6 +3,7 @@ part of 'faa_candidate_page_bloc.dart';
 @immutable
 abstract class FaaCandidatePageEvent {}
 
+
 class FetchMasterDataEvent extends FaaCandidatePageEvent {
   FetchMasterDataEvent();
 }
@@ -16,71 +17,6 @@ class TabTypeInputEvent extends FaaCandidatePageEvent {
   final TabType tabType;
 
   TabTypeInputEvent(this.tabType);
-}
-
-class CheckEmployeeInputEvent extends FaaCandidatePageEvent {
-  final String value;
-
-  CheckEmployeeInputEvent(this.value);
-}
-class UnitNameExperienceInputEvent extends FaaCandidatePageEvent {
-  final String unitName;
-
-  UnitNameExperienceInputEvent(this.unitName);
-}
-class LastDepartmentExperienceInputEvent extends FaaCandidatePageEvent {
-  final String lastDepartment;
-
-  LastDepartmentExperienceInputEvent(this.lastDepartment);
-}
-class DirectLeaderExperienceInputEvent extends FaaCandidatePageEvent {
-  final String leader;
-
-  DirectLeaderExperienceInputEvent(this.leader);
-}
-
-class RecentStatusEmployeeExperienceInputEvent extends FaaCandidatePageEvent {
-  final String status;
-
-  RecentStatusEmployeeExperienceInputEvent(this.status);
-}
-
-class CompanyNameExperienceInputEvent extends FaaCandidatePageEvent {
-  final String companyName;
-
-  CompanyNameExperienceInputEvent(this.companyName);
-}
-class CompanyTypeExperienceInputEvent extends FaaCandidatePageEvent {
-  final String companyType;
-
-  CompanyTypeExperienceInputEvent(this.companyType);
-}
-class DepartmentExperienceInputEvent extends FaaCandidatePageEvent {
-  final String department;
-
-  DepartmentExperienceInputEvent(this.department);
-}
-
-class StartWorkingExperienceInputEvent extends FaaCandidatePageEvent {
-  final DateTime startWorking;
-
-  StartWorkingExperienceInputEvent(this.startWorking);
-}
-class EndWorkingExperienceInputEvent extends FaaCandidatePageEvent {
-  final DateTime endWorking;
-
-  EndWorkingExperienceInputEvent(this.endWorking);
-}
-
-class CheckStillWorkingInputEvent extends FaaCandidatePageEvent {
-  final bool? isCheck;
-
-  CheckStillWorkingInputEvent([this.isCheck= false]);
-}
-
-class AddWorkingExperienceEvent extends FaaCandidatePageEvent {
-  final bool isDelete;
-  AddWorkingExperienceEvent({this.isDelete = false});
 }
 
 class FirstNameInputEvent extends FaaCandidatePageEvent {
@@ -297,4 +233,138 @@ class AddAgentDocSubmittedEvent extends FaaCandidatePageEvent {
 
 class FaaCandidatePageInitialEvent extends FaaCandidatePageEvent {
   FaaCandidatePageInitialEvent();
+}
+
+
+///Work Experience
+
+
+
+class CheckEmployeeInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  CheckEmployeeInputEvent([this.value ='tidak']);
+}
+class UnitNameExperienceInputEvent extends FaaCandidatePageEvent {
+  final String unitName;
+
+  UnitNameExperienceInputEvent(this.unitName);
+}
+class LastDepartmentExperienceInputEvent extends FaaCandidatePageEvent {
+  final String lastDepartment;
+
+  LastDepartmentExperienceInputEvent(this.lastDepartment);
+}
+class DirectLeaderExperienceInputEvent extends FaaCandidatePageEvent {
+  final String leader;
+
+  DirectLeaderExperienceInputEvent(this.leader);
+}
+
+
+class CompanyNameExperienceInputEvent extends FaaCandidatePageEvent {
+  final String companyName;
+
+  CompanyNameExperienceInputEvent(this.companyName);
+}
+class CompanyTypeExperienceInputEvent extends FaaCandidatePageEvent {
+  final String companyType;
+
+  CompanyTypeExperienceInputEvent(this.companyType);
+}
+class DepartmentExperienceInputEvent extends FaaCandidatePageEvent {
+  final String department;
+
+  DepartmentExperienceInputEvent(this.department);
+}
+
+class StartWorkingExperienceInputEvent extends FaaCandidatePageEvent {
+  final DateTime startWorking;
+
+  StartWorkingExperienceInputEvent(this.startWorking);
+}
+class EndWorkingExperienceInputEvent extends FaaCandidatePageEvent {
+  final DateTime endWorking;
+
+  EndWorkingExperienceInputEvent(this.endWorking);
+}
+
+class StatusEmployeeInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  StatusEmployeeInputEvent(this.value);
+}
+
+class CheckStillWorkingInputEvent extends FaaCandidatePageEvent {
+  final bool? isCheck;
+
+  CheckStillWorkingInputEvent([this.isCheck= false]);
+}
+
+class AddWorkingExperienceEvent extends FaaCandidatePageEvent {
+  final bool isDelete;
+  AddWorkingExperienceEvent({this.isDelete = false});
+}
+
+class SubmitWorkingExperienceEvent extends FaaCandidatePageEvent {
+  SubmitWorkingExperienceEvent();
+}
+
+
+///Education
+
+class EducationLevelInputEvent extends FaaCandidatePageEvent {
+  final CityMasterReference value;
+
+  EducationLevelInputEvent(this.value);
+}
+class EducationPlaceNameInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  EducationPlaceNameInputEvent(this.value);
+}
+class EducationDescriptionInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  EducationDescriptionInputEvent(this.value);
+}
+
+class EducationStartInputEvent extends FaaCandidatePageEvent {
+  final DateTime educationStart;
+
+  EducationStartInputEvent(this.educationStart);
+}
+class EducationEndInputEvent extends FaaCandidatePageEvent {
+  final DateTime educationEnd;
+
+  EducationEndInputEvent(this.educationEnd);
+}
+
+class EducationStatusInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  EducationStatusInputEvent(this.value);
+}
+
+class CheckStillLearnInputEvent extends FaaCandidatePageEvent {
+  final bool? isCheck;
+
+  CheckStillLearnInputEvent([this.isCheck= false]);
+}
+
+class AddEducationEvent extends FaaCandidatePageEvent {
+  final bool isDelete;
+  AddEducationEvent({this.isDelete = false});
+}
+
+class SubmitEducationEvent extends FaaCandidatePageEvent {
+  SubmitEducationEvent();
+}
+
+
+
+
+
+class  WorkExperienceCandidateInitialEvent extends FaaCandidatePageEvent {
+  WorkExperienceCandidateInitialEvent();
 }

@@ -1,36 +1,28 @@
-import 'package:acl_flutter/core/widget/date_time_picker.dart';
-import 'package:acl_flutter/core/widget/dropdown/drop_down_general.dart';
-import 'package:acl_flutter/core/widget/dropdown/drop_down_general_second.dart';
-import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
-import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
 import '../../../../../core/widget/button_widget.dart';
-import '../../../../../core/widget/custom_check.dart';
 import '../../../../../core/widget/date_time_picker_form.dart';
-import '../../../../../core/widget/dropdown/drop_down_relation.dart';
+import '../../../../../core/widget/dropdown/drop_down_general_second.dart';
 import '../../../../../core/widget/dropdown/drop_down_string.dart';
 import '../../../../../core/widget/spinkit_indicator.dart';
 import '../../../../../core/widget/text_input.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
+import '../../../bloc/faa_candidate_page_bloc.dart';
 
 class AddEducationDialog extends StatefulWidget {
   const AddEducationDialog(
-      {Key? key,
-      required this.onCancelPressed,
-      this.onRetryPressed})
+      {Key? key, required this.onCancelPressed, this.onRetryPressed})
       : super(key: key);
 
   final VoidCallback? onRetryPressed;
   final VoidCallback? onCancelPressed;
 
   @override
-  State<AddEducationDialog> createState() =>
-      _AddEducationDialogState();
+  State<AddEducationDialog> createState() => _AddEducationDialogState();
 }
 
 class _AddEducationDialogState extends State<AddEducationDialog> {
@@ -87,24 +79,38 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                                 Icons.add_chart,
                                 color: AclColors.greyDarkFontColor,
                               ),
-                              onChanged: (CityMasterReference value) {
-                              },
+                              initialItem: state.educationLevel != null &&
+                                      state.educationLevel?.id != 0
+                                  ? state
+                                      .masterDataModel
+                                      ?.masterData
+                                      ?.masterReferenceAll
+                                      ?.educationtype
+                                      ?.masterReference
+                                      ?.where((element) =>
+                                          element.id ==
+                                          (state.addEducationModel?.level ?? 0))
+                                      .toList()
+                                      .first
+                                  : null,
                               items: state
-                                  .masterDataModel
-                                  ?.masterData
-                                  ?.masterReferenceAll
-                                  ?.educationtype
-                                  ?.masterReference ??
+                                      .masterDataModel
+                                      ?.masterData
+                                      ?.masterReferenceAll
+                                      ?.educationtype
+                                      ?.masterReference ??
                                   [],
-                              errorText: isCheck &&
-                                  state.relationId.isNotValid
+                              errorText: isCheck && state.educationLevelId.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
+                              onChanged: (CityMasterReference value) {
+                                getIt<FaaCandidatePageBloc>().add(
+                                    EducationLevelInputEvent(value));
+                              },
                             ),
-
                             const SizedBox(height: 8),
                             TextInput(
-                              initialValue: state.addCompanyModel?.companyName,
+                              initialValue: state.addEducationModel?.schoolName,
                               icon: const Icon(Icons.person),
                               label: const Text("Nama Sekolah/kursus"),
                               // initialValue: postTitle,
@@ -114,17 +120,17 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                               },
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>().add(
-                                    CompanyNameExperienceInputEvent(value));
+                                    EducationPlaceNameInputEvent(value));
                               },
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              initialValue: state.addCompanyModel?.companyType,
+                              initialValue: state.addEducationModel?.description,
                               icon: const Icon(Icons.work),
                               label: const Text("Keterangan"),
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>().add(
-                                    CompanyTypeExperienceInputEvent(value));
+                                    EducationDescriptionInputEvent(value));
                               },
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
@@ -134,54 +140,51 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                             const SizedBox(height: 8),
                             DateTimePickerForm(
                               dateTime:
-                                  state.addCompanyModel?.startWorking != null
+                                  state.addEducationModel?.startLearning != null
                                       ? DateTime.parse(
-                                          state.addCompanyModel?.startWorking ??
+                                          state.addEducationModel?.startLearning ??
                                               '2020-01-01',
                                         )
                                       : null,
                               label: const Text("Pilih Tanggal"),
                               title: "Mulai masa belajar",
                               errorText: isCheck == true &&
-                                      state.startWorking.isNotValid
+                                      state.educationStart.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
                               selectedDateTime: (DateTime date) {
                                 getIt<FaaCandidatePageBloc>().add(
-                                    StartWorkingExperienceInputEvent(date));
+                                    EducationStartInputEvent(date));
                               },
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
                                 return "Mohon diisi";
                               },
                             ),
-
-                             const SizedBox(height: 8),
-
-                           DateTimePickerForm(
-                                    dateTime: state
-                                                .addCompanyModel?.endWorking !=
-                                            null
-                                        ? DateTime.parse(
-                                            state.addCompanyModel?.endWorking ??
-                                                '2020-01-01',
-                                          )
-                                        : null,
-                                    label: const Text("Pilih Tanggal"),
-                                    title: "Berakhir masa belajar",
-                                    errorText: isCheck == true &&
-                                            state.endWorking.isNotValid
-                                        ? 'Mohon diisi'
-                                        : null,
-                                    selectedDateTime: (DateTime date) {
-                                      getIt<FaaCandidatePageBloc>().add(
-                                          EndWorkingExperienceInputEvent(date));
-                                    },
-                                    validator: (String? value) {
-                                      if (value!.isNotEmpty) return null;
-                                      return "Mohon diisi";
-                                    },
-                                  ),
+                            const SizedBox(height: 8),
+                            DateTimePickerForm(
+                              dateTime:
+                                  state.addEducationModel?.endLearning != null
+                                      ? DateTime.parse(
+                                          state.addEducationModel?.endLearning ??
+                                              '2020-01-01',
+                                        )
+                                      : null,
+                              label: const Text("Pilih Tanggal"),
+                              title: "Berakhir masa belajar",
+                              errorText:
+                                  isCheck == true && state.educationEnd.isNotValid
+                                      ? 'Mohon diisi'
+                                      : null,
+                              selectedDateTime: (DateTime date) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(EducationEndInputEvent(date));
+                              },
+                              validator: (String? value) {
+                                if (value!.isNotEmpty) return null;
+                                return "Mohon diisi";
+                              },
+                            ),
                             const SizedBox(height: 8),
                             DropDownString(
                               title: 'selesai',
@@ -192,14 +195,14 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                               ),
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>()
-                                    .add(CheckEmployeeInputEvent(value));
+                                    .add(EducationStatusInputEvent(value));
                               },
-                              // initialItem: 'Tidak',
+                              initialItem: state.addEducationModel?.status,
                               items: const ['Ya', 'Tidak'],
                               errorText:
-                              isCheck && state.checkIsEmployee.isNotValid
-                                  ? 'Mohon diisi'
-                                  : null,
+                                  isCheck && state.checkIsEmployee.isNotValid
+                                      ? 'Mohon diisi'
+                                      : null,
                             ),
                             const SizedBox(height: 8),
                           ],
@@ -221,7 +224,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                     function: () {
                       if (formKey.currentState!.validate()) {
                         getIt<FaaCandidatePageBloc>()
-                            .add(AddWorkingExperienceEvent());
+                            .add(AddEducationEvent());
                       }
                       setState(() {
                         isCheck = true;

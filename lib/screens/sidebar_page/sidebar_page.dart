@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
 import '../../core/widget/popup_menu.dart';
 import '../../data/model/user/user.dart';
@@ -13,7 +12,6 @@ import '../../di.dart';
 import '../../myApp.dart';
 import '../../utils/acl_color.dart';
 import '../home_page/screen/home_page.dart';
-import '../user/user_list_screen.dart';
 
 enum Language { english, spanish, indonesia }
 
@@ -207,7 +205,6 @@ class _SideBarPageState extends State<SideBarPage> {
                     leading: const Icon(Icons.exit_to_app),
                     onTap: () {
                       SecureStorage().secureDeleteAll();
-                      AppSharedPreference.clear();
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         Routes.initialPage,
                         (Route<dynamic> route) => false,
@@ -229,7 +226,7 @@ class _SideBarPageState extends State<SideBarPage> {
       case 0:
         return const HomePage();
       case 1:
-        return const UserListScreen();
+        return const HomePage();
       case 2:
         return const HomePage();
       default:

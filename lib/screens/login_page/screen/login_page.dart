@@ -77,15 +77,6 @@ class _LoginPageScreenState extends State<LoginPage> {
             children: [
               BlocBuilder<LoginPageBloc, LoginPageState>(
                   builder: (context, state) {
-                // if(state.status.isLoading){
-                //   return const SpinKitIndicator(type: SpinKitType.circle);
-                // } else if(state.status.isError){
-                //   return RetryDialog(
-                //       title: 'username dan password salah',
-                //       onCancelPressed: () => viewModel.add(LoginPageInitialEvent()) ,
-                //       onRetryPressed: () =>
-                //           viewModel.add(LoginSubmittedEvent()));
-                // }
                 return Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Form(

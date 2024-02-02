@@ -92,15 +92,23 @@ class AddCandidatePageBloc
       loadingMessage: 'waiting-fetch-master',
     ));
     try {
-      final result = await candidateRepository.fetchMasterData();
-      result.when(success: (response) {
-        emit(state.copyWith(
-            masterDataModel: response.data,
-            loadingMessage: null,
-            submitStatus: FormzSubmissionStatus.success));
-      }, failure: (error) {
-        emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
-      });
+      MasterDataModel masterDataModel = await SecureStorage().getMasterData();
+      if (masterDataModel.masterData != null) {
+          emit(state.copyWith(
+              masterDataModel: masterDataModel,
+              loadingMessage: null,
+              submitStatus: FormzSubmissionStatus.success));
+      } else {
+        final result = await candidateRepository.fetchMasterData();
+        result.when(success: (response) {
+          emit(state.copyWith(
+              masterDataModel: response.data,
+              loadingMessage: null,
+              submitStatus: FormzSubmissionStatus.success));
+        }, failure: (error) {
+          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+        });
+      }
     } catch (error) {
       if (kDebugMode) {
         print(error);
@@ -606,13 +614,40 @@ class AddCandidatePageBloc
           ));
 
           await result.when(success: (response) async {
-            if (state.checkedValueMarriage) {
-              final result = await candidateRepository.addRegisterSepouse(
-                  RequestSepouseModel(
-                      candidateId: responseData.id.toString(),
-                      familyCardNo: state.kkNo.value,
-                      familyDetails: listFamiliDetail));
-              await result.when(success: (response) async {
+            final result = await candidateRepository
+                .startProcessInstance(responseData.id.toString());
+            await result.when(success: (response) async {
+              if (state.checkedValueMarriage) {
+                final result = await candidateRepository.addRegisterSepouse(
+                    RequestSepouseModel(
+                        candidateId: responseData.id.toString(),
+                        familyCardNo: state.kkNo.value,
+                        familyDetails: listFamiliDetail));
+                await result.when(success: (response) async {
+                  final result = await candidateRepository
+                      .addFolderDoc(responseData.id.toString());
+                  await result.when(success: (response) async {
+                    emit(state.copyWith(
+                        moveTo: Routes.userList,
+                        candidateRegisterModel: responseData,
+                        message: 'create-register',
+                        submitStatus: FormzSubmissionStatus.success));
+                  }, failure: (error) async {
+                    var message = error == AppString.forbidden
+                        ? 'session is over'
+                        : error;
+                    emit(state.copyWith(
+                        submitStatus: FormzSubmissionStatus.failure,
+                        message: message));
+                  });
+                }, failure: (error) async {
+                  var message =
+                      error == AppString.forbidden ? 'session is over' : error;
+                  emit(state.copyWith(
+                      submitStatus: FormzSubmissionStatus.failure,
+                      message: message));
+                });
+              } else {
                 final result = await candidateRepository
                     .addFolderDoc(responseData.id.toString());
                 await result.when(success: (response) async {
@@ -628,30 +663,14 @@ class AddCandidatePageBloc
                       submitStatus: FormzSubmissionStatus.failure,
                       message: message));
                 });
-              }, failure: (error) async {
-                var message =
-                    error == AppString.forbidden ? 'session is over' : error;
-                emit(state.copyWith(
-                    submitStatus: FormzSubmissionStatus.failure,
-                    message: message));
-              });
-            } else {
-              final result = await candidateRepository
-                  .addFolderDoc(responseData.id.toString());
-              await result.when(success: (response) async {
-                emit(state.copyWith(
-                    moveTo: Routes.userList,
-                    candidateRegisterModel: responseData,
-                    message: 'create-register',
-                    submitStatus: FormzSubmissionStatus.success));
-              }, failure: (error) async {
-                var message =
-                    error == AppString.forbidden ? 'session is over' : error;
-                emit(state.copyWith(
-                    submitStatus: FormzSubmissionStatus.failure,
-                    message: message));
-              });
-            }
+              }
+            }, failure: (error) async {
+              var message =
+                  error == AppString.forbidden ? 'session is over' : error;
+              emit(state.copyWith(
+                  submitStatus: FormzSubmissionStatus.failure,
+                  message: message));
+            });
           }, failure: (error) async {
             var message =
                 error == AppString.forbidden ? 'session is over' : error;

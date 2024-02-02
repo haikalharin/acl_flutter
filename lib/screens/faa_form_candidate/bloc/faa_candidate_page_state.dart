@@ -2,22 +2,8 @@ part of 'faa_candidate_page_bloc.dart';
 
 class FaaCandidatePageState with FormzMixin {
   final FormzSubmissionStatus submitStatus;
+  final String? message;
   final TabType tabType;
-  final MandatoryFieldValidator checkIsEmployee;
-  final MandatoryFieldValidator unitName;
-  final MandatoryFieldValidator lastDepartment;
-  final MandatoryFieldValidator directLeader;
-  final MandatoryFieldValidator recentStatus;
-  final MandatoryFieldValidator companyName;
-  final MandatoryFieldValidator companyType;
-  final MandatoryFieldValidator department;
-  final bool checkedStillWorking;
-  final MandatoryFieldValidator startWorking;
-  final DateTime? startWorkingDate;
-  final MandatoryFieldValidator endWorking;
-  final DateTime? endWorkingDate;
-  final AddCompanyModel? addCompanyModel;
-  final AddEducationModel? addEducationModel;
   final MandatoryFieldValidator firstName;
   final MandatoryFieldValidator middleName;
   final MandatoryFieldValidator lastName;
@@ -64,17 +50,58 @@ class FaaCandidatePageState with FormzMixin {
   final bool checkedNeedValueAAUI;
   final bool checkedValueAAUI;
   final bool checkedValueMarriage;
-  final bool isJustAddExperience;
-  final String? message;
 
-  const FaaCandidatePageState( {
+  ///Work Experience
+
+  final bool isJustAddExperience;
+  final MandatoryFieldValidator checkIsEmployee;
+  final MandatoryFieldValidator statusEmployee;
+  final MandatoryFieldValidator unitName;
+  final MandatoryFieldValidator lastDepartment;
+  final MandatoryFieldValidator directLeader;
+  final MandatoryFieldValidator companyName;
+  final MandatoryFieldValidator companyType;
+  final MandatoryFieldValidator department;
+  final bool checkedStillWorking;
+  final MandatoryFieldValidator startWorking;
+  final DateTime? startWorkingDate;
+  final MandatoryFieldValidator endWorking;
+  final DateTime? endWorkingDate;
+  final AddCompanyModel? addCompanyModel;
+
+  ///Education
+  final bool isJustAddEducation;
+  final AddEducationModel? addEducationModel;
+  final DropdownFieldValidator educationLevelId;
+  final CityMasterReference? educationLevel;
+  final MandatoryFieldValidator educationPlaceName;
+  final MandatoryFieldValidator educationDescription;
+  final MandatoryFieldValidator educationStatus;
+  final bool checkedStillLearning;
+  final MandatoryFieldValidator educationStart;
+  final DateTime? educationStartDate;
+  final MandatoryFieldValidator educationEnd;
+  final DateTime? educationEndDate;
+
+  const FaaCandidatePageState({
     this.message = '',
     this.tabType = TabType.private,
+    this.isJustAddEducation = false,
+    this.educationLevelId = const DropdownFieldValidator.pure(),
+    this.educationLevel,
+    this.educationPlaceName = const MandatoryFieldValidator.pure(),
+    this.educationDescription = const MandatoryFieldValidator.pure(),
+    this.educationStatus = const MandatoryFieldValidator.pure(),
+    this.educationStart = const MandatoryFieldValidator.pure(),
+    this.educationEnd = const MandatoryFieldValidator.pure(),
+    this.educationStartDate,
+    this.educationEndDate,
+    this.checkedStillLearning = false,
     this.unitName = const MandatoryFieldValidator.pure(),
     this.lastDepartment = const MandatoryFieldValidator.pure(),
     this.directLeader = const MandatoryFieldValidator.pure(),
-    this.recentStatus = const MandatoryFieldValidator.pure(),
     this.checkIsEmployee = const MandatoryFieldValidator.pure(),
+    this.statusEmployee = const MandatoryFieldValidator.pure(),
     this.companyName = const MandatoryFieldValidator.pure(),
     this.companyType = const MandatoryFieldValidator.pure(),
     this.department = const MandatoryFieldValidator.pure(),
@@ -153,13 +180,23 @@ class FaaCandidatePageState with FormzMixin {
         data.add(unitName);
         data.add(lastDepartment);
         data.add(directLeader);
-        data.add(recentStatus);
-      } else{
+        data.add(statusEmployee);
+      } else {
         data.clear();
         data.add(checkIsEmployee);
       }
     } else if (tabType == TabType.education) {
-      data.clear();
+      if (isJustAddEducation) {
+        data.clear();
+        data.add(educationLevelId);
+        data.add(educationPlaceName);
+        data.add(educationDescription);
+        data.add(educationStart);
+        data.add(educationEnd);
+        data.add(educationStatus);
+      }  else {
+        data.clear();
+      }
     } else {
       data.clear();
     }
@@ -170,11 +207,22 @@ class FaaCandidatePageState with FormzMixin {
     String? message,
     TabType? tabType,
     bool? isJustAddExperience,
+    bool? isJustAddEducation,
+    AddEducationModel? addEducationModel,
+    DropdownFieldValidator? educationLevelId,
+    CityMasterReference? educationLevel,
+    MandatoryFieldValidator? educationPlaceName,
+    MandatoryFieldValidator? educationDescription,
+    MandatoryFieldValidator? educationStatus,
+    MandatoryFieldValidator? educationStart,
+    DateTime? educationStartDate,
+    MandatoryFieldValidator? educationEnd,
+    DateTime? educationEndDate,
+    bool? checkedStillLearning,
     MandatoryFieldValidator? checkIsEmployee,
-     MandatoryFieldValidator? unitName,
-     MandatoryFieldValidator? lastDepartment,
-     MandatoryFieldValidator? directLeader,
-    MandatoryFieldValidator? recentStatus,
+    MandatoryFieldValidator? unitName,
+    MandatoryFieldValidator? lastDepartment,
+    MandatoryFieldValidator? directLeader,
     MandatoryFieldValidator? companyName,
     MandatoryFieldValidator? companyType,
     MandatoryFieldValidator? department,
@@ -230,18 +278,36 @@ class FaaCandidatePageState with FormzMixin {
     CandidateModel? candidateModel,
     CandidateRegisterModel? candidateRegisterModel,
     CandidateDataModel? candidateDataModel,
-    AddEducationModel? addEducationModel,
     FormzSubmissionStatus? submitStatus,
   }) {
+    // MandatoryFieldValidator? educationLevel,
+    //     MandatoryFieldValidator? educationPlaceName,
+    // MandatoryFieldValidator? educationDescription,
+    // MandatoryFieldValidator? educationStatus,
+    // MandatoryFieldValidator? educationStart,
+    // DateTime? educationStartDate,
+    // MandatoryFieldValidator? educationEnd,
+    // DateTime? educationEndDate,
     return FaaCandidatePageState(
       message: message,
       isJustAddExperience: isJustAddExperience ?? this.isJustAddExperience,
+      isJustAddEducation: isJustAddEducation ?? this.isJustAddEducation,
       tabType: tabType ?? this.tabType,
+      addEducationModel: addEducationModel ?? this.addEducationModel,
+      educationLevelId: educationLevelId ?? this.educationLevelId,
+      educationLevel: educationLevel ?? this.educationLevel,
+      educationPlaceName: educationPlaceName ?? this.educationPlaceName,
+      educationDescription: educationDescription ?? this.educationDescription,
+      educationStatus: educationStatus ?? this.educationStatus,
+      educationStart: educationStart ?? this.educationStart,
+      educationStartDate: educationStartDate ?? this.educationStartDate,
+      educationEnd: educationEnd ?? this.educationEnd,
+      educationEndDate: educationEndDate ?? this.educationEndDate,
+      checkedStillLearning: checkedStillLearning ?? this.checkedStillLearning,
       checkIsEmployee: checkIsEmployee ?? this.checkIsEmployee,
       unitName: unitName ?? this.unitName,
       lastDepartment: lastDepartment ?? this.lastDepartment,
       directLeader: directLeader ?? this.directLeader,
-      recentStatus: recentStatus ?? this.recentStatus,
       companyName: companyName ?? this.companyName,
       companyType: companyType ?? this.companyType,
       department: department ?? this.department,
@@ -298,7 +364,6 @@ class FaaCandidatePageState with FormzMixin {
       checkedNeedValueAAUI: checkedNeedValueAAUI ?? this.checkedNeedValueAAUI,
       checkedValueAAUI: checkedValueAAUI ?? this.checkedValueAAUI,
       checkedValueMarriage: checkedValueMarriage ?? this.checkedValueMarriage,
-      addEducationModel: addEducationModel ?? this.addEducationModel,
       submitStatus: submitStatus ?? this.submitStatus,
     );
   }
@@ -326,7 +391,6 @@ class AddCompanyModel {
   DateTime? startWorkingDate;
   String? endWorking;
   DateTime? endWorkingDate;
-
 }
 
 class AddEducationModel {
@@ -334,22 +398,23 @@ class AddEducationModel {
     this.level,
     this.schoolName,
     this.description,
+    this.checkedStillLearning,
     this.startLearning,
     this.startLearningDate,
     this.endLearning,
     this.endLearningDate,
-    this.endStatus,
+    this.status,
   });
 
-  String? level;
+  int? level;
   String? schoolName;
   String? description;
+  bool? checkedStillLearning;
   String? startLearning;
   DateTime? startLearningDate;
   String? endLearning;
   DateTime? endLearningDate;
-  String? endStatus;
-
-
+  String? status;
 }
+
 enum TabType { private, experience, education }

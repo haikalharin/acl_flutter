@@ -1,27 +1,17 @@
-import 'package:acl_flutter/common/app_string.dart';
-import 'package:acl_flutter/core/widget/dropdown/drop_down_gender.dart';
-import 'package:acl_flutter/core/widget/dropdown/drop_down_general.dart';
-import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
-import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/dialog/retry_dialog.dart';
-import '../../../../core/router/routes.dart';
 import '../../../../core/widget/button_widget.dart';
-import '../../../../core/widget/dropdown/drop_down_marital_status.dart';
-import '../../../../core/widget/dropdown/drop_down_string.dart';
-import '../../../../core/widget/text_input.dart';
-import '../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../di.dart';
+import '../../bloc/faa_candidate_page_bloc.dart';
 import '../expansion_widget/Education/add_education_dialog.dart';
-import '../expansion_widget/work_experience/add_work_experience_dialog.dart';
 
 class EducationDataPage extends StatefulWidget {
-  const EducationDataPage({super.key});
+  final TabController tabController;
+
+  const EducationDataPage({super.key, required this.tabController});
 
   @override
   State<EducationDataPage> createState() => _EducationDataPageState();
@@ -52,14 +42,16 @@ class _EducationDataPageState extends State<EducationDataPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const SizedBox(height: 8),
-                            state.addEducationModel != null && state.addEducationModel?.schoolName != null
+                            state.addCompanyModel != null &&
+                                    state.addCompanyModel?.companyName != null
                                 ? Card(
                                     margin: const EdgeInsets.all(16.0),
                                     child: Container(
                                       padding: const EdgeInsets.all(16.0),
                                       width: MediaQuery.of(context).size.width,
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Container(
                                             margin: EdgeInsets.only(right: 8),
@@ -69,13 +61,13 @@ class _EducationDataPageState extends State<EducationDataPage> {
                                                 shape: BoxShape.circle),
                                             child: const Center(
                                               child: Icon(
-                                                Icons.chrome_reader_mode_outlined,
+                                                Icons
+                                                    .chrome_reader_mode_outlined,
                                                 color: Colors.white,
                                                 size: 24,
                                               ),
                                             ),
                                           ),
-
                                           Expanded(
                                             child: Column(
                                               crossAxisAlignment:
@@ -99,12 +91,14 @@ class _EducationDataPageState extends State<EducationDataPage> {
                                                         onTap: () {
                                                           showDialog(
                                                             context: context,
-                                                            builder: (BuildContext
-                                                                context) {
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
                                                               return AddEducationDialog(
-                                                                onCancelPressed: () =>
-                                                                    Navigator.pop(
-                                                                        context),
+                                                                onCancelPressed:
+                                                                    () => Navigator
+                                                                        .pop(
+                                                                            context),
                                                               );
                                                             },
                                                           );
@@ -117,7 +111,8 @@ class _EducationDataPageState extends State<EducationDataPage> {
                                                             Icon(
                                                               Icons.create,
                                                               size: 14,
-                                                              color: AclColors.green,
+                                                              color: AclColors
+                                                                  .green,
                                                             ),
                                                             SizedBox(
                                                               width: 2,
@@ -130,11 +125,10 @@ class _EducationDataPageState extends State<EducationDataPage> {
                                                     ),
                                                     InkWell(
                                                         onTap: () {
-                                                          getIt<FaaCandidatePageBloc>()
-                                                              .add(
-                                                                  AddWorkingExperienceEvent(
-                                                                      isDelete:
-                                                                          true));
+                                                          getIt<FaaCandidatePageBloc>().add(
+                                                              AddWorkingExperienceEvent(
+                                                                  isDelete:
+                                                                      true));
                                                         },
                                                         child: Row(
                                                           crossAxisAlignment:
@@ -142,16 +136,18 @@ class _EducationDataPageState extends State<EducationDataPage> {
                                                                   .start,
                                                           children: [
                                                             Container(
-                                                              decoration:
-                                                                  const BoxDecoration(
-                                                                      color: AclColors
+                                                              decoration: const BoxDecoration(
+                                                                  color:
+                                                                      AclColors
                                                                           .red,
-                                                                      shape: BoxShape
-                                                                          .circle),
-                                                              child: const Center(
+                                                                  shape: BoxShape
+                                                                      .circle),
+                                                              child:
+                                                                  const Center(
                                                                 child: Icon(
                                                                   Icons.close,
-                                                                  color: Colors.white,
+                                                                  color: Colors
+                                                                      .white,
                                                                   size: 12,
                                                                 ),
                                                               ),
@@ -191,7 +187,8 @@ class _EducationDataPageState extends State<EducationDataPage> {
                                   ),
                             const SizedBox(height: 16),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Divider(),
                             ),
                             const SizedBox(height: 16),
@@ -201,9 +198,9 @@ class _EducationDataPageState extends State<EducationDataPage> {
                                 setState(() {
                                   isCheck = true;
                                 });
-                                // Navigator.of(context).pushNamed(
-                                //   Routes.loginPage,
-                                // );
+
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(SubmitEducationEvent());
                               },
                             ),
                             const SizedBox(height: 8),

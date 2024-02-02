@@ -1,6 +1,6 @@
 part of 'home_page_bloc.dart';
 
-class HomePageState extends Equatable {
+class HomePageState  {
   final FormzSubmissionStatus submitStatus;
   final List<CandidateModel>? listAgentModel;
   final List<CandidateBeModel>? listAgentBeModel;
@@ -8,6 +8,8 @@ class HomePageState extends Equatable {
   final LoginModel? loginModel;
   final CandidateModel? agentModel;
   final String? errorMessage;
+  final String? message;
+  final String? loadingMessage;
   final String? moveTo;
 
   const HomePageState( {
@@ -18,13 +20,11 @@ class HomePageState extends Equatable {
     this.loginModel,
     this.moveTo,
     this.errorMessage,
+    this.loadingMessage,
+    this.message,
     this.submitStatus = FormzSubmissionStatus.initial,
   });
 
-  @override
-  // TODO: implement props
-  List<Object?> get props =>
-      [agentModel, listAgentModel, listNotify, submitStatus,loginModel];
 
   HomePageState copyWith({
     CandidateModel? agentModel,
@@ -34,6 +34,8 @@ class HomePageState extends Equatable {
     List<NotificationModel>? listNotify,
     String? moveTo,
     String? errorMessage,
+    String? loadingMessage,
+    String? message,
     FormzSubmissionStatus? submitStatus,
   }) {
     return HomePageState(
@@ -44,6 +46,8 @@ class HomePageState extends Equatable {
       listNotify: listNotify ?? this.listNotify,
       moveTo: moveTo ?? this.moveTo,
       errorMessage: errorMessage ?? this.errorMessage,
+      loadingMessage: loadingMessage ??this.loadingMessage,
+      message: message,
       submitStatus: submitStatus ?? FormzSubmissionStatus.initial,
     );
   }

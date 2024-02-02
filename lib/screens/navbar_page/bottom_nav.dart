@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/acl_color.dart';
-import '../user/user_list_screen.dart';
 
 
 
@@ -163,11 +162,11 @@ class _NavbarPageState extends State<NavbarPage> with TickerProviderStateMixin {
   Widget _buildWidgetBody() {
     switch (indexSelected) {
       case 0:
-        return const UserListScreen();
+        return  Container();
       case 1:
-        return const UserListScreen();
+        return  Container();
       case 2:
-        return const UserListScreen();
+        return  Container();
       default:
         return Container();
     }

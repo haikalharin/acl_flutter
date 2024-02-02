@@ -1,14 +1,22 @@
 import 'dart:convert';
 
+import 'package:acl_flutter/common/app_extension.dart';
+import 'package:acl_flutter/data/model/candidate/candidate_data_model.dart';
+import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../data/model/login_model/login_model.dart';
-import '../shared_preference/app_shared_preference.dart';
 
 SecureStorage secStore = SecureStorage();
 
 class SecureStorage {
+  static const String user = "user";
+  static const String token = "token";
+  static const String candidateDataFaa = "candidate_data_faa";
+  static const String masterData = "master_data";
+
   final _storage = const FlutterSecureStorage();
+
   void addNewItem(String key, String value) async {
     await _storage.write(
       key: key,
@@ -18,8 +26,8 @@ class SecureStorage {
   }
 
   IOSOptions _getIOSOptions() => IOSOptions(
-    accountName: _getAccountName(),
-  );
+        accountName: _getAccountName(),
+      );
 
   String _getAccountName() => 'blah_blah_blah';
 
@@ -41,22 +49,23 @@ class SecureStorage {
   }
 
   Future<void> setToken(String value) async {
-   await _storage.write(key: AppSharedPreference.token,value: value);
+    await _storage.write(key: token, value: value);
   }
 
+
   Future<String?> getToken() async {
-    final token = await _storage.read(key: AppSharedPreference.token);
-    if (token == null) return null;
-    return token;
+    final data = await _storage.read(key: token);
+    if (data == null) return null;
+    return data;
   }
 
   Future<void> setUser(LoginModel data) async {
     String json = jsonEncode(data.toJson());
-   await _storage.write(key: AppSharedPreference.user,value:json  );
+    await _storage.write(key: user, value: json);
   }
 
-   Future<LoginModel> getUser() async {
-    String? json = await _storage.read( key: AppSharedPreference.user);
+  Future<LoginModel> getUser() async {
+    String? json = await _storage.read(key: user);
     if (json != null) {
       Map<String, dynamic> map = jsonDecode(json);
       LoginModel loginModel = LoginModel.fromJson(map);
@@ -64,5 +73,43 @@ class SecureStorage {
     } else {
       return LoginModel();
     }
+  }
+
+  Future<void> setCandidateDataFaa(CandidateDataModel data) async {
+    String json = jsonEncode(data.toJson());
+    await _storage.write(key: candidateDataFaa, value: json);
+  }
+
+  Future<CandidateDataModel> getCandidateDataFaa() async {
+    String? json = await _storage.read(key: user);
+    if (json != null) {
+      Map<String, dynamic> map = jsonDecode(json);
+      CandidateDataModel candidateDataModel = CandidateDataModel.fromJson(map);
+      return candidateDataModel;
+    } else {
+      return CandidateDataModel();
+    }
+  }
+
+  Future<void> setMasterData(MasterDataModel data) async {
+    String json = jsonEncode(data.toJson());
+    await _storage.write(key: masterData, value: json);
+  }
+
+  Future<MasterDataModel> getMasterData() async {
+    String? json = await _storage.read(key: masterData);
+    if (json != null) {
+      Map<String, dynamic> map = jsonDecode(json);
+      MasterDataModel masterDataModel = MasterDataModel.fromJson(map);
+      return masterDataModel;
+    } else {
+      return MasterDataModel();
+    }
+  }
+
+  Future<void> secureDeleteLogout() async {
+    await _storage.delete(key: user);
+    await _storage.delete(key: token);
+    await _storage.delete(key: candidateDataFaa);
   }
 }

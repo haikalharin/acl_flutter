@@ -27,7 +27,7 @@ if (kDebugMode) {
 
   testWidgets('encrypt', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    final test = encrypt('password123');
+    final test = encrypt('Password123!');
     if (kDebugMode) {
       print(test);
     }

@@ -2,8 +2,8 @@ import 'package:acl_flutter/data/model/notification_model/notification_model.dar
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 
 import '../../../core/network/api_result.dart';
-import '../../../core/repository/repository_helper.dart';
-import '../../api/notify/notify_api.dart';
+import '../../../core/repository_helper/repository_helper.dart';
+import '../../remote_data_source/notify/notify_api.dart';
 
 
 

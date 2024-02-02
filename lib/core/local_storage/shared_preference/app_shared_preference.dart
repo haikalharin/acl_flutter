@@ -5,6 +5,8 @@ import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../secure_storage/secure_storage.dart';
+
 
 
 
@@ -70,7 +72,7 @@ class AppSharedPreference {
 
 
   static Future<String?> getToken() async {
-    final userString = await storage.read(key: AppSharedPreference.token);
+    final userString = await storage.read(key: SecureStorage.token);
     if (userString == null) return null;
     return userString;
   }

@@ -12,7 +12,6 @@ import '../../data/model/login_model/login_model.dart';
 import '../../myApp.dart';
 import '../../utils/remote_utils.dart';
 import '../local_storage/secure_storage/secure_storage.dart';
-import '../local_storage/shared_preference/app_shared_preference.dart';
 import '../router/routes.dart';
 import 'api_helper.dart';
 
@@ -37,7 +36,7 @@ class DioInterceptor extends Interceptor with ApiHelper<dynamic> {
     logger.i('Header  => ${options.headers}');
     logger.i('Body  => ${options.data}');
     ///for set token
-    final accessToken = await storage.read(key: AppSharedPreference.token);
+    final accessToken = await storage.read(key: SecureStorage.token);
     //  final refreshToken = await storage.read(key: "refreshToken");
     if(!options.path.contains('login')) {
       options.headers["Authorization"] = "$accessToken";
@@ -74,7 +73,6 @@ class DioInterceptor extends Interceptor with ApiHelper<dynamic> {
 
       } else {
         SecureStorage().secureDeleteAll();
-        AppSharedPreference.clear();
         alice.getNavigatorKey()?.currentState?.pushNamedAndRemoveUntil(
           Routes.initialPage,
               (Route<dynamic> route) => false,

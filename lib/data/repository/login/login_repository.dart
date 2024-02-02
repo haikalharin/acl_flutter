@@ -1,8 +1,8 @@
-import 'package:acl_flutter/data/api/login/login_api.dart';
+import 'package:acl_flutter/data/remote_data_source/login/login_api.dart';
 import 'package:dio/dio.dart';
 
 import '../../../core/network/api_result.dart';
-import '../../../core/repository/repository_helper.dart';
+import '../../../core/repository_helper/repository_helper.dart';
 
 
 class LoginRepository with RepositoryHelper<Response> {

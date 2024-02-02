@@ -1,6 +1,6 @@
 import 'package:acl_flutter/core/network/api_result.dart';
-import 'package:acl_flutter/core/repository/repository_helper.dart';
-import 'package:acl_flutter/data/api/comment/comment_api.dart';
+import 'package:acl_flutter/core/repository_helper/repository_helper.dart';
+import 'package:acl_flutter/data/remote_data_source/comment/comment_api.dart';
 import 'package:acl_flutter/data/model/comment/comment.dart';
 
 class CommentRepository with RepositoryHelper<Comment> {

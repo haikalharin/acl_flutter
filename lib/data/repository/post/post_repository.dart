@@ -1,6 +1,6 @@
 import 'package:acl_flutter/core/network/api_result.dart';
-import 'package:acl_flutter/core/repository/repository_helper.dart';
-import 'package:acl_flutter/data/api/post/post_api.dart';
+import 'package:acl_flutter/core/repository_helper/repository_helper.dart';
+import 'package:acl_flutter/data/remote_data_source/post/post_api.dart';
 import 'package:acl_flutter/data/model/post/post.dart';
 import 'package:acl_flutter/data/model/user/user.dart';
 

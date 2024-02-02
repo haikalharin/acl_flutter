@@ -1,3 +1,4 @@
+import 'package:acl_flutter/data/model/candidate/candidate_data_model.dart';
 import 'package:acl_flutter/data/model/candidate/candidate_model.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/tab_widget/education_data_page.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/tab_widget/private_data_page.dart';
@@ -18,6 +19,8 @@ import '../bloc/faa_candidate_page_bloc.dart';
 enum Mode { create, update }
 
 bool isSuccesPrivateTab = false;
+bool isSuccesWorkExperienceTab = false;
+bool isSuccesEducationTab = false;
 
 class FaaFormCandidatePage extends StatefulWidget {
   CandidateModel candidateModel;
@@ -40,14 +43,17 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
   void initState() {
     super.initState();
     isSuccesPrivateTab = false;
+    isSuccesWorkExperienceTab = false;
+    isSuccesEducationTab = false;
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(_handleTabChange);
   }
 
   @override
   void dispose() {
-    getIt<FaaCandidatePageBloc>().add(FaaCandidatePageInitialEvent());
     isSuccesPrivateTab = false;
+    isSuccesWorkExperienceTab = false;
+    isSuccesEducationTab = false;
     super.dispose();
   }
 
@@ -70,35 +76,40 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
         case 1:
           getIt<FaaCandidatePageBloc>()
               .add(TabTypeInputEvent(TabType.experience));
-          // if (isSuccesPrivateTab) {
-          //   _tabController.index = 1;
-          // } else {
-          //   _tabController.index = 0;
-          //   showDialog(
-          //     context: context,
-          //     builder: (BuildContext context) {
-          //       return RetryDialog(
-          //         title: "Belum Tersedia",
-          //         onCancelPressed: () {
-          //           Navigator.pop(context);
-          //         },
-          //       );
-          //     },
-          //   );
-          // }
+          if (isSuccesPrivateTab) {
+            _tabController.index = 1;
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return RetryDialog(
+                  title: "Belum Tersedia",
+                  onCancelPressed: () {
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            );
+          }
           break;
         case 2:
           getIt<FaaCandidatePageBloc>()
               .add(TabTypeInputEvent(TabType.education));
-          // showDialog(
-          //   context: context,
-          //   builder: (BuildContext context) {
-          //     return const SuccessDialog(
-          //       title: "3",
-          //       isProgressed: false,
-          //     );
-          //   },
-          // );
+          if (isSuccesWorkExperienceTab) {
+            _tabController.index = 2;
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return RetryDialog(
+                  title: "Belum Tersedia",
+                  onCancelPressed: () {
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            );
+          }
           break;
       }
     }
@@ -121,6 +132,15 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
         listener: (context, state) {
           if (state.submitStatus.isSuccess) {
             if (state.message == 'success-get-master-data') {}
+            if (state.message == 'success-add-private-data') {
+              isSuccesPrivateTab = true;
+            }
+            if (state.message == 'success-submit-work-experience') {
+              isSuccesWorkExperienceTab =true;
+            }
+            if (state.message == 'success-submit-work-experience') {
+              isSuccesEducationTab = true;
+            }
           }
         },
         child: BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
@@ -158,11 +178,17 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
                     controller: _tabController,
-                    children: const [
+                    children: [
                       // Content for Tab 1
-                      PrivateDataPage(),
-                      WorkExperienceDataPage(),
-                      EducationDataPage(),
+                      PrivateDataPage(
+                        tabController: _tabController,
+                      ),
+                      WorkExperienceDataPage(
+                        tabController: _tabController,
+                      ),
+                      EducationDataPage(
+                        tabController: _tabController,
+                      ),
                     ],
                   ),
                 ),

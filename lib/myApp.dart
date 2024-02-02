@@ -5,8 +5,6 @@ import 'package:acl_flutter/screens/home_page/bloc/home_page_bloc.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:acl_flutter/screens/sidebar_page/bloc/side_bar_page_bloc.dart';
 import 'package:acl_flutter/screens/splashscreen_page/bloc/splash_screen_bloc.dart';
-import 'package:acl_flutter/screens/todo/bloc/todo_bloc.dart';
-import 'package:acl_flutter/screens/user/bloc/user_bloc.dart';
 import 'package:acl_flutter/viewmodel/comment/bloc/comment_bloc.dart';
 import 'package:acl_flutter/viewmodel/post/bloc/post_bloc.dart';
 import 'package:alice/alice.dart';
@@ -34,10 +32,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<TodoBloc>(create: (context) => getIt<TodoBloc>()),
         BlocProvider<PostBloc>(create: (context) => getIt<PostBloc>()),
         BlocProvider<CommentBloc>(create: (context) => getIt<CommentBloc>()),
-        BlocProvider<UserBloc>(create: (context) => getIt<UserBloc>()),
         BlocProvider<SplashscreenBloc>(create: (context) => getIt<SplashscreenBloc>()),
         BlocProvider<SideBarPageBloc>(create: (context) => getIt<SideBarPageBloc>()),
         BlocProvider<HomePageBloc>(create: (context) => getIt<HomePageBloc>()),

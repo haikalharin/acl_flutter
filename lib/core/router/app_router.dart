@@ -6,7 +6,6 @@ import 'package:acl_flutter/screens/home_page/screen/home_page.dart';
 import 'package:acl_flutter/screens/login_page/screen/login_page.dart';
 import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/screens/splashscreen_page/splashscreen_page.dart';
-import 'package:acl_flutter/screens/user/user_list_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/initial_page/initial_page.dart';
@@ -21,8 +20,6 @@ class AppRouter {
     switch (settings.name) {
       case Routes.splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashscreenPage());
-      case Routes.userList:
-        return MaterialPageRoute(builder: (_) => const UserListScreen());
       case Routes.loginPage:
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case Routes.navbarPage:

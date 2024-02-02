@@ -8,7 +8,6 @@ import 'package:in_app_update/in_app_update.dart';
 
 
 
-import '../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
 import '../../di.dart';
 import 'bloc/splash_screen_bloc.dart';
@@ -32,7 +31,7 @@ class _SplashscreenPageState extends State<SplashscreenPage> {
   //     darkTheme: false);
 
   void getFirstInstall() async{
-    bool? skipOnboarding = await AppSharedPreference.getBool(AppSharedPreference.newInstall);
+    // bool? skipOnboarding = await AppSharedPreference.getBool(AppSharedPreference.newInstall);
     setState(() {
       skipOnboarding = skipOnboarding;
       // _alice.showInspector();

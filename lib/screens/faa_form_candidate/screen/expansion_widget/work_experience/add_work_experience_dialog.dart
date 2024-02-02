@@ -1,6 +1,3 @@
-import 'package:acl_flutter/core/widget/date_time_picker.dart';
-import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
-import 'package:acl_flutter/screens/faa_form_candidate/bloc/faa_candidate_page_bloc.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +9,7 @@ import '../../../../../core/widget/date_time_picker_form.dart';
 import '../../../../../core/widget/spinkit_indicator.dart';
 import '../../../../../core/widget/text_input.dart';
 import '../../../../../di.dart';
+import '../../../bloc/faa_candidate_page_bloc.dart';
 
 class AddWorkExperienceDialog extends StatefulWidget {
   const AddWorkExperienceDialog(

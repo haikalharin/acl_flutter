@@ -12,4 +12,8 @@ class ServiceUrl {
   static String addRegisterCandidateFolderDoc = "${subHost}AclDms/createFolder";
   static String addRegisterCandidateDoc = "${subHost}AclDms/uploadDoc";
   static String addSepouseCandidate = "${subHost}restcandidate/insertFamilyCard";
+  static String startProcessInstance = "${subHost}restcandidate/startProcessInstance";
+  static String addPrivateDataCandidate = "${subHost}restcandidate/registrationCandidate";
+  static String addWorkExperienceCandidate = "${subHost}restcandidate/addCandidateWorkExperience";
+  static String addEducationCandidate = "${subHost}restcandidate/addCandidateEducation";
 }

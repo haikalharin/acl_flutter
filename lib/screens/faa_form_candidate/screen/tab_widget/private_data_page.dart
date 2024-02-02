@@ -14,7 +14,8 @@ import '../faa_form_candidate_page.dart';
 
 enum Mode { create, update }
 class PrivateDataPage extends StatefulWidget {
-   const PrivateDataPage({super.key,});
+  final TabController tabController;
+    const PrivateDataPage({super.key, required this.tabController,});
 
   @override
   State<PrivateDataPage> createState() => _PrivateDataPageState();
@@ -52,11 +53,9 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
           child: ElevatedButton(
             onPressed: () {
               if (formKey.currentState!.validate()) {
-                // getIt<AddCandidatePageBloc>()
-                //     .add(AddAgentSubmittedEvent());
                }
+              widget.tabController.animateTo(1);
 
-                isSuccesPrivateTab = true;
 
             },
             child: Text("Selanjutnya".toCapital),

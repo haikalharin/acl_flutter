@@ -1,7 +1,8 @@
-import 'package:acl_flutter/data/api/candidate/pending_simple_checking.dart';
-import 'package:acl_flutter/data/api/document/document_api.dart';
-import 'package:acl_flutter/data/api/master_data/master_data_api.dart';
-import 'package:acl_flutter/data/api/spouse/sepouse_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate/start_process_instance_api.dart';
+import 'package:acl_flutter/data/remote_data_source/document/document_api.dart';
+import 'package:acl_flutter/data/remote_data_source/master_data/master_data_api.dart';
+import 'package:acl_flutter/data/remote_data_source/spouse/sepouse_api.dart';
 import 'package:acl_flutter/data/model/candidate/candidate_be_model.dart';
 import 'package:acl_flutter/data/model/candidate/candidate_folder_doc_model.dart';
 import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
@@ -13,13 +14,13 @@ import 'package:flutter/foundation.dart';
 
 import '../../../core/network/api_result.dart';
 import '../../../core/network/dio_exception.dart';
-import '../../../core/repository/repository_helper.dart';
+import '../../../core/repository_helper/repository_helper.dart';
 
-import '../../api/candidate/add_register_candidate_api.dart';
-import '../../api/candidate/candiate_be_api.dart';
-import '../../api/candidate/candidate_api.dart';
-import '../../api/candidate/get_candidate_data_api.dart';
-import '../../api/candidate/tracking_candidate_api.dart';
+import '../../remote_data_source/candidate/add_register_candidate_api.dart';
+import '../../remote_data_source/candidate/candiate_be_api.dart';
+import '../../remote_data_source/candidate/candidate_api.dart';
+import '../../remote_data_source/candidate/get_candidate_data_api.dart';
+import '../../remote_data_source/candidate/tracking_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';
 import '../../model/candidate/candidate_register_model.dart';
 import '../../model/candidate/candidate_data_model.dart';
@@ -37,6 +38,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
   final DocumentApi documentApi;
   final PendingSimpleCheckingApi pendingSimpleCheckingApi;
   final GetCandidateDataApi getCandidateDataApi;
+  final StartProcessInstanceApi startProcessInstanceApi;
 
   const CandidateRepository({
     required this.documentApi,
@@ -48,6 +50,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     required this.addRegisterCandidateApi,
     required this.pendingSimpleCheckingApi,
     required this.getCandidateDataApi,
+    required this.startProcessInstanceApi,
   });
 
   Future<ApiResult<ResponseModel<CandidateModel>>> fetchListMyAgent(
@@ -126,6 +129,19 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
       if (kDebugMode) {
         print("$data");
       }
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+
+  Future<ApiResult<ResponseModel<CandidateRegisterModel>>> startProcessInstance(String candidateId) async {
+    try {
+      final ResponseModel<CandidateRegisterModel> items =
+      await startProcessInstanceApi.startProcessInstance(candidateId);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      var data = e;
+      print("$data");
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }

@@ -181,8 +181,13 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 ? 'Mohon diisi'
                                 : null,
                             selectedDateTime: (DateTime date) {
-                              var dateTime =
-                                  "${date.year}-${date.month}-${date.day}";
+                              var month = date.month.toString().length == 1
+                                  ? '0${date.month}'
+                                  : date.month;
+                              var day = date.day.toString().length == 1
+                                  ? '0${date.day}'
+                                  : date.day;
+                              var dateTime = "${date.year}-$month-$day";
                               getIt<AddCandidatePageBloc>()
                                   .add(DobInputEvent(dateTime));
                             },
@@ -894,8 +899,13 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             isMandatory: checkedValueMarriage,
                             readOnly: !checkedValueMarriage,
                             selectedDateTime: (DateTime date) {
-                              var dateTime =
-                                  "${date.year}-${date.month}-${date.day}";
+                              var month = date.month.toString().length == 1
+                                  ? '0${date.month}'
+                                  : date.month;
+                              var day = date.day.toString().length == 1
+                                  ? '0${date.day}'
+                                  : date.day;
+                              var dateTime = "${date.year}-$month-$day";
                               getIt<AddCandidatePageBloc>()
                                   .add(DobPartnerInputEvent(dateTime));
                             },
