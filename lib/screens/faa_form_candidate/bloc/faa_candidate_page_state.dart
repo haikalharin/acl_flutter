@@ -7,12 +7,18 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator firstName;
   final MandatoryFieldValidator middleName;
   final MandatoryFieldValidator lastName;
-  final MandatoryFieldValidator dob;
+  final AajicityMasterReference? position;
+  final DropdownFieldValidator positionId;
   final IdentityNoValidator identityNo;
-  final MandatoryFieldValidator identityImage;
-  final MandatoryFieldValidator identitySelfieImage;
-  final IdentityNoValidator kkNo;
-  final MandatoryFieldValidator kkImage;
+  final AajicityMasterReference? martialStatus;
+  final DropdownFieldValidator martialStatusId;
+  final MandatoryFieldValidator pob;
+  final MandatoryFieldValidator dob;
+  final AajicityMasterReference? gender;
+  final DropdownFieldValidator genderId;
+  final MandatoryFieldValidator nationality;
+  final AajicityMasterReference? religion;
+  final DropdownFieldValidator religionId;
   final MandatoryFieldValidator address;
   final MandatoryFieldValidator rtRw;
   final MandatoryFieldValidator kecKel;
@@ -23,6 +29,13 @@ class FaaCandidatePageState with FormzMixin {
   final DropdownFieldValidator provinceId;
   final CityMasterReference? city;
   final DropdownFieldValidator cityId;
+
+  final MandatoryFieldValidator identityImage;
+  final MandatoryFieldValidator identitySelfieImage;
+  final IdentityNoValidator kkNo;
+  final MandatoryFieldValidator kkImage;
+
+
   final CheckingstatusMasterReference? occupation;
   final DropdownFieldValidator occupationId;
   final MandatoryFieldValidator noLicenceAAJI;
@@ -36,8 +49,7 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator lastNamePartner;
   final MandatoryFieldValidator dobPartner;
   final IdentityNoValidator identityNoPartner;
-  final AajicityMasterReference? gender;
-  final DropdownFieldValidator genderId;
+
   final AajicityMasterReference? relation;
   final DropdownFieldValidator relationId;
   final String? moveTo;
@@ -112,15 +124,23 @@ class FaaCandidatePageState with FormzMixin {
     this.endWorkingDate,
     this.addCompanyModel,
     this.isJustAddExperience = false,
+
+    ///private data
     this.firstName = const MandatoryFieldValidator.pure(),
     this.middleName = const MandatoryFieldValidator.pure(),
     this.lastName = const MandatoryFieldValidator.pure(),
-    this.dob = const MandatoryFieldValidator.pure(),
+    this.position,
+    this.positionId = const DropdownFieldValidator.pure(),
     this.identityNo = const IdentityNoValidator.pure(),
-    this.identityImage = const MandatoryFieldValidator.pure(),
-    this.identitySelfieImage = const MandatoryFieldValidator.pure(),
-    this.kkNo = const IdentityNoValidator.pure(),
-    this.kkImage = const MandatoryFieldValidator.pure(),
+    this.martialStatus,
+    this.martialStatusId = const DropdownFieldValidator.pure(),
+    this.pob = const MandatoryFieldValidator.pure(),
+    this.dob = const MandatoryFieldValidator.pure(),
+    this.gender,
+    this.genderId = const DropdownFieldValidator.pure(),
+    this.nationality = const MandatoryFieldValidator.pure(),
+    this.religion,
+    this.religionId = const DropdownFieldValidator.pure(),
     this.address = const MandatoryFieldValidator.pure(),
     this.rtRw = const MandatoryFieldValidator.pure(),
     this.kecKel = const MandatoryFieldValidator.pure(),
@@ -131,6 +151,14 @@ class FaaCandidatePageState with FormzMixin {
     this.provinceId = const DropdownFieldValidator.pure(),
     this.city,
     this.cityId = const DropdownFieldValidator.pure(),
+
+    ///private data
+    this.identityImage = const MandatoryFieldValidator.pure(),
+    this.identitySelfieImage = const MandatoryFieldValidator.pure(),
+    this.kkNo = const IdentityNoValidator.pure(),
+    this.kkImage = const MandatoryFieldValidator.pure(),
+
+
     this.occupation,
     this.occupationId = const DropdownFieldValidator.pure(),
     this.noLicenceAAJI = const MandatoryFieldValidator.pure(),
@@ -144,8 +172,6 @@ class FaaCandidatePageState with FormzMixin {
     this.lastNamePartner = const MandatoryFieldValidator.pure(),
     this.dobPartner = const MandatoryFieldValidator.pure(),
     this.identityNoPartner = const IdentityNoValidator.pure(),
-    this.gender,
-    this.genderId = const DropdownFieldValidator.pure(),
     this.relation,
     this.relationId = const DropdownFieldValidator.pure(),
     this.masterDataModel,
@@ -194,7 +220,7 @@ class FaaCandidatePageState with FormzMixin {
         data.add(educationStart);
         data.add(educationEnd);
         data.add(educationStatus);
-      }  else {
+      } else {
         data.clear();
       }
     } else {
@@ -232,15 +258,23 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? endWorking,
     DateTime? endWorkingDate,
     AddCompanyModel? addCompanyModel,
+
+    ///Private data
     MandatoryFieldValidator? firstName,
     MandatoryFieldValidator? middleName,
     MandatoryFieldValidator? lastName,
-    MandatoryFieldValidator? dob,
+    AajicityMasterReference? position,
+    DropdownFieldValidator? positionId,
     IdentityNoValidator? identityNo,
-    MandatoryFieldValidator? identityImage,
-    MandatoryFieldValidator? identitySelfieImage,
-    IdentityNoValidator? kkNo,
-    MandatoryFieldValidator? kkImage,
+    AajicityMasterReference? martialStatus,
+    DropdownFieldValidator? martialStatusId,
+    MandatoryFieldValidator? pob,
+    MandatoryFieldValidator? dob,
+    AajicityMasterReference? gender,
+    DropdownFieldValidator? genderId,
+    MandatoryFieldValidator? nationality,
+    AajicityMasterReference? religion,
+    DropdownFieldValidator? religionId,
     MandatoryFieldValidator? address,
     MandatoryFieldValidator? rtRw,
     MandatoryFieldValidator? kecKel,
@@ -251,6 +285,14 @@ class FaaCandidatePageState with FormzMixin {
     DropdownFieldValidator? provinceId,
     CityMasterReference? city,
     DropdownFieldValidator? cityId,
+
+
+    ///
+    MandatoryFieldValidator? identityImage,
+    MandatoryFieldValidator? identitySelfieImage,
+    IdentityNoValidator? kkNo,
+    MandatoryFieldValidator? kkImage,
+
     CheckingstatusMasterReference? occupation,
     DropdownFieldValidator? occupationId,
     MandatoryFieldValidator? noLicenceAAJI,
@@ -264,8 +306,6 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? lastNamePartner,
     MandatoryFieldValidator? dobPartner,
     IdentityNoValidator? identityNoPartner,
-    AajicityMasterReference? gender,
-    DropdownFieldValidator? genderId,
     AajicityMasterReference? relation,
     DropdownFieldValidator? relationId,
     MasterDataModel? masterDataModel,
@@ -317,15 +357,23 @@ class FaaCandidatePageState with FormzMixin {
       endWorking: endWorking ?? this.endWorking,
       endWorkingDate: endWorkingDate ?? this.endWorkingDate,
       addCompanyModel: addCompanyModel ?? this.addCompanyModel,
+
+      ///private data
       firstName: firstName ?? this.firstName,
       middleName: middleName ?? this.middleName,
       lastName: lastName ?? this.lastName,
-      dob: dob ?? this.dob,
+      position: position ?? this.position,
+      positionId: positionId ?? this.positionId,
       identityNo: identityNo ?? this.identityNo,
-      identityImage: identityImage ?? this.identityImage,
-      identitySelfieImage: identitySelfieImage ?? this.identitySelfieImage,
-      kkNo: kkNo ?? this.kkNo,
-      kkImage: kkImage ?? this.kkImage,
+      martialStatus: martialStatus ?? this.martialStatus,
+      martialStatusId: martialStatusId ?? this.martialStatusId,
+      pob: pob ?? this.pob,
+      dob: dob ?? this.dob,
+      gender: gender ?? this.gender,
+      genderId: genderId ?? this.genderId,
+      nationality: nationality ?? this.nationality,
+      religion: religion ?? this.religion,
+      religionId: religionId ?? this.religionId,
       address: address ?? this.address,
       rtRw: rtRw ?? this.rtRw,
       kecKel: kecKel ?? this.kecKel,
@@ -336,6 +384,13 @@ class FaaCandidatePageState with FormzMixin {
       provinceId: provinceId ?? this.provinceId,
       city: city ?? this.city,
       cityId: cityId ?? this.cityId,
+
+
+      ///
+      identityImage: identityImage ?? this.identityImage,
+      identitySelfieImage: identitySelfieImage ?? this.identitySelfieImage,
+      kkNo: kkNo ?? this.kkNo,
+      kkImage: kkImage ?? this.kkImage,
       occupation: occupation ?? this.occupation,
       occupationId: occupationId ?? this.occupationId,
       noLicenceAAJI: noLicenceAAJI ?? this.noLicenceAAJI,
@@ -349,8 +404,6 @@ class FaaCandidatePageState with FormzMixin {
       lastNamePartner: lastNamePartner ?? this.lastNamePartner,
       dobPartner: dobPartner ?? this.dobPartner,
       identityNoPartner: identityNoPartner ?? this.identityNoPartner,
-      gender: gender ?? this.gender,
-      genderId: genderId ?? this.genderId,
       relation: relation ?? this.relation,
       relationId: relationId ?? this.relationId,
       masterDataModel: masterDataModel ?? this.masterDataModel,

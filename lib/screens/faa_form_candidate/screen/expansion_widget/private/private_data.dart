@@ -139,7 +139,7 @@ class _PrivateDataState extends State<PrivateData> {
                                               .masterDataModel
                                               ?.masterData
                                               ?.masterReferenceAll
-                                              ?.province
+                                              ?.position
                                               ?.masterReference ??
                                           [],
                                       errorText: isCheck == true &&
