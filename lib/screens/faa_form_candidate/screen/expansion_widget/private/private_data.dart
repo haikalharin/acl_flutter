@@ -596,19 +596,25 @@ class _PrivateDataState extends State<PrivateData> {
                                             .add(CityInputEvent(value));
                                       },
                                       initialItem:
-                                          state.candidateDataModel != null &&
-                                                  state.candidateDataModel?.data
-                                                          ?.city !=
-                                                      0
-                                              ? listCity
-                                                  .where((element) =>
-                                                      element.id ==
-                                                      (state.candidateDataModel
-                                                              ?.data?.city ??
-                                                          0))
-                                                  .toList()
-                                                  .first
-                                              : null,
+                                      state.candidateDataModel !=
+                                          null &&
+                                          state.candidateDataModel?.data
+                                              ?.city !=
+                                              0
+                                          ? state
+                                          .masterDataModel
+                                          ?.masterData
+                                          ?.masterReferenceAll
+                                          ?.city
+                                          ?.masterReference
+                                          ?.where((element) =>
+                                      element.id ==
+                                          (state.candidateDataModel
+                                              ?.data?.city ??
+                                              0))
+                                          .toList()
+                                          .first
+                                          : null,
                                       items: listCity,
                                       errorText: isCheck == true &&
                                               state.cityId.isNotValid

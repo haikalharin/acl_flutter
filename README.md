@@ -1,4 +1,4 @@
-# base_mvvm
+# acl
 
 A new Flutter project.
 
@@ -36,7 +36,7 @@ flutter build ipa --flavor prod -t lib/main_prod.dart
 flutter build ipa --release --flavor prod -t lib/main_prod.dart
 App Bundle
 flutter build appbundle --flavor prod -t lib/main_prod.dart
-and for dev
+and for dev
 IPA
 flutter build ipa --flavor dev -t lib/main_dev.dart
 flutter build ipa --release --flavor dev -t lib/main_dev.dart
