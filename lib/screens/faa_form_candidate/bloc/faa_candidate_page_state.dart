@@ -4,6 +4,13 @@ class FaaCandidatePageState with FormzMixin {
   final FormzSubmissionStatus submitStatus;
   final String? message;
   final TabType tabType;
+  final String? moveTo;
+  final MasterDataModel? masterDataModel;
+  final CandidateModel? candidateModel;
+  final CandidateRegisterModel? candidateRegisterModel;
+  final CandidateDataModel? candidateDataModel;
+
+  ///Private Data
   final MandatoryFieldValidator firstName;
   final MandatoryFieldValidator middleName;
   final MandatoryFieldValidator lastName;
@@ -13,7 +20,8 @@ class FaaCandidatePageState with FormzMixin {
   final AajicityMasterReference? martialStatus;
   final DropdownFieldValidator martialStatusId;
   final MandatoryFieldValidator pob;
-  final MandatoryFieldValidator dob;
+  final MandatoryFieldValidator dobString;
+  final DateTime? dob;
   final AajicityMasterReference? gender;
   final DropdownFieldValidator genderId;
   final MandatoryFieldValidator nationality;
@@ -29,39 +37,38 @@ class FaaCandidatePageState with FormzMixin {
   final DropdownFieldValidator provinceId;
   final CityMasterReference? city;
   final DropdownFieldValidator cityId;
-
-  final MandatoryFieldValidator identityImage;
-  final MandatoryFieldValidator identitySelfieImage;
-  final IdentityNoValidator kkNo;
-  final MandatoryFieldValidator kkImage;
-
-
+  final PhoneValidator phone;
+  final HandphoneValidator handphone;
+  final EmailValidator email;
   final CheckingstatusMasterReference? occupation;
   final DropdownFieldValidator occupationId;
+  final MandatoryFieldValidator lastWorkExperience;
+  final DateTime? lastResignDate;
+  final MandatoryFieldValidator lastResignDateString;
+  final DateTime? terminationDate;
+  final MandatoryFieldValidator terminationDateString;
+  final MandatoryFieldValidator privateImage;
+  final MandatoryFieldValidator identityImage;
+  final MandatoryFieldValidator identitySelfieImage;
+  final MandatoryFieldValidator terminationImage;
+  final MandatoryFieldValidator notTwistingImage;
+  final MandatoryFieldValidator heirsName;
+  final MandatoryFieldValidator heirsRelation;
   final MandatoryFieldValidator noLicenceAAJI;
   final MandatoryFieldValidator imageLicenceAAJI;
   final MandatoryFieldValidator noLicenceAASI;
   final MandatoryFieldValidator imageLicenceAASI;
   final MandatoryFieldValidator noLicenceAAUI;
   final MandatoryFieldValidator imageLicenceAAUI;
-  final MandatoryFieldValidator firstNamePartner;
-  final MandatoryFieldValidator middleNamePartner;
-  final MandatoryFieldValidator lastNamePartner;
-  final MandatoryFieldValidator dobPartner;
-  final IdentityNoValidator identityNoPartner;
-
-  final AajicityMasterReference? relation;
-  final DropdownFieldValidator relationId;
-  final String? moveTo;
-  final MasterDataModel? masterDataModel;
-  final CandidateModel? candidateModel;
-  final CandidateRegisterModel? candidateRegisterModel;
-  final CandidateDataModel? candidateDataModel;
-  final bool checkedValueAAJI;
-  final bool checkedValueAASI;
-  final bool checkedNeedValueAAUI;
-  final bool checkedValueAAUI;
-  final bool checkedValueMarriage;
+  final MandatoryFieldValidator npwpNo;
+  final MandatoryFieldValidator bankNo;
+  final MandatoryFieldValidator bankUserName;
+  final MandatoryFieldValidator bankName;
+  final MandatoryFieldValidator bankBranch;
+  final MandatoryFieldValidator npwpImage;
+  final MandatoryFieldValidator bankUserBookImage;
+  final MandatoryFieldValidator sourceInformation;
+  final MandatoryFieldValidator appendixImage;
 
   ///Work Experience
 
@@ -95,35 +102,31 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator educationEnd;
   final DateTime? educationEndDate;
 
+  final IdentityNoValidator kkNo;
+  final MandatoryFieldValidator kkImage;
+  final MandatoryFieldValidator firstNamePartner;
+  final MandatoryFieldValidator middleNamePartner;
+  final MandatoryFieldValidator lastNamePartner;
+  final MandatoryFieldValidator dobPartner;
+  final IdentityNoValidator identityNoPartner;
+  final AajicityMasterReference? relation;
+  final DropdownFieldValidator relationId;
+  final bool checkedValueAAJI;
+  final bool checkedValueAASI;
+  final bool checkedNeedValueAAUI;
+  final bool checkedValueAAUI;
+  final bool checkedValueMarriage;
+
   const FaaCandidatePageState({
     this.message = '',
     this.tabType = TabType.private,
-    this.isJustAddEducation = false,
-    this.educationLevelId = const DropdownFieldValidator.pure(),
-    this.educationLevel,
-    this.educationPlaceName = const MandatoryFieldValidator.pure(),
-    this.educationDescription = const MandatoryFieldValidator.pure(),
-    this.educationStatus = const MandatoryFieldValidator.pure(),
-    this.educationStart = const MandatoryFieldValidator.pure(),
-    this.educationEnd = const MandatoryFieldValidator.pure(),
-    this.educationStartDate,
-    this.educationEndDate,
-    this.checkedStillLearning = false,
-    this.unitName = const MandatoryFieldValidator.pure(),
-    this.lastDepartment = const MandatoryFieldValidator.pure(),
-    this.directLeader = const MandatoryFieldValidator.pure(),
-    this.checkIsEmployee = const MandatoryFieldValidator.pure(),
-    this.statusEmployee = const MandatoryFieldValidator.pure(),
-    this.companyName = const MandatoryFieldValidator.pure(),
-    this.companyType = const MandatoryFieldValidator.pure(),
-    this.department = const MandatoryFieldValidator.pure(),
-    this.checkedStillWorking = false,
-    this.startWorking = const MandatoryFieldValidator.pure(),
-    this.startWorkingDate,
-    this.endWorking = const MandatoryFieldValidator.pure(),
-    this.endWorkingDate,
-    this.addCompanyModel,
-    this.isJustAddExperience = false,
+    this.moveTo,
+    this.masterDataModel,
+    this.candidateModel,
+    this.candidateRegisterModel,
+    this.candidateDataModel,
+    this.addEducationModel,
+    this.submitStatus = FormzSubmissionStatus.initial,
 
     ///private data
     this.firstName = const MandatoryFieldValidator.pure(),
@@ -135,7 +138,8 @@ class FaaCandidatePageState with FormzMixin {
     this.martialStatus,
     this.martialStatusId = const DropdownFieldValidator.pure(),
     this.pob = const MandatoryFieldValidator.pure(),
-    this.dob = const MandatoryFieldValidator.pure(),
+    this.dobString = const MandatoryFieldValidator.pure(),
+    this.dob,
     this.gender,
     this.genderId = const DropdownFieldValidator.pure(),
     this.nationality = const MandatoryFieldValidator.pure(),
@@ -151,22 +155,72 @@ class FaaCandidatePageState with FormzMixin {
     this.provinceId = const DropdownFieldValidator.pure(),
     this.city,
     this.cityId = const DropdownFieldValidator.pure(),
-
-    ///private data
-    this.identityImage = const MandatoryFieldValidator.pure(),
-    this.identitySelfieImage = const MandatoryFieldValidator.pure(),
-    this.kkNo = const IdentityNoValidator.pure(),
-    this.kkImage = const MandatoryFieldValidator.pure(),
-
-
+    this.phone = const PhoneValidator.pure(),
+    this.handphone = const HandphoneValidator.pure(),
+    this.email = const EmailValidator.pure(),
     this.occupation,
     this.occupationId = const DropdownFieldValidator.pure(),
+    this.lastWorkExperience = const MandatoryFieldValidator.pure(),
+    this.lastResignDate,
+    this.lastResignDateString = const MandatoryFieldValidator.pure(),
+    this.terminationDate,
+    this.terminationDateString = const MandatoryFieldValidator.pure(),
+    this.privateImage = const MandatoryFieldValidator.pure(),
+    this.identityImage = const MandatoryFieldValidator.pure(),
+    this.identitySelfieImage = const MandatoryFieldValidator.pure(),
+    this.terminationImage = const MandatoryFieldValidator.pure(),
+    this.notTwistingImage = const MandatoryFieldValidator.pure(),
+    this.heirsName = const MandatoryFieldValidator.pure(),
+    this.heirsRelation = const MandatoryFieldValidator.pure(),
     this.noLicenceAAJI = const MandatoryFieldValidator.pure(),
     this.imageLicenceAAJI = const MandatoryFieldValidator.pure(),
     this.noLicenceAASI = const MandatoryFieldValidator.pure(),
     this.imageLicenceAASI = const MandatoryFieldValidator.pure(),
     this.noLicenceAAUI = const MandatoryFieldValidator.pure(),
     this.imageLicenceAAUI = const MandatoryFieldValidator.pure(),
+    this.npwpNo = const MandatoryFieldValidator.pure(),
+    this.bankNo = const MandatoryFieldValidator.pure(),
+    this.bankUserName = const MandatoryFieldValidator.pure(),
+    this.bankName = const MandatoryFieldValidator.pure(),
+    this.bankBranch = const MandatoryFieldValidator.pure(),
+    this.npwpImage = const MandatoryFieldValidator.pure(),
+    this.bankUserBookImage = const MandatoryFieldValidator.pure(),
+    this.sourceInformation = const MandatoryFieldValidator.pure(),
+    this.appendixImage = const MandatoryFieldValidator.pure(),
+
+    ///Education
+    this.isJustAddEducation = false,
+    this.educationLevelId = const DropdownFieldValidator.pure(),
+    this.educationLevel,
+    this.educationPlaceName = const MandatoryFieldValidator.pure(),
+    this.educationDescription = const MandatoryFieldValidator.pure(),
+    this.educationStatus = const MandatoryFieldValidator.pure(),
+    this.educationStart = const MandatoryFieldValidator.pure(),
+    this.educationEnd = const MandatoryFieldValidator.pure(),
+    this.educationStartDate,
+    this.educationEndDate,
+    this.checkedStillLearning = false,
+
+    ///Work Experience
+    this.isJustAddExperience = false,
+    this.unitName = const MandatoryFieldValidator.pure(),
+    this.lastDepartment = const MandatoryFieldValidator.pure(),
+    this.directLeader = const MandatoryFieldValidator.pure(),
+    this.checkIsEmployee = const MandatoryFieldValidator.pure(),
+    this.statusEmployee = const MandatoryFieldValidator.pure(),
+    this.companyName = const MandatoryFieldValidator.pure(),
+    this.companyType = const MandatoryFieldValidator.pure(),
+    this.department = const MandatoryFieldValidator.pure(),
+    this.checkedStillWorking = false,
+    this.startWorking = const MandatoryFieldValidator.pure(),
+    this.startWorkingDate,
+    this.endWorking = const MandatoryFieldValidator.pure(),
+    this.endWorkingDate,
+    this.addCompanyModel,
+
+
+    this.kkNo = const IdentityNoValidator.pure(),
+    this.kkImage = const MandatoryFieldValidator.pure(),
     this.firstNamePartner = const MandatoryFieldValidator.pure(),
     this.middleNamePartner = const MandatoryFieldValidator.pure(),
     this.lastNamePartner = const MandatoryFieldValidator.pure(),
@@ -174,18 +228,11 @@ class FaaCandidatePageState with FormzMixin {
     this.identityNoPartner = const IdentityNoValidator.pure(),
     this.relation,
     this.relationId = const DropdownFieldValidator.pure(),
-    this.masterDataModel,
-    this.candidateModel,
-    this.candidateRegisterModel,
-    this.candidateDataModel,
-    this.moveTo,
     this.checkedValueAAJI = false,
     this.checkedValueAASI = false,
     this.checkedNeedValueAAUI = false,
     this.checkedValueAAUI = false,
     this.checkedValueMarriage = false,
-    this.addEducationModel,
-    this.submitStatus = FormzSubmissionStatus.initial,
   });
 
   @override
@@ -232,32 +279,12 @@ class FaaCandidatePageState with FormzMixin {
   FaaCandidatePageState copyWith({
     String? message,
     TabType? tabType,
-    bool? isJustAddExperience,
-    bool? isJustAddEducation,
-    AddEducationModel? addEducationModel,
-    DropdownFieldValidator? educationLevelId,
-    CityMasterReference? educationLevel,
-    MandatoryFieldValidator? educationPlaceName,
-    MandatoryFieldValidator? educationDescription,
-    MandatoryFieldValidator? educationStatus,
-    MandatoryFieldValidator? educationStart,
-    DateTime? educationStartDate,
-    MandatoryFieldValidator? educationEnd,
-    DateTime? educationEndDate,
-    bool? checkedStillLearning,
-    MandatoryFieldValidator? checkIsEmployee,
-    MandatoryFieldValidator? unitName,
-    MandatoryFieldValidator? lastDepartment,
-    MandatoryFieldValidator? directLeader,
-    MandatoryFieldValidator? companyName,
-    MandatoryFieldValidator? companyType,
-    MandatoryFieldValidator? department,
-    bool? checkedStillWorking,
-    MandatoryFieldValidator? startWorking,
-    DateTime? startWorkingDate,
-    MandatoryFieldValidator? endWorking,
-    DateTime? endWorkingDate,
-    AddCompanyModel? addCompanyModel,
+    String? moveTo,
+    MasterDataModel? masterDataModel,
+    CandidateModel? candidateModel,
+    CandidateRegisterModel? candidateRegisterModel,
+    CandidateDataModel? candidateDataModel,
+    FormzSubmissionStatus? submitStatus,
 
     ///Private data
     MandatoryFieldValidator? firstName,
@@ -269,7 +296,8 @@ class FaaCandidatePageState with FormzMixin {
     AajicityMasterReference? martialStatus,
     DropdownFieldValidator? martialStatusId,
     MandatoryFieldValidator? pob,
-    MandatoryFieldValidator? dob,
+    DateTime? dob,
+    MandatoryFieldValidator? dobString,
     AajicityMasterReference? gender,
     DropdownFieldValidator? genderId,
     MandatoryFieldValidator? nationality,
@@ -285,22 +313,73 @@ class FaaCandidatePageState with FormzMixin {
     DropdownFieldValidator? provinceId,
     CityMasterReference? city,
     DropdownFieldValidator? cityId,
-
-
-    ///
-    MandatoryFieldValidator? identityImage,
-    MandatoryFieldValidator? identitySelfieImage,
-    IdentityNoValidator? kkNo,
-    MandatoryFieldValidator? kkImage,
-
+    PhoneValidator? phone,
+    HandphoneValidator? handphone,
+    EmailValidator? email,
     CheckingstatusMasterReference? occupation,
     DropdownFieldValidator? occupationId,
+    MandatoryFieldValidator? lastWorkExperience,
+    DateTime? lastResignDate,
+    MandatoryFieldValidator? lastResignDateString,
+    DateTime? terminationDate,
+    MandatoryFieldValidator? terminationDateString,
+    MandatoryFieldValidator? privateImage,
+    MandatoryFieldValidator? identityImage,
+    MandatoryFieldValidator? identitySelfieImage,
+    MandatoryFieldValidator? terminationImage,
+    MandatoryFieldValidator? notTwistingImage,
+    MandatoryFieldValidator? heirsName,
+    MandatoryFieldValidator? heirsRelation,
     MandatoryFieldValidator? noLicenceAAJI,
     MandatoryFieldValidator? imageLicenceAAJI,
     MandatoryFieldValidator? noLicenceAASI,
     MandatoryFieldValidator? imageLicenceAASI,
     MandatoryFieldValidator? noLicenceAAUI,
     MandatoryFieldValidator? imageLicenceAAUI,
+    MandatoryFieldValidator? npwpNo,
+    MandatoryFieldValidator? bankNo,
+    MandatoryFieldValidator? bankUserName,
+    MandatoryFieldValidator? bankName,
+    MandatoryFieldValidator? bankBranch,
+    MandatoryFieldValidator? npwpImage,
+    MandatoryFieldValidator? bankUserBookImage,
+    MandatoryFieldValidator? sourceInformation,
+    MandatoryFieldValidator? appendixImage,
+
+    ///Education
+    bool? isJustAddEducation,
+    AddEducationModel? addEducationModel,
+    DropdownFieldValidator? educationLevelId,
+    CityMasterReference? educationLevel,
+    MandatoryFieldValidator? educationPlaceName,
+    MandatoryFieldValidator? educationDescription,
+    MandatoryFieldValidator? educationStatus,
+    MandatoryFieldValidator? educationStart,
+    DateTime? educationStartDate,
+    MandatoryFieldValidator? educationEnd,
+    DateTime? educationEndDate,
+    bool? checkedStillLearning,
+
+    ///Experience
+    bool? isJustAddExperience,
+    MandatoryFieldValidator? checkIsEmployee,
+    MandatoryFieldValidator? unitName,
+    MandatoryFieldValidator? lastDepartment,
+    MandatoryFieldValidator? directLeader,
+    MandatoryFieldValidator? companyName,
+    MandatoryFieldValidator? companyType,
+    MandatoryFieldValidator? department,
+    bool? checkedStillWorking,
+    MandatoryFieldValidator? startWorking,
+    DateTime? startWorkingDate,
+    MandatoryFieldValidator? endWorking,
+    DateTime? endWorkingDate,
+    AddCompanyModel? addCompanyModel,
+
+    ///
+
+    IdentityNoValidator? kkNo,
+    MandatoryFieldValidator? kkImage,
     MandatoryFieldValidator? firstNamePartner,
     MandatoryFieldValidator? middleNamePartner,
     MandatoryFieldValidator? lastNamePartner,
@@ -308,55 +387,21 @@ class FaaCandidatePageState with FormzMixin {
     IdentityNoValidator? identityNoPartner,
     AajicityMasterReference? relation,
     DropdownFieldValidator? relationId,
-    MasterDataModel? masterDataModel,
-    String? moveTo,
     bool? checkedValueAAJI,
     bool? checkedValueAASI,
     bool? checkedNeedValueAAUI,
     bool? checkedValueAAUI,
     bool? checkedValueMarriage,
-    CandidateModel? candidateModel,
-    CandidateRegisterModel? candidateRegisterModel,
-    CandidateDataModel? candidateDataModel,
-    FormzSubmissionStatus? submitStatus,
   }) {
-    // MandatoryFieldValidator? educationLevel,
-    //     MandatoryFieldValidator? educationPlaceName,
-    // MandatoryFieldValidator? educationDescription,
-    // MandatoryFieldValidator? educationStatus,
-    // MandatoryFieldValidator? educationStart,
-    // DateTime? educationStartDate,
-    // MandatoryFieldValidator? educationEnd,
-    // DateTime? educationEndDate,
     return FaaCandidatePageState(
       message: message,
-      isJustAddExperience: isJustAddExperience ?? this.isJustAddExperience,
-      isJustAddEducation: isJustAddEducation ?? this.isJustAddEducation,
+      masterDataModel: masterDataModel ?? this.masterDataModel,
+      candidateModel: candidateModel ?? this.candidateModel,
+      candidateDataModel: candidateDataModel ?? this.candidateDataModel,
+      candidateRegisterModel:
+          candidateRegisterModel ?? this.candidateRegisterModel,
+      moveTo: moveTo ?? this.moveTo,
       tabType: tabType ?? this.tabType,
-      addEducationModel: addEducationModel ?? this.addEducationModel,
-      educationLevelId: educationLevelId ?? this.educationLevelId,
-      educationLevel: educationLevel ?? this.educationLevel,
-      educationPlaceName: educationPlaceName ?? this.educationPlaceName,
-      educationDescription: educationDescription ?? this.educationDescription,
-      educationStatus: educationStatus ?? this.educationStatus,
-      educationStart: educationStart ?? this.educationStart,
-      educationStartDate: educationStartDate ?? this.educationStartDate,
-      educationEnd: educationEnd ?? this.educationEnd,
-      educationEndDate: educationEndDate ?? this.educationEndDate,
-      checkedStillLearning: checkedStillLearning ?? this.checkedStillLearning,
-      checkIsEmployee: checkIsEmployee ?? this.checkIsEmployee,
-      unitName: unitName ?? this.unitName,
-      lastDepartment: lastDepartment ?? this.lastDepartment,
-      directLeader: directLeader ?? this.directLeader,
-      companyName: companyName ?? this.companyName,
-      companyType: companyType ?? this.companyType,
-      department: department ?? this.department,
-      checkedStillWorking: checkedStillWorking ?? this.checkedStillWorking,
-      startWorking: startWorking ?? this.startWorking,
-      startWorkingDate: startWorkingDate ?? this.startWorkingDate,
-      endWorking: endWorking ?? this.endWorking,
-      endWorkingDate: endWorkingDate ?? this.endWorkingDate,
-      addCompanyModel: addCompanyModel ?? this.addCompanyModel,
 
       ///private data
       firstName: firstName ?? this.firstName,
@@ -369,6 +414,7 @@ class FaaCandidatePageState with FormzMixin {
       martialStatusId: martialStatusId ?? this.martialStatusId,
       pob: pob ?? this.pob,
       dob: dob ?? this.dob,
+      dobString: dobString ?? this.dobString,
       gender: gender ?? this.gender,
       genderId: genderId ?? this.genderId,
       nationality: nationality ?? this.nationality,
@@ -384,21 +430,72 @@ class FaaCandidatePageState with FormzMixin {
       provinceId: provinceId ?? this.provinceId,
       city: city ?? this.city,
       cityId: cityId ?? this.cityId,
-
-
-      ///
-      identityImage: identityImage ?? this.identityImage,
-      identitySelfieImage: identitySelfieImage ?? this.identitySelfieImage,
-      kkNo: kkNo ?? this.kkNo,
-      kkImage: kkImage ?? this.kkImage,
+      phone: phone ?? this.phone,
+      handphone: handphone ?? this.handphone,
+      email: email ?? this.email,
       occupation: occupation ?? this.occupation,
       occupationId: occupationId ?? this.occupationId,
+      lastWorkExperience: lastWorkExperience ?? this.lastWorkExperience,
+      lastResignDate: lastResignDate ?? this.lastResignDate,
+      lastResignDateString: lastResignDateString ?? this.lastResignDateString,
+      terminationDate: terminationDate ?? this.terminationDate,
+      terminationDateString: terminationDateString ?? this.terminationDateString,
+      privateImage: privateImage ?? this.privateImage,
+      identityImage: identityImage ?? this.identityImage,
+      identitySelfieImage: identitySelfieImage ?? this.identitySelfieImage,
+      terminationImage: terminationImage ?? this.terminationImage,
+      notTwistingImage: notTwistingImage ?? this.notTwistingImage,
+      heirsName: heirsName ?? this.heirsName,
+      heirsRelation: heirsRelation ?? this.heirsRelation,
       noLicenceAAJI: noLicenceAAJI ?? this.noLicenceAAJI,
       imageLicenceAAJI: imageLicenceAAJI ?? this.imageLicenceAAJI,
       noLicenceAASI: noLicenceAASI ?? this.noLicenceAASI,
       imageLicenceAASI: imageLicenceAASI ?? this.imageLicenceAASI,
       noLicenceAAUI: noLicenceAAUI ?? this.noLicenceAAUI,
       imageLicenceAAUI: imageLicenceAAUI ?? this.imageLicenceAAUI,
+      npwpNo: npwpNo ?? this.npwpNo,
+      bankNo: bankNo ?? this.bankNo,
+      bankUserName: bankUserName ?? this.bankUserName,
+      bankName: bankName ?? this.bankName,
+      bankBranch: bankBranch ?? this.bankBranch,
+      npwpImage: npwpImage ?? this.npwpImage,
+      bankUserBookImage: bankUserBookImage ?? this.bankUserBookImage,
+      sourceInformation: sourceInformation ?? this.sourceInformation,
+      appendixImage: appendixImage ?? this.appendixImage,
+
+      ///Education
+      isJustAddEducation: isJustAddEducation ?? this.isJustAddEducation,
+      addEducationModel: addEducationModel ?? this.addEducationModel,
+      educationLevelId: educationLevelId ?? this.educationLevelId,
+      educationLevel: educationLevel ?? this.educationLevel,
+      educationPlaceName: educationPlaceName ?? this.educationPlaceName,
+      educationDescription: educationDescription ?? this.educationDescription,
+      educationStatus: educationStatus ?? this.educationStatus,
+      educationStart: educationStart ?? this.educationStart,
+      educationStartDate: educationStartDate ?? this.educationStartDate,
+      educationEnd: educationEnd ?? this.educationEnd,
+      educationEndDate: educationEndDate ?? this.educationEndDate,
+      checkedStillLearning: checkedStillLearning ?? this.checkedStillLearning,
+
+      ///Work Expperience
+      isJustAddExperience: isJustAddExperience ?? this.isJustAddExperience,
+      checkIsEmployee: checkIsEmployee ?? this.checkIsEmployee,
+      unitName: unitName ?? this.unitName,
+      lastDepartment: lastDepartment ?? this.lastDepartment,
+      directLeader: directLeader ?? this.directLeader,
+      companyName: companyName ?? this.companyName,
+      companyType: companyType ?? this.companyType,
+      department: department ?? this.department,
+      checkedStillWorking: checkedStillWorking ?? this.checkedStillWorking,
+      startWorking: startWorking ?? this.startWorking,
+      startWorkingDate: startWorkingDate ?? this.startWorkingDate,
+      endWorking: endWorking ?? this.endWorking,
+      endWorkingDate: endWorkingDate ?? this.endWorkingDate,
+      addCompanyModel: addCompanyModel ?? this.addCompanyModel,
+
+      ///
+      kkNo: kkNo ?? this.kkNo,
+      kkImage: kkImage ?? this.kkImage,
       firstNamePartner: firstNamePartner ?? this.firstNamePartner,
       middleNamePartner: middleNamePartner ?? this.middleNamePartner,
       lastNamePartner: lastNamePartner ?? this.lastNamePartner,
@@ -406,12 +503,7 @@ class FaaCandidatePageState with FormzMixin {
       identityNoPartner: identityNoPartner ?? this.identityNoPartner,
       relation: relation ?? this.relation,
       relationId: relationId ?? this.relationId,
-      masterDataModel: masterDataModel ?? this.masterDataModel,
-      candidateModel: candidateModel ?? this.candidateModel,
-      candidateDataModel: candidateDataModel ?? this.candidateDataModel,
-      candidateRegisterModel:
-          candidateRegisterModel ?? this.candidateRegisterModel,
-      moveTo: moveTo ?? this.moveTo,
+
       checkedValueAAJI: checkedValueAAJI ?? this.checkedValueAAJI,
       checkedValueAASI: checkedValueAASI ?? this.checkedValueAASI,
       checkedNeedValueAAUI: checkedNeedValueAAUI ?? this.checkedNeedValueAAUI,

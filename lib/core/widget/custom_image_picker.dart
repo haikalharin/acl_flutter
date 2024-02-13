@@ -1,14 +1,17 @@
 import 'dart:convert';
 import 'dart:io' as io;
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../common/secure.dart';
 import '../../utils/acl_color.dart';
 
 class CustomImagePicker extends StatefulWidget {
   final Function(dynamic) onImagePicked;
-  final XFile? initialImage; // Add this property
+  final String? initialImage; // Add this property
   final String? title; // Add this property
   final bool isMandatory; // Add this property
   final bool readOnly; // Add this property
@@ -29,18 +32,30 @@ class CustomImagePicker extends StatefulWidget {
 }
 
 class _CustomImagePickerState extends State<CustomImagePicker> {
-  String? _selectedImage;
+  Uint8List? _selectedImage;
 
   @override
   void initState() {
     super.initState();
+    initialImage();
     // Set the initial image if provided
+  }
+
+  Future<void> initialImage() async {
     if (widget.initialImage != null) {
-      _selectedImage = widget.initialImage?.path;
-      List<int> bytes =
-          io.File(widget.initialImage?.path ?? '').readAsBytesSync();
-      String base64Image = base64Encode(bytes);
-      widget.onImagePicked(base64Image);
+      if (isBase64(widget.initialImage ?? '')) {
+        Uint8List imageBytes = base64Decode(widget.initialImage ?? '');
+        String imagePath = await setImageToLocally(imageBytes);
+        _selectedImage = imageBytes;
+        String base64Image = widget.initialImage ?? '';
+        widget.onImagePicked(base64Image);
+      } else {
+        File imageFile = File(widget.initialImage ?? '');
+        Uint8List imageBytes = await imageFile.readAsBytes();
+        String base64Image = base64Encode(imageBytes);
+        _selectedImage = imageBytes;
+        widget.onImagePicked(base64Image);
+      }
     }
   }
 
@@ -98,7 +113,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                 ),
                 image: _selectedImage != null
                     ? DecorationImage(
-                        image: FileImage(io.File(_selectedImage ?? '')),
+                        image: MemoryImage(_selectedImage ?? Uint8List(1)),
                         fit: BoxFit.fill)
                     : null),
             child: _selectedImage == null
@@ -194,10 +209,11 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         CropAspectRatioPreset.ratio16x9,
       ]);
       if (croppedFile != null) {
-        List<int> bytes = io.File(croppedFile.path).readAsBytesSync();
-        String base64Image = base64Encode(bytes);
+        File imageFile = File(croppedFile.path);
+        Uint8List imageBytes = await imageFile.readAsBytes();
+        String base64Image = base64Encode(imageBytes);
         setState(() {
-          _selectedImage = croppedFile.path;
+          _selectedImage = imageBytes;
         });
         widget.onImagePicked(base64Image);
       }
@@ -220,10 +236,11 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
         CropAspectRatioPreset.ratio16x9,
       ]);
       if (croppedFile != null) {
-        List<int> bytes = io.File(croppedFile.path).readAsBytesSync();
-        String base64Image = base64Encode(bytes);
+        File imageFile = File(croppedFile.path);
+        Uint8List imageBytes = await imageFile.readAsBytes();
+        String base64Image = base64Encode(imageBytes);
         setState(() {
-          _selectedImage = croppedFile.path;
+          _selectedImage = imageBytes;
         });
         widget.onImagePicked(base64Image);
       }

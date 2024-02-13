@@ -1,5 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:encrypt/encrypt.dart';
 import 'package:crypton/crypton.dart';
+import 'package:flutter/foundation.dart' as foundation;
+import 'package:path_provider/path_provider.dart';
+import 'package:random_string/random_string.dart';
+
 const key =
     'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALdlWJTVvwCCffNbXB7lxuwnvnQiSARMGADxOUIt2UHKf2fAuBmazCWnKlImtGiy7+esNMpqLbjxEurxtzidPYkCAwEAAQ==';
 const keyDec =
@@ -7,10 +15,8 @@ const keyDec =
 final iv = IV.fromLength(16);
 
 String encrypt(String text) {
-
   RSAPublicKey publicKey = RSAPublicKey.fromPEM(key);
   return publicKey.encrypt(text);
-
 }
 
 String decrypty(String encryptedString) {
@@ -27,6 +33,51 @@ Future<String> aesDecryptor(String? encryptedValue) async {
   String decrypted =
       encrypter.decrypt(Encrypted.fromBase64(encryptedValue!), iv: iv);
   return decrypted;
+}
+
+String encodeImage(String path) {
+  // Load image from assets or network
+  Uint8List bytes = File(path).readAsBytesSync();
+
+  // Encode image to base64
+  String base64Image = base64Encode(bytes);
+
+  // Do something with encoded image
+  return base64Image;
+}
+
+Future<String> setImageToLocally(Uint8List imageBytes) async {
+  try {
+    // Dapatkan direktori penyimpanan sementara perangkat
+    Directory tempDir = await getTemporaryDirectory();
+
+    // Buat file dengan nama yang unik di direktori tersebut
+    String randomString = randomAlphaNumeric(10);
+    DateTime date = DateTime.now();
+    String dateString =
+        "${date.year}${date.month}${date.day}${date.hour}${date.minute}${date.second}";
+    String tempPath = tempDir.path;
+    File tempFile = File('$tempPath/$dateString/$randomString.jpg');
+
+    // Tulis data byte gambar ke file
+    await tempFile.writeAsBytes(imageBytes);
+
+    return tempFile.path;
+  } catch (e) {
+    if (foundation.kDebugMode) {
+      print('Failed to save image locally: $e');
+    }
+  }
+  return '';
+}
+
+bool isBase64(String value) {
+  RegExp base64RegExp = RegExp(
+    r'^([A-Za-z0-9+/]{4})*' + r'([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$',
+    caseSensitive: false,
+    multiLine: false,
+  );
+  return base64RegExp.hasMatch(value);
 }
 
 // Future<void> aesMethod() async {

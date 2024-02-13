@@ -247,14 +247,12 @@ class _PrivateDataState extends State<PrivateData> {
                                   label: const Text("Pilih Tanggal"),
                                   title: "Tanggal lahir",
                                   errorText: isCheck == true &&
-                                      state.dob.isNotValid
+                                      state.dobString.isNotValid
                                       ? 'Mohon diisi'
                                       : null,
                                   selectedDateTime: (DateTime date) {
-                                    var dateTime =
-                                        "${date.year}-${date.month}-${date.day}";
                                     getIt<FaaCandidatePageBloc>()
-                                        .add(DobInputEvent(dateTime));
+                                        .add(DobInputEvent(date));
                                   },
                                   validator: (String? value) {
                                     if (value!.isNotEmpty) return null;

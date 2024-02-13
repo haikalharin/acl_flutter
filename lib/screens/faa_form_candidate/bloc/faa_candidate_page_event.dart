@@ -37,10 +37,10 @@ class LastNameInputEvent extends FaaCandidatePageEvent {
   LastNameInputEvent(this.lastName);
 }
 
-class DobInputEvent extends FaaCandidatePageEvent {
-  final String dob;
+class PositionInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference value;
 
-  DobInputEvent(this.dob);
+  PositionInputEvent(this.value);
 }
 
 class IdentityNoInputEvent extends FaaCandidatePageEvent {
@@ -49,28 +49,40 @@ class IdentityNoInputEvent extends FaaCandidatePageEvent {
   IdentityNoInputEvent(this.identityNo);
 }
 
-class IdentityImageInputEvent extends FaaCandidatePageEvent {
-  final String identityImage;
+class MartialStatusInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference value;
 
-  IdentityImageInputEvent(this.identityImage);
+  MartialStatusInputEvent(this.value);
 }
 
-class IdentitySelfieImageInputEvent extends FaaCandidatePageEvent {
-  final String identitySelfieImage;
+class DobInputEvent extends FaaCandidatePageEvent {
+  final DateTime dob;
 
-  IdentitySelfieImageInputEvent(this.identitySelfieImage);
+  DobInputEvent(this.dob);
 }
 
-class KkNoInputEvent extends FaaCandidatePageEvent {
-  final String kkNo;
+class PobInputEvent extends FaaCandidatePageEvent {
+  final String pob;
 
-  KkNoInputEvent(this.kkNo);
+  PobInputEvent(this.pob);
 }
 
-class KkImageInputEvent extends FaaCandidatePageEvent {
-  final String kkImage;
+class GenderPartnerInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference gender;
 
-  KkImageInputEvent(this.kkImage);
+  GenderPartnerInputEvent(this.gender);
+}
+
+class NationalityInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  NationalityInputEvent(this.value);
+}
+
+class ReligionInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference value;
+
+  ReligionInputEvent(this.value);
 }
 
 class AddressInputEvent extends FaaCandidatePageEvent {
@@ -115,11 +127,90 @@ class CityInputEvent extends FaaCandidatePageEvent {
   CityInputEvent(this.city);
 }
 
+class PhoneInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  PhoneInputEvent(this.value);
+}
+
+class HandphoneInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  HandphoneInputEvent(this.value);
+}
+
+class EmailInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  EmailInputEvent(this.value);
+}
+
 class OccupationInputEvent extends FaaCandidatePageEvent {
   final CheckingstatusMasterReference occupation;
 
   OccupationInputEvent(this.occupation);
 }
+
+class LastWorkingExperienceInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  LastWorkingExperienceInputEvent(this.value);
+}
+
+class LastResignDateInputEvent extends FaaCandidatePageEvent {
+  final DateTime date;
+
+  LastResignDateInputEvent(this.date);
+}
+
+class TerminationDateInputEvent extends FaaCandidatePageEvent {
+  final DateTime date;
+
+  TerminationDateInputEvent(this.date);
+}
+
+class PrivateImageInputEvent extends FaaCandidatePageEvent {
+  final String image;
+
+  PrivateImageInputEvent(this.image);
+}
+
+class IdentityImageInputEvent extends FaaCandidatePageEvent {
+  final String identityImage;
+
+  IdentityImageInputEvent(this.identityImage);
+}
+
+class IdentitySelfieImageInputEvent extends FaaCandidatePageEvent {
+  final String identitySelfieImage;
+
+  IdentitySelfieImageInputEvent(this.identitySelfieImage);
+}
+
+class TerminationImageInputEvent extends FaaCandidatePageEvent {
+  final String image;
+
+  TerminationImageInputEvent(this.image);
+}
+
+class NotTwistingImageInputEvent extends FaaCandidatePageEvent {
+  final String image;
+
+  NotTwistingImageInputEvent(this.image);
+}
+
+class KkNoInputEvent extends FaaCandidatePageEvent {
+  final String kkNo;
+
+  KkNoInputEvent(this.kkNo);
+}
+
+class KkImageInputEvent extends FaaCandidatePageEvent {
+  final String kkImage;
+
+  KkImageInputEvent(this.kkImage);
+}
+
 
 class AajiCheckedInputEvent extends FaaCandidatePageEvent {
   final bool aajiChecked;
@@ -211,11 +302,6 @@ class PartnerIdentityNoInputEvent extends FaaCandidatePageEvent {
   PartnerIdentityNoInputEvent(this.partnerIdentityNo);
 }
 
-class GenderPartnerInputEvent extends FaaCandidatePageEvent {
-  final AajicityMasterReference gender;
-
-  GenderPartnerInputEvent(this.gender);
-}
 
 class RelationPartnerInputEvent extends FaaCandidatePageEvent {
   final AajicityMasterReference relation;

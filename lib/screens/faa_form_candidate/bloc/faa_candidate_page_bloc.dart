@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:acl_flutter/common/validators/email_validator.dart';
+import 'package:acl_flutter/common/validators/handphone_validator.dart';
+import 'package:acl_flutter/common/validators/phone_validator.dart';
 import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/education_candidate_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
@@ -197,9 +200,17 @@ class FaaCandidatePageBloc
 
   Future<void> dobInput(
       DobInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final dob = MandatoryFieldValidator.dirty(event.dob);
+    var month = event.dob.month.toString().length == 1
+        ? '0${event.dob.month}'
+        : event.dob.month;
+    var day = event.dob.day.toString().length == 1
+        ? '0${event.dob.day}'
+        : event.dob.day;
+    var dateTime = "${event.dob.year}-$month-$day";
+    final value = MandatoryFieldValidator.dirty(dateTime);
     emit(state.copyWith(
-      dob: dob,
+      dobString: value,
+      dob: event.dob,
     ));
   }
 
@@ -510,7 +521,7 @@ class FaaCandidatePageBloc
           firstName: state.firstName.value.toUpperCase(),
           middleName: state.middleName.value.toUpperCase(),
           lastName: state.lastName.value.toUpperCase(),
-          dob: state.dob.value,
+          dob: state.dobString.value,
           address1: state.address.value.toUpperCase(),
           address2: state.rtRw.value.toUpperCase(),
           address3: state.kecKel.value.toUpperCase(),
@@ -548,7 +559,7 @@ class FaaCandidatePageBloc
             firstName: state.firstName.value.toUpperCase(),
             middleName: state.middleName.value.toUpperCase(),
             lastName: state.lastName.value.toUpperCase(),
-            dob: state.dob.value,
+            dob: state.dobString.value,
             address1: state.address.value.toUpperCase(),
             address2: state.rtRw.value.toUpperCase(),
             address3: state.kecKel.value.toUpperCase(),
