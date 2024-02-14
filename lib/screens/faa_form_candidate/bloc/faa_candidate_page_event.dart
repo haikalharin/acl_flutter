@@ -67,10 +67,10 @@ class PobInputEvent extends FaaCandidatePageEvent {
   PobInputEvent(this.pob);
 }
 
-class GenderPartnerInputEvent extends FaaCandidatePageEvent {
+class GenderInputEvent extends FaaCandidatePageEvent {
   final AajicityMasterReference gender;
 
-  GenderPartnerInputEvent(this.gender);
+  GenderInputEvent(this.gender);
 }
 
 class NationalityInputEvent extends FaaCandidatePageEvent {
@@ -199,18 +199,17 @@ class NotTwistingImageInputEvent extends FaaCandidatePageEvent {
   NotTwistingImageInputEvent(this.image);
 }
 
-class KkNoInputEvent extends FaaCandidatePageEvent {
-  final String kkNo;
+class HeirsNameInputEvent extends FaaCandidatePageEvent {
+  final String value;
 
-  KkNoInputEvent(this.kkNo);
+  HeirsNameInputEvent(this.value);
 }
 
-class KkImageInputEvent extends FaaCandidatePageEvent {
-  final String kkImage;
+class HeirsRelationInputEvent extends FaaCandidatePageEvent {
+  final String value;
 
-  KkImageInputEvent(this.kkImage);
+  HeirsRelationInputEvent(this.value);
 }
-
 
 class AajiCheckedInputEvent extends FaaCandidatePageEvent {
   final bool aajiChecked;
@@ -266,6 +265,80 @@ class AauiImageInputEvent extends FaaCandidatePageEvent {
   AauiImageInputEvent(this.aauiImage);
 }
 
+class NpwpNoInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  NpwpNoInputEvent(this.value);
+}
+
+class BankNoInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  BankNoInputEvent(this.value);
+}
+
+class BankUserNameInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  BankUserNameInputEvent(this.value);
+}
+
+class BankNameInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  BankNameInputEvent(this.value);
+}
+
+class BankBranchInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  BankBranchInputEvent(this.value);
+}
+
+class NpwpImageInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  NpwpImageInputEvent(this.value);
+}
+
+class BankUserBookImageInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  BankUserBookImageInputEvent(this.value);
+}
+
+class SourceInformationInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  SourceInformationInputEvent(this.value);
+}
+
+class AppendixImageInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  AppendixImageInputEvent(this.value);
+}
+
+class FaaAddAgentSubmittedEvent extends FaaCandidatePageEvent {
+  FaaAddAgentSubmittedEvent();
+}
+
+class FaaAddAgentDocSubmittedEvent extends FaaCandidatePageEvent {
+  FaaAddAgentDocSubmittedEvent();
+}
+
+class KkNoInputEvent extends FaaCandidatePageEvent {
+  final String kkNo;
+
+  KkNoInputEvent(this.kkNo);
+}
+
+class KkImageInputEvent extends FaaCandidatePageEvent {
+  final String kkImage;
+
+  KkImageInputEvent(this.kkImage);
+}
+
 class MarriedCheckedInputEvent extends FaaCandidatePageEvent {
   final bool marriedChecked;
 
@@ -309,13 +382,6 @@ class RelationPartnerInputEvent extends FaaCandidatePageEvent {
   RelationPartnerInputEvent(this.relation);
 }
 
-class AddAgentSubmittedEvent extends FaaCandidatePageEvent {
-  AddAgentSubmittedEvent();
-}
-
-class AddAgentDocSubmittedEvent extends FaaCandidatePageEvent {
-  AddAgentDocSubmittedEvent();
-}
 
 class FaaCandidatePageInitialEvent extends FaaCandidatePageEvent {
   FaaCandidatePageInitialEvent();
@@ -323,8 +389,6 @@ class FaaCandidatePageInitialEvent extends FaaCandidatePageEvent {
 
 
 ///Work Experience
-
-
 
 class CheckEmployeeInputEvent extends FaaCandidatePageEvent {
   final String value;

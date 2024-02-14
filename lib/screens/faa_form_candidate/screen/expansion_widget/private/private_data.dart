@@ -269,7 +269,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   ),
                                   onChanged: (AajicityMasterReference value) {
                                     getIt<FaaCandidatePageBloc>()
-                                        .add(GenderPartnerInputEvent(value));
+                                        .add(GenderInputEvent(value));
                                   },
                                   initialItem:
                                       state.candidateDataModel != null &&

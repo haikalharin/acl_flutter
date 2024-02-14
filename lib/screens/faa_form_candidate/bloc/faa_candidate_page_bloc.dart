@@ -44,15 +44,19 @@ class FaaCandidatePageBloc
   }) : super(AddAgentPageInitial()) {
     on<TabTypeInputEvent>(tabTypeExperienceInput);
     on<FetchMasterDataEvent>(fetchMasterData);
+
+    ///Private Data
     on<FirstNameInputEvent>(firstNameInput);
     on<MiddleNameInputEvent>(middleNameInput);
     on<LastNameInputEvent>(lastNameInput);
-    on<DobInputEvent>(dobInput);
+    on<PositionInputEvent>(positionInput);
     on<IdentityNoInputEvent>(identityNoInput);
-    on<IdentityImageInputEvent>(identityImageInput);
-    on<IdentitySelfieImageInputEvent>(identitySelfieImageInput);
-    on<KkNoInputEvent>(kkNoInput);
-    on<KkImageInputEvent>(kkImageInput);
+    on<MartialStatusInputEvent>(martialStatusInput);
+    on<DobInputEvent>(dobInput);
+    on<PobInputEvent>(pobInput);
+    on<GenderInputEvent>(genderInput);
+    on<NationalityInputEvent>(nationalityInput);
+    on<ReligionInputEvent>(religionInput);
     on<AddressInputEvent>(addressInput);
     on<RtRwInputEvent>(rtRwInput);
     on<KecKelInputEvent>(kecKelInput);
@@ -60,7 +64,19 @@ class FaaCandidatePageBloc
     on<CountryInputEvent>(countryInput);
     on<ProvinceInputEvent>(provinceInput);
     on<CityInputEvent>(cityInput);
+    on<PhoneInputEvent>(phoneInput);
+    on<HandphoneInputEvent>(handphoneInput);
+    on<EmailInputEvent>(emailInput);
     on<OccupationInputEvent>(occupationInput);
+    on<LastWorkingExperienceInputEvent>(lastWorkingExperienceInput);
+    on<LastResignDateInputEvent>(lastResignDateInput);
+    on<TerminationDateInputEvent>(terminationDateInput);
+    on<PrivateImageInputEvent>(privateImageInput);
+    on<IdentityImageInputEvent>(identityImageInput);
+    on<IdentitySelfieImageInputEvent>(identitySelfieImageInput);
+    on<TerminationImageInputEvent>(terminationImageInput);
+    on<NotTwistingImageInputEvent>(notTwistingImageInput);
+    on<HeirsRelationInputEvent>(heirsRelationInput);
     on<AajiCheckedInputEvent>(aajiCheckedInput);
     on<AajiNoInputEvent>(noLicenceAAJIInput);
     on<AajiImageInputEvent>(imageLicenceAAJIInput);
@@ -70,17 +86,28 @@ class FaaCandidatePageBloc
     on<AauiCheckedInputEvent>(aauiCheckedInput);
     on<AauiNoInputEvent>(noLicenceAAUIInput);
     on<AauiImageInputEvent>(imageLicenceAAUIInput);
+    on<NpwpNoInputEvent>(npwpNoInput);
+    on<BankNoInputEvent>(bankNoInput);
+    on<BankUserNameInputEvent>(bankUserNameInput);
+    on<BankNameInputEvent>(bankNameInput);
+    on<BankBranchInputEvent>(bankBranchInput);
+    on<NpwpImageInputEvent>(npwpImageInput);
+    on<BankUserBookImageInputEvent>(bankUserBookImageInput);
+    on<SourceInformationInputEvent>(sourceInformationInput);
+    on<AppendixImageInputEvent>(appendixImageInput);
+    on<FaaAddAgentSubmittedEvent>(faaAddAgentSubmitted);
+    on<FaaAddAgentDocSubmittedEvent>(faaAddAgentDocSubmitted);
+
+    on<KkNoInputEvent>(kkNoInput);
+    on<KkImageInputEvent>(kkImageInput);
     on<MarriedCheckedInputEvent>(marriedCheckedInputEvent);
     on<FirstNamePartnerInputEvent>(firstNamePartnerInput);
     on<MiddleNamePartnerInputEvent>(middleNamePartnerInput);
     on<LastNamePartnerInputEvent>(lastNamePartnerInput);
     on<DobPartnerInputEvent>(dobPartnerInput);
     on<PartnerIdentityNoInputEvent>(partnerIdentityNoInput);
-    on<GenderPartnerInputEvent>(genderPartnerInput);
     on<RelationPartnerInputEvent>(relationPartnerInput);
-    on<AddAgentSubmittedEvent>(addAgentSubmitted);
-    on<AddAgentDocSubmittedEvent>(addAgentDocSubmitted);
-    on<FaaCandidatePageInitialEvent>(addAgentPageInitial);
+    on<FaaCandidatePageInitialEvent>(faaCandidatePageInitial);
     on<FetchCandidateDataEvent>(fetchCandidateData);
 
     ///Work Experience
@@ -108,10 +135,9 @@ class FaaCandidatePageBloc
     on<CheckStillLearnInputEvent>(checkStillLearnInput);
     on<AddEducationEvent>(addEducation);
     on<SubmitEducationEvent>(submitEducation);
-
   }
 
-  Future<void> addAgentPageInitial(FaaCandidatePageInitialEvent event,
+  Future<void> faaCandidatePageInitial(FaaCandidatePageInitialEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     emit(AddAgentPageInitial());
   }
@@ -198,6 +224,48 @@ class FaaCandidatePageBloc
     ));
   }
 
+  Future<void> positionInput(
+      PositionInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.id == 0 || event.value.id == null) {
+      const valueId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        positionId: valueId,
+        position: null,
+      ));
+    } else {
+      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        positionId: valueId,
+        position: event.value,
+      ));
+    }
+  }
+
+  Future<void> identityNoInput(
+      IdentityNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final identityNo = IdentityNoValidator.dirty(event.identityNo);
+    emit(state.copyWith(
+      identityNo: identityNo,
+    ));
+  }
+
+  Future<void> martialStatusInput(MartialStatusInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.id == 0 || event.value.id == null) {
+      const valueId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        martialStatusId: valueId,
+        martialStatus: null,
+      ));
+    } else {
+      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        martialStatusId: valueId,
+        martialStatus: event.value,
+      ));
+    }
+  }
+
   Future<void> dobInput(
       DobInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     var month = event.dob.month.toString().length == 1
@@ -214,45 +282,54 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> identityNoInput(
-      IdentityNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final identityNo = IdentityNoValidator.dirty(event.identityNo);
+  Future<void> pobInput(
+      PobInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final pob = MandatoryFieldValidator.dirty(event.pob);
     emit(state.copyWith(
-      identityNo: identityNo,
+      pob: pob,
     ));
   }
 
-  Future<void> identityImageInput(IdentityImageInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
-    final identityImage = MandatoryFieldValidator.dirty(event.identityImage);
+  Future<void> genderInput(
+      GenderInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    if (event.gender.id == 0 || event.gender.id == null) {
+      const genderId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        genderId: genderId,
+        gender: null,
+      ));
+    } else {
+      final genderId = DropdownFieldValidator.dirty(event.gender.id ?? 0);
+      emit(state.copyWith(
+        genderId: genderId,
+        gender: event.gender,
+      ));
+    }
+  }
+
+  Future<void> nationalityInput(
+      NationalityInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
-      identityImage: identityImage,
+      nationality: value,
     ));
   }
 
-  Future<void> identitySelfieImageInput(IdentitySelfieImageInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
-    final identitySelfieImage =
-        MandatoryFieldValidator.dirty(event.identitySelfieImage);
-    emit(state.copyWith(
-      identitySelfieImage: identitySelfieImage,
-    ));
-  }
-
-  Future<void> kkNoInput(
-      KkNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final kkNo = IdentityNoValidator.dirty(event.kkNo);
-    emit(state.copyWith(
-      kkNo: kkNo,
-    ));
-  }
-
-  Future<void> kkImageInput(
-      KkImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final kkImage = MandatoryFieldValidator.dirty(event.kkImage);
-    emit(state.copyWith(
-      kkImage: kkImage,
-    ));
+  Future<void> religionInput(
+      ReligionInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.id == 0 || event.value.id == null) {
+      const valueId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        religionId: valueId,
+        religion: null,
+      ));
+    } else {
+      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        religionId: valueId,
+        religion: event.value,
+      ));
+    }
   }
 
   Future<void> addressInput(
@@ -338,6 +415,30 @@ class FaaCandidatePageBloc
     }
   }
 
+  Future<void> phoneInput(
+      PhoneInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = PhoneValidator.dirty(event.value);
+    emit(state.copyWith(
+      phone: value,
+    ));
+  }
+
+  Future<void> handphoneInput(
+      HandphoneInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = HandphoneValidator.dirty(event.value);
+    emit(state.copyWith(
+      handphone: value,
+    ));
+  }
+
+  Future<void> emailInput(
+      EmailInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = EmailValidator.dirty(event.value);
+    emit(state.copyWith(
+      email: value,
+    ));
+  }
+
   Future<void> occupationInput(
       OccupationInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     if (event.occupation.id == 0 || event.occupation.id == null) {
@@ -356,6 +457,103 @@ class FaaCandidatePageBloc
     }
   }
 
+  Future<void> lastWorkingExperienceInput(LastWorkingExperienceInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      lastWorkExperience: value,
+    ));
+  }
+
+  Future<void> lastResignDateInput(LastResignDateInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    var month = event.date.month.toString().length == 1
+        ? '0${event.date.month}'
+        : event.date.month;
+    var day = event.date.day.toString().length == 1
+        ? '0${event.date.day}'
+        : event.date.day;
+    var dateTime = "${event.date.year}-$month-$day";
+    final value = MandatoryFieldValidator.dirty(dateTime);
+    emit(state.copyWith(
+      lastResignDateString: value,
+      lastResignDate: event.date,
+    ));
+  }
+
+  Future<void> terminationDateInput(TerminationDateInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    var month = event.date.month.toString().length == 1
+        ? '0${event.date.month}'
+        : event.date.month;
+    var day = event.date.day.toString().length == 1
+        ? '0${event.date.day}'
+        : event.date.day;
+    var dateTime = "${event.date.year}-$month-$day";
+    final value = MandatoryFieldValidator.dirty(dateTime);
+    emit(state.copyWith(
+      terminationDateString: value,
+      terminationDate: event.date,
+    ));
+  }
+
+  Future<void> privateImageInput(PrivateImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final image = MandatoryFieldValidator.dirty(event.image);
+    emit(state.copyWith(
+      privateImage: image,
+    ));
+  }
+
+  Future<void> identityImageInput(IdentityImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final identityImage = MandatoryFieldValidator.dirty(event.identityImage);
+    emit(state.copyWith(
+      identityImage: identityImage,
+    ));
+  }
+
+  Future<void> identitySelfieImageInput(IdentitySelfieImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final identitySelfieImage =
+    MandatoryFieldValidator.dirty(event.identitySelfieImage);
+    emit(state.copyWith(
+      identitySelfieImage: identitySelfieImage,
+    ));
+  }
+
+  Future<void> terminationImageInput(TerminationImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final image = MandatoryFieldValidator.dirty(event.image);
+    emit(state.copyWith(
+      terminationImage: image,
+    ));
+  }
+
+  Future<void> notTwistingImageInput(NotTwistingImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final image = MandatoryFieldValidator.dirty(event.image);
+    emit(state.copyWith(
+      terminationImage: image,
+    ));
+  }
+
+  Future<void> heirsRelationInput(HeirsRelationInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      heirsRelation: value,
+    ));
+  }
+
+  Future<void> aajiCheckedInput(
+      AajiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueAAJI: event.aajiChecked,
+    ));
+  }
+
+
   Future<void> noLicenceAAJIInput(
       AajiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     final noLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiNo);
@@ -369,6 +567,13 @@ class FaaCandidatePageBloc
     final imageLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiImage);
     emit(state.copyWith(
       imageLicenceAAJI: imageLicenceAAJI,
+    ));
+  }
+
+  Future<void> aasiCheckedInput(
+      AasiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueAASI: event.aasiChecked,
     ));
   }
 
@@ -388,6 +593,13 @@ class FaaCandidatePageBloc
     ));
   }
 
+  Future<void> aauiCheckedInput(
+      AauiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueAAUI: event.aauiChecked,
+    ));
+  }
+
   Future<void> noLicenceAAUIInput(
       AauiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     final noLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiNo);
@@ -403,6 +615,96 @@ class FaaCandidatePageBloc
       imageLicenceAAUI: imageLicenceAAUI,
     ));
   }
+
+  Future<void> npwpNoInput(
+      NpwpNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      npwpNo: value,
+    ));
+  }
+
+  Future<void> bankNoInput(
+      BankNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      bankNo: value,
+    ));
+  }
+
+  Future<void> bankUserNameInput(
+      BankUserNameInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      bankUserName: value,
+    ));
+  }
+
+  Future<void> bankNameInput(
+      BankNameInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      bankName: value,
+    ));
+  }
+
+  Future<void> bankBranchInput(
+      BankBranchInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      bankBranch: value,
+    ));
+  }
+
+  Future<void> npwpImageInput(
+      NpwpImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      npwpImage: value,
+    ));
+  }
+
+  Future<void> bankUserBookImageInput(
+      BankUserBookImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      bankUserBookImage: value,
+    ));
+  }
+
+  Future<void> sourceInformationInput(
+      SourceInformationInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      sourceInformation: value,
+    ));
+  }
+
+  Future<void> appendixImageInput(
+      AppendixImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      appendixImage: value,
+    ));
+  }
+
+  Future<void> kkNoInput(
+      KkNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final kkNo = IdentityNoValidator.dirty(event.kkNo);
+    emit(state.copyWith(
+      kkNo: kkNo,
+    ));
+  }
+
+  Future<void> kkImageInput(
+      KkImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final kkImage = MandatoryFieldValidator.dirty(event.kkImage);
+    emit(state.copyWith(
+      kkImage: kkImage,
+    ));
+  }
+
+
 
   Future<void> firstNamePartnerInput(FirstNamePartnerInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
@@ -448,23 +750,6 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> genderPartnerInput(GenderPartnerInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
-    if (event.gender.id == 0 || event.gender.id == null) {
-      const genderId = DropdownFieldValidator.pure();
-      emit(state.copyWith(
-        genderId: genderId,
-        gender: null,
-      ));
-    } else {
-      final genderId = DropdownFieldValidator.dirty(event.gender.id ?? 0);
-      emit(state.copyWith(
-        genderId: genderId,
-        gender: event.gender,
-      ));
-    }
-  }
-
   Future<void> relationPartnerInput(RelationPartnerInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     if (event.relation.id == 0 || event.relation.id == null) {
@@ -482,26 +767,6 @@ class FaaCandidatePageBloc
     }
   }
 
-  Future<void> aajiCheckedInput(
-      AajiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    emit(state.copyWith(
-      checkedValueAAJI: event.aajiChecked,
-    ));
-  }
-
-  Future<void> aasiCheckedInput(
-      AasiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    emit(state.copyWith(
-      checkedValueAASI: event.aasiChecked,
-    ));
-  }
-
-  Future<void> aauiCheckedInput(
-      AauiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    emit(state.copyWith(
-      checkedValueAAUI: event.aauiChecked,
-    ));
-  }
 
   Future<void> marriedCheckedInputEvent(MarriedCheckedInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
@@ -510,8 +775,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> addAgentSubmitted(
-      AddAgentSubmittedEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> faaAddAgentSubmitted(FaaAddAgentSubmittedEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     if (state.isValid) {
       try {
@@ -633,7 +898,7 @@ class FaaCandidatePageBloc
     }
   }
 
-  Future<void> addAgentDocSubmitted(AddAgentDocSubmittedEvent event,
+  Future<void> faaAddAgentDocSubmitted(FaaAddAgentDocSubmittedEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     if (state.isValid) {
@@ -780,7 +1045,6 @@ class FaaCandidatePageBloc
       directLeader: value,
     ));
   }
-
 
   Future<void> companyNameExperienceInput(CompanyNameExperienceInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
@@ -950,7 +1214,7 @@ class FaaCandidatePageBloc
   //     on<SubmitEducationEvent>(submitEducation);
   Future<void> educationLevelInput(EducationLevelInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
-    final value = DropdownFieldValidator.dirty(event.value.id??0);
+    final value = DropdownFieldValidator.dirty(event.value.id ?? 0);
     emit(state.copyWith(
       educationLevelId: value,
       educationLevel: event.value,
@@ -973,8 +1237,7 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> educationStartInput(
-      EducationStartInputEvent event,
+  Future<void> educationStartInput(EducationStartInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     var month = event.educationStart.month.toString().length == 1
         ? '0${event.educationStart.month}'
@@ -990,8 +1253,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> educationEndInput(EducationEndInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
+  Future<void> educationEndInput(
+      EducationEndInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     var month = event.educationEnd.month.toString().length == 1
         ? '0${event.educationEnd.month}'
         : event.educationEnd.month;
@@ -1022,8 +1285,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> addEducation(AddEducationEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
+  Future<void> addEducation(
+      AddEducationEvent event, Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
       isJustAddEducation: true,
       submitStatus: FormzSubmissionStatus.inProgress,
@@ -1074,8 +1337,8 @@ class FaaCandidatePageBloc
     }
   }
 
-  Future<void> submitEducation(SubmitEducationEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
+  Future<void> submitEducation(
+      SubmitEducationEvent event, Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
       submitStatus: FormzSubmissionStatus.inProgress,
     ));
@@ -1088,15 +1351,15 @@ class FaaCandidatePageBloc
             submitStatus: FormzSubmissionStatus.success,
           ));
         } else {
-          final result = await candidateFaaRepository
-              .addCandidateEducation(EducationCandidateModel(
-              candidateId: state.candidateDataModel?.data?.id.toString(),
-              educationType: state.addEducationModel?.level.toString(),
-              educationName: state.addEducationModel?.schoolName,
-              educationDescription: state.addEducationModel?.description,
-              startDate: state.addEducationModel?.startLearning,
-              endDate: state.addEducationModel?.endLearning,
-              educationStatus: state.addEducationModel?.status));
+          final result = await candidateFaaRepository.addCandidateEducation(
+              EducationCandidateModel(
+                  candidateId: state.candidateDataModel?.data?.id.toString(),
+                  educationType: state.addEducationModel?.level.toString(),
+                  educationName: state.addEducationModel?.schoolName,
+                  educationDescription: state.addEducationModel?.description,
+                  startDate: state.addEducationModel?.startLearning,
+                  endDate: state.addEducationModel?.endLearning,
+                  educationStatus: state.addEducationModel?.status));
 
           result.when(
               success: (response) {
