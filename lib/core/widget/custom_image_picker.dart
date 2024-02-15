@@ -45,7 +45,6 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     if (widget.initialImage != null) {
       if (isBase64(widget.initialImage ?? '')) {
         Uint8List imageBytes = base64Decode(widget.initialImage ?? '');
-        String imagePath = await setImageToLocally(imageBytes);
         _selectedImage = imageBytes;
         String base64Image = widget.initialImage ?? '';
         widget.onImagePicked(base64Image);

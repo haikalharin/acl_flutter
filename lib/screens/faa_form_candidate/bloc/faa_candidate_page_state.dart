@@ -217,8 +217,6 @@ class FaaCandidatePageState with FormzMixin {
     this.endWorking = const MandatoryFieldValidator.pure(),
     this.endWorkingDate,
     this.addCompanyModel,
-
-
     this.kkNo = const IdentityNoValidator.pure(),
     this.kkImage = const MandatoryFieldValidator.pure(),
     this.firstNamePartner = const MandatoryFieldValidator.pure(),
@@ -267,9 +265,71 @@ class FaaCandidatePageState with FormzMixin {
         data.add(educationStart);
         data.add(educationEnd);
         data.add(educationStatus);
-      } else {
+      } else if (tabType == TabType.private) {
         data.clear();
-      }
+        data.addAll([
+          firstName,
+          middleName,
+          lastName,
+          positionId,
+          identityNo,
+          martialStatusId,
+          pob,
+          dobString,
+          genderId,
+          nationality,
+          religionId,
+          address,
+          rtRw,
+          kecKel,
+          postalCode,
+          countryId,
+          provinceId,
+          cityId,
+          phone,
+          handphone,
+          email,
+          occupationId,
+          lastWorkExperience,
+          lastResignDateString,
+          terminationDateString,
+          privateImage,
+          identityImage,
+          identitySelfieImage,
+          terminationImage,
+          notTwistingImage,
+          heirsName,
+          heirsRelation,
+          npwpNo,
+          bankNo,
+          bankUserName,
+          bankName,
+          bankBranch,
+          npwpImage,
+          bankUserBookImage,
+          sourceInformation,
+          appendixImage,
+        ]);
+
+        if (checkedValueAAJI) {
+          data.addAll([
+            noLicenceAAJI,
+            imageLicenceAAJI,
+          ]);
+        }
+        if (checkedValueAASI) {
+          data.addAll([
+            noLicenceAASI,
+            imageLicenceAASI,
+          ]);
+        }
+        if (checkedValueAAUI) {
+          data.addAll([
+            noLicenceAAUI,
+            imageLicenceAAUI,
+          ]);
+        }
+      } else {}
     } else {
       data.clear();
     }
@@ -439,7 +499,8 @@ class FaaCandidatePageState with FormzMixin {
       lastResignDate: lastResignDate ?? this.lastResignDate,
       lastResignDateString: lastResignDateString ?? this.lastResignDateString,
       terminationDate: terminationDate ?? this.terminationDate,
-      terminationDateString: terminationDateString ?? this.terminationDateString,
+      terminationDateString:
+          terminationDateString ?? this.terminationDateString,
       privateImage: privateImage ?? this.privateImage,
       identityImage: identityImage ?? this.identityImage,
       identitySelfieImage: identitySelfieImage ?? this.identitySelfieImage,

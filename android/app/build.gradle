@@ -65,7 +65,7 @@ android {
     flavorDimensions "flavor-type"
 
     productFlavors {
-            development {
+        development {
             dimension "flavor-type"
             applicationId "co.id.az.acl.dev"
             resValue "string", "app_name", "Acl SIT"
@@ -104,7 +104,6 @@ android {
 flutter {
     source '../..'
 }
-
 
 
 dependencies {
