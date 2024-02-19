@@ -66,7 +66,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                               const SizedBox(height: 8),
                               TextInput(
                                 icon: const Icon(Icons.person),
-                                label: const Text("No NPWP"),
+                                labelText: "No NPWP",
                                 keyboardType: TextInputType.phone,
                                 isMandatory: false,
                                 onChanged: (String value) {
@@ -77,7 +77,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                               const SizedBox(height: 8),
                               TextInput(
                                 icon: const Icon(Icons.person),
-                                label: const Text("No Rekening"),
+                                labelText: "No Rekening",
                                 keyboardType: TextInputType.phone,
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
@@ -87,7 +87,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                               const SizedBox(height: 8),
                               TextInput(
                                 icon: const Icon(Icons.person),
-                                label: const Text("Nama Pemilik Rekening"),
+                                labelText: "Nama Pemilik Rekening",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(MiddleNameInputEvent(value));
@@ -96,7 +96,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                               const SizedBox(height: 8),
                               TextInput(
                                 icon: const Icon(Icons.person),
-                                label: const Text("Nama Bank"),
+                                labelText: "Nama Bank",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(MiddleNameInputEvent(value));
@@ -105,7 +105,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                               const SizedBox(height: 8),
                               TextInput(
                                 icon: const Icon(Icons.person),
-                                label: const Text("Cabang"),
+                                labelText: "Cabang",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(MiddleNameInputEvent(value));

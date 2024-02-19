@@ -8,7 +8,8 @@ class DateTimePickerForm extends StatefulWidget {
       {Key? key,
       required this.selectedDateTime,
       this.dateTime,
-      this.label,
+      // this.label,
+      this.labelText,
       this.title,
       this.errorText,
       this.validator,
@@ -19,7 +20,8 @@ class DateTimePickerForm extends StatefulWidget {
 
   final void Function(DateTime date) selectedDateTime;
   final DateTime? dateTime;
-  final Widget? label;
+  // final Widget? label;
+  final String? labelText;
   final String? title;
   final String? errorText;
   final bool isMandatory;
@@ -158,7 +160,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
             icon: const Icon(Icons.date_range),
             enabled: false,
             isMandatory: false,
-            label: widget.label,
+            labelText: widget.labelText,
             validator: widget.validator,
             onChanged: (value) {},
           ),

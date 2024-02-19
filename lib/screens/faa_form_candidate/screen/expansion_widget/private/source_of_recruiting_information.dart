@@ -136,7 +136,7 @@ class _SourceOfRecruitingInformationState
                     if(dataString.contains('Others')) const SizedBox(height: 2),
                       if(dataString.contains('Others')) TextInput(
                           icon: const Icon(Icons.person),
-                          label: const Text("Other"),
+                          labelText: "Other",
                           // initialValue: postTitle,
                           validator: (String? value) {
                             if (value!.isNotEmpty) return null;

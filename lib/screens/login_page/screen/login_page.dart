@@ -6,6 +6,7 @@ import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_helper/source/components/buttons/adaptive_button.dart';
 import 'package:formz/formz.dart';
 
 import '../../../core/widget/spinkit_indicator.dart';
@@ -115,7 +116,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                                               keyboardType: TextInputType.phone,
                                               maxLength: 8,
                                               icon: const Icon(Icons.person),
-                                              label: const Text("Username"),
+                                              labelText: "Username",
                                               validator: (String? value) {
                                                 if (state.userName.isNotValid) {
                                                   return state
@@ -133,7 +134,7 @@ class _LoginPageScreenState extends State<LoginPage> {
                                               controller: password,
                                               // initialValue: postBody,
                                               icon: const Icon(Icons.password),
-                                              label: const Text("Password"),
+                                              labelText: "Password",
                                               textCapitalization:
                                                   TextCapitalization.none,
                                               obscureText: true,
@@ -155,16 +156,17 @@ class _LoginPageScreenState extends State<LoginPage> {
                                               width: MediaQuery.of(context)
                                                   .size
                                                   .width,
-                                              child: ElevatedButton(
-                                                onPressed: () {
+                                              child: AdaptiveButton(
+                                                titleText: "Login".toCapital,
+                                                onTap: () {
                                                   if (formKey.currentState!
                                                       .validate()) {
                                                     viewModel.add(
                                                         LoginSubmittedEvent());
                                                   }
                                                 },
-                                                child: Text("Login".toCapital),
-                                              ),
+                                              )
+
                                             ),
                                           ],
                                         ),

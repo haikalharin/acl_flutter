@@ -79,7 +79,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   readOnly: true,
                                   icon: const Icon(Icons.person),
-                                  label: const Text("Nama Depan(sesuai KTP)"),
+                                  labelText: "Nama Depan(sesuai KTP)",
                                   initialValue:
                                       state.candidateDataModel?.data?.firstName,
                                   validator: (String? value) {
@@ -98,7 +98,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       .candidateDataModel?.data?.middleName,
                                   isMandatory: false,
                                   icon: const Icon(Icons.person),
-                                  label: const Text("Nama tengah(sesuai KTP)"),
+                                  labelText: "Nama tengah(sesuai KTP)",
                                   onChanged: (String value) {
                                     getIt<FaaCandidatePageBloc>()
                                         .add(MiddleNameInputEvent(value));
@@ -111,8 +111,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       state.candidateDataModel?.data?.lastName,
                                   isMandatory: false,
                                   icon: const Icon(Icons.person),
-                                  label:
-                                      const Text("Nama belakang(sesuai KTP)"),
+                                  labelText: "Nama belakang(sesuai KTP)",
                                   onChanged: (String value) {},
                                 ),
                                
@@ -155,7 +154,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   initialValue:
                                       state.candidateDataModel?.data?.idCardNo,
                                   icon: const Icon(Icons.add_card_rounded),
-                                  label: const Text("No KTP"),
+                                  labelText: "No KTP",
                                   maxLength: 16,
                                   keyboardType: TextInputType.phone,
                                   validator: (String? value) {
@@ -227,7 +226,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 const SizedBox(height: 8),
                                 TextInput(
                                   icon: const Icon(Icons.person),
-                                  label: const Text("Tempat lahir"),
+                                  labelText: "Tempat lahir",
                                   // initialValue: postTitle,
                                   validator: (String? value) {
                                     if (value!.isNotEmpty) return null;
@@ -244,7 +243,7 @@ class _PrivateDataState extends State<PrivateData> {
                                     state.candidateDataModel?.data?.dob ??
                                         '2020-01-01',
                                   ),
-                                  label: const Text("Pilih Tanggal"),
+                                  labelText: "Pilih Tanggal",
                                   title: "Tanggal lahir",
                                   errorText: isCheck == true &&
                                       state.dobString.isNotValid
@@ -305,7 +304,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 const SizedBox(height: 8),
                                 TextInput(
                                   icon: const Icon(Icons.person),
-                                  label: const Text("Warga Negara"),
+                                  labelText: "Warga Negara",
                                   // initialValue: postTitle,
                                   validator: (String? value) {
                                     if (value!.isNotEmpty) return null;
@@ -380,7 +379,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   initialValue:
                                       state.candidateDataModel?.data?.address1,
                                   icon: const Icon(Icons.add_location),
-                                  label: const Text("(Gedung.../Jalan...)"),
+                                  labelText: "(Gedung.../Jalan...)",
                                   validator: (String? value) {
                                     if (value!.isNotEmpty) return null;
                                     return "Mohon diisi";
@@ -396,7 +395,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   initialValue:
                                       state.candidateDataModel?.data?.address2,
                                   icon: const Icon(Icons.add_location),
-                                  label: const Text("(RT.../RW...)"),
+                                  labelText: "(RT.../RW...)",
                                   validator: (String? value) {
                                     if (value!.isNotEmpty) return null;
                                     return "Mohon diisi";
@@ -412,8 +411,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   initialValue:
                                       state.candidateDataModel?.data?.address3,
                                   icon: const Icon(Icons.add_location),
-                                  label:
-                                      const Text("(Kelurahan.../Kecamatan...)"),
+                                  labelText: "(Kelurahan.../Kecamatan...)",
                                   validator: (String? value) {
                                     if (value!.isNotEmpty) return null;
                                     return "Mohon diisi";
@@ -430,7 +428,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       .candidateDataModel?.data?.zipCode
                                       .toString(),
                                   icon: const Icon(Icons.signpost_sharp),
-                                  label: const Text("Kode Pos"),
+                                  labelText: "Kode Pos",
                                   keyboardType: TextInputType.phone,
                                   maxLength: 5,
                                   validator: (String? value) {
@@ -625,21 +623,21 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   isMandatory: false,
                                   icon: const Icon(Icons.person),
-                                  label: const Text("No Telepon"),
+                                  labelText: "No Telepon",
                                   onChanged: (String value) {},
                                 ),
                                 const SizedBox(height: 8),
                                 TextInput(
                                   isMandatory: false,
                                   icon: const Icon(Icons.person),
-                                  label: const Text("No Handphone"),
+                                  labelText: "No Handphone",
                                   onChanged: (String value) {},
                                 ),
                                 const SizedBox(height: 8),
                                 TextInput(
                                   isMandatory: false,
                                   icon: const Icon(Icons.person),
-                                  label: const Text("Alamat Email"),
+                                  labelText: "Alamat Email",
                                   onChanged: (String value) {},
                                 ),
                                 const SizedBox(height: 8),
@@ -700,7 +698,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   isMandatory: false,
                                   icon: const Icon(Icons.person),
-                                  label: const Text("Pekerjaan Sebelumnya"),
+                                  labelText:"Pekerjaan Sebelumnya",
                                   onChanged: (String value) {},
                                 ),
                                 const SizedBox(height: 8),
@@ -727,7 +725,7 @@ class _PrivateDataState extends State<PrivateData> {
                                         dateTime: mode == Mode.update
                                             ? DateTime.now()
                                             : null,
-                                        label: const Text("Pilih Tanggal"),
+                                        labelText: "Pilih Tanggal",
                                         title: "Tanggal pengunduran diri",
                                   errorText: isCheck == true &&
                                       state.dobPartner.isNotValid
@@ -773,7 +771,7 @@ class _PrivateDataState extends State<PrivateData> {
                                         dateTime: mode == Mode.update
                                             ? DateTime.now()
                                             : null,
-                                        label: const Text("Pilih Tanggal"),
+                                        labelText: "Pilih Tanggal",
                                         title: "Tanggal Terminasi",
                                   errorText: isCheck == true &&
                                       state.dobPartner.isNotValid

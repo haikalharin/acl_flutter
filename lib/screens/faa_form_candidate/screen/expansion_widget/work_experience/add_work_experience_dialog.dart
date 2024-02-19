@@ -77,7 +77,7 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                             TextInput(
                               initialValue: state.addCompanyModel?.companyName,
                               icon: const Icon(Icons.person),
-                              label: const Text("Nama perusahaan"),
+                              labelText: "Nama perusahaan",
                               // initialValue: postTitle,
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
@@ -92,7 +92,7 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                             TextInput(
                               initialValue: state.addCompanyModel?.companyType,
                               icon: const Icon(Icons.work),
-                              label: const Text("Jenis perusahaan"),
+                              labelText: "Jenis perusahaan",
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>().add(
                                     CompanyTypeExperienceInputEvent(value));
@@ -106,7 +106,7 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                             TextInput(
                               initialValue: state.addCompanyModel?.department,
                               icon: const Icon(Icons.maps_home_work_outlined),
-                              label: const Text("jabatan"),
+                              labelText: "jabatan",
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(DepartmentExperienceInputEvent(value));
@@ -125,7 +125,7 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                                               '2020-01-01',
                                         )
                                       : null,
-                              label: const Text("Pilih Tanggal"),
+                              labelText: "Pilih Tanggal",
                               title: "Mulai masa bekerja",
                               errorText: isCheck == true &&
                                       state.startWorking.isNotValid
@@ -173,7 +173,7 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                                                 '2020-01-01',
                                           )
                                         : null,
-                                    label: const Text("Pilih Tanggal"),
+                                    labelText: "Pilih Tanggal",
                                     title: "Berakhir masa bekerja",
                                     errorText: isCheck == true &&
                                             state.endWorking.isNotValid

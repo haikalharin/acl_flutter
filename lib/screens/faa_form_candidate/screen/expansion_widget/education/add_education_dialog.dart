@@ -112,7 +112,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                             TextInput(
                               initialValue: state.addEducationModel?.schoolName,
                               icon: const Icon(Icons.person),
-                              label: const Text("Nama Sekolah/kursus"),
+                              labelText: "Nama Sekolah/kursus",
                               // initialValue: postTitle,
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
@@ -127,7 +127,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                             TextInput(
                               initialValue: state.addEducationModel?.description,
                               icon: const Icon(Icons.work),
-                              label: const Text("Keterangan"),
+                              labelText: "Keterangan",
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>().add(
                                     EducationDescriptionInputEvent(value));
@@ -146,7 +146,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                                               '2020-01-01',
                                         )
                                       : null,
-                              label: const Text("Pilih Tanggal"),
+                              labelText: "Pilih Tanggal",
                               title: "Mulai masa belajar",
                               errorText: isCheck == true &&
                                       state.educationStart.isNotValid
@@ -170,7 +170,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                                               '2020-01-01',
                                         )
                                       : null,
-                              label: const Text("Pilih Tanggal"),
+                              labelText: "Pilih Tanggal",
                               title: "Berakhir masa belajar",
                               errorText:
                                   isCheck == true && state.educationEnd.isNotValid

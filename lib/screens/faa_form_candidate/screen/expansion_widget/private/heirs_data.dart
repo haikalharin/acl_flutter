@@ -65,7 +65,7 @@ class _HeirsDataState extends State<HeirsData> {
                               const SizedBox(height: 8),
                               TextInput(
                                 icon: const Icon(Icons.person),
-                                label: const Text("Nama ahli waris"),
+                                labelText: "Nama ahli waris",
                                 // initialValue: postTitle,
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;
@@ -80,7 +80,7 @@ class _HeirsDataState extends State<HeirsData> {
                               TextInput(
                                 isMandatory: false,
                                 icon: const Icon(Icons.person),
-                                label: const Text("Hubungan ahli waris"),
+                                labelText: "Hubungan ahli waris",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(MiddleNameInputEvent(value));

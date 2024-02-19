@@ -57,7 +57,7 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                   margin: EdgeInsets.symmetric(horizontal: 16),
                   width: MediaQuery.of(context).size.width,
                   child: AdaptiveButton(
-                    titleText: '("Selanjutnya".toCapital',
+                    titleText: "Selanjutnya".toCapital,
                     onTap: () {
                       if (formKey.currentState!.validate()) {}
                       widget.tabController.animateTo(1);

@@ -247,7 +247,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                           const SizedBox(height: 8),
                                           TextInput(
                                             icon: const Icon(Icons.maps_home_work),
-                                            label: const Text("Nama Unit"),
+                                            labelText:"Atasan langsung",
                                             // initialValue: postTitle,
                                             validator: (String? value) {
                                               if (value!.isNotEmpty) return null;
@@ -262,7 +262,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                           const SizedBox(height: 8),
                                           TextInput(
                                             icon: const Icon(Icons.account_circle),
-                                            label: const Text("Jabatan Terakhir"),
+                                            labelText: "Jabatan Terakhir",
                                             // initialValue: postTitle,
                                             validator: (String? value) {
                                               if (value!.isNotEmpty) return null;
@@ -277,7 +277,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                           const SizedBox(height: 8),
                                           TextInput(
                                             icon: const Icon(Icons.person),
-                                            label: const Text("Atasan langsung"),
+                                            labelText: "Atasan langsung",
                                             // initialValue: postTitle,
                                             validator: (String? value) {
                                               if (value!.isNotEmpty) return null;

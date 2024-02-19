@@ -68,7 +68,7 @@ class _AasiDataState extends State<AasiData> {
                               TextInput(
                                 isMandatory: checkedValueAASI,
                                 icon: const Icon(Icons.add_card_rounded),
-                                label: const Text("No lisensi AASI"),
+                                labelText: "No lisensi AASI",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(AasiNoInputEvent(value));

@@ -68,7 +68,7 @@ class _AauiDataState extends State<AauiData> {
                               TextInput(
                                 isMandatory: checkedValueAAUI,
                                 icon: const Icon(Icons.add_card_rounded),
-                                label: const Text("No lisensi AAUI"),
+                                labelText: "No lisensi AAUI",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(AauiNoInputEvent(value));
