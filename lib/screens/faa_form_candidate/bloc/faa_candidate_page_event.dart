@@ -13,6 +13,8 @@ class FetchCandidateDataEvent extends FaaCandidatePageEvent {
   FetchCandidateDataEvent(this.candidateId);
 }
 
+
+
 class TabTypeInputEvent extends FaaCandidatePageEvent {
   final TabType tabType;
 

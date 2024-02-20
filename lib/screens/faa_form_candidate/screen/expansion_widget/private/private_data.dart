@@ -81,7 +81,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   icon: const Icon(Icons.person),
                                   labelText: "Nama Depan(sesuai KTP)",
                                   initialValue:
-                                      state.candidateDataModel?.data?.firstName,
+                                      state.candidateDataModel?.firstName,
                                   validator: (String? value) {
                                     if (value!.isNotEmpty) return null;
                                     return "Mohon diisi";
@@ -95,7 +95,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   readOnly: true,
                                   initialValue: state
-                                      .candidateDataModel?.data?.middleName,
+                                      .candidateDataModel?.middleName,
                                   isMandatory: false,
                                   icon: const Icon(Icons.person),
                                   labelText: "Nama tengah(sesuai KTP)",
@@ -108,7 +108,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   readOnly: true,
                                   initialValue:
-                                      state.candidateDataModel?.data?.lastName,
+                                      state.candidateDataModel?.lastName,
                                   isMandatory: false,
                                   icon: const Icon(Icons.person),
                                   labelText: "Nama belakang(sesuai KTP)",
@@ -152,7 +152,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   readOnly: true,
                                   initialValue:
-                                      state.candidateDataModel?.data?.idCardNo,
+                                      state.candidateDataModel?.idCardNo,
                                   icon: const Icon(Icons.add_card_rounded),
                                   labelText: "No KTP",
                                   maxLength: 16,
@@ -190,7 +190,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       },
                                       initialItem: state.candidateDataModel !=
                                                   null &&
-                                              state.candidateDataModel?.data
+                                              state.candidateDataModel
                                                       ?.maritalStatus !=
                                                   0
                                           ? state
@@ -203,7 +203,7 @@ class _PrivateDataState extends State<PrivateData> {
                                                   element.id ==
                                                   (state
                                                           .candidateDataModel
-                                                          ?.data
+
                                                           ?.maritalStatus ??
                                                       0))
                                               .toList()
@@ -240,7 +240,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 const SizedBox(height: 8),
                                 DateTimePickerForm(
                                   dateTime: DateTime.parse(
-                                    state.candidateDataModel?.data?.dob ??
+                                    state.candidateDataModel?.dob ??
                                         '2020-01-01',
                                   ),
                                   labelText: "Pilih Tanggal",
@@ -272,7 +272,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   },
                                   initialItem:
                                       state.candidateDataModel != null &&
-                                              state.candidateDataModel?.data
+                                              state.candidateDataModel
                                                       ?.gender !=
                                                   0
                                           ? state
@@ -284,7 +284,7 @@ class _PrivateDataState extends State<PrivateData> {
                                               ?.where((element) =>
                                                   element.id ==
                                                   (state.candidateDataModel
-                                                          ?.data?.gender ??
+                                                          ?.gender ??
                                                       0))
                                               .toList()
                                               .first
@@ -377,7 +377,7 @@ class _PrivateDataState extends State<PrivateData> {
                                     ],
                                   ),
                                   initialValue:
-                                      state.candidateDataModel?.data?.address1,
+                                      state.candidateDataModel?.address1,
                                   icon: const Icon(Icons.add_location),
                                   labelText: "(Gedung.../Jalan...)",
                                   validator: (String? value) {
@@ -393,7 +393,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   readOnly: true,
                                   initialValue:
-                                      state.candidateDataModel?.data?.address2,
+                                      state.candidateDataModel?.address2,
                                   icon: const Icon(Icons.add_location),
                                   labelText: "(RT.../RW...)",
                                   validator: (String? value) {
@@ -409,7 +409,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   readOnly: true,
                                   initialValue:
-                                      state.candidateDataModel?.data?.address3,
+                                      state.candidateDataModel?.address3,
                                   icon: const Icon(Icons.add_location),
                                   labelText: "(Kelurahan.../Kecamatan...)",
                                   validator: (String? value) {
@@ -425,7 +425,7 @@ class _PrivateDataState extends State<PrivateData> {
                                 TextInput(
                                   readOnly: true,
                                   initialValue: state
-                                      .candidateDataModel?.data?.zipCode
+                                      .candidateDataModel?.zipCode
                                       .toString(),
                                   icon: const Icon(Icons.signpost_sharp),
                                   labelText: "Kode Pos",
@@ -507,7 +507,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       },
                                       initialItem: state.candidateDataModel !=
                                                   null &&
-                                              state.candidateDataModel?.data
+                                              state.candidateDataModel
                                                       ?.province !=
                                                   0
                                           ? state
@@ -519,7 +519,7 @@ class _PrivateDataState extends State<PrivateData> {
                                               ?.where((element) =>
                                                   element.id ==
                                                   (state.candidateDataModel
-                                                          ?.data?.province ??
+                                                          ?.province ??
                                                       0))
                                               .toList()
                                               .first
@@ -551,7 +551,7 @@ class _PrivateDataState extends State<PrivateData> {
                                           previous.candidateDataModel,
                                   builder: (context, state) {
                                     List<CityMasterReference> listCity =
-                                        state.candidateDataModel?.data?.province != 0
+                                        state.candidateDataModel?.province != 0
                                             ? state
                                                     .masterDataModel
                                                     ?.masterData
@@ -561,7 +561,7 @@ class _PrivateDataState extends State<PrivateData> {
                                                     ?.where((element) =>
                                                         element.referTo ==
                                                         state.candidateDataModel
-                                                            ?.data?.province)
+                                                            ?.province)
                                                     .toList() ??
                                                 []
                                             : state
@@ -578,7 +578,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       title: 'Kota',
                                       readOnly: true,
                                       // readOnly: state.provinceId.isValid ||
-                                      //         state.candidateDataModel?.data
+                                      //         state.candidateDataModel
                                       //                 ?.city !=
                                       //             null
                                       //     ? false
@@ -594,7 +594,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       initialItem:
                                       state.candidateDataModel !=
                                           null &&
-                                          state.candidateDataModel?.data
+                                          state.candidateDataModel
                                               ?.city !=
                                               0
                                           ? state
@@ -606,7 +606,7 @@ class _PrivateDataState extends State<PrivateData> {
                                           ?.where((element) =>
                                       element.id ==
                                           (state.candidateDataModel
-                                              ?.data?.city ??
+                                              ?.city ??
                                               0))
                                           .toList()
                                           .first
@@ -663,7 +663,7 @@ class _PrivateDataState extends State<PrivateData> {
                                       },
                                       initialItem: state.candidateDataModel !=
                                                   null &&
-                                              state.candidateDataModel?.data
+                                              state.candidateDataModel
                                                       ?.occupation !=
                                                   0
                                           ? state
@@ -675,7 +675,7 @@ class _PrivateDataState extends State<PrivateData> {
                                               ?.where((element) =>
                                                   element.id ==
                                                   (state.candidateDataModel
-                                                          ?.data?.occupation ??
+                                                          ?.occupation ??
                                                       0))
                                               .toList()
                                               .first
@@ -809,6 +809,8 @@ class _PrivateDataState extends State<PrivateData> {
                                 const SizedBox(height: 8),
                                 CustomImagePicker(
                                   title: 'Foto KTP',
+                                  readOnly: state.identityImage.isValid,
+                                  initialImage: state.identityImage.value,
                                   onImagePicked: (value) {
                                     getIt<FaaCandidatePageBloc>()
                                         .add(IdentityImageInputEvent(value));
@@ -821,6 +823,8 @@ class _PrivateDataState extends State<PrivateData> {
                                 const SizedBox(height: 8),
                                 CustomImagePicker(
                                   title: 'Foto Selfie Beserta KTP',
+                                  readOnly: state.identitySelfieImage.isValid,
+                                  initialImage: state.identitySelfieImage.value,
                                   onImagePicked: (value) {
                                     getIt<FaaCandidatePageBloc>().add(
                                         IdentitySelfieImageInputEvent(value));

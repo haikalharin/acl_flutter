@@ -71,6 +71,7 @@ class _AppendixDataState extends State<AppendixData> {
                                 builder: (context, state) {
                                   return DropDownGeneral(
                                     title: 'Lain lain',
+                                    isMandatory: false,
                                     icon: const Icon(
                                       Icons.account_balance_rounded,
                                       color: AclColors.greyDarkFontColor,

@@ -121,7 +121,7 @@ class _TextInputState extends State<TextInput> {
       return _getBoxDecoration();
     }
 
-    return _getBoxDecoration();
+    return _getTitleDecoration();
   }
 
   InputDecoration _getBoxDecoration() {

@@ -5,6 +5,7 @@ import 'package:acl_flutter/common/validators/handphone_validator.dart';
 import 'package:acl_flutter/common/validators/phone_validator.dart';
 import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/education_candidate_model.dart';
+import 'package:acl_flutter/data/model/documents/documents_response_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:acl_flutter/data/model/sepouse/request_sepouse_model.dart';
 import 'package:acl_flutter/data/repository/candidate_faa_repository/candidate_faa_repository.dart';
@@ -176,12 +177,54 @@ class FaaCandidatePageBloc
     try {
       final result =
           await candidateRepository.getCandidateData(event.candidateId);
-      result.when(success: (response) {
+      result.when(success: (response) async {
         SecureStorage().setCandidateDataFaa(response.data);
-        emit(state.copyWith(
-            candidateDataModel: response.data,
-            message: 'success-get-candidate-data',
-            submitStatus: FormzSubmissionStatus.success));
+        LoginModel user = await SecureStorage().getUser();
+
+        final result = await candidateRepository.getCandidateDataDoc(
+            agentCode: user.uid ?? '', candidateId: event.candidateId);
+        result.when(success: (response) async {
+          var identityImage = const MandatoryFieldValidator.pure();
+          var identitySelfiImage = const MandatoryFieldValidator.pure();
+          var imageLicenceAAJI = const MandatoryFieldValidator.pure();
+          var imageLicenceAASI = const MandatoryFieldValidator.pure();
+          var imageLicenceAAUI = const MandatoryFieldValidator.pure();
+          ;
+          List<DocumentsResponseModel> listImage = response.data;
+          listImage.forEach((element) {
+            if (element.key == 11010201) {
+              identityImage = MandatoryFieldValidator.dirty(element.value??'');
+            }
+            if (element.key == 40010005) {
+              identitySelfiImage = MandatoryFieldValidator.dirty(element.value??'');
+            }
+            if (element.key == 30020110) {
+              identitySelfiImage = MandatoryFieldValidator.dirty(element.value??'');
+            }
+
+            if (element.key == 30020131) {
+              identitySelfiImage = MandatoryFieldValidator.dirty(element.value??'');
+            }
+
+            if (element.key == 30020144) {
+              identitySelfiImage = MandatoryFieldValidator.dirty(element.value??'');
+            }
+
+
+          });
+          emit(state.copyWith(
+              candidateDataModel: response.data,
+              identityImage: identityImage,
+              identitySelfieImage: identitySelfiImage,
+              imageLicenceAAJI: imageLicenceAAJI,
+              imageLicenceAASI: imageLicenceAASI,
+              imageLicenceAAUI: imageLicenceAAUI,
+
+              message: 'success-get-candidate-data',
+              submitStatus: FormzSubmissionStatus.success));
+        }, failure: (error) {
+          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+        });
       }, failure: (error) {
         emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
       });
@@ -497,8 +540,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> privateImageInput(PrivateImageInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
+  Future<void> privateImageInput(
+      PrivateImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     final image = MandatoryFieldValidator.dirty(event.image);
     emit(state.copyWith(
       privateImage: image,
@@ -516,7 +559,7 @@ class FaaCandidatePageBloc
   Future<void> identitySelfieImageInput(IdentitySelfieImageInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     final identitySelfieImage =
-    MandatoryFieldValidator.dirty(event.identitySelfieImage);
+        MandatoryFieldValidator.dirty(event.identitySelfieImage);
     emit(state.copyWith(
       identitySelfieImage: identitySelfieImage,
     ));
@@ -553,12 +596,12 @@ class FaaCandidatePageBloc
     ));
   }
 
-
   Future<void> noLicenceAAJIInput(
       AajiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     final noLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiNo);
     emit(state.copyWith(
       noLicenceAAJI: noLicenceAAJI,
+      checkedValueAAJI: noLicenceAAJI.isValid,
     ));
   }
 
@@ -582,6 +625,7 @@ class FaaCandidatePageBloc
     final noLicenceAASI = MandatoryFieldValidator.dirty(event.aasiNo);
     emit(state.copyWith(
       noLicenceAASI: noLicenceAASI,
+      checkedValueAASI: noLicenceAASI.isValid,
     ));
   }
 
@@ -605,6 +649,7 @@ class FaaCandidatePageBloc
     final noLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiNo);
     emit(state.copyWith(
       noLicenceAAUI: noLicenceAAUI,
+      checkedValueAAUI: noLicenceAAUI.isValid,
     ));
   }
 
@@ -664,24 +709,24 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> bankUserBookImageInput(
-      BankUserBookImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> bankUserBookImageInput(BankUserBookImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
       bankUserBookImage: value,
     ));
   }
 
-  Future<void> sourceInformationInput(
-      SourceInformationInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> sourceInformationInput(SourceInformationInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
       sourceInformation: value,
     ));
   }
 
-  Future<void> appendixImageInput(
-      AppendixImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> appendixImageInput(AppendixImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
       appendixImage: value,
@@ -703,8 +748,6 @@ class FaaCandidatePageBloc
       kkImage: kkImage,
     ));
   }
-
-
 
   Future<void> firstNamePartnerInput(FirstNamePartnerInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
@@ -766,7 +809,6 @@ class FaaCandidatePageBloc
       ));
     }
   }
-
 
   Future<void> marriedCheckedInputEvent(MarriedCheckedInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
@@ -1177,7 +1219,7 @@ class FaaCandidatePageBloc
         } else {
           final result = await candidateFaaRepository
               .addCandidateWorkExperience(AddCandidateWorkExperienceModel(
-                  candidateId: state.candidateDataModel?.data?.id.toString(),
+                  candidateId: state.candidateDataModel?.id.toString(),
                   companyName: state.addCompanyModel?.companyName,
                   startDate: state.addCompanyModel?.startWorking,
                   endDate: state.addCompanyModel?.endWorking,
@@ -1353,7 +1395,7 @@ class FaaCandidatePageBloc
         } else {
           final result = await candidateFaaRepository.addCandidateEducation(
               EducationCandidateModel(
-                  candidateId: state.candidateDataModel?.data?.id.toString(),
+                  candidateId: state.candidateDataModel?.id.toString(),
                   educationType: state.addEducationModel?.level.toString(),
                   educationName: state.addEducationModel?.schoolName,
                   educationDescription: state.addEducationModel?.description,

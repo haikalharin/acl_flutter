@@ -68,6 +68,9 @@ class _AauiDataState extends State<AauiData> {
                               TextInput(
                                 isMandatory: checkedValueAAUI,
                                 icon: const Icon(Icons.add_card_rounded),
+                                readOnly: state.noLicenceAAUI.isValid,
+                                initialValue:
+                                state.candidateDataModel?.aauiNo,
                                 labelText: "No lisensi AAUI",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
@@ -86,6 +89,8 @@ class _AauiDataState extends State<AauiData> {
                               CustomImagePicker(
                                 title: 'Foto Lisensi AAUI',
                                 isMandatory: checkedValueAAUI,
+                                readOnly: state.imageLicenceAAUI.isValid,
+                                initialImage: state.imageLicenceAAUI.value,
                                 onImagePicked: (value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(AauiImageInputEvent(value));

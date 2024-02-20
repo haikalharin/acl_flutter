@@ -71,6 +71,8 @@ class _AajiDataState extends State<AajiData> {
                               isMandatory: checkedValueAAJI,
                               icon: const Icon(Icons.add_card_rounded),
                               labelText: "No lisensi AAJI",
+                              readOnly: state.noLicenceAAJI.isValid,
+                              initialValue: state.candidateDataModel?.aajiNo,
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(AajiNoInputEvent(value));
@@ -88,6 +90,8 @@ class _AajiDataState extends State<AajiData> {
                             CustomImagePicker(
                               title: 'Foto Lisensi AAJI',
                               isMandatory: checkedValueAAJI,
+                              readOnly: state.imageLicenceAAJI.isValid,
+                              initialImage: state.imageLicenceAAJI.value,
                               onImagePicked: (value) {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(AajiImageInputEvent(value));

@@ -6,6 +6,7 @@ class HomePageState  {
   final List<CandidateBeModel>? listAgentBeModel;
   final List<NotificationModel>? listNotify;
   final LoginModel? loginModel;
+  final ProfileAgentModel? profileAgentModel;
   final CandidateModel? agentModel;
   final String? errorMessage;
   final String? message;
@@ -17,6 +18,7 @@ class HomePageState  {
     this.listAgentBeModel= const [],
     this.listNotify,
     this.agentModel,
+    this.profileAgentModel,
     this.loginModel,
     this.moveTo,
     this.errorMessage,
@@ -29,6 +31,7 @@ class HomePageState  {
   HomePageState copyWith({
     CandidateModel? agentModel,
     LoginModel? loginModel,
+    ProfileAgentModel? profileAgentModel,
     List<CandidateModel>? listAgentModel,
     List<CandidateBeModel>? listAgentBeModel,
     List<NotificationModel>? listNotify,
@@ -40,6 +43,7 @@ class HomePageState  {
   }) {
     return HomePageState(
       agentModel: agentModel ?? this.agentModel,
+      profileAgentModel: profileAgentModel ?? this.profileAgentModel,
       loginModel: loginModel ?? this.loginModel,
       listAgentModel: listAgentModel ?? this.listAgentModel,
       listAgentBeModel: listAgentBeModel ?? this.listAgentBeModel,

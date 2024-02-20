@@ -15,6 +15,7 @@ import '../../../core/network/api_result.dart';
 import '../../../core/network/dio_exception.dart';
 import '../../../core/repository_helper/repository_helper.dart';
 
+import '../../remote_data_source/candidate/get_candidate_data_documents_api.dart';
 import '../../remote_data_source/candidate_faa/add_education_candidate_api.dart';
 import '../../remote_data_source/candidate_faa/add_work_eexperience_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';

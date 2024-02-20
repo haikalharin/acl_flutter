@@ -83,6 +83,10 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(MiddleNameInputEvent(value));
                                 },
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                },
                               ),
                               const SizedBox(height: 8),
                               TextInput(
@@ -91,6 +95,10 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(MiddleNameInputEvent(value));
+                                },
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
                                 },
                               ),
                               const SizedBox(height: 8),
@@ -101,6 +109,10 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(MiddleNameInputEvent(value));
                                 },
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                },
                               ),
                               const SizedBox(height: 8),
                               TextInput(
@@ -109,6 +121,10 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(MiddleNameInputEvent(value));
+                                },
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
                                 },
                               ),
                               const SizedBox(height: 8),

@@ -11,9 +11,11 @@ class ServiceUrl {
   static String submitPendingSimpleChecking = "${subHost}restcandidate/submitPendingSimpleChecking";
   static String addRegisterCandidateFolderDoc = "${subHost}AclDms/createFolder";
   static String addRegisterCandidateDoc = "${subHost}AclDms/uploadDoc";
+  static String getCandidateDataDoc = "${subHost}AclDms/getDocuments";
   static String addSepouseCandidate = "${subHost}restcandidate/insertFamilyCard";
   static String startProcessInstance = "${subHost}restcandidate/startProcessInstance";
   static String addPrivateDataCandidate = "${subHost}restcandidate/registrationCandidate";
   static String addWorkExperienceCandidate = "${subHost}restcandidate/addCandidateWorkExperience";
   static String addEducationCandidate = "${subHost}restcandidate/addCandidateEducation";
+  static String getDataAgent = "v2/acl/aclopusproc/agentInquiryAuth";
 }

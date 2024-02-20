@@ -13,62 +13,26 @@ String candidateDataModelToJson(CandidateDataModel data) => json.encode(data.toJ
 
 @JsonSerializable()
 class CandidateDataModel {
-  @JsonKey(name: "code")
-  int? code;
-  @JsonKey(name: "message")
-  String? message;
-  @JsonKey(name: "httpStatus")
-  String? httpStatus;
-  @JsonKey(name: "data")
-  Data? data;
-
-  CandidateDataModel({
-    this.code,
-    this.message,
-    this.httpStatus,
-    this.data,
-  });
-
-  CandidateDataModel copyWith({
-    int? code,
-    String? message,
-    String? httpStatus,
-    Data? data,
-  }) =>
-      CandidateDataModel(
-        code: code ?? this.code,
-        message: message ?? this.message,
-        httpStatus: httpStatus ?? this.httpStatus,
-        data: data ?? this.data,
-      );
-
-  factory CandidateDataModel.fromJson(Map<String, dynamic> json) => _$CandidateDataModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CandidateDataModelToJson(this);
-}
-
-@JsonSerializable()
-class Data {
   @JsonKey(name: "id")
   int? id;
   @JsonKey(name: "userId")
   String? userId;
   @JsonKey(name: "agentCode")
-  dynamic agentCode;
+  String? agentCode;
   @JsonKey(name: "clientNumber")
-  dynamic clientNumber;
+  String? clientNumber;
   @JsonKey(name: "firstName")
   String? firstName;
   @JsonKey(name: "middleName")
   dynamic middleName;
   @JsonKey(name: "lastName")
-  String? lastName;
+  dynamic lastName;
   @JsonKey(name: "title")
   int? title;
   @JsonKey(name: "position")
   int? position;
   @JsonKey(name: "placeOfBirth")
-  dynamic placeOfBirth;
+  String? placeOfBirth;
   @JsonKey(name: "dob")
   String? dob;
   @JsonKey(name: "gender")
@@ -92,11 +56,11 @@ class Data {
   @JsonKey(name: "zipCode")
   int? zipCode;
   @JsonKey(name: "phoneNo")
-  dynamic phoneNo;
+  String? phoneNo;
   @JsonKey(name: "officePhoneNo")
   dynamic officePhoneNo;
   @JsonKey(name: "cellularNo")
-  dynamic cellularNo;
+  String? cellularNo;
   @JsonKey(name: "email")
   dynamic email;
   @JsonKey(name: "idCardNo")
@@ -104,9 +68,9 @@ class Data {
   @JsonKey(name: "maritalStatus")
   int? maritalStatus;
   @JsonKey(name: "heir")
-  dynamic heir;
+  String? heir;
   @JsonKey(name: "heirRelation")
-  dynamic heirRelation;
+  String? heirRelation;
   @JsonKey(name: "jointDate")
   String? jointDate;
   @JsonKey(name: "aajiNo")
@@ -114,13 +78,13 @@ class Data {
   @JsonKey(name: "aajiExpired")
   String? aajiExpired;
   @JsonKey(name: "bankAccount")
-  dynamic bankAccount;
+  String? bankAccount;
   @JsonKey(name: "bankName")
-  dynamic bankName;
+  String? bankName;
   @JsonKey(name: "bankBranch")
-  dynamic bankBranch;
+  String? bankBranch;
   @JsonKey(name: "bankAccountName")
-  dynamic bankAccountName;
+  String? bankAccountName;
   @JsonKey(name: "npwpNo")
   dynamic npwpNo;
   @JsonKey(name: "npwpName")
@@ -154,7 +118,7 @@ class Data {
   @JsonKey(name: "spouseUnit")
   dynamic spouseUnit;
   @JsonKey(name: "isReinstate")
-  dynamic isReinstate;
+  String? isReinstate;
   @JsonKey(name: "leaderName")
   String? leaderName;
   @JsonKey(name: "leaderAgentCode")
@@ -166,7 +130,7 @@ class Data {
   @JsonKey(name: "signatureDate")
   String? signatureDate;
   @JsonKey(name: "signatureCity")
-  dynamic signatureCity;
+  String? signatureCity;
   @JsonKey(name: "createDate")
   String? createDate;
   @JsonKey(name: "createBy")
@@ -174,7 +138,7 @@ class Data {
   @JsonKey(name: "updateDate")
   String? updateDate;
   @JsonKey(name: "updateBy")
-  dynamic updateBy;
+  String? updateBy;
   @JsonKey(name: "activeFlag")
   String? activeFlag;
   @JsonKey(name: "verificationNumber")
@@ -194,11 +158,11 @@ class Data {
   @JsonKey(name: "officeCity")
   String? officeCity;
   @JsonKey(name: "reinstateOfficeCode")
-  dynamic reinstateOfficeCode;
+  String? reinstateOfficeCode;
   @JsonKey(name: "reinstateLeaderName")
-  dynamic reinstateLeaderName;
+  String? reinstateLeaderName;
   @JsonKey(name: "reinstateLastPosition")
-  dynamic reinstateLastPosition;
+  String? reinstateLastPosition;
   @JsonKey(name: "reinstateStatus")
   int? reinstateStatus;
   @JsonKey(name: "reinstateAgentCode")
@@ -220,7 +184,7 @@ class Data {
   @JsonKey(name: "isCompleted")
   String? isCompleted;
   @JsonKey(name: "isSuspended")
-  dynamic isSuspended;
+  String? isSuspended;
   @JsonKey(name: "recruiterAgentCode")
   dynamic recruiterAgentCode;
   @JsonKey(name: "dependent")
@@ -238,17 +202,17 @@ class Data {
   @JsonKey(name: "isEqualWithKtp")
   dynamic isEqualWithKtp;
   @JsonKey(name: "pickerFaa")
-  dynamic pickerFaa;
+  String? pickerFaa;
   @JsonKey(name: "pickerSimpleChecking")
-  dynamic pickerSimpleChecking;
+  String? pickerSimpleChecking;
   @JsonKey(name: "ptkpIsExist")
   dynamic ptkpIsExist;
   @JsonKey(name: "submissionDate")
   String? submissionDate;
   @JsonKey(name: "isCompletedFaa")
-  dynamic isCompletedFaa;
+  String? isCompletedFaa;
   @JsonKey(name: "isCompletedSimpleChecking")
-  dynamic isCompletedSimpleChecking;
+  String? isCompletedSimpleChecking;
   @JsonKey(name: "resignLetterDate")
   String? resignLetterDate;
   @JsonKey(name: "terminationDate")
@@ -256,7 +220,7 @@ class Data {
   @JsonKey(name: "isEmailUpdate")
   String? isEmailUpdate;
   @JsonKey(name: "prevCompany")
-  dynamic prevCompany;
+  int? prevCompany;
   @JsonKey(name: "prevCompanyOthers")
   dynamic prevCompanyOthers;
   @JsonKey(name: "deletedReason")
@@ -268,9 +232,9 @@ class Data {
   @JsonKey(name: "pickerActimize")
   dynamic pickerActimize;
   @JsonKey(name: "isReview")
-  dynamic isReview;
+  String? isReview;
   @JsonKey(name: "isSignature")
-  dynamic isSignature;
+  String? isSignature;
   @JsonKey(name: "isRelease")
   dynamic isRelease;
   @JsonKey(name: "kpmLocationCode")
@@ -278,11 +242,11 @@ class Data {
   @JsonKey(name: "isReleases")
   dynamic isReleases;
   @JsonKey(name: "idFamilyCardNo")
-  dynamic idFamilyCardNo;
+  String? idFamilyCardNo;
   @JsonKey(name: "aasiNo")
   dynamic aasiNo;
   @JsonKey(name: "prevCompanyAasi")
-  dynamic prevCompanyAasi;
+  int? prevCompanyAasi;
   @JsonKey(name: "aasiExpired")
   String? aasiExpired;
   @JsonKey(name: "aajiActiveFlag")
@@ -292,7 +256,7 @@ class Data {
   @JsonKey(name: "spouseCompany")
   dynamic spouseCompany;
   @JsonKey(name: "supportingDoc")
-  String? supportingDoc;
+  dynamic supportingDoc;
   @JsonKey(name: "aauiNo")
   dynamic aauiNo;
   @JsonKey(name: "aauiActiveFlag")
@@ -310,7 +274,7 @@ class Data {
   @JsonKey(name: "aasiExamRegisterInfo")
   dynamic aasiExamRegisterInfo;
   @JsonKey(name: "tocResultInfoList")
-  TocResultInfoList? tocResultInfoList;
+  dynamic tocResultInfoList;
   @JsonKey(name: "candidateDependentList")
   dynamic candidateDependentList;
   @JsonKey(name: "cpdRegisterInfo")
@@ -318,7 +282,7 @@ class Data {
   @JsonKey(name: "paymentTransactionList")
   dynamic paymentTransactionList;
 
-  Data({
+  CandidateDataModel({
     this.id,
     this.userId,
     this.agentCode,
@@ -455,17 +419,17 @@ class Data {
     this.paymentTransactionList,
   });
 
-  Data copyWith({
+  CandidateDataModel copyWith({
     int? id,
     String? userId,
-    dynamic agentCode,
-    dynamic clientNumber,
+    String? agentCode,
+    String? clientNumber,
     String? firstName,
     dynamic middleName,
-    String? lastName,
+    dynamic lastName,
     int? title,
     int? position,
-    dynamic placeOfBirth,
+    String? placeOfBirth,
     String? dob,
     int? gender,
     int? weight,
@@ -477,21 +441,21 @@ class Data {
     int? city,
     int? province,
     int? zipCode,
-    dynamic phoneNo,
+    String? phoneNo,
     dynamic officePhoneNo,
-    dynamic cellularNo,
+    String? cellularNo,
     dynamic email,
     String? idCardNo,
     int? maritalStatus,
-    dynamic heir,
-    dynamic heirRelation,
+    String? heir,
+    String? heirRelation,
     String? jointDate,
     dynamic aajiNo,
     String? aajiExpired,
-    dynamic bankAccount,
-    dynamic bankName,
-    dynamic bankBranch,
-    dynamic bankAccountName,
+    String? bankAccount,
+    String? bankName,
+    String? bankBranch,
+    String? bankAccountName,
     dynamic npwpNo,
     dynamic npwpName,
     dynamic npwpAddress1,
@@ -508,17 +472,17 @@ class Data {
     dynamic spouseIsAgent,
     dynamic spouseAgentCode,
     dynamic spouseUnit,
-    dynamic isReinstate,
+    String? isReinstate,
     String? leaderName,
     String? leaderAgentCode,
     String? leaderSignatureDate,
     dynamic leaderSignatureCity,
     String? signatureDate,
-    dynamic signatureCity,
+    String? signatureCity,
     String? createDate,
     String? createBy,
     String? updateDate,
-    dynamic updateBy,
+    String? updateBy,
     String? activeFlag,
     dynamic verificationNumber,
     int? nationality,
@@ -528,9 +492,9 @@ class Data {
     int? taxType,
     int? idCardType,
     String? officeCity,
-    dynamic reinstateOfficeCode,
-    dynamic reinstateLeaderName,
-    dynamic reinstateLastPosition,
+    String? reinstateOfficeCode,
+    String? reinstateLeaderName,
+    String? reinstateLastPosition,
     int? reinstateStatus,
     dynamic reinstateAgentCode,
     int? country,
@@ -541,7 +505,7 @@ class Data {
     int? occupation,
     dynamic occupationOther,
     String? isCompleted,
-    dynamic isSuspended,
+    String? isSuspended,
     dynamic recruiterAgentCode,
     int? dependent,
     String? isSubmission,
@@ -550,34 +514,34 @@ class Data {
     int? sourceInformation,
     dynamic sourceInformationDesc,
     dynamic isEqualWithKtp,
-    dynamic pickerFaa,
-    dynamic pickerSimpleChecking,
+    String? pickerFaa,
+    String? pickerSimpleChecking,
     dynamic ptkpIsExist,
     String? submissionDate,
-    dynamic isCompletedFaa,
-    dynamic isCompletedSimpleChecking,
+    String? isCompletedFaa,
+    String? isCompletedSimpleChecking,
     String? resignLetterDate,
     String? terminationDate,
     String? isEmailUpdate,
-    dynamic prevCompany,
+    int? prevCompany,
     dynamic prevCompanyOthers,
     dynamic deletedReason,
     dynamic maritalStatusPtkp,
     String? faaSubmissionDate,
     dynamic pickerActimize,
-    dynamic isReview,
-    dynamic isSignature,
+    String? isReview,
+    String? isSignature,
     dynamic isRelease,
     dynamic kpmLocationCode,
     dynamic isReleases,
-    dynamic idFamilyCardNo,
+    String? idFamilyCardNo,
     dynamic aasiNo,
-    dynamic prevCompanyAasi,
+    int? prevCompanyAasi,
     String? aasiExpired,
     bool? aajiActiveFlag,
     bool? aasiActiveFlag,
     dynamic spouseCompany,
-    String? supportingDoc,
+    dynamic supportingDoc,
     dynamic aauiNo,
     bool? aauiActiveFlag,
     dynamic prevCompanyAaui,
@@ -586,12 +550,12 @@ class Data {
     dynamic candidateEducationList,
     dynamic aajiExamRegisterInfo,
     dynamic aasiExamRegisterInfo,
-    TocResultInfoList? tocResultInfoList,
+    dynamic tocResultInfoList,
     dynamic candidateDependentList,
     dynamic cpdRegisterInfo,
     dynamic paymentTransactionList,
   }) =>
-      Data(
+      CandidateDataModel(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         agentCode: agentCode ?? this.agentCode,
@@ -728,20 +692,7 @@ class Data {
         paymentTransactionList: paymentTransactionList ?? this.paymentTransactionList,
       );
 
-  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory CandidateDataModel.fromJson(Map<String, dynamic> json) => _$CandidateDataModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DataToJson(this);
-}
-
-@JsonSerializable()
-class TocResultInfoList {
-  TocResultInfoList();
-
-  TocResultInfoList copyWith() =>
-TocResultInfoList(
-    );
-
-factory TocResultInfoList.fromJson(Map<String, dynamic> json) => _$TocResultInfoListFromJson(json);
-
-Map<String, dynamic> toJson() => _$TocResultInfoListToJson(this);
+  Map<String, dynamic> toJson() => _$CandidateDataModelToJson(this);
 }

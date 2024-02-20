@@ -1,6 +1,7 @@
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_helper/source/components/buttons/adaptive_button.dart';
 import 'package:formz/formz.dart';
 
 import '../../../../../core/widget/button_widget.dart';
@@ -195,18 +196,20 @@ class _AddWorkExperienceDialogState extends State<AddWorkExperienceDialog> {
                       ),
                     ),
                     state.submitStatus.isInProgress
-                        ? Container(
-                            color: Colors.white.withAlpha(90),
-                            child: const Center(
-                                child:
-                                    SpinKitIndicator(type: SpinKitType.circle)))
+                        ? Center(
+                          child: Container(
+                              color: Colors.white.withAlpha(90),
+                              child: const Center(
+                                  child:
+                                      SpinKitIndicator(type: SpinKitType.circle))),
+                        )
                         : Container(),
                   ],
                 ),
                 actions: <Widget>[
-                  ButtonWidgetCustom(
-                    text: "Tambah",
-                    function: () {
+                  AdaptiveButton(
+                    titleText: "Tambah",
+                    onTap: () {
                       if (formKey.currentState!.validate()) {
                         getIt<FaaCandidatePageBloc>()
                             .add(AddWorkingExperienceEvent());
