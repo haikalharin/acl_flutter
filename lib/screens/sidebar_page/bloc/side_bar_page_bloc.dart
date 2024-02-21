@@ -7,6 +7,8 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
+import '../../../data/model/agent_model/profile_agent_model.dart';
+
 part 'side_bar_page_event.dart';
 
 part 'side_bar_page_state.dart';
@@ -19,6 +21,8 @@ class SideBarPageBloc extends Bloc<SideBarPageEvent, SideBarPageState> {
   Future<void> getUserInfo(
       SideBarPageEvent event, Emitter<SideBarPageState> emit) async {
     LoginModel userModel = await SecureStorage().getUser();
+    ProfileAgentModel profileAgentModel =
+    await SecureStorage().getDataAgent();
     emit(state.copyWith(
       userModel: userModel,
       submitStatus: FormzSubmissionStatus.success,

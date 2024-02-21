@@ -27,6 +27,10 @@ class FetchListBeAgentEvent extends HomePageEvent {
   final String? keyword;
 }
 
+class FetchDataAgentEvent extends HomePageEvent {
+  FetchDataAgentEvent();
+}
+
 class FetchListNotifyEvent extends HomePageEvent {
   FetchListNotifyEvent();
 }

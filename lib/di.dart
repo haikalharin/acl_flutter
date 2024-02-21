@@ -131,6 +131,10 @@ Future<void> init() async {
   getIt.registerLazySingleton<AgentDataApi>(
       () => AgentDataApi(dioClient: getIt<DioClient>()));
 
+  // getCandidateDataDocument api
+  getIt.registerLazySingleton<GetCandidateDataDocumentsApi>(
+          () => GetCandidateDataDocumentsApi(dioClient: getIt<DioClient>()));
+
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),

@@ -34,6 +34,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     on<FetchListMyAgentEvent>(fetchListAgent);
     on<FetchListBeAgentEvent>(fetchListBeAgent);
     on<FetchListNotifyEvent>(fetchListNotify);
+    on<FetchDataAgentEvent>(fetchDataAgent);
     on<HomePageInitialEvent>(homePageInitial);
   }
 
@@ -48,34 +49,52 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
         }
       } else {
         emit(state.copyWith(
-            submitStatus: FormzSubmissionStatus.inProgress,
-            loadingMessage: 'waiting-fetch-master'));
+            submitStatus: FormzSubmissionStatus.inProgress));
         final result = await candidateRepository.fetchMasterData();
-        result.when(
+        await result.when(
             success: (response) async {
               await SecureStorage().setMasterData(response.data);
               LoginModel loginModel = await SecureStorage().getUser();
-              final result = await agentRepository.getDataAgent(leaderCode: loginModel.uid??'' );
-              result.when(
-                  success: (response) async {
-                    await SecureStorage().setDataAgent(response.data);
-                    ProfileAgentModel profileAgentModel = await SecureStorage().getDataAgent();
-                    emit(state.copyWith(
-                      loginModel: loginModel,
-                      loadingMessage: null,
-                      profileAgentModel: profileAgentModel
-                    ));
-                  },
-                  failure: (error) {
-                    emit(state.copyWith(
-                      loginModel: loginModel,
-                      loadingMessage: null,
-                    ));
-                  });
-
+              emit(state.copyWith(
+                loginModel: loginModel,
+                loadingMessage: '',
+              ));
             },
             failure: (error) {});
       }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+  }
+
+
+  Future<void> fetchDataAgent(
+      FetchDataAgentEvent event, Emitter<HomePageState> emit) async {
+    try {
+              LoginModel loginModel = await SecureStorage().getUser();
+              final result = await agentRepository.getDataAgent(
+                  leaderCode: loginModel.uid ?? '');
+
+              await result.when(success: (response) async {
+                await SecureStorage().setDataAgent(response.data);
+                ProfileAgentModel profileAgentModel =
+                await SecureStorage().getDataAgent();
+                emit(state.copyWith(
+                    loginModel: loginModel,
+                    moveTo: Routes.userList,
+                    profileAgentModel: profileAgentModel,
+                  submitStatus: FormzSubmissionStatus.success,
+                ));
+              }, failure: (error) {
+                emit(state.copyWith(
+                  loginModel: loginModel,
+                  moveTo: Routes.userList,
+                  submitStatus: FormzSubmissionStatus.success,
+                ));
+              });
+
     } catch (error) {
       if (kDebugMode) {
         print(error);

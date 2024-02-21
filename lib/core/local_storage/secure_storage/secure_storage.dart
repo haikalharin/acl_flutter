@@ -126,5 +126,6 @@ class SecureStorage {
     await _storage.delete(key: user);
     await _storage.delete(key: token);
     await _storage.delete(key: candidateDataFaa);
+    await _storage.delete(key: dataAgent);
   }
 }

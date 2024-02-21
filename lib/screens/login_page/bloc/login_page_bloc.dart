@@ -68,6 +68,7 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
           SecureStorage()
               .setToken(response.headers.map['Authorization']?.first ?? '');
           emit(state.copyWith(
+            message: 'success-login',
               userName: userName,
               password: password,
               moveTo: Routes.userList,

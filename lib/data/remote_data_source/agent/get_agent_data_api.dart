@@ -17,7 +17,6 @@ class AgentDataApi with ApiHelper<ProfileAgentModel> {
     return await makeGetRequestWithResponseModel(
         dioClient.dio.get(
           "${ServiceUrl.getDataAgent}/$agentId",
-          data: data,
         ),
         ProfileAgentModel.fromJson);
   }
