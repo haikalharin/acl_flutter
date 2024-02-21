@@ -1,3 +1,5 @@
+import 'package:acl_flutter/data/model/documents/documents_response_model.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate/get_candidate_data_documents_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/start_process_instance_api.dart';
 import 'package:acl_flutter/data/remote_data_source/document/document_api.dart';
@@ -39,6 +41,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
   final PendingSimpleCheckingApi pendingSimpleCheckingApi;
   final GetCandidateDataApi getCandidateDataApi;
   final StartProcessInstanceApi startProcessInstanceApi;
+  final GetCandidateDataDocumentsApi getCandidateDataDocumentsApi;
 
   const CandidateRepository({
     required this.documentApi,
@@ -51,6 +54,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     required this.pendingSimpleCheckingApi,
     required this.getCandidateDataApi,
     required this.startProcessInstanceApi,
+    required this.getCandidateDataDocumentsApi,
   });
 
   Future<ApiResult<ResponseModel<CandidateModel>>> fetchListMyAgent(
@@ -104,10 +108,12 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateRegisterModel>>> addRegisterCandidate(RequestCandidateModel requestCandidateModel) async {
+  Future<ApiResult<ResponseModel<CandidateRegisterModel>>> addRegisterCandidate(
+      RequestCandidateModel requestCandidateModel) async {
     try {
       final ResponseModel<CandidateRegisterModel> items =
-      await addRegisterCandidateApi.addRegisterCandidate(requestCandidateModel);
+          await addRegisterCandidateApi
+              .addRegisterCandidate(requestCandidateModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
@@ -119,10 +125,14 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateRegisterModel>>> pendingSimpleChecking(RequestPendingSimpleCheckingModel requestPendingSimpleCheckingModel) async {
+  Future<ApiResult<ResponseModel<CandidateRegisterModel>>>
+      pendingSimpleChecking(
+          RequestPendingSimpleCheckingModel
+              requestPendingSimpleCheckingModel) async {
     try {
       final ResponseModel<CandidateRegisterModel> items =
-      await pendingSimpleCheckingApi.pendingSimpleChecking(requestPendingSimpleCheckingModel);
+          await pendingSimpleCheckingApi
+              .pendingSimpleChecking(requestPendingSimpleCheckingModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
@@ -134,70 +144,101 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateRegisterModel>>> startProcessInstance(String candidateId) async {
+  Future<ApiResult<ResponseModel<CandidateRegisterModel>>> startProcessInstance(
+      String candidateId) async {
     try {
       final ResponseModel<CandidateRegisterModel> items =
-      await startProcessInstanceApi.startProcessInstance(candidateId);
+          await startProcessInstanceApi.startProcessInstance(candidateId);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
-      print("$data");
+      if (kDebugMode) {
+        print("$data");
+      }
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateFolderDocModel>>> addRegisterCandidateDoc(RequestCandidateDocModel requestCandidateDocModel) async {
+  Future<ApiResult<ResponseModel<CandidateFolderDocModel>>>
+      addRegisterCandidateDoc(
+          RequestCandidateDocModel requestCandidateDocModel) async {
     try {
       final ResponseModel<CandidateFolderDocModel> items =
-      await documentApi.addRegisterCandidateDoc(requestCandidateDocModel);
+          await documentApi.addRegisterCandidateDoc(requestCandidateDocModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
-      print("$data");
+      if (kDebugMode) {
+        print("$data");
+      }
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }
   }
 
-  Future<ApiResult<ResponseModel<RequestSepouseModel>>> addRegisterSepouse(RequestSepouseModel requestSepouseModel) async {
+  Future<ApiResult<ResponseModel<RequestSepouseModel>>> addRegisterSepouse(
+      RequestSepouseModel requestSepouseModel) async {
     try {
       final ResponseModel<RequestSepouseModel> items =
-      await addRegisterSepouseApi.addRegisterSepouse(requestSepouseModel);
+          await addRegisterSepouseApi.addRegisterSepouse(requestSepouseModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
-      print("$data");
+      if (kDebugMode) {
+        print("$data");
+      }
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateFolderDocModel>>> addFolderDoc(String candidateId) async {
+  Future<ApiResult<ResponseModel<CandidateFolderDocModel>>> addFolderDoc(
+      String candidateId) async {
     try {
       final ResponseModel<CandidateFolderDocModel> items =
-      await documentApi.addRegisterCandidateFolderDoc(candidateId);
+          await documentApi.addRegisterCandidateFolderDoc(candidateId);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
-      print("$data");
+      if (kDebugMode) {
+        print("$data");
+      }
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateDataModel>>> getCandidateData(String candidateId) async {
+  Future<ApiResult<ResponseModel<CandidateDataModel>>> getCandidateData(
+      String candidateId) async {
     try {
       final ResponseModel<CandidateDataModel> items =
-      await getCandidateDataApi.addRegisterCandidate(candidateId);
+          await getCandidateDataApi.addRegisterCandidate(candidateId);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
-      print("$data");
+      if (kDebugMode) {
+        print("$data");
+      }
       final errorMessage = DioExceptions.fromDioError(e).toString();
       return ApiResult.failure(errorMessage);
     }
   }
 
-
+  Future<ApiResult<ResponseModel<DocumentsResponseModel>>> getCandidateDataDoc(
+      {required String agentCode, required String candidateId}) async {
+    try {
+      final ResponseModel<DocumentsResponseModel> items =
+          await getCandidateDataDocumentsApi.getCandidateDataDoc(
+              agentCode: agentCode, candidateId: candidateId);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      var data = e;
+      if (kDebugMode) {
+        print("$data");
+      }
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
 }

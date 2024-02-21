@@ -42,7 +42,7 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
   }
 
   Future<void> initialImage() async {
-    if (widget.initialImage != null) {
+    if (widget.initialImage != null && widget.initialImage !="") {
       if (isBase64(widget.initialImage ?? '')) {
         Uint8List imageBytes = base64Decode(widget.initialImage ?? '');
         _selectedImage = imageBytes;

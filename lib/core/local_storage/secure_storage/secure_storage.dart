@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:acl_flutter/common/app_extension.dart';
+import 'package:acl_flutter/data/model/agent_model/profile_agent_model.dart';
 import 'package:acl_flutter/data/model/candidate/candidate_data_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -11,6 +12,7 @@ SecureStorage secStore = SecureStorage();
 
 class SecureStorage {
   static const String user = "user";
+  static const String dataAgent = "dataAgent";
   static const String token = "token";
   static const String candidateDataFaa = "candidate_data_faa";
   static const String masterData = "master_data";
@@ -58,7 +60,20 @@ class SecureStorage {
     if (data == null) return null;
     return data;
   }
-
+  Future<void> setDataAgent(ProfileAgentModel data) async {
+    String json = jsonEncode(data.toJson());
+    await _storage.write(key: dataAgent, value: json);
+  }
+  Future<ProfileAgentModel> getDataAgent() async {
+    String? json = await _storage.read(key: dataAgent);
+    if (json != null) {
+      Map<String, dynamic> map = jsonDecode(json);
+      ProfileAgentModel profileAgentModel = ProfileAgentModel.fromJson(map);
+      return profileAgentModel;
+    } else {
+      return ProfileAgentModel();
+    }
+  }
   Future<void> setUser(LoginModel data) async {
     String json = jsonEncode(data.toJson());
     await _storage.write(key: user, value: json);
@@ -111,5 +126,6 @@ class SecureStorage {
     await _storage.delete(key: user);
     await _storage.delete(key: token);
     await _storage.delete(key: candidateDataFaa);
+    await _storage.delete(key: dataAgent);
   }
 }

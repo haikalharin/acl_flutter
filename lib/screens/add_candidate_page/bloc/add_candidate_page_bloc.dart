@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:acl_flutter/data/model/agent_model/profile_agent_model.dart';
 import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:acl_flutter/data/model/sepouse/request_sepouse_model.dart';
@@ -542,8 +543,11 @@ class AddCandidatePageBloc
       emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
       try {
         LoginModel loginModel = await SecureStorage().getUser();
+        ProfileAgentModel profileAgentModel = await SecureStorage().getDataAgent();
         final result = await candidateRepository
             .addRegisterCandidate(RequestCandidateModel(
+          officeCode: (profileAgentModel.pLocationCode??'').toUpperCase(),
+          officeCity: (profileAgentModel.pLocationName??'').toUpperCase(),
           firstName: state.firstName.value.toUpperCase(),
           middleName: state.middleName.value.toUpperCase(),
           lastName: state.lastName.value.toUpperCase(),
@@ -580,40 +584,6 @@ class AddCandidatePageBloc
                 relation: state.relationId.value.toString(),
                 dateOfBirth: state.dobPartner.value)
           ];
-
-          final result = await candidateRepository
-              .pendingSimpleChecking(RequestPendingSimpleCheckingModel(
-            id: responseData.id.toString(),
-            firstName: state.firstName.value.toUpperCase(),
-            middleName: state.middleName.value.toUpperCase(),
-            lastName: state.lastName.value.toUpperCase(),
-            dob: state.dob.value,
-            address1: state.address.value.toUpperCase(),
-            address2: state.rtRw.value.toUpperCase(),
-            address3: state.kecKel.value.toUpperCase(),
-            city: state.cityId.value.toString(),
-            province: state.provinceId.value.toString(),
-            zipCode: state.postalCode.value,
-            country: state.countryId.value.toString(),
-            idFamilyCardNo: state.kkNo.value.toString(),
-            leaderName: (loginModel.name ?? '').toUpperCase(),
-            leaderAgentCode: (loginModel.uid ?? ''),
-            spouseIdCardNo: state.identityNoPartner.value,
-            idCardNo: state.identityNo.value,
-            occupation: state.occupationId.value.toString(),
-            occupationOther: '',
-            aajiActiveFlag: state.checkedPrevCompanyValueAAJI.toString(),
-            aajiNo: state.noLicenceAAJI.value,
-            prevCompany: state.prevCompanyAAJIId.value.toString(),
-            aasiActiveFlag: state.checkedPrevCompanyValueAASI.toString(),
-            aasiNo: state.noLicenceAASI.value,
-            prevCompanyAasi: state.prevCompanyAASIId.value.toString(),
-            aauiActiveFlag: state.checkedValueAAUI.toString(),
-            aauiNo: state.noLicenceAAUI.value,
-            prevCompanyAaui: state.prevCompanyAAUIId.value.toString(),
-          ));
-
-          await result.when(success: (response) async {
             final result = await candidateRepository
                 .startProcessInstance(responseData.id.toString());
             await result.when(success: (response) async {
@@ -671,12 +641,7 @@ class AddCandidatePageBloc
                   submitStatus: FormzSubmissionStatus.failure,
                   message: message));
             });
-          }, failure: (error) async {
-            var message =
-                error == AppString.forbidden ? 'session is over' : error;
-            emit(state.copyWith(
-                submitStatus: FormzSubmissionStatus.failure, message: message));
-          });
+
         }, failure: (error) async {
           var message =
               error == AppString.forbidden ? 'session is over' : error;

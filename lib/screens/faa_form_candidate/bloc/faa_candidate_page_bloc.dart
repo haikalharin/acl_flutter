@@ -5,6 +5,8 @@ import 'package:acl_flutter/common/validators/handphone_validator.dart';
 import 'package:acl_flutter/common/validators/phone_validator.dart';
 import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/education_candidate_model.dart';
+import 'package:acl_flutter/data/model/candidate_faa/private_data_candidate_request_model.dart';
+import 'package:acl_flutter/data/model/documents/documents_response_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:acl_flutter/data/model/sepouse/request_sepouse_model.dart';
 import 'package:acl_flutter/data/repository/candidate_faa_repository/candidate_faa_repository.dart';
@@ -94,6 +96,7 @@ class FaaCandidatePageBloc
     on<NpwpImageInputEvent>(npwpImageInput);
     on<BankUserBookImageInputEvent>(bankUserBookImageInput);
     on<SourceInformationInputEvent>(sourceInformationInput);
+    on<AppendixInputEvent>(appendixInput);
     on<AppendixImageInputEvent>(appendixImageInput);
     on<FaaAddAgentSubmittedEvent>(faaAddAgentSubmitted);
     on<FaaAddAgentDocSubmittedEvent>(faaAddAgentDocSubmitted);
@@ -176,12 +179,78 @@ class FaaCandidatePageBloc
     try {
       final result =
           await candidateRepository.getCandidateData(event.candidateId);
-      result.when(success: (response) {
-        SecureStorage().setCandidateDataFaa(response.data);
-        emit(state.copyWith(
-            candidateDataModel: response.data,
-            message: 'success-get-candidate-data',
-            submitStatus: FormzSubmissionStatus.success));
+      await result.when(success: (response) async {
+        List<CandidateDataModel> listData = response.data;
+        SecureStorage().setCandidateDataFaa(listData.first);
+        LoginModel user = await SecureStorage().getUser();
+
+        final result = await candidateRepository.getCandidateDataDoc(
+            agentCode: user.uid ?? '', candidateId: event.candidateId);
+        await result.when(success: (response) async {
+          var identityImage = const MandatoryFieldValidator.pure();
+          var identitySelfiImage = const MandatoryFieldValidator.pure();
+          var imageLicenceAAJI = const MandatoryFieldValidator.pure();
+          var imageLicenceAASI = const MandatoryFieldValidator.pure();
+          var imageLicenceAAUI = const MandatoryFieldValidator.pure();
+          var checkedValueAAJI = false;
+          var checkedValueAASI = false;
+          var checkedValueAAUI = false;
+          List<DocumentsResponseModel> listImage = response.data;
+          listImage.forEach((element) {
+            if (element.key == 11010201) {
+              identityImage =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+            }
+            if (element.key == 40010005) {
+              identitySelfiImage =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+            }
+            if (element.key == 30020110) {
+              imageLicenceAAJI =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+              checkedValueAAJI = true;
+            }
+
+            if (element.key == 30020131) {
+              imageLicenceAASI =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+              checkedValueAASI = true;
+            }
+
+            if (element.key == 30020144) {
+              imageLicenceAAUI =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+              checkedValueAASI = true;
+            }
+          });
+          emit(state.copyWith(
+
+              ///todo
+              candidateDataModel: listData.first,
+              firstName: listData.first.firstName!.isNotEmpty
+                  ? MandatoryFieldValidator.dirty(
+                      listData.first.firstName ?? '')
+                  : const MandatoryFieldValidator.pure(),
+              martialStatusId: listData.first.maritalStatus != null
+                  ? DropdownFieldValidator.dirty(
+                      listData.first.maritalStatus ?? 0)
+                  : const DropdownFieldValidator.pure(),
+              provinceId: listData.first.province != null
+                  ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
+                  : const DropdownFieldValidator.pure(),
+              identityImage: identityImage,
+              identitySelfieImage: identitySelfiImage,
+              imageLicenceAAJI: imageLicenceAAJI,
+              imageLicenceAASI: imageLicenceAASI,
+              imageLicenceAAUI: imageLicenceAAUI,
+              checkedValueAAJI: checkedValueAAJI,
+              checkedValueAASI: checkedValueAASI,
+              checkedValueAAUI: checkedValueAAUI,
+              message: 'success-get-candidate-data',
+              submitStatus: FormzSubmissionStatus.success));
+        }, failure: (error) {
+          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+        });
       }, failure: (error) {
         emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
       });
@@ -497,8 +566,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> privateImageInput(PrivateImageInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
+  Future<void> privateImageInput(
+      PrivateImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     final image = MandatoryFieldValidator.dirty(event.image);
     emit(state.copyWith(
       privateImage: image,
@@ -516,7 +585,7 @@ class FaaCandidatePageBloc
   Future<void> identitySelfieImageInput(IdentitySelfieImageInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     final identitySelfieImage =
-    MandatoryFieldValidator.dirty(event.identitySelfieImage);
+        MandatoryFieldValidator.dirty(event.identitySelfieImage);
     emit(state.copyWith(
       identitySelfieImage: identitySelfieImage,
     ));
@@ -553,12 +622,12 @@ class FaaCandidatePageBloc
     ));
   }
 
-
   Future<void> noLicenceAAJIInput(
       AajiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     final noLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiNo);
     emit(state.copyWith(
       noLicenceAAJI: noLicenceAAJI,
+      checkedValueAAJI: noLicenceAAJI.isValid,
     ));
   }
 
@@ -582,6 +651,7 @@ class FaaCandidatePageBloc
     final noLicenceAASI = MandatoryFieldValidator.dirty(event.aasiNo);
     emit(state.copyWith(
       noLicenceAASI: noLicenceAASI,
+      checkedValueAASI: noLicenceAASI.isValid,
     ));
   }
 
@@ -605,6 +675,7 @@ class FaaCandidatePageBloc
     final noLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiNo);
     emit(state.copyWith(
       noLicenceAAUI: noLicenceAAUI,
+      checkedValueAAUI: noLicenceAAUI.isValid,
     ));
   }
 
@@ -664,24 +735,41 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> bankUserBookImageInput(
-      BankUserBookImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> bankUserBookImageInput(BankUserBookImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
       bankUserBookImage: value,
     ));
   }
 
-  Future<void> sourceInformationInput(
-      SourceInformationInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> sourceInformationInput(SourceInformationInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
       sourceInformation: value,
     ));
   }
 
-  Future<void> appendixImageInput(
-      AppendixImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> appendixInput(
+      AppendixInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.id == 0 || event.value.id == null) {
+      const valueId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        appendixValueId: valueId,
+        appendixValue: null,
+      ));
+    } else {
+      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        appendixValueId: valueId,
+        appendixValue: event.value,
+      ));
+    }
+  }
+
+  Future<void> appendixImageInput(AppendixImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
       appendixImage: value,
@@ -703,8 +791,6 @@ class FaaCandidatePageBloc
       kkImage: kkImage,
     ));
   }
-
-
 
   Future<void> firstNamePartnerInput(FirstNamePartnerInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
@@ -767,7 +853,6 @@ class FaaCandidatePageBloc
     }
   }
 
-
   Future<void> marriedCheckedInputEvent(MarriedCheckedInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
@@ -781,8 +866,13 @@ class FaaCandidatePageBloc
     if (state.isValid) {
       try {
         LoginModel loginModel = await SecureStorage().getUser();
-        final result = await candidateRepository
-            .addRegisterCandidate(RequestCandidateModel(
+        final result = await candidateFaaRepository
+            .addRegisterCandidatePrivateData(PrivateDataCandidateRequestModel(
+                candidate: Candidate(
+          id: '',
+          userId: '',
+          agentCode: '',
+          clientNumber: '',
           firstName: state.firstName.value.toUpperCase(),
           middleName: state.middleName.value.toUpperCase(),
           lastName: state.lastName.value.toUpperCase(),
@@ -801,95 +891,90 @@ class FaaCandidatePageBloc
           occupation: state.occupationId.value.toString(),
           occupationOther: '',
           aajiNo: state.noLicenceAAJI.value,
-          aajiActiveFlag: state.checkedValueAAJI.toString(),
+          aajiActiveFlag: state.checkedValueAAJI,
           aasiNo: state.noLicenceAASI.value,
-          aasiActiveFlag: state.checkedValueAASI.toString(),
-          aauiNo: state.noLicenceAAUI.value,
-          aauiActiveFlag: state.checkedValueAAJI.toString(),
-        ));
-        await result.when(success: (response) async {
-          CandidateRegisterModel responseData = response.data;
-          List<FamilyDetail> listFamiliDetail = [
-            FamilyDetail(
-                idCardNo: state.identityNoPartner.value,
-                firstName: state.firstNamePartner.value.toUpperCase(),
-                gender: state.gender?.longDescriptionEng ?? '',
-                relation: state.relationId.value.toString(),
-                dateOfBirth: state.dobPartner.value)
-          ];
-
-          final result = await candidateRepository
-              .pendingSimpleChecking(RequestPendingSimpleCheckingModel(
-            id: responseData.id.toString(),
-            firstName: state.firstName.value.toUpperCase(),
-            middleName: state.middleName.value.toUpperCase(),
-            lastName: state.lastName.value.toUpperCase(),
-            dob: state.dobString.value,
-            address1: state.address.value.toUpperCase(),
-            address2: state.rtRw.value.toUpperCase(),
-            address3: state.kecKel.value.toUpperCase(),
-            city: state.cityId.value.toString(),
-            province: state.provinceId.value.toString(),
-            zipCode: state.postalCode.value,
-            country: state.countryId.value.toString(),
-            leaderName: (loginModel.name ?? '').toUpperCase(),
-            leaderAgentCode: (loginModel.uid ?? ''),
-            spouseIdCardNo: state.identityNoPartner.value,
-            idCardNo: state.identityNo.value,
-            occupation: state.occupationId.value.toString(),
-            occupationOther: '',
-            aajiNo: state.noLicenceAAJI.value,
-            aajiActiveFlag: state.checkedValueAAJI.toString(),
-            aasiNo: state.noLicenceAASI.value,
-            aasiActiveFlag: state.checkedValueAASI.toString(),
-            aauiNo: state.noLicenceAAUI.value,
-            aauiActiveFlag: state.checkedValueAAJI.toString(),
-          ));
-
-          await result.when(success: (response) async {
-            if (state.checkedValueMarriage) {
-              final result = await candidateRepository.addRegisterSepouse(
-                  RequestSepouseModel(
-                      candidateId: responseData.id.toString(),
-                      familyCardNo: state.kkNo.value,
-                      familyDetails: listFamiliDetail));
-              await result.when(success: (response) async {
-                final result = await candidateRepository
-                    .addFolderDoc(responseData.id.toString());
-                await result.when(success: (response) async {
-                  emit(state.copyWith(
-                      moveTo: Routes.userList,
-                      candidateRegisterModel: responseData,
-                      message: 'create-register',
-                      submitStatus: FormzSubmissionStatus.success));
-                }, failure: (error) async {
-                  emit(state.copyWith(
-                      submitStatus: FormzSubmissionStatus.failure));
-                });
-              }, failure: (error) async {
-                emit(state.copyWith(
-                    submitStatus: FormzSubmissionStatus.failure));
-              });
-            } else {
-              final result = await candidateRepository
-                  .addFolderDoc(responseData.id.toString());
-              await result.when(success: (response) async {
-                emit(state.copyWith(
-                    moveTo: Routes.userList,
-                    candidateRegisterModel: responseData,
-                    message: 'create-register',
-                    submitStatus: FormzSubmissionStatus.success));
-              }, failure: (error) async {
-                emit(state.copyWith(
-                    submitStatus: FormzSubmissionStatus.failure));
-              });
-            }
-          }, failure: (error) async {
-            emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
-          });
-        }, failure: (error) async {
-          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
-        });
+          aasiActiveFlag: state.checkedValueAASI,
+          aauiActiveFlag: state.checkedValueAAJI,
+          position: '',
+          gender: '',
+          title: '',
+          placeOfBirth: '',
+          weight: '',
+          high: '',
+          religion: '',
+          phoneNo: '',
+          officePhoneNo: '',
+          cellularNo: '',
+          email: '',
+          maritalStatus: '',
+          heir: '',
+          heirRelation: '',
+          jointDate: '',
+          aajiExpired: '',
+          aasiExpired: '',
+          bankAccount: '',
+          bankName: '',
+          bankBranch: '',
+          bankAccountName: '',
+          npwpNo: '',
+          npwpName: '',
+          npwpAddress1: '',
+          npwpAddress2: '',
+          npwpAddress3: '',
+          npwpCity: '',
+          npwpProvince: '',
+          npwpZipCode: '',
+          spouseName: '',
+          spouseDob: '',
+          spouseJob: '',
+          spouseRelation: '',
+          spouseIsAgent: '',
+          spouseAgentCode: '',
+          spouseUnit: '',
+          isReinstate: '',
+          leaderSignatureDate: '',
+          leaderSignatureCity: '',
+          signatureDate: '',
+          signatureCity: '',
+          verificationNumber: '',
+          nationality: '',
+          channelId: '',
+          channelCode: '',
+          officeCode: '',
+          officeCity: '',
+          taxType: '',
+          idCardType: '',
+          reinstateOfficeCode: '',
+          reinstateLeaderName: '',
+          reinstateLastPosition: '',
+          reinstateStatus: '',
+          reinstateAgentCode: '',
+          supervisorAgentCode: '',
+          locationCode: '',
+          branchCode: '',
+          altReferenceNo: '',
+          isSubmission: '',
+          isCompleted: '',
+          isSignature: '',
+          dependent: '',
+          otherReligion: '',
+          sourceInformation: '',
+          sourceInformationDesc: '',
+          isEqualWithKtp: '',
+          ptkpIsExist: '',
+          resignLetterDate: '',
+          terminationDate: '',
+          prevCompany: '',
+          prevCompanyOthers: '',
+          prevCompanyAasi: '',
+          prevCompanyAaui: '',
+          maritalStatusPtkp: '',
+        )));
+        await result.when(
+            success: (response) async {},
+            failure: (error) async {
+              emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+            });
       } catch (error) {
         if (kDebugMode) {
           print(error);
@@ -1107,7 +1192,7 @@ class FaaCandidatePageBloc
       Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
-      checkIsEmployee: value,
+      statusEmployee: value,
     ));
   }
 
@@ -1177,7 +1262,7 @@ class FaaCandidatePageBloc
         } else {
           final result = await candidateFaaRepository
               .addCandidateWorkExperience(AddCandidateWorkExperienceModel(
-                  candidateId: state.candidateDataModel?.data?.id.toString(),
+                  candidateId: state.candidateDataModel?.id.toString(),
                   companyName: state.addCompanyModel?.companyName,
                   startDate: state.addCompanyModel?.startWorking,
                   endDate: state.addCompanyModel?.endWorking,
@@ -1233,7 +1318,7 @@ class FaaCandidatePageBloc
       Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
-      department: value,
+      educationDescription: value,
     ));
   }
 
@@ -1248,8 +1333,8 @@ class FaaCandidatePageBloc
     var dateTime = "${event.educationStart.year}-$month-$day";
     final value = MandatoryFieldValidator.dirty(dateTime);
     emit(state.copyWith(
-      startWorking: value,
-      startWorkingDate: event.educationStart,
+      educationStart: value,
+      educationStartDate: event.educationStart,
     ));
   }
 
@@ -1264,8 +1349,8 @@ class FaaCandidatePageBloc
     var dateTime = "${event.educationEnd.year}-$month-$day";
     final value = MandatoryFieldValidator.dirty(dateTime);
     emit(state.copyWith(
-      endWorking: value,
-      endWorkingDate: event.educationEnd,
+      educationEnd: value,
+      educationEndDate: event.educationEnd,
     ));
   }
 
@@ -1347,13 +1432,13 @@ class FaaCandidatePageBloc
         if (state.addCompanyModel == null &&
             state.checkIsEmployee.value == 'tidak') {
           emit(state.copyWith(
-            message: 'success-submit-work-experience',
+            message: 'success-submit-education',
             submitStatus: FormzSubmissionStatus.success,
           ));
         } else {
           final result = await candidateFaaRepository.addCandidateEducation(
               EducationCandidateModel(
-                  candidateId: state.candidateDataModel?.data?.id.toString(),
+                  candidateId: state.candidateDataModel?.id.toString(),
                   educationType: state.addEducationModel?.level.toString(),
                   educationName: state.addEducationModel?.schoolName,
                   educationDescription: state.addEducationModel?.description,

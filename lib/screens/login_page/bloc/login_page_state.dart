@@ -7,11 +7,14 @@ class LoginPageState extends Equatable with FormzMixin {
   final UserNameValidator userName;
   final MandatoryFieldValidator password;
   final String? moveTo;
+  final String? message;
+
 
   const LoginPageState( {
     this.userName = const UserNameValidator.pure(),
     this.password = const MandatoryFieldValidator.pure(),
     this.moveTo,
+    this.message,
     this.submitStatus = FormzSubmissionStatus.initial,
 
   });
@@ -26,11 +29,13 @@ class LoginPageState extends Equatable with FormzMixin {
     UserNameValidator? userName,
     MandatoryFieldValidator? password,
     String? moveTo,
+    String? message,
     FormzSubmissionStatus? submitStatus,
   }) {
     return LoginPageState(
       userName: userName ?? this.userName,
       password: password ?? this.password,
+      message: message,
       moveTo: moveTo ?? this.moveTo,
       submitStatus: submitStatus??FormzSubmissionStatus.initial,
     );

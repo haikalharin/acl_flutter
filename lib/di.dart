@@ -1,9 +1,12 @@
 import 'package:acl_flutter/core/network/dio_client.dart';
 import 'package:acl_flutter/core/network/dio_client_new.dart';
+import 'package:acl_flutter/data/remote_data_source/agent/get_agent_data_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/add_register_candidate_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate/get_candidate_data_documents_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/start_process_instance_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_education_candidate_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_register_candidate_private_data_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_work_eexperience_candidate_api.dart';
 import 'package:acl_flutter/data/remote_data_source/comment/comment_api.dart';
 import 'package:acl_flutter/data/remote_data_source/document/document_api.dart';
@@ -13,6 +16,7 @@ import 'package:acl_flutter/data/remote_data_source/post/post_api.dart';
 import 'package:acl_flutter/data/remote_data_source/spouse/sepouse_api.dart';
 import 'package:acl_flutter/data/remote_data_source/todo/todo_api.dart';
 import 'package:acl_flutter/data/remote_data_source/user/user_api.dart';
+import 'package:acl_flutter/data/repository/agent/agent_repository.dart';
 import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart';
 import 'package:acl_flutter/data/repository/candidate_faa_repository/candidate_faa_repository.dart';
 import 'package:acl_flutter/myApp.dart';
@@ -124,6 +128,18 @@ Future<void> init() async {
   getIt.registerLazySingleton<AddEducationCandidateApi>(
       () => AddEducationCandidateApi(dioClient: getIt<DioClient>()));
 
+  // AgentData api
+  getIt.registerLazySingleton<AgentDataApi>(
+      () => AgentDataApi(dioClient: getIt<DioClient>()));
+
+  // getCandidateDataDocument api
+  getIt.registerLazySingleton<GetCandidateDataDocumentsApi>(
+      () => GetCandidateDataDocumentsApi(dioClient: getIt<DioClient>()));
+
+  // AddRegisterCandidatePrivateData api
+  getIt.registerLazySingleton<AddRegisterCandidatePrivateDataApi>(
+      () => AddRegisterCandidatePrivateDataApi(dioClient: getIt<DioClient>()));
+
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),
@@ -148,7 +164,7 @@ Future<void> init() async {
     () => LoginRepository(loginApi: getIt<LoginApi>()),
   );
 
-  // Agent repository
+  // candidate repository
   getIt.registerLazySingleton<CandidateRepository>(
     () => CandidateRepository(
       candidateApi: getIt<CandidateApi>(),
@@ -161,6 +177,7 @@ Future<void> init() async {
       getCandidateDataApi: getIt<GetCandidateDataApi>(),
       pendingSimpleCheckingApi: getIt<PendingSimpleCheckingApi>(),
       startProcessInstanceApi: getIt<StartProcessInstanceApi>(),
+      getCandidateDataDocumentsApi: getIt<GetCandidateDataDocumentsApi>(),
     ),
   );
 
@@ -168,12 +185,18 @@ Future<void> init() async {
   getIt.registerLazySingleton<CandidateFaaRepository>(
     () => CandidateFaaRepository(
         addWorkExperienceCandidateApi: getIt<AddWorkExperienceCandidateApi>(),
-        addEducationCandidateApi: getIt<AddEducationCandidateApi>()),
+        addEducationCandidateApi: getIt<AddEducationCandidateApi>(),
+        addRegisterCandidatePrivateDataApi: getIt<AddRegisterCandidatePrivateDataApi>()),
+  );
+
+  // Notfikasi repository
+  getIt.registerLazySingleton<NotificationRepository>(
+    () => NotificationRepository(notifyApi: getIt<NotifyApi>()),
   );
 
   // Agent repository
-  getIt.registerLazySingleton<NotificationRepository>(
-    () => NotificationRepository(notifyApi: getIt<NotifyApi>()),
+  getIt.registerLazySingleton<AgentRepository>(
+    () => AgentRepository(agentDataApi: getIt<AgentDataApi>()),
   );
 
   //Post Bloc
@@ -191,7 +214,8 @@ Future<void> init() async {
   //Home Bloc
   getIt.registerLazySingleton(() => HomePageBloc(
       candidateRepository: getIt<CandidateRepository>(),
-      notificationRepository: getIt<NotificationRepository>()));
+      notificationRepository: getIt<NotificationRepository>(),
+      agentRepository: getIt<AgentRepository>()));
 
   //Splashscreen Bloc
   getIt.registerLazySingleton(() => SplashscreenBloc());

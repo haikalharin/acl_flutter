@@ -8,6 +8,7 @@ import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
 
 import '../../../bloc/faa_candidate_page_bloc.dart';
+import '../../tab_widget/private_data_page.dart';
 
 enum Mode { create, update }
 class AauiData extends StatefulWidget {
@@ -31,7 +32,6 @@ class _AauiDataState extends State<AauiData> {
   bool checkedValueKpm = false;
   bool checkedValueResign = false;
   bool checkedValueTerminasi = false;
-  bool isCheck = false;
   var data = [
     LoginModel(name: 'adadada', uid: '1'),
     LoginModel(name: 'bccccc', uid: '2'),
@@ -68,7 +68,10 @@ class _AauiDataState extends State<AauiData> {
                               TextInput(
                                 isMandatory: checkedValueAAUI,
                                 icon: const Icon(Icons.add_card_rounded),
-                                label: const Text("No lisensi AAUI"),
+                                readOnly:state.checkedValueAAUI,
+                                initialValue:
+                                state.candidateDataModel?.aauiNo,
+                                labelText: "No lisensi AAUI",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(AauiNoInputEvent(value));
@@ -86,6 +89,8 @@ class _AauiDataState extends State<AauiData> {
                               CustomImagePicker(
                                 title: 'Foto Lisensi AAUI',
                                 isMandatory: checkedValueAAUI,
+                                readOnly:state.checkedValueAAUI,
+                                initialImage: state.imageLicenceAAUI.value,
                                 onImagePicked: (value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(AauiImageInputEvent(value));

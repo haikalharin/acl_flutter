@@ -99,7 +99,7 @@ class _SideBarPageState extends State<SideBarPage> {
                 padding: EdgeInsets.zero,
                 children: [
                   UserAccountsDrawerHeader(
-                    accountName: Text(state.userModel?.name ?? ''),
+                    accountName: Text(state.profileAgentModel?.pAgentName ?? ''),
                     accountEmail: Text(state.userModel?.employeeNumber ?? ''),
                     currentAccountPicture: CircleAvatar(
                       child: ClipOval(
@@ -204,7 +204,7 @@ class _SideBarPageState extends State<SideBarPage> {
                     title: const Text('Exit'),
                     leading: const Icon(Icons.exit_to_app),
                     onTap: () {
-                      SecureStorage().secureDeleteAll();
+                      SecureStorage().secureDeleteLogout();
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         Routes.initialPage,
                         (Route<dynamic> route) => false,

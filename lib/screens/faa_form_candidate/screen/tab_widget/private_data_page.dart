@@ -14,7 +14,7 @@ import '../expansion_widget/private/source_of_recruiting_information.dart';
 import '../faa_form_candidate_page.dart';
 
 enum Mode { create, update }
-
+bool isCheck = false;
 class PrivateDataPage extends StatefulWidget {
   final TabController tabController;
 
@@ -36,45 +36,56 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
     var width = MediaQuery.of(context).size.width;
     return BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
       builder: (context, state) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              PrivateData(formKey: formKey),
-              const SizedBox(height: 8),
-              HeirsData(formKey: formKey),
-              const SizedBox(height: 8),
-              AajiData(formKey: formKey),
-              const SizedBox(height: 8),
-              AasiData(formKey: formKey),
-              const SizedBox(height: 8),
-              NpwpAndBankData(formKey: formKey),
-              const SizedBox(height: 8),
-              SourceOfRecruitingInformation(formKey: formKey),
-              const SizedBox(height: 8),
-              AppendixData(formKey: formKey),
-              const SizedBox(height: 16),
-              Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  width: MediaQuery.of(context).size.width,
-                  child: AdaptiveButton(
-                    titleText: '("Selanjutnya".toCapital',
-                    onTap: () {
-                      if (formKey.currentState!.validate()) {}
-                      widget.tabController.animateTo(1);
-                    },
-                  )
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     if (formKey.currentState!.validate()) {
-                  //      }
-                  //     widget.tabController.animateTo(1);
-                  //
-                  //
-                  //   },
-                  //   child: Text("Selanjutnya".toCapital),
-                  // ),
-                  )
-            ],
+        return Form(
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                PrivateData(formKey: formKey),
+                const SizedBox(height: 8),
+                HeirsData(formKey: formKey),
+                const SizedBox(height: 8),
+                AajiData(formKey: formKey),
+                const SizedBox(height: 8),
+                AasiData(formKey: formKey),
+                const SizedBox(height: 8),
+                NpwpAndBankData(formKey: formKey),
+                const SizedBox(height: 8),
+                SourceOfRecruitingInformation(formKey: formKey),
+                const SizedBox(height: 8),
+                AppendixData(formKey: formKey),
+                const SizedBox(height: 16),
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(margin: EdgeInsets.symmetric(vertical: 16),
+                      child: AdaptiveButton(
+                        titleText: "Selanjutnya".toCapital,
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            setState(() {
+                              isCheck = true;
+                            });
+
+                            // widget.tabController.animateTo(1);
+                          }
+
+                        },
+                      ),
+                    )
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     if (formKey.currentState!.validate()) {
+                    //      }
+                    //     widget.tabController.animateTo(1);
+                    //
+                    //
+                    //   },
+                    //   child: Text("Selanjutnya".toCapital),
+                    // ),
+                    )
+              ],
+            ),
           ),
         );
       },

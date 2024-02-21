@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:acl_flutter/data/model/agent_model/profile_agent_model.dart';
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:acl_flutter/data/model/notification_model/notification_model.dart';
+import 'package:acl_flutter/data/repository/agent/agent_repository.dart';
 import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -22,13 +24,17 @@ part 'home_page_state.dart';
 class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   final CandidateRepository candidateRepository;
   final NotificationRepository notificationRepository;
+  final AgentRepository agentRepository;
 
   HomePageBloc(
-      {required this.candidateRepository, required this.notificationRepository})
+      {required this.candidateRepository,
+      required this.notificationRepository,
+      required this.agentRepository})
       : super(const HomePageState()) {
     on<FetchListMyAgentEvent>(fetchListAgent);
     on<FetchListBeAgentEvent>(fetchListBeAgent);
     on<FetchListNotifyEvent>(fetchListNotify);
+    on<FetchDataAgentEvent>(fetchDataAgent);
     on<HomePageInitialEvent>(homePageInitial);
   }
 
@@ -38,26 +44,59 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
       MasterDataModel masterDataModel = await SecureStorage().getMasterData();
       if (masterDataModel.masterData != null) {
         LoginModel loginModel = await SecureStorage().getUser();
+        ProfileAgentModel profileAgentModel =
+            await SecureStorage().getDataAgent();
         if (loginModel.uid!.isNotEmpty) {
           emit(state.copyWith(
               loginModel: loginModel,
-              loadingMessage: ''));
+              loadingMessage: '',
+              profileAgentModel: profileAgentModel));
         }
       } else {
-        emit(state.copyWith(
-            submitStatus: FormzSubmissionStatus.inProgress,
-            loadingMessage: 'waiting-fetch-master'));
+        emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
         final result = await candidateRepository.fetchMasterData();
-        result.when(
+        await result.when(
             success: (response) async {
               await SecureStorage().setMasterData(response.data);
               LoginModel loginModel = await SecureStorage().getUser();
               emit(state.copyWith(
-                  loginModel: loginModel,
-                  loadingMessage: null,));
+                loginModel: loginModel,
+                loadingMessage: '',
+              ));
             },
             failure: (error) {});
       }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+  }
+
+  Future<void> fetchDataAgent(
+      FetchDataAgentEvent event, Emitter<HomePageState> emit) async {
+    try {
+      LoginModel loginModel = await SecureStorage().getUser();
+      final result =
+          await agentRepository.getDataAgent(leaderCode: loginModel.uid ?? '');
+
+      await result.when(success: (response) async {
+        await SecureStorage().setDataAgent(response.data);
+        ProfileAgentModel profileAgentModel =
+            await SecureStorage().getDataAgent();
+        emit(state.copyWith(
+          loginModel: loginModel,
+          moveTo: Routes.userList,
+          profileAgentModel: profileAgentModel,
+          submitStatus: FormzSubmissionStatus.success,
+        ));
+      }, failure: (error) {
+        emit(state.copyWith(
+          loginModel: loginModel,
+          moveTo: Routes.userList,
+          submitStatus: FormzSubmissionStatus.success,
+        ));
+      });
     } catch (error) {
       if (kDebugMode) {
         print(error);

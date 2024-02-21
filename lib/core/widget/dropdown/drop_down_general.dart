@@ -15,7 +15,9 @@ class DropDownGeneral extends StatefulWidget {
         this.title,
         this.icon,
         this.errorText,
-        this.readOnly = false})
+        this.readOnly = false,
+        this.isMandatory = true,
+      })
       : super(key: key);
 
   final ValueChanged<AajicityMasterReference> onChanged;
@@ -26,6 +28,7 @@ class DropDownGeneral extends StatefulWidget {
   final String? errorText;
   final Icon? icon;
   final bool readOnly;
+  final bool isMandatory;
 
   @override
   State<DropDownGeneral> createState() =>
@@ -66,7 +69,8 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                       fontSize: 16.0,
                       color: AclColors.greyDarkFontColor,
                     ))),
-            Container(
+            widget.isMandatory
+                ?  Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: const Text(
                   '*',
@@ -74,7 +78,7 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
                     fontSize: 12.0,
                     color: AclColors.red,
                   ),
-                )),
+                )):Container(),
             Container(
                 margin: const EdgeInsets.only(left: 5, bottom: 5),
                 child: Text(

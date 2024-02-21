@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: Center(
                         child: ListTile(
                           title: Text(
-                            state.loginModel?.name ?? '',
+                            state.profileAgentModel?.pAgentName ?? '',
                             textAlign: TextAlign.center,
                             style: const TextStyle(color: AclColors.white),
                           ),

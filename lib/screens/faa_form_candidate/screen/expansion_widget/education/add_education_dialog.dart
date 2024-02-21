@@ -1,6 +1,7 @@
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_helper/source/components/buttons/adaptive_button.dart';
 import 'package:formz/formz.dart';
 
 import '../../../../../core/widget/button_widget.dart';
@@ -39,7 +40,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
         child: BlocListener<FaaCandidatePageBloc, FaaCandidatePageState>(
           listener: (context, state) {
             if (state.submitStatus.isSuccess) {
-              if (state.message == 'success-add-experience') {
+              if (state.message == 'success-add-education') {
                 Navigator.pop(context);
               }
             }
@@ -79,8 +80,8 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                                 Icons.add_chart,
                                 color: AclColors.greyDarkFontColor,
                               ),
-                              initialItem: state.educationLevel != null &&
-                                      state.educationLevel?.id != 0
+                              initialItem: state.addEducationModel?.level != null &&
+                                      state.addEducationModel?.level != 0
                                   ? state
                                       .masterDataModel
                                       ?.masterData
@@ -112,7 +113,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                             TextInput(
                               initialValue: state.addEducationModel?.schoolName,
                               icon: const Icon(Icons.person),
-                              label: const Text("Nama Sekolah/kursus"),
+                              labelText: "Nama Sekolah/kursus",
                               // initialValue: postTitle,
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
@@ -127,7 +128,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                             TextInput(
                               initialValue: state.addEducationModel?.description,
                               icon: const Icon(Icons.work),
-                              label: const Text("Keterangan"),
+                              labelText: "Keterangan",
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>().add(
                                     EducationDescriptionInputEvent(value));
@@ -146,7 +147,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                                               '2020-01-01',
                                         )
                                       : null,
-                              label: const Text("Pilih Tanggal"),
+                              labelText: "Pilih Tanggal",
                               title: "Mulai masa belajar",
                               errorText: isCheck == true &&
                                       state.educationStart.isNotValid
@@ -170,7 +171,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                                               '2020-01-01',
                                         )
                                       : null,
-                              label: const Text("Pilih Tanggal"),
+                              labelText: "Pilih Tanggal",
                               title: "Berakhir masa belajar",
                               errorText:
                                   isCheck == true && state.educationEnd.isNotValid
@@ -210,18 +211,20 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                       ),
                     ),
                     state.submitStatus.isInProgress
-                        ? Container(
-                            color: Colors.white.withAlpha(90),
-                            child: const Center(
-                                child:
-                                    SpinKitIndicator(type: SpinKitType.circle)))
+                        ? Center(
+                          child: Container(
+                              color: Colors.white.withAlpha(90),
+                              child: const Center(
+                                  child:
+                                      SpinKitIndicator(type: SpinKitType.circle))),
+                        )
                         : Container(),
                   ],
                 ),
                 actions: <Widget>[
-                  ButtonWidgetCustom(
-                    text: "Tambah",
-                    function: () {
+                  AdaptiveButton(
+                    titleText: "Tambah",
+                    onTap: () {
                       if (formKey.currentState!.validate()) {
                         getIt<FaaCandidatePageBloc>()
                             .add(AddEducationEvent());

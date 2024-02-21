@@ -2,14 +2,18 @@ import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/core/dialog/retry_dialog.dart';
 import 'package:acl_flutter/core/router/routes.dart';
 import 'package:acl_flutter/core/widget/text_input.dart';
+import 'package:acl_flutter/screens/home_page/screen/home_page.dart';
+import 'package:acl_flutter/screens/home_page/screen/home_page.dart';
 import 'package:acl_flutter/screens/login_page/bloc/login_page_bloc.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_helper/source/components/buttons/adaptive_button.dart';
 import 'package:formz/formz.dart';
 
 import '../../../core/widget/spinkit_indicator.dart';
 import '../../../di.dart';
+import '../../home_page/bloc/home_page_bloc.dart';
 
 enum PostMode { create, update }
 
@@ -50,9 +54,10 @@ class _LoginPageScreenState extends State<LoginPage> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(title: const Text("Login")),
-      body: BlocListener<LoginPageBloc, LoginPageState>(
-        listener: (context, state) {
-          if (state.submitStatus.isSuccess && state.moveTo == Routes.userList) {
+      body: BlocListener<HomePageBloc, HomePageState>(
+        listener: (context, stateHome) {
+          if (stateHome.submitStatus.isSuccess &&
+              stateHome.moveTo == Routes.userList) {
             username.clear();
             password.clear();
             getIt<LoginPageBloc>().add(LoginPageInitialEvent());
@@ -60,147 +65,169 @@ class _LoginPageScreenState extends State<LoginPage> {
               Routes.sidebarPage,
               (Route<dynamic> route) => false,
             );
-          } else if (state.submitStatus.isInProgress) {
-            const SpinKitIndicator(type: SpinKitType.circle);
-          } else if (state.submitStatus.isFailure) {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) => RetryDialog(
-                    title: 'username dan password salah',
-                    onCancelPressed: () => [
-                          Navigator.pop(context),
-                        ]));
           }
         },
-        child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              BlocBuilder<LoginPageBloc, LoginPageState>(
-                  builder: (context, state) {
-                return Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 250,
-                          child: Image.asset("assets/images/allianz_logo.png"),
-                        ),
-                        Center(
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              side: const BorderSide(
-                                color: Colors.grey,
-                                width: 1,
+        child: BlocListener<LoginPageBloc, LoginPageState>(
+          listener: (context, state) {
+            if (state.submitStatus.isSuccess &&
+                state.moveTo == Routes.userList) {
+              getIt<HomePageBloc>().add(FetchDataAgentEvent());
+            } else if (state.submitStatus.isInProgress) {
+              const SpinKitIndicator(type: SpinKitType.circle);
+            } else if (state.submitStatus.isFailure) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => RetryDialog(
+                      title: 'username dan password salah',
+                      onCancelPressed: () => [
+                            Navigator.pop(context),
+                          ]));
+            }
+          },
+          child: SingleChildScrollView(
+            child: Stack(
+              children: [
+                BlocBuilder<LoginPageBloc, LoginPageState>(
+                    builder: (context, state) {
+                  return Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 250,
+                            child:
+                                Image.asset("assets/images/allianz_logo.png"),
+                          ),
+                          Center(
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                side: const BorderSide(
+                                  color: Colors.grey,
+                                  width: 1,
+                                ),
                               ),
-                            ),
-                            margin: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Wrap(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.all(12),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            TextInput(
-                                              controller: username,
-                                              keyboardType: TextInputType.phone,
-                                              maxLength: 8,
-                                              icon: const Icon(Icons.person),
-                                              label: const Text("Username"),
-                                              validator: (String? value) {
-                                                if (state.userName.isNotValid) {
-                                                  return state
-                                                      .userName.invalidUserName;
-                                                }
-                                                return null;
-                                              },
-                                              onChanged: (String input) {
-                                                viewModel.add(
-                                                    UserNameInputEvent(input));
-                                              },
-                                            ),
-                                            const SizedBox(height: 15),
-                                            TextInput(
-                                              controller: password,
-                                              // initialValue: postBody,
-                                              icon: const Icon(Icons.password),
-                                              label: const Text("Password"),
-                                              textCapitalization:
-                                                  TextCapitalization.none,
-                                              obscureText: true,
-                                              validator: (String? value) {
-                                                if (state.password.isValid)
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: Wrap(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.all(12),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              TextInput(
+                                                controller: username,
+                                                keyboardType:
+                                                    TextInputType.phone,
+                                                maxLength: 8,
+                                                icon: const Icon(Icons.person),
+                                                labelText: "Username",
+                                                validator: (String? value) {
+                                                  if (state
+                                                      .userName.isNotValid) {
+                                                    return state.userName
+                                                        .invalidUserName;
+                                                  }
                                                   return null;
-                                                return "Password tidak boleh kosong";
-                                              },
-                                              onChanged: (String input) {
-                                                viewModel.add(
-                                                    PasswordInputEvent(input));
-                                              },
-                                            ),
-                                            Container(
-                                              margin:
-                                                  const EdgeInsets.symmetric(
+                                                },
+                                                onChanged: (String input) {
+                                                  viewModel.add(
+                                                      UserNameInputEvent(
+                                                          input));
+                                                },
+                                              ),
+                                              const SizedBox(height: 15),
+                                              TextInput(
+                                                controller: password,
+                                                // initialValue: postBody,
+                                                icon:
+                                                    const Icon(Icons.password),
+                                                labelText: "Password",
+                                                textCapitalization:
+                                                    TextCapitalization.none,
+                                                obscureText: true,
+                                                validator: (String? value) {
+                                                  if (state.password.isValid)
+                                                    return null;
+                                                  return "Password tidak boleh kosong";
+                                                },
+                                                onChanged: (String input) {
+                                                  viewModel.add(
+                                                      PasswordInputEvent(
+                                                          input));
+                                                },
+                                              ),
+                                              Container(
+                                                  margin: const EdgeInsets
+                                                      .symmetric(
                                                       horizontal: 16,
                                                       vertical: 8),
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  if (formKey.currentState!
-                                                      .validate()) {
-                                                    viewModel.add(
-                                                        LoginSubmittedEvent());
-                                                  }
-                                                },
-                                                child: Text("Login".toCapital),
-                                              ),
-                                            ),
-                                          ],
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: AdaptiveButton(
+                                                    titleText:
+                                                        "Login".toCapital,
+                                                    onTap: () {
+                                                      if (formKey.currentState!
+                                                          .validate()) {
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                        viewModel.add(
+                                                            LoginSubmittedEvent());
+                                                      }
+                                                    },
+                                                  )),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 16),
-                                          child: const Text(
-                                            'Lupa Password?',
-                                            style: TextStyle(
-                                                color: AclColors.primaryBlue),
-                                          ))
-                                    ],
+                                        Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 16),
+                                            child: const Text(
+                                              'Lupa Password?',
+                                              style: TextStyle(
+                                                  color: AclColors.primaryBlue),
+                                            ))
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        BlocBuilder<LoginPageBloc, LoginPageState>(
-                          builder: (context, state) {
-                            return state.submitStatus.isInProgress
-                                ? const SpinKitIndicator(
-                                    type: SpinKitType.circle)
-                                : Container();
-                          },
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          BlocBuilder<HomePageBloc, HomePageState>(
+                            builder: (context, stateHome) {
+                              return BlocBuilder<LoginPageBloc, LoginPageState>(
+                                builder: (context, state) {
+                                  return state.submitStatus.isInProgress ||
+                                          stateHome.submitStatus.isInProgress
+                                      ? const SpinKitIndicator(
+                                          type: SpinKitType.circle)
+                                      : Container();
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }),
-            ],
+                  );
+                }),
+              ],
+            ),
           ),
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:acl_flutter/core/widget/dropdown/drop_down_city.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_helper/source/components/buttons/adaptive_button.dart';
 import 'package:formz/formz.dart';
 
 import '../../../core/dialog/progress_dialog.dart';
@@ -141,7 +142,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             icon: const Icon(Icons.person),
-                            label: const Text("Nama Depan(sesuai KTP)"),
+                            labelText: "Nama Depan(sesuai KTP)",
                             // initialValue: postTitle,
                             validator: (String? value) {
                               if (value!.isNotEmpty) return null;
@@ -156,7 +157,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             isMandatory: false,
                             icon: const Icon(Icons.person),
-                            label: const Text("Nama tengah(sesuai KTP)"),
+                            labelText: "Nama tengah(sesuai KTP)",
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(MiddleNameInputEvent(value));
@@ -166,7 +167,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             isMandatory: false,
                             icon: const Icon(Icons.person),
-                            label: const Text("Nama belakang(sesuai KTP)"),
+                            labelText: "Nama belakang(sesuai KTP)",
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(LastNameInputEvent(value));
@@ -174,10 +175,9 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           const SizedBox(height: 8),
                           DateTimePickerForm(
-                            label: const Text("Pilih Tanggal"),
+                            labelText: "Pilih Tanggal",
                             title: "Tanggal lahir",
-                            errorText: isCheck == true &&
-                                state.dob.isNotValid
+                            errorText: isCheck == true && state.dob.isNotValid
                                 ? 'Mohon diisi'
                                 : null,
                             selectedDateTime: (DateTime date) {
@@ -199,7 +199,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             icon: const Icon(Icons.add_card_rounded),
-                            label: const Text("No KTP"),
+                            labelText: "No KTP",
                             maxLength: 16,
                             keyboardType: TextInputType.phone,
                             validator: (String? value) {
@@ -239,7 +239,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             icon: const Icon(Icons.add_card_rounded),
-                            label: const Text("No KK"),
+                            labelText: "No KK",
                             maxLength: 16,
                             keyboardType: TextInputType.phone,
                             validator: (String? value) {
@@ -289,7 +289,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               ],
                             ),
                             icon: const Icon(Icons.add_location),
-                            label: const Text("(Gedung.../Jalan...)"),
+                            labelText: "(Gedung.../Jalan...)",
                             validator: (String? value) {
                               if (value!.isNotEmpty) return null;
                               return "Mohon diisi";
@@ -303,7 +303,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: const Icon(Icons.add_location),
                             isMandatory: false,
-                            label: const Text("(RT.../RW...)"),
+                            labelText: "(RT.../RW...)",
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(RtRwInputEvent(value));
@@ -313,7 +313,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: const Icon(Icons.add_location),
                             isMandatory: false,
-                            label: const Text("(Kelurahan.../Kecamatan...)"),
+                            labelText: "(Kelurahan.../Kecamatan...)",
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(KecKelInputEvent(value));
@@ -322,7 +322,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           TextInput(
                             icon: const Icon(Icons.signpost_sharp),
-                            label: const Text("Kode Pos"),
+                            labelText: "Kode Pos",
                             keyboardType: TextInputType.phone,
                             maxLength: 5,
                             validator: (String? value) {
@@ -531,7 +531,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             maxLength: 10,
                             keyboardType: TextInputType.phone,
                             icon: const Icon(Icons.add_card_rounded),
-                            label: const Text("No lisensi AAJI"),
+                            labelText: "No lisensi AAJI",
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(AajiNoInputEvent(value));
@@ -612,7 +612,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             maxLength: 16,
                             keyboardType: TextInputType.phone,
                             icon: const Icon(Icons.add_card_rounded),
-                            label: const Text("No lisensi AASI"),
+                            labelText: "No lisensi AASI",
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(AasiNoInputEvent(value));
@@ -742,7 +742,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                   isMandatory: checkedPrevCompanyAAUI ||
                                       state.imageLicenceAAUI.isValid,
                                   icon: const Icon(Icons.add_card_rounded),
-                                  label: const Text("No lisensi AAUI"),
+                                  labelText: "No lisensi AAUI",
                                   onChanged: (String value) {
                                     getIt<AddCandidatePageBloc>()
                                         .add(AauiNoInputEvent(value));
@@ -825,7 +825,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             readOnly: !checkedValueMarriage,
                             keyboardType: TextInputType.phone,
                             maxLength: 16,
-                            label: const Text("No KTP Pasangan"),
+                            labelText: "No KTP Pasangan",
                             // initialValue: postTitle,
                             validator: (String? value) {
                               if (checkedValueMarriage) {
@@ -847,7 +847,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             controller: firstNameSpouse,
                             icon: const Icon(Icons.person),
-                            label: const Text("Nama Depan(sesuai KTP)"),
+                            labelText: "Nama Depan(sesuai KTP)",
                             isMandatory: checkedValueMarriage,
                             readOnly: !checkedValueMarriage,
                             validator: (String? value) {
@@ -869,7 +869,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             isMandatory: false,
                             readOnly: !checkedValueMarriage,
                             icon: const Icon(Icons.person),
-                            label: const Text("Nama tengah(sesuai KTP)"),
+                            labelText: "Nama tengah(sesuai KTP)",
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(MiddleNamePartnerInputEvent(value));
@@ -881,7 +881,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             isMandatory: false,
                             readOnly: !checkedValueMarriage,
                             icon: const Icon(Icons.person),
-                            label: const Text("Nama belakang(sesuai KTP)"),
+                            labelText: "Nama belakang(sesuai KTP)",
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(LastNamePartnerInputEvent(value));
@@ -890,12 +890,12 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           const SizedBox(height: 8),
                           DateTimePickerForm(
                             controller: dobSpouse,
-                            label: const Text("Pilih Tanggal"),
+                            labelText: "Pilih Tanggal",
                             title: "Tanggal lahir pasangan",
-                            errorText: isCheck == true &&
-                                state.dobPartner.isNotValid
-                                ? 'Mohon diisi'
-                                : null,
+                            errorText:
+                                isCheck == true && state.dobPartner.isNotValid
+                                    ? 'Mohon diisi'
+                                    : null,
                             isMandatory: checkedValueMarriage,
                             readOnly: !checkedValueMarriage,
                             selectedDateTime: (DateTime date) {
@@ -980,8 +980,9 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 16),
                             width: MediaQuery.of(context).size.width,
-                            child: ElevatedButton(
-                              onPressed: () {
+                            child: AdaptiveButton(
+                              titleText:"Selanjutnya".toCapital,
+                              onTap: () {
                                 if (formKey.currentState!.validate()) {
                                   getIt<AddCandidatePageBloc>()
                                       .add(AddAgentSubmittedEvent());
@@ -990,7 +991,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                   isCheck = true;
                                 });
                               },
-                              child: Text("Selanjutnya".toCapital),
                             ),
                           )
                         ],

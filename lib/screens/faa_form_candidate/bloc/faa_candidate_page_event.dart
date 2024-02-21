@@ -313,6 +313,12 @@ class SourceInformationInputEvent extends FaaCandidatePageEvent {
   SourceInformationInputEvent(this.value);
 }
 
+class AppendixInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference value;
+
+  AppendixInputEvent(this.value);
+}
+
 class AppendixImageInputEvent extends FaaCandidatePageEvent {
   final String value;
 
@@ -393,7 +399,7 @@ class FaaCandidatePageInitialEvent extends FaaCandidatePageEvent {
 class CheckEmployeeInputEvent extends FaaCandidatePageEvent {
   final String value;
 
-  CheckEmployeeInputEvent([this.value ='tidak']);
+  CheckEmployeeInputEvent(this.value);
 }
 class UnitNameExperienceInputEvent extends FaaCandidatePageEvent {
   final String unitName;

@@ -4,6 +4,7 @@ import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/core/network/dio_exception.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../utils/http_util.dart';
 
@@ -85,8 +86,6 @@ abstract mixin class ApiHelper<T> {
     final responseData = HttpUtil.getResponse(response);
     final ResponseModel<T> responseModel =
         ResponseModel.fromJson(responseData, fromJson);
-    var data = responseModel;
-    print("$data");
     return responseModel;
   }
 }
