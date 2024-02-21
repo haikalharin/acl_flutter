@@ -8,6 +8,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
+import '../../../../core/dialog/progress_dialog.dart';
 import '../../../../core/dialog/success_dialog.dart';
 import '../../../../core/widget/button_widget.dart';
 import '../../../../core/widget/dropdown/drop_down_string.dart';
@@ -19,6 +20,7 @@ import '../expansion_widget/work_experience/add_work_experience_dialog.dart';
 
 class WorkExperienceDataPage extends StatefulWidget {
   final TabController tabController;
+
   const WorkExperienceDataPage({super.key, required this.tabController});
 
   @override
@@ -32,8 +34,6 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
 
   @override
   void initState() {
-        getIt<FaaCandidatePageBloc>()
-        .add(CheckEmployeeInputEvent());
     super.initState();
   }
 
@@ -41,8 +41,8 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
   Widget build(BuildContext context) {
     return BlocListener<FaaCandidatePageBloc, FaaCandidatePageState>(
       listener: (context, state) async {
-        if(state.submitStatus.isSuccess){
-          if(state.message == 'success-submit-work-experience'){
+        if (state.submitStatus.isSuccess) {
+          if (state.message == 'success-submit-work-experience') {
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -53,7 +53,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
               },
             );
             await Future.delayed(const Duration(seconds: 1));
-             Navigator.pop(context);
+            Navigator.pop(context);
             widget.tabController.animateTo(2);
           }
         }
@@ -75,24 +75,30 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                               children: [
                                 const SizedBox(height: 8),
                                 state.addCompanyModel != null &&
-                                        state.addCompanyModel?.companyType != null
+                                        state.addCompanyModel?.companyType !=
+                                            null
                                     ? Card(
                                         margin: const EdgeInsets.all(16.0),
                                         child: Container(
                                           padding: const EdgeInsets.all(16.0),
-                                          width: MediaQuery.of(context).size.width,
+                                          width:
+                                              MediaQuery.of(context).size.width,
                                           child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Container(
-                                                margin: EdgeInsets.only(right: 8),
+                                                margin:
+                                                    EdgeInsets.only(right: 8),
                                                 padding: EdgeInsets.all(4),
                                                 decoration: const BoxDecoration(
-                                                    color: AclColors.primaryBlue,
+                                                    color:
+                                                        AclColors.primaryBlue,
                                                     shape: BoxShape.circle),
                                                 child: const Center(
                                                   child: Icon(
-                                                    Icons.chrome_reader_mode_outlined,
+                                                    Icons
+                                                        .chrome_reader_mode_outlined,
                                                     color: Colors.white,
                                                     size: 24,
                                                   ),
@@ -120,15 +126,15 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                                         InkWell(
                                                             onTap: () {
                                                               showDialog(
-                                                                context: context,
+                                                                context:
+                                                                    context,
                                                                 builder:
                                                                     (BuildContext
                                                                         context) {
                                                                   return AddWorkExperienceDialog(
-                                                                    onCancelPressed:
-                                                                        () => Navigator
-                                                                            .pop(
-                                                                                context),
+                                                                    onCancelPressed: () =>
+                                                                        Navigator.pop(
+                                                                            context),
                                                                   );
                                                                 },
                                                               );
@@ -141,8 +147,9 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                                                 Icon(
                                                                   Icons.create,
                                                                   size: 14,
-                                                                  color: AclColors
-                                                                      .green,
+                                                                  color:
+                                                                      AclColors
+                                                                          .green,
                                                                 ),
                                                                 SizedBox(
                                                                   width: 2,
@@ -167,15 +174,15 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                                               children: [
                                                                 Container(
                                                                   decoration: const BoxDecoration(
-                                                                      color:
-                                                                          AclColors
-                                                                              .red,
+                                                                      color: AclColors
+                                                                          .red,
                                                                       shape: BoxShape
                                                                           .circle),
                                                                   child:
                                                                       const Center(
                                                                     child: Icon(
-                                                                      Icons.close,
+                                                                      Icons
+                                                                          .close,
                                                                       color: Colors
                                                                           .white,
                                                                       size: 12,
@@ -190,7 +197,8 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                                             ))
                                                       ],
                                                     ),
-                                                    const SizedBox(height: 16.0),
+                                                    const SizedBox(
+                                                        height: 16.0),
                                                     // Spacer
                                                   ],
                                                 ),
@@ -217,8 +225,8 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                       ),
                                 const SizedBox(height: 16),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 16.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
                                   child: Divider(),
                                 ),
                                 const SizedBox(height: 16),
@@ -233,12 +241,14 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                     getIt<FaaCandidatePageBloc>()
                                         .add(CheckEmployeeInputEvent(value));
                                   },
-                                  initialItem: 'Tidak',
+                                  initialItem: state.checkIsEmployee.isValid
+                                      ? state.checkIsEmployee.value
+                                      : 'Tidak',
                                   items: const ['Ya', 'Tidak'],
-                                  errorText:
-                                      isCheck && state.checkIsEmployee.isNotValid
-                                          ? 'Mohon diisi'
-                                          : null,
+                                  errorText: isCheck &&
+                                          state.checkIsEmployee.isNotValid
+                                      ? 'Mohon diisi'
+                                      : null,
                                 ),
                                 state.checkIsEmployee.value.isNotEmpty &&
                                         state.checkIsEmployee.value == 'Ya'
@@ -246,11 +256,15 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                         children: [
                                           const SizedBox(height: 8),
                                           TextInput(
-                                            icon: const Icon(Icons.maps_home_work),
-                                            labelText:"Atasan langsung",
-                                            // initialValue: postTitle,
+                                            icon: const Icon(
+                                                Icons.maps_home_work),
+                                            initialValue: state.unitName.isValid
+                                                ? state.unitName.value
+                                                : null,
+                                            labelText: "Nama Unit",
                                             validator: (String? value) {
-                                              if (value!.isNotEmpty) return null;
+                                              if (value!.isNotEmpty)
+                                                return null;
                                               return "Mohon diisi";
                                             },
                                             onChanged: (String value) {
@@ -261,11 +275,17 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                           ),
                                           const SizedBox(height: 8),
                                           TextInput(
-                                            icon: const Icon(Icons.account_circle),
+                                            icon: const Icon(
+                                                Icons.account_circle),
+                                            initialValue:
+                                                state.lastDepartment.isValid
+                                                    ? state.lastDepartment.value
+                                                    : null,
                                             labelText: "Jabatan Terakhir",
                                             // initialValue: postTitle,
                                             validator: (String? value) {
-                                              if (value!.isNotEmpty) return null;
+                                              if (value!.isNotEmpty)
+                                                return null;
                                               return "Mohon diisi";
                                             },
                                             onChanged: (String value) {
@@ -277,10 +297,15 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                           const SizedBox(height: 8),
                                           TextInput(
                                             icon: const Icon(Icons.person),
+                                            initialValue:
+                                                state.directLeader.isValid
+                                                    ? state.directLeader.value
+                                                    : null,
                                             labelText: "Atasan langsung",
                                             // initialValue: postTitle,
                                             validator: (String? value) {
-                                              if (value!.isNotEmpty) return null;
+                                              if (value!.isNotEmpty)
+                                                return null;
                                               return "Mohon diisi";
                                             },
                                             onChanged: (String value) {
@@ -295,16 +320,22 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                             displayClearIcon: false,
                                             icon: const Icon(
                                               Icons.add_chart,
-                                              color: AclColors.greyDarkFontColor,
+                                              color:
+                                                  AclColors.greyDarkFontColor,
                                             ),
                                             onChanged: (String value) {
-                                              getIt<FaaCandidatePageBloc>()
-                                                  .add(StatusEmployeeInputEvent(value));
+                                              getIt<FaaCandidatePageBloc>().add(
+                                                  StatusEmployeeInputEvent(
+                                                      value));
                                             },
-                                            initialItem: 'Tidak',
+                                            initialItem:
+                                                state.statusEmployee.isValid
+                                                    ? state.statusEmployee.value
+                                                    : 'Tidak',
                                             items: const ['Ya', 'Tidak'],
-                                            errorText:
-                                            isCheck && state.checkIsEmployee.isNotValid
+                                            errorText: isCheck &&
+                                                    state.checkIsEmployee
+                                                        .isNotValid
                                                 ? 'Mohon diisi'
                                                 : null,
                                           ),
@@ -332,6 +363,15 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                   ],
                 ),
               ),
+              state.submitStatus.isInProgress
+                  ? Container(
+                      color: Colors.white.withAlpha(90),
+                      child: const Center(
+                          child: ProgressDialog(
+                        title: '',
+                        isProgressed: true,
+                      )))
+                  : Container(),
             ],
           );
         },

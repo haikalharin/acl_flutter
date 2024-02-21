@@ -8,6 +8,7 @@ import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
 
 import '../../../bloc/faa_candidate_page_bloc.dart';
+import '../../tab_widget/private_data_page.dart';
 
 enum Mode { create, update }
 
@@ -33,7 +34,6 @@ class _AajiDataState extends State<AajiData> {
   bool checkedValueKpm = false;
   bool checkedValueResign = false;
   bool checkedValueTerminasi = false;
-  bool isCheck = false;
   var data = [
     LoginModel(name: 'adadada', uid: '1'),
     LoginModel(name: 'bccccc', uid: '2'),
@@ -71,7 +71,7 @@ class _AajiDataState extends State<AajiData> {
                               isMandatory: checkedValueAAJI,
                               icon: const Icon(Icons.add_card_rounded),
                               labelText: "No lisensi AAJI",
-                              readOnly: state.noLicenceAAJI.isValid,
+                              readOnly:state.checkedValueAAJI,
                               initialValue: state.candidateDataModel?.aajiNo,
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>()
@@ -90,7 +90,7 @@ class _AajiDataState extends State<AajiData> {
                             CustomImagePicker(
                               title: 'Foto Lisensi AAJI',
                               isMandatory: checkedValueAAJI,
-                              readOnly: state.imageLicenceAAJI.isValid,
+                              readOnly: state.checkedValueAAJI,
                               initialImage: state.imageLicenceAAJI.value,
                               onImagePicked: (value) {
                                 getIt<FaaCandidatePageBloc>()

@@ -40,7 +40,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
         child: BlocListener<FaaCandidatePageBloc, FaaCandidatePageState>(
           listener: (context, state) {
             if (state.submitStatus.isSuccess) {
-              if (state.message == 'success-add-experience') {
+              if (state.message == 'success-add-education') {
                 Navigator.pop(context);
               }
             }
@@ -80,8 +80,8 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                                 Icons.add_chart,
                                 color: AclColors.greyDarkFontColor,
                               ),
-                              initialItem: state.educationLevel != null &&
-                                      state.educationLevel?.id != 0
+                              initialItem: state.addEducationModel?.level != null &&
+                                      state.addEducationModel?.level != 0
                                   ? state
                                       .masterDataModel
                                       ?.masterData

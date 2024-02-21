@@ -19,7 +19,7 @@ import '../bloc/faa_candidate_page_bloc.dart';
 enum Mode { create, update }
 
 bool isSuccesPrivateTab = true;
-bool isSuccesWorkExperienceTab = false;
+bool isSuccesWorkExperienceTab = true;
 bool isSuccesEducationTab = false;
 
 class FaaFormCandidatePage extends StatefulWidget {
@@ -79,11 +79,12 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
           if (isSuccesPrivateTab) {
             _tabController.index = 1;
           } else {
+            _tabController.index = 0;
             showDialog(
               context: context,
               builder: (BuildContext context) {
                 return RetryDialog(
-                  title: "Belum Tersedia",
+                  title: "Mohon selesaikan halaman ini terlebih dahulu",
                   onCancelPressed: () {
                     Navigator.pop(context);
                   },
@@ -98,11 +99,12 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
           if (isSuccesWorkExperienceTab) {
             _tabController.index = 2;
           } else {
+            _tabController.index = 1;
             showDialog(
               context: context,
               builder: (BuildContext context) {
                 return RetryDialog(
-                  title: "Belum Tersedia",
+                  title: "Mohon selesaikan halaman ini terlebih dahulu",
                   onCancelPressed: () {
                     Navigator.pop(context);
                   },

@@ -9,6 +9,7 @@ import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
 import '../../../../../core/widget/dropdown/drop_down_city.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
+import '../../tab_widget/private_data_page.dart';
 
 enum Mode { create, update }
 class AppendixData extends StatefulWidget {
@@ -32,7 +33,6 @@ class _AppendixDataState extends State<AppendixData> {
   bool checkedValueKpm = false;
   bool checkedValueResign = false;
   bool checkedValueTerminasi = false;
-  bool isCheck = false;
   var data = [
     LoginModel(name: 'adadada', uid: '1'),
     LoginModel(name: 'bccccc', uid: '2'),
@@ -85,20 +85,20 @@ class _AppendixDataState extends State<AppendixData> {
                                         ?.sourceinformation
                                         ?.masterReference ??
                                         [],
-                                    // errorText:
-                                    // isCheck == true && state.cityId.isNotValid
-                                    //     ? 'Mohon diisi'
-                                    //     : null,
+                                    errorText:
+                                    isCheck == true && state.appendixValueId.isNotValid
+                                        ? 'Mohon diisi'
+                                        : null,
                                   );
                                 },
                               ),
                               const SizedBox(height: 8),
                               CustomImagePicker(
                                 title: 'Lain lain',
-                                isMandatory: checkedValueAAJI,
+                                isMandatory: false,
                                 onImagePicked: (value) {
                                   getIt<FaaCandidatePageBloc>()
-                                      .add(AajiImageInputEvent(value));
+                                      .add(AppendixImageInputEvent(value));
                                 },
                                 errorText: checkedValueAAJI && isCheck &&
                                     state.imageLicenceAAJI.isNotValid

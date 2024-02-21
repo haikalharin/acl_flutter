@@ -14,7 +14,7 @@ import '../expansion_widget/private/source_of_recruiting_information.dart';
 import '../faa_form_candidate_page.dart';
 
 enum Mode { create, update }
-
+bool isCheck = false;
 class PrivateDataPage extends StatefulWidget {
   final TabController tabController;
 
@@ -63,7 +63,11 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                         titleText: "Selanjutnya".toCapital,
                         onTap: () {
                           if (formKey.currentState!.validate()) {
-                            widget.tabController.animateTo(1);
+                            setState(() {
+                              isCheck = true;
+                            });
+
+                            // widget.tabController.animateTo(1);
                           }
 
                         },

@@ -7,6 +7,7 @@ import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
+import '../../tab_widget/private_data_page.dart';
 
 enum Mode { create, update }
 class NpwpAndBankData extends StatefulWidget {
@@ -30,7 +31,6 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
   bool checkedValueKpm = false;
   bool checkedValueResign = false;
   bool checkedValueTerminasi = false;
-  bool isCheck = false;
   var data = [
     LoginModel(name: 'adadada', uid: '1'),
     LoginModel(name: 'bccccc', uid: '2'),
@@ -71,7 +71,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 isMandatory: false,
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
-                                      .add(FirstNameInputEvent(value));
+                                      .add(NpwpNoInputEvent(value));
                                 },
                               ),
                               const SizedBox(height: 8),
@@ -81,7 +81,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 keyboardType: TextInputType.phone,
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
-                                      .add(MiddleNameInputEvent(value));
+                                      .add(BankNoInputEvent(value));
                                 },
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;
@@ -94,7 +94,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 labelText: "Nama Pemilik Rekening",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
-                                      .add(MiddleNameInputEvent(value));
+                                      .add(BankUserNameInputEvent(value));
                                 },
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;
@@ -107,7 +107,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 labelText: "Nama Bank",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
-                                      .add(MiddleNameInputEvent(value));
+                                      .add(BankNameInputEvent(value));
                                 },
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;
@@ -120,7 +120,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 labelText: "Cabang",
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
-                                      .add(MiddleNameInputEvent(value));
+                                      .add(BankBranchInputEvent(value));
                                 },
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;
@@ -132,10 +132,10 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 title: 'Foto Kartu NPWP',
                                 onImagePicked: (value) {
                                   getIt<FaaCandidatePageBloc>()
-                                      .add(IdentitySelfieImageInputEvent(value));
+                                      .add(BankUserBookImageInputEvent(value));
                                 },
                                 errorText:  isCheck &&
-                                    state.identitySelfieImage.isNotValid
+                                    state.bankUserBookImage.isNotValid
                                     ? 'Mohon diisi'
                                     : null,
                               ),

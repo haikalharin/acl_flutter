@@ -8,6 +8,7 @@ class ServiceUrl {
   static String listTracking = "${subHost}restcandidate/getCandidateTracking";
   static String getCandidateData = "${subHost}restcandidate/getCandidateData";
   static String addRegisterCandidate = "${subHost}restcandidate/registrationCandidateStart";
+  static String addRegisterCandidateFaa = "${subHost}restcandidate/registrationCandidate";
   static String submitPendingSimpleChecking = "${subHost}restcandidate/submitPendingSimpleChecking";
   static String addRegisterCandidateFolderDoc = "${subHost}AclDms/createFolder";
   static String addRegisterCandidateDoc = "${subHost}AclDms/uploadDoc";

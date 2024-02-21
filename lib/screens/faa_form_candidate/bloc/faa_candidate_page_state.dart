@@ -68,6 +68,8 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator npwpImage;
   final MandatoryFieldValidator bankUserBookImage;
   final MandatoryFieldValidator sourceInformation;
+  final AajicityMasterReference? appendixValue;
+  final DropdownFieldValidator appendixValueId;
   final MandatoryFieldValidator appendixImage;
 
   ///Work Experience
@@ -186,6 +188,8 @@ class FaaCandidatePageState with FormzMixin {
     this.npwpImage = const MandatoryFieldValidator.pure(),
     this.bankUserBookImage = const MandatoryFieldValidator.pure(),
     this.sourceInformation = const MandatoryFieldValidator.pure(),
+    this.appendixValue,
+    this.appendixValueId = const DropdownFieldValidator.pure(),
     this.appendixImage = const MandatoryFieldValidator.pure(),
 
     ///Education
@@ -265,71 +269,72 @@ class FaaCandidatePageState with FormzMixin {
         data.add(educationStart);
         data.add(educationEnd);
         data.add(educationStatus);
-      } else if (tabType == TabType.private) {
-        data.clear();
-        data.addAll([
-          firstName,
-          middleName,
-          lastName,
-          positionId,
-          identityNo,
-          martialStatusId,
-          pob,
-          dobString,
-          genderId,
-          nationality,
-          religionId,
-          address,
-          rtRw,
-          kecKel,
-          postalCode,
-          countryId,
-          provinceId,
-          cityId,
-          phone,
-          handphone,
-          email,
-          occupationId,
-          lastWorkExperience,
-          lastResignDateString,
-          terminationDateString,
-          privateImage,
-          identityImage,
-          identitySelfieImage,
-          terminationImage,
-          notTwistingImage,
-          heirsName,
-          heirsRelation,
-          npwpNo,
-          bankNo,
-          bankUserName,
-          bankName,
-          bankBranch,
-          npwpImage,
-          bankUserBookImage,
-          sourceInformation,
-          appendixImage,
-        ]);
+      }
+    } else if (tabType == TabType.private) {
+      data.clear();
+      data.addAll([
+        firstName,
+        middleName,
+        lastName,
+        positionId,
+        identityNo,
+        martialStatusId,
+        pob,
+        dobString,
+        genderId,
+        nationality,
+        religionId,
+        address,
+        rtRw,
+        kecKel,
+        postalCode,
+        countryId,
+        provinceId,
+        cityId,
+        phone,
+        handphone,
+        email,
+        occupationId,
+        lastWorkExperience,
+        lastResignDateString,
+        terminationDateString,
+        privateImage,
+        identityImage,
+        identitySelfieImage,
+        terminationImage,
+        notTwistingImage,
+        heirsName,
+        heirsRelation,
+        npwpNo,
+        bankNo,
+        bankUserName,
+        bankName,
+        bankBranch,
+        npwpImage,
+        bankUserBookImage,
+        sourceInformation,
+        appendixValueId,
+        appendixImage,
+      ]);
 
-        if (checkedValueAAJI) {
-          data.addAll([
-            noLicenceAAJI,
-            imageLicenceAAJI,
-          ]);
-        }
-        if (checkedValueAASI) {
-          data.addAll([
-            noLicenceAASI,
-            imageLicenceAASI,
-          ]);
-        }
-        if (checkedValueAAUI) {
-          data.addAll([
-            noLicenceAAUI,
-            imageLicenceAAUI,
-          ]);
-        }
-      } else {}
+      if (checkedValueAAJI) {
+        data.addAll([
+          noLicenceAAJI,
+          imageLicenceAAJI,
+        ]);
+      }
+      if (checkedValueAASI) {
+        data.addAll([
+          noLicenceAASI,
+          imageLicenceAASI,
+        ]);
+      }
+      if (checkedValueAAUI) {
+        data.addAll([
+          noLicenceAAUI,
+          imageLicenceAAUI,
+        ]);
+      }
     } else {
       data.clear();
     }
@@ -405,6 +410,8 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? bankUserBookImage,
     MandatoryFieldValidator? sourceInformation,
     MandatoryFieldValidator? appendixImage,
+    DropdownFieldValidator? appendixValueId,
+    AajicityMasterReference? appendixValue,
 
     ///Education
     bool? isJustAddEducation,
@@ -423,6 +430,7 @@ class FaaCandidatePageState with FormzMixin {
     ///Experience
     bool? isJustAddExperience,
     MandatoryFieldValidator? checkIsEmployee,
+    MandatoryFieldValidator? statusEmployee,
     MandatoryFieldValidator? unitName,
     MandatoryFieldValidator? lastDepartment,
     MandatoryFieldValidator? directLeader,
@@ -522,6 +530,8 @@ class FaaCandidatePageState with FormzMixin {
       npwpImage: npwpImage ?? this.npwpImage,
       bankUserBookImage: bankUserBookImage ?? this.bankUserBookImage,
       sourceInformation: sourceInformation ?? this.sourceInformation,
+      appendixValue: appendixValue ?? this.appendixValue,
+      appendixValueId: appendixValueId ?? this.appendixValueId,
       appendixImage: appendixImage ?? this.appendixImage,
 
       ///Education
@@ -541,6 +551,7 @@ class FaaCandidatePageState with FormzMixin {
       ///Work Expperience
       isJustAddExperience: isJustAddExperience ?? this.isJustAddExperience,
       checkIsEmployee: checkIsEmployee ?? this.checkIsEmployee,
+      statusEmployee: statusEmployee ?? this.statusEmployee,
       unitName: unitName ?? this.unitName,
       lastDepartment: lastDepartment ?? this.lastDepartment,
       directLeader: directLeader ?? this.directLeader,

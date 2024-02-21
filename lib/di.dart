@@ -6,6 +6,7 @@ import 'package:acl_flutter/data/remote_data_source/candidate/get_candidate_data
 import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/start_process_instance_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_education_candidate_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_register_candidate_private_data_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_work_eexperience_candidate_api.dart';
 import 'package:acl_flutter/data/remote_data_source/comment/comment_api.dart';
 import 'package:acl_flutter/data/remote_data_source/document/document_api.dart';
@@ -133,7 +134,11 @@ Future<void> init() async {
 
   // getCandidateDataDocument api
   getIt.registerLazySingleton<GetCandidateDataDocumentsApi>(
-          () => GetCandidateDataDocumentsApi(dioClient: getIt<DioClient>()));
+      () => GetCandidateDataDocumentsApi(dioClient: getIt<DioClient>()));
+
+  // AddRegisterCandidatePrivateData api
+  getIt.registerLazySingleton<AddRegisterCandidatePrivateDataApi>(
+      () => AddRegisterCandidatePrivateDataApi(dioClient: getIt<DioClient>()));
 
   // User repository
   getIt.registerLazySingleton<UserRepository>(
@@ -180,7 +185,8 @@ Future<void> init() async {
   getIt.registerLazySingleton<CandidateFaaRepository>(
     () => CandidateFaaRepository(
         addWorkExperienceCandidateApi: getIt<AddWorkExperienceCandidateApi>(),
-        addEducationCandidateApi: getIt<AddEducationCandidateApi>()),
+        addEducationCandidateApi: getIt<AddEducationCandidateApi>(),
+        addRegisterCandidatePrivateDataApi: getIt<AddRegisterCandidatePrivateDataApi>()),
   );
 
   // Notfikasi repository
@@ -190,7 +196,7 @@ Future<void> init() async {
 
   // Agent repository
   getIt.registerLazySingleton<AgentRepository>(
-        () => AgentRepository(agentDataApi: getIt<AgentDataApi>()),
+    () => AgentRepository(agentDataApi: getIt<AgentDataApi>()),
   );
 
   //Post Bloc

@@ -44,12 +44,16 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
       MasterDataModel masterDataModel = await SecureStorage().getMasterData();
       if (masterDataModel.masterData != null) {
         LoginModel loginModel = await SecureStorage().getUser();
+        ProfileAgentModel profileAgentModel =
+            await SecureStorage().getDataAgent();
         if (loginModel.uid!.isNotEmpty) {
-          emit(state.copyWith(loginModel: loginModel, loadingMessage: ''));
+          emit(state.copyWith(
+              loginModel: loginModel,
+              loadingMessage: '',
+              profileAgentModel: profileAgentModel));
         }
       } else {
-        emit(state.copyWith(
-            submitStatus: FormzSubmissionStatus.inProgress));
+        emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
         final result = await candidateRepository.fetchMasterData();
         await result.when(
             success: (response) async {
@@ -69,32 +73,30 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     }
   }
 
-
   Future<void> fetchDataAgent(
       FetchDataAgentEvent event, Emitter<HomePageState> emit) async {
     try {
-              LoginModel loginModel = await SecureStorage().getUser();
-              final result = await agentRepository.getDataAgent(
-                  leaderCode: loginModel.uid ?? '');
+      LoginModel loginModel = await SecureStorage().getUser();
+      final result =
+          await agentRepository.getDataAgent(leaderCode: loginModel.uid ?? '');
 
-              await result.when(success: (response) async {
-                await SecureStorage().setDataAgent(response.data);
-                ProfileAgentModel profileAgentModel =
-                await SecureStorage().getDataAgent();
-                emit(state.copyWith(
-                    loginModel: loginModel,
-                    moveTo: Routes.userList,
-                    profileAgentModel: profileAgentModel,
-                  submitStatus: FormzSubmissionStatus.success,
-                ));
-              }, failure: (error) {
-                emit(state.copyWith(
-                  loginModel: loginModel,
-                  moveTo: Routes.userList,
-                  submitStatus: FormzSubmissionStatus.success,
-                ));
-              });
-
+      await result.when(success: (response) async {
+        await SecureStorage().setDataAgent(response.data);
+        ProfileAgentModel profileAgentModel =
+            await SecureStorage().getDataAgent();
+        emit(state.copyWith(
+          loginModel: loginModel,
+          moveTo: Routes.userList,
+          profileAgentModel: profileAgentModel,
+          submitStatus: FormzSubmissionStatus.success,
+        ));
+      }, failure: (error) {
+        emit(state.copyWith(
+          loginModel: loginModel,
+          moveTo: Routes.userList,
+          submitStatus: FormzSubmissionStatus.success,
+        ));
+      });
     } catch (error) {
       if (kDebugMode) {
         print(error);
