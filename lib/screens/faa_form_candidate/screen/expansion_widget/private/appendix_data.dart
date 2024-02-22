@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/widget/custom_image_picker.dart';
-import '../../../../../core/widget/dropdown/drop_down_general.dart';
+import '../../../../../common/widget/custom_image_picker.dart';
+import '../../../../../common/widget/dropdown/drop_down_general.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
-import '../../../../../core/widget/dropdown/drop_down_city.dart';
+import '../../../../../common/widget/dropdown/drop_down_city.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
 import '../../tab_widget/private_data_page.dart';
 

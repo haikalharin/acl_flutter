@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:formz/formz.dart';
 
-import '../../../core/widget/spinkit_indicator.dart';
+import '../../../common/widget/spinkit_indicator.dart';
 import '../../../di.dart';
 import '../../../utils/acl_color.dart';
 

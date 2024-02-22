@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_helper/source/components/buttons/adaptive_button.dart';
 import 'package:formz/formz.dart';
 
-import '../../../../../core/widget/button_widget.dart';
-import '../../../../../core/widget/custom_check.dart';
-import '../../../../../core/widget/date_time_picker_form.dart';
-import '../../../../../core/widget/spinkit_indicator.dart';
-import '../../../../../core/widget/text_input.dart';
+import '../../../../../common/widget/button_widget.dart';
+import '../../../../../common/widget/custom_check.dart';
+import '../../../../../common/widget/date_time_picker_form.dart';
+import '../../../../../common/widget/spinkit_indicator.dart';
+import '../../../../../common/widget/text_input.dart';
 import '../../../../../di.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
 

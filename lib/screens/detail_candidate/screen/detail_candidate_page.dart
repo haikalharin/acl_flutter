@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/dialog/progress_dialog.dart';
 import '../../../core/router/routes.dart';
-import '../../../core/widget/spinkit_indicator.dart';
+import '../../../common/widget/spinkit_indicator.dart';
 import '../../../data/model/candidate/candidate_model.dart';
 import '../../../di.dart';
 import '../../sidebar_page/sidebar_page.dart';

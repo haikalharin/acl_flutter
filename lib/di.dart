@@ -186,7 +186,8 @@ Future<void> init() async {
     () => CandidateFaaRepository(
         addWorkExperienceCandidateApi: getIt<AddWorkExperienceCandidateApi>(),
         addEducationCandidateApi: getIt<AddEducationCandidateApi>(),
-        addRegisterCandidatePrivateDataApi: getIt<AddRegisterCandidatePrivateDataApi>()),
+        addRegisterCandidatePrivateDataApi:
+            getIt<AddRegisterCandidatePrivateDataApi>()),
   );
 
   // Notfikasi repository
@@ -208,8 +209,9 @@ Future<void> init() async {
       () => CommentBloc(commentRepository: getIt<CommentRepository>()));
 
   //Login Bloc
-  getIt.registerLazySingleton(
-      () => LoginPageBloc(loginRepository: getIt<LoginRepository>()));
+  getIt.registerLazySingleton(() => LoginPageBloc(
+      loginRepository: getIt<LoginRepository>(),
+      agentRepository: getIt<AgentRepository>()));
 
   //Home Bloc
   getIt.registerLazySingleton(() => HomePageBloc(

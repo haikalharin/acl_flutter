@@ -14,7 +14,9 @@ import '../expansion_widget/private/source_of_recruiting_information.dart';
 import '../faa_form_candidate_page.dart';
 
 enum Mode { create, update }
+
 bool isCheck = false;
+
 class PrivateDataPage extends StatefulWidget {
   final TabController tabController;
 
@@ -29,6 +31,20 @@ class PrivateDataPage extends StatefulWidget {
 
 class _PrivateDataPageState extends State<PrivateDataPage> {
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    isCheck = false;
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    isCheck = false;
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +74,17 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                 Container(
                     margin: EdgeInsets.symmetric(horizontal: 16),
                     width: MediaQuery.of(context).size.width,
-                    child: Container(margin: EdgeInsets.symmetric(vertical: 16),
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 16),
                       child: AdaptiveButton(
                         titleText: "Selanjutnya".toCapital,
                         onTap: () {
                           if (formKey.currentState!.validate()) {
-                            setState(() {
-                              isCheck = true;
-                            });
-
                             // widget.tabController.animateTo(1);
                           }
-
+                          setState(() {
+                            isCheck = true;
+                          });
                         },
                       ),
                     )

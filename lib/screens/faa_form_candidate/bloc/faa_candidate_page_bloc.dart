@@ -196,6 +196,7 @@ class FaaCandidatePageBloc
           var checkedValueAASI = false;
           var checkedValueAAUI = false;
           List<DocumentsResponseModel> listImage = response.data;
+
           listImage.forEach((element) {
             if (element.key == 11010201) {
               identityImage =
@@ -255,6 +256,7 @@ class FaaCandidatePageBloc
         emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
       });
     } catch (error) {
+      emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
       if (kDebugMode) {
         print(error);
       }
@@ -869,14 +871,22 @@ class FaaCandidatePageBloc
         final result = await candidateFaaRepository
             .addRegisterCandidatePrivateData(PrivateDataCandidateRequestModel(
                 candidate: Candidate(
-          id: '',
-          userId: '',
-          agentCode: '',
-          clientNumber: '',
+          id: (state.candidateDataModel?.id ?? '').toString(),
+          userId: state.candidateDataModel?.userId ?? '',
+          agentCode: loginModel.uid ?? '',
           firstName: state.firstName.value.toUpperCase(),
           middleName: state.middleName.value.toUpperCase(),
           lastName: state.lastName.value.toUpperCase(),
+          position: state.positionId.value.toString(),
+          idCardNo: state.identityNo.value,
+          maritalStatus: state.martialStatusId.value.toString(),
+          placeOfBirth: state.pob.value.toUpperCase(),
           dob: state.dobString.value,
+          gender: state.genderId.value.toString(),
+          nationality: state.nationality.value.toUpperCase(),
+
+          ///
+          clientNumber: state.candidateDataModel?.clientNumber ?? '',
           address1: state.address.value.toUpperCase(),
           address2: state.rtRw.value.toUpperCase(),
           address3: state.kecKel.value.toUpperCase(),
@@ -887,7 +897,6 @@ class FaaCandidatePageBloc
           leaderName: (loginModel.name ?? '').toUpperCase(),
           leaderAgentCode: (loginModel.uid ?? ''),
           spouseIdCardNo: state.identityNoPartner.value,
-          idCardNo: state.identityNo.value,
           occupation: state.occupationId.value.toString(),
           occupationOther: '',
           aajiNo: state.noLicenceAAJI.value,
@@ -895,10 +904,7 @@ class FaaCandidatePageBloc
           aasiNo: state.noLicenceAASI.value,
           aasiActiveFlag: state.checkedValueAASI,
           aauiActiveFlag: state.checkedValueAAJI,
-          position: '',
-          gender: '',
           title: '',
-          placeOfBirth: '',
           weight: '',
           high: '',
           religion: '',
@@ -906,7 +912,6 @@ class FaaCandidatePageBloc
           officePhoneNo: '',
           cellularNo: '',
           email: '',
-          maritalStatus: '',
           heir: '',
           heirRelation: '',
           jointDate: '',
@@ -937,7 +942,6 @@ class FaaCandidatePageBloc
           signatureDate: '',
           signatureCity: '',
           verificationNumber: '',
-          nationality: '',
           channelId: '',
           channelCode: '',
           officeCode: '',

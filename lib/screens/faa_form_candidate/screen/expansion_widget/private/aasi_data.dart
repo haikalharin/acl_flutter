@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/widget/custom_image_picker.dart';
-import '../../../../../core/widget/text_input.dart';
+import '../../../../../common/widget/custom_image_picker.dart';
+import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';

@@ -13,12 +13,12 @@ class AddRegisterCandidatePrivateDataApi with ApiHelper<PrivateDataCandidateRequ
   AddRegisterCandidatePrivateDataApi({required this.dioClient});
 
   Future<ResponseModel<PrivateDataCandidateRequestModel>> addRegisterCandidatePrivateData(
-      PrivateDataCandidateRequestModel requestCandidateModel) async {
-    Map<String, dynamic> data = requestCandidateModel.toJson();
+      PrivateDataCandidateRequestModel privateDataCandidateRequestModel) async {
+    Map<String, dynamic> data = privateDataCandidateRequestModel.toJson();
 
     return await makeGetRequestWithResponseModel(
         dioClient.dio.post(
-          ServiceUrl.addRegisterCandidate,
+          ServiceUrl.addRegisterCandidateFaa,
           data: data,
         ),
         PrivateDataCandidateRequestModel.fromJson);

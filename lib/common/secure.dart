@@ -72,11 +72,9 @@ Future<String> setImageToLocally(Uint8List imageBytes) async {
 }
 
 bool isBase64(String value) {
-  RegExp base64RegExp = RegExp(
-    r'^([A-Za-z0-9+/]{4})*' + r'([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$',
-    caseSensitive: false,
-    multiLine: false,
-  );
+  const String regex = r'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$';
+  RegExp base64RegExp = RegExp(regex,    caseSensitive: false,
+    multiLine: false,);
   return base64RegExp.hasMatch(value);
 }
 

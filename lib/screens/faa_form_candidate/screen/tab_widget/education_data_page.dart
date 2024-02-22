@@ -6,7 +6,7 @@ import 'package:formz/formz.dart';
 
 import '../../../../core/dialog/progress_dialog.dart';
 import '../../../../core/dialog/success_dialog.dart';
-import '../../../../core/widget/button_widget.dart';
+import '../../../../common/widget/button_widget.dart';
 import '../../../../di.dart';
 import '../../bloc/faa_candidate_page_bloc.dart';
 import '../expansion_widget/Education/add_education_dialog.dart';

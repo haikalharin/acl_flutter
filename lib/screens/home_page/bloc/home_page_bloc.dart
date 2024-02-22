@@ -59,10 +59,14 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             success: (response) async {
               await SecureStorage().setMasterData(response.data);
               LoginModel loginModel = await SecureStorage().getUser();
+              ProfileAgentModel profileAgentModel =
+              await SecureStorage().getDataAgent();
               emit(state.copyWith(
                 loginModel: loginModel,
                 loadingMessage: '',
+                profileAgentModel: profileAgentModel
               ));
+
             },
             failure: (error) {});
       }

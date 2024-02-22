@@ -1,4 +1,4 @@
-import 'package:acl_flutter/core/widget/spinkit_indicator.dart';
+import 'package:acl_flutter/common/widget/spinkit_indicator.dart';
 import 'package:flutter/material.dart';
 
 class SuccessDialog extends StatelessWidget {

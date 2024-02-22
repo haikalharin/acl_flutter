@@ -9,7 +9,7 @@ import 'package:formz/formz.dart';
 import '../../../core/dialog/progress_dialog.dart';
 import '../../../core/dialog/retry_dialog.dart';
 import '../../../core/dialog/success_dialog.dart';
-import '../../../core/widget/spinkit_indicator.dart';
+import '../../../common/widget/spinkit_indicator.dart';
 import '../../../di.dart';
 import '../../../utils/acl_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

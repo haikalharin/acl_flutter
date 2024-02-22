@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:acl_flutter/core/widget/button_widget.dart';
+import 'package:acl_flutter/common/widget/button_widget.dart';
 
 import '../../core/dialog/retry_dialog.dart';
 import '../../core/router/routes.dart';

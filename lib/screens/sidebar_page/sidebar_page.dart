@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../core/router/routes.dart';
-import '../../core/widget/popup_menu.dart';
+import '../../common/widget/popup_menu.dart';
 import '../../data/model/user/user.dart';
 import '../../di.dart';
 import '../../myApp.dart';

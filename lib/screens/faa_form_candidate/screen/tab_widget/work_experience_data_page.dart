@@ -1,5 +1,5 @@
 import 'package:acl_flutter/common/app_string.dart';
-import 'package:acl_flutter/core/widget/dropdown/drop_down_general.dart';
+import 'package:acl_flutter/common/widget/dropdown/drop_down_general.dart';
 import 'package:acl_flutter/data/model/candidate/candidate_data_model.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,10 +10,10 @@ import 'package:formz/formz.dart';
 
 import '../../../../core/dialog/progress_dialog.dart';
 import '../../../../core/dialog/success_dialog.dart';
-import '../../../../core/widget/button_widget.dart';
-import '../../../../core/widget/dropdown/drop_down_string.dart';
-import '../../../../core/widget/dropdown/drop_down_string_underline.dart';
-import '../../../../core/widget/text_input.dart';
+import '../../../../common/widget/button_widget.dart';
+import '../../../../common/widget/dropdown/drop_down_string.dart';
+import '../../../../common/widget/dropdown/drop_down_string_underline.dart';
+import '../../../../common/widget/text_input.dart';
 import '../../../../di.dart';
 import '../../bloc/faa_candidate_page_bloc.dart';
 import '../expansion_widget/work_experience/add_work_experience_dialog.dart';
