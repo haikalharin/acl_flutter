@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import '../core/network/dio_exception.dart';
 import '../core/network/http_constants.dart';
@@ -14,9 +14,7 @@ class HttpUtil {
   }
 
   static dynamic getResponse(Response response) {
-    if (kDebugMode) {
-      print('>>>>>>> ${response.data}');
-    }
+    debugPrint('>>>>>>> ${response.data}');
     switch (response.statusCode) {
       case 200:
         return _getSuccessResponse(response);
@@ -29,9 +27,7 @@ class HttpUtil {
     final responseJson = response.data;
     dynamic data = responseJson;
     String dataString = responseJson.toString();
-    if (kDebugMode) {
-      print('>>>>>>> [RESPONSE] $responseJson');
-    }
+    debugPrint('>>>>>>> [RESPONSE] $responseJson');
     if(!dataString.contains('data:')){
       data = {'data': responseJson ?? ''};
     }
@@ -41,9 +37,7 @@ class HttpUtil {
   static dynamic _tokenExpired(Response response) {
     final responseJson = json.decode(response.data);
 
-    if (kDebugMode) {
-      print('>>>>>>> [Token Expired Response] $responseJson');
-    }
+    debugPrint('>>>>>>> [Token Expired Response] $responseJson');
     // AppSharedPreference.clear();
     //FIX SCREEN ONBOARDING MENUMPUK SAAT SESSION EXPIRED
     // navigatorKey.currentState?.pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => const LoginPage(tokenExpired: true,)), (route) => false);

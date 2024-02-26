@@ -134,7 +134,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
                         fontSize: 16.0,
                         color: AclColors.greyDarkFontColor,
                       ))),
-              Container(
+              widget.isMandatory? Container(
                   margin: const EdgeInsets.only(left: 5, bottom: 5),
                   child: const Text(
                     '*',
@@ -142,7 +142,7 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
                       fontSize: 12.0,
                       color: AclColors.red,
                     ),
-                  )),
+                  )):Container(),
               Container(
                   margin: const EdgeInsets.only(left: 5, bottom: 5),
                   child: Text(

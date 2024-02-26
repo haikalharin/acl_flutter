@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
 import '../../../../../common/widget/date_time_picker_form.dart';
+import '../../../../../common/widget/dropdown/drop_down_country_faa.dart';
 import '../../../../../common/widget/dropdown/drop_down_department.dart';
 import '../../../../../common/widget/dropdown/drop_down_gender.dart';
 import '../../../../../common/widget/dropdown/drop_down_kpm.dart';
@@ -419,7 +420,7 @@ class _PrivateDataState extends State<PrivateData> {
                             BlocBuilder<FaaCandidatePageBloc,
                                 FaaCandidatePageState>(
                               builder: (context, state) {
-                                return DropDownCountry(
+                                return DropDownCountryFaa(
                                   title: 'Negara',
                                   icon: const Icon(
                                     Icons.account_balance_rounded,

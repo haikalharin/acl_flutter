@@ -59,8 +59,6 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
     final userName = state.userName;
     final password = state.password;
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
-
-    Future.delayed(const Duration(seconds: 2));
     if (state.isValid) {
       try {
         final result = await loginRepository.login(

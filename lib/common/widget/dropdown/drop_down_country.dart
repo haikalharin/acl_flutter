@@ -40,11 +40,13 @@ class _DropDownCountryState extends State<DropDownCountry> {
   @override
   void didUpdateWidget(DropDownCountry oldWidget) {
     if(isInit) {
+      if (initialItem != widget.initialItem) {
         widget.onChanged(widget.initialItem ?? AajicityMasterReference());
         setState(() {
           initialItem = widget.initialItem;
           isInit = false;
         });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }

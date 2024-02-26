@@ -520,7 +520,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                       ?.prevcompany
                                       ?.masterReference ??
                                   [],
-                              errorText: isCheck && state.genderId.isNotValid
+                              errorText: isCheck && state.prevCompanyAAJIId.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
                             ),
@@ -540,7 +540,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               if (state.noLicenceAAJI.isNotValid ||
                                   (isCheck &&
                                       state.imageLicenceAAJI.isValid &&
-                                      state.noLicenceAAUI.value == '') ||
+                                      state.noLicenceAAJI.value == '') ||
                                   (isCheck &&
                                       checkedPrevCompanyAAJI &&
                                       state.noLicenceAAJI.value == '')) {
@@ -893,7 +893,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             labelText: "Pilih Tanggal",
                             title: "Tanggal lahir pasangan",
                             errorText:
-                                isCheck == true && state.dobPartner.isNotValid
+                                isCheck && state.dobPartner.isNotValid &&
+                                    checkedValueMarriage
                                     ? 'Mohon diisi'
                                     : null,
                             isMandatory: checkedValueMarriage,

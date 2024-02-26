@@ -46,8 +46,9 @@ class _DetailCandidatePageState extends State<DetailCandidatePage> {
     var dob = '';
     if (!widget.isMyCandidate!) {
       var outputFormat = DateFormat.yMMMd('en');
-      dob = outputFormat
-          .format(DateTime.parse(widget.candidateModel?.dob ?? "0000-00-00"));
+      var data = widget.candidateModel?.dob;
+      var dataFix = data?.replaceAll('/', '-');
+      dob = outputFormat.format(DateTime.parse(dataFix ?? "0000-00-00"));
     } else {
       var outputFormat = DateFormat.yMMMd('en');
       var data = widget.candidateModel?.dob;
