@@ -1,3 +1,4 @@
+import 'package:acl_flutter/common/widget/dropdown/drop_down_general_faa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +8,6 @@ import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
-import '../../../../../common/widget/dropdown/drop_down_city.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
 import '../../tab_widget/private_data_page.dart';
 
@@ -69,7 +69,7 @@ class _AppendixDataState extends State<AppendixData> {
                               BlocBuilder<FaaCandidatePageBloc,
                                   FaaCandidatePageState>(
                                 builder: (context, state) {
-                                  return DropDownGeneral(
+                                  return DropDownGeneralFaa(
                                     title: 'Lain lain',
                                     isMandatory: false,
                                     icon: const Icon(

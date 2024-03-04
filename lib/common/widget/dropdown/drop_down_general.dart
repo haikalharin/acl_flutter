@@ -44,11 +44,13 @@ class _DropDownGeneralState extends State<DropDownGeneral> {
   @override
   void didUpdateWidget(DropDownGeneral oldWidget) {
     if (isInit) {
+      if (initialItem != widget.initialItem) {
         widget.onChanged(widget.initialItem ?? AajicityMasterReference());
         setState(() {
           initialItem = widget.initialItem;
           isInit = false;
         });
+      }
     }
     super.didUpdateWidget(oldWidget);
   }

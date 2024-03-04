@@ -884,8 +884,6 @@ class FaaCandidatePageBloc
           dob: state.dobString.value,
           gender: state.genderId.value.toString(),
           nationality: state.nationality.value.toUpperCase(),
-
-          ///
           clientNumber: state.candidateDataModel?.clientNumber ?? '',
           address1: state.address.value.toUpperCase(),
           address2: state.rtRw.value.toUpperCase(),
@@ -907,21 +905,21 @@ class FaaCandidatePageBloc
           title: '',
           weight: '',
           high: '',
-          religion: '',
-          phoneNo: '',
+          religion:  state.religionId.value.toString(),
+          phoneNo:  state.phone.value,
           officePhoneNo: '',
-          cellularNo: '',
-          email: '',
-          heir: '',
-          heirRelation: '',
+          cellularNo:  state.phone.value,
+          email: state.phone.value,
+          heir: state.heirsName.value,
+          heirRelation: state.heirsRelation.value,
           jointDate: '',
-          aajiExpired: '',
-          aasiExpired: '',
-          bankAccount: '',
-          bankName: '',
-          bankBranch: '',
-          bankAccountName: '',
-          npwpNo: '',
+          aajiExpired: state.candidateDataModel?.aajiExpired??'',
+          aasiExpired: state.candidateDataModel?.aasiExpired??'',
+          bankAccount: state.bankNo.value,
+          bankName: state.bankName.value,
+          bankBranch: state.bankBranch.value,
+          bankAccountName: state.bankUserName.value,
+          npwpNo: state.npwpNo.value,
           npwpName: '',
           npwpAddress1: '',
           npwpAddress2: '',
@@ -944,8 +942,8 @@ class FaaCandidatePageBloc
           verificationNumber: '',
           channelId: '',
           channelCode: '',
-          officeCode: '',
-          officeCity: '',
+          officeCode: state.candidateDataModel?.officeCode??'',
+          officeCity: state.candidateDataModel?.officeCity??'',
           taxType: '',
           idCardType: '',
           reinstateOfficeCode: '',
@@ -968,10 +966,10 @@ class FaaCandidatePageBloc
           ptkpIsExist: '',
           resignLetterDate: '',
           terminationDate: '',
-          prevCompany: '',
-          prevCompanyOthers: '',
-          prevCompanyAasi: '',
-          prevCompanyAaui: '',
+          prevCompany: (state.candidateDataModel?.prevCompany??0).toString(),
+          prevCompanyOthers: (state.candidateDataModel?.prevCompanyOthers??0).toString(),
+          prevCompanyAasi: (state.candidateDataModel?.prevCompanyAasi??0).toString(),
+          prevCompanyAaui: (state.candidateDataModel?.prevCompanyAaui??0).toString(),
           maritalStatusPtkp: '',
         )));
         await result.when(
@@ -1291,16 +1289,6 @@ class FaaCandidatePageBloc
   }
 
   ///Education
-  ///
-  ///   on<EducationLevelInputEvent>(educationLevelInput);
-  //     on<EducationPlaceNameInputEvent>(educationPlaceNameInput);
-  //     on<EducationDescriptionInputEvent>(educationDescriptionInput);
-  //     on<EducationStartInputEvent>(educationStartInput);
-  //     on<EducationEndInputEvent>(educationEndInput);
-  //     on<StatusEducationInputEvent>(statusEducationInput);
-  //     on<CheckStillLearnInputEvent>(checkStillLearnInput);
-  //     on<AddEducationEvent>(addEducation);
-  //     on<SubmitEducationEvent>(submitEducation);
   Future<void> educationLevelInput(EducationLevelInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     final value = DropdownFieldValidator.dirty(event.value.id ?? 0);

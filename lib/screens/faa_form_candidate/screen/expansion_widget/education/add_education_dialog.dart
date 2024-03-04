@@ -1,3 +1,4 @@
+import 'package:acl_flutter/common/widget/dropdown/drop_down_general_second_faa.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,7 +75,7 @@ class _AddEducationDialogState extends State<AddEducationDialog> {
                         child: Column(
                           children: <Widget>[
                             const SizedBox(height: 8),
-                            DropDownGeneralSecond(
+                            DropDownGeneralSecondFaa(
                               title: 'Jenjang',
                               icon: const Icon(
                                 Icons.add_chart,

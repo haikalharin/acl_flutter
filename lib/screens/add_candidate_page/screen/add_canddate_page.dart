@@ -1,22 +1,19 @@
 import 'package:acl_flutter/common/app_extension.dart';
+import 'package:acl_flutter/common/widget/dropdown/drop_down_general.dart';
+import 'package:acl_flutter/common/widget/dropdown/drop_down_general_second.dart';
 import 'package:acl_flutter/core/dialog/success_dialog.dart';
-import 'package:acl_flutter/common/widget/dropdown/drop_down_city.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_helper/source/components/buttons/adaptive_button.dart';
 import 'package:formz/formz.dart';
 
+import '../../../common/widget/dropdown/drop_down_general_third.dart';
 import '../../../core/dialog/progress_dialog.dart';
 import '../../../core/dialog/retry_dialog.dart';
 import '../../../core/router/routes.dart';
 import '../../../common/widget/custom_image_picker.dart';
 import '../../../common/widget/date_time_picker_form.dart';
-import '../../../common/widget/dropdown/drop_down_gender.dart';
-import '../../../common/widget/dropdown/drop_down_occupation.dart';
-import '../../../common/widget/dropdown/drop_down_prev_company.dart';
-import '../../../common/widget/dropdown/drop_down_province.dart';
-import '../../../common/widget/dropdown/drop_down_relation.dart';
 import '../../../common/widget/spinkit_indicator.dart';
 import '../../../common/widget/text_input.dart';
 import '../../../data/model/login_model/login_model.dart';
@@ -24,7 +21,6 @@ import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../../di.dart';
 import '../../../utils/acl_color.dart';
 import '../bloc/add_candidate_page_bloc.dart';
-import '../../../common/widget/dropdown/drop_down_country.dart';
 
 enum Mode { create, update }
 
@@ -340,7 +336,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           BlocBuilder<AddCandidatePageBloc,
                               AddCandidatePageState>(
                             builder: (context, state) {
-                              return DropDownCountry(
+                              return DropDownGeneral(
                                 title: 'Negara',
                                 icon: const Icon(
                                   Icons.account_balance_rounded,
@@ -384,7 +380,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 current.masterDataModel !=
                                     previous.masterDataModel,
                             builder: (context, state) {
-                              return DropDownProvince(
+                              return DropDownGeneral(
                                 title: 'Provinsi',
                                 icon: const Icon(
                                   Icons.account_balance_rounded,
@@ -419,7 +415,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                     previous.masterDataModel,
                             builder: (context, state) {
                               return state.provinceId.isValid
-                                  ? DropDownCity(
+                                  ? DropDownGeneralSecond(
                                       title: 'Kota',
                                       // readOnly: state.provinceId.isValid
                                       //     ? false
@@ -459,7 +455,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 current.masterDataModel !=
                                     previous.masterDataModel,
                             builder: (context, state) {
-                              return DropDownOccupation(
+                              return DropDownGeneralThird(
                                 title: 'Pekerjaan',
                                 icon: const Icon(
                                   Icons.work,
@@ -501,7 +497,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           if (checkedPrevCompanyAAJI) const SizedBox(height: 8),
                           if (checkedPrevCompanyAAJI)
-                            DropDownPrevCompany(
+                            DropDownGeneral(
                               title: 'Perusahaan sebelumnya',
                               isMandatory: checkedPrevCompanyAAJI,
                               readOnly: !checkedPrevCompanyAAJI,
@@ -582,7 +578,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           ),
                           if (checkedPrevCompanyAASI) const SizedBox(height: 8),
                           if (checkedPrevCompanyAASI)
-                            DropDownPrevCompany(
+                            DropDownGeneral(
                               title: 'Perusahaan sebelumnya',
                               isMandatory: checkedPrevCompanyAASI,
                               readOnly: !checkedPrevCompanyAASI,
@@ -706,7 +702,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               ? const SizedBox(height: 8)
                               : Container(),
                           checkedPrevCompanyAAUI
-                              ? DropDownPrevCompany(
+                              ? DropDownGeneral(
                                   title: 'Perusahaan sebelumnya',
                                   isMandatory: checkedPrevCompanyAAUI,
                                   readOnly: !checkedPrevCompanyAAUI,
@@ -920,7 +916,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             },
                           ),
                           const SizedBox(height: 8),
-                          DropDownGender(
+                          DropDownGeneral(
                             title: 'Jenis kelamin',
                             isMandatory: checkedValueMarriage,
                             readOnly: !checkedValueMarriage,
@@ -933,8 +929,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                   .add(GenderPartnerInputEvent(value));
                               isInitGender = false;
                             },
-                            initialItem: initialGenderSpouse,
-                            isInit: isInitGender,
                             items: state
                                     .masterDataModel
                                     ?.masterData
@@ -949,7 +943,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                 : null,
                           ),
                           const SizedBox(height: 8),
-                          DropDownRelation(
+                          DropDownGeneral(
                             title: 'Hubungan Dengan Kandidat',
                             isMandatory: checkedValueMarriage,
                             readOnly: !checkedValueMarriage,
@@ -962,8 +956,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                                   .add(RelationPartnerInputEvent(value));
                               isInitRelation = false;
                             },
-                            initialItem: initialRelationSpouse,
-                            isInit: isInitRelation,
                             items: state
                                     .masterDataModel
                                     ?.masterData

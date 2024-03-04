@@ -1,23 +1,16 @@
-import 'package:acl_flutter/common/widget/dropdown/drop_down_occupation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
 import '../../../../../common/widget/date_time_picker_form.dart';
-import '../../../../../common/widget/dropdown/drop_down_country_faa.dart';
-import '../../../../../common/widget/dropdown/drop_down_department.dart';
-import '../../../../../common/widget/dropdown/drop_down_gender.dart';
-import '../../../../../common/widget/dropdown/drop_down_kpm.dart';
-import '../../../../../common/widget/dropdown/drop_down_marital_status.dart';
-import '../../../../../common/widget/dropdown/drop_down_province.dart';
-import '../../../../../common/widget/dropdown/drop_down_religion.dart';
+import '../../../../../common/widget/dropdown/drop_down_general_faa.dart';
+import '../../../../../common/widget/dropdown/drop_down_general_second_faa.dart';
+import '../../../../../common/widget/dropdown/drop_down_general_third_faa.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
-import '../../../../../common/widget/dropdown/drop_down_city.dart';
-import '../../../../../common/widget/dropdown/drop_down_country.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
 import '../../tab_widget/private_data_page.dart';
 
@@ -120,7 +113,7 @@ class _PrivateDataState extends State<PrivateData> {
                             BlocBuilder<FaaCandidatePageBloc,
                                 FaaCandidatePageState>(
                               builder: (context, state) {
-                                return DropDownDepartment(
+                                return DropDownGeneralFaa(
                                   title: 'Jabatan',
                                   icon: const Icon(
                                     Icons.account_balance_rounded,
@@ -167,7 +160,7 @@ class _PrivateDataState extends State<PrivateData> {
                             BlocBuilder<FaaCandidatePageBloc,
                                 FaaCandidatePageState>(
                               builder: (context, state) {
-                                return DropDownMaritalStatus(
+                                return DropDownGeneralFaa(
                                   readOnly: state.candidateDataModel
                                               ?.maritalStatus !=
                                           null &&
@@ -246,7 +239,7 @@ class _PrivateDataState extends State<PrivateData> {
                             BlocBuilder<FaaCandidatePageBloc,
                                 FaaCandidatePageState>(
                               builder: (context, state) {
-                                return DropDownGender(
+                                return DropDownGeneralFaa(
                                   title: 'Jenis kelamin',
                                   icon: const Icon(
                                     Icons.add_chart,
@@ -305,7 +298,7 @@ class _PrivateDataState extends State<PrivateData> {
                             BlocBuilder<FaaCandidatePageBloc,
                                 FaaCandidatePageState>(
                               builder: (context, state) {
-                                return DropDownReligion(
+                                return DropDownGeneralFaa(
                                   title: 'Agama',
                                   icon: const Icon(
                                     Icons.account_balance_rounded,
@@ -420,7 +413,7 @@ class _PrivateDataState extends State<PrivateData> {
                             BlocBuilder<FaaCandidatePageBloc,
                                 FaaCandidatePageState>(
                               builder: (context, state) {
-                                return DropDownCountryFaa(
+                                return DropDownGeneralFaa(
                                   title: 'Negara',
                                   icon: const Icon(
                                     Icons.account_balance_rounded,
@@ -465,7 +458,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   current.masterDataModel !=
                                       previous.masterDataModel,
                               builder: (context, state) {
-                                return DropDownProvince(
+                                return DropDownGeneralFaa(
                                   readOnly: true,
                                   title: 'Provinsi',
                                   icon: const Icon(
@@ -539,7 +532,7 @@ class _PrivateDataState extends State<PrivateData> {
                                                     state.provinceId.value)
                                                 .toList() ??
                                             [];
-                                return DropDownCity(
+                                return DropDownGeneralSecondFaa(
                                   title: 'Kota',
                                   readOnly: true,
                                   icon: const Icon(
@@ -613,7 +606,7 @@ class _PrivateDataState extends State<PrivateData> {
                                   current.masterDataModel !=
                                       previous.masterDataModel,
                               builder: (context, state) {
-                                return DropDownOccupation(
+                                return DropDownGeneralThirdFaa(
                                   readOnly: true,
                                   title: 'Profesi',
                                   icon: const Icon(
