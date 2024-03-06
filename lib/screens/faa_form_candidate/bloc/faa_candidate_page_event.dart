@@ -157,10 +157,22 @@ class LastWorkingExperienceInputEvent extends FaaCandidatePageEvent {
   LastWorkingExperienceInputEvent(this.value);
 }
 
+class CheckedLastResignDateInputEvent extends FaaCandidatePageEvent {
+  final bool checkedLastResign;
+
+  CheckedLastResignDateInputEvent(this.checkedLastResign);
+}
+
 class LastResignDateInputEvent extends FaaCandidatePageEvent {
   final DateTime date;
 
   LastResignDateInputEvent(this.date);
+}
+
+class CheckedTerminationDateInputEvent extends FaaCandidatePageEvent {
+  final bool checkedTerminationDateInput;
+
+  CheckedTerminationDateInputEvent(this.checkedTerminationDateInput);
 }
 
 class TerminationDateInputEvent extends FaaCandidatePageEvent {

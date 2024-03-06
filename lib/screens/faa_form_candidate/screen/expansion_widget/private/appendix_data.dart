@@ -77,6 +77,8 @@ class _AppendixDataState extends State<AppendixData> {
                                       color: AclColors.greyDarkFontColor,
                                     ),
                                     onChanged: (AajicityMasterReference value) {
+                                      getIt<FaaCandidatePageBloc>()
+                                          .add(AppendixInputEvent(value));
                                     },
                                     items: state
                                         .masterDataModel
@@ -100,8 +102,8 @@ class _AppendixDataState extends State<AppendixData> {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(AppendixImageInputEvent(value));
                                 },
-                                errorText: checkedValueAAJI && isCheck &&
-                                    state.imageLicenceAAJI.isNotValid
+                                errorText:  isCheck &&
+                                    state.appendixImage.isNotValid
                                     ? 'Mohon diisi'
                                     : null,
                               ),

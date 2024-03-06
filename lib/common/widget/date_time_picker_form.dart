@@ -1,5 +1,8 @@
 import 'package:acl_flutter/common/widget/text_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_helper/source/utility/colors/color_palette.dart';
+import 'package:flutter_helper/source/utility/device_info/device.dart';
+import 'package:flutter_helper/source/utility/text/uifont.dart';
 
 import '../../utils/acl_color.dart';
 
@@ -13,6 +16,10 @@ class DateTimePickerForm extends StatefulWidget {
       this.title,
       this.errorText,
       this.validator,
+        this.desktopFactor = 1.0,
+        this.tabletFactor = 1.0,
+        this.mobileFactor = 1.0,
+        this.smallMobileFactor = 1.0,
       this.isMandatory = true,
       this.readOnly = false,
       this.controller})
@@ -26,6 +33,10 @@ class DateTimePickerForm extends StatefulWidget {
   final String? errorText;
   final bool isMandatory;
   final bool readOnly;
+  final double desktopFactor;
+  final double tabletFactor;
+  final double mobileFactor;
+  final double smallMobileFactor;
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
 
@@ -107,6 +118,8 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
   Widget build(BuildContext context) {
     final hours = date.hour.toString().padLeft(2, '0');
     final minute = date.minute.toString().padLeft(2, '0');
+    var scaleFactor = Device.getScaleFactor(context, widget.desktopFactor,
+        widget.tabletFactor, widget.mobileFactor, widget.smallMobileFactor);
 
     return InkWell(
       onTap: () async {
@@ -130,17 +143,19 @@ class _DateTimePickerFormState extends State<DateTimePickerForm> {
               Container(
                   margin: const EdgeInsets.only(left: 15),
                   child: Text(widget.title ?? '',
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: AclColors.greyDarkFontColor,
+                      style:  TextStyle(
+                        fontSize: 12.0 *scaleFactor,
+                        fontWeight:  UIFont.getFontWeightFrom(UIFontSystem.bold),
+                        color: ColorPalette.blue,
                       ))),
-              widget.isMandatory? Container(
+              widget.isMandatory
+                  ?  Container(
                   margin: const EdgeInsets.only(left: 5, bottom: 5),
                   child: const Text(
                     '*',
                     style: TextStyle(
                       fontSize: 12.0,
-                      color: AclColors.red,
+                      color: ColorPalette.blue,
                     ),
                   )):Container(),
               Container(

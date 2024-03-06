@@ -996,14 +996,14 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               color: Colors.white.withAlpha(90),
                               child: const Center(
                                   child: ProgressDialog(
-                                title: 'Sedang memuat data',
+                                title: 'Sedang memuat data...',
                                 isProgressed: true,
                               )))
                           : Container(
                               color: Colors.white.withAlpha(90),
                               child: const Center(
                                   child: ProgressDialog(
-                                title: '',
+                                title: 'Sedang memproses data...',
                                 isProgressed: true,
                               )))
                       : Container(),

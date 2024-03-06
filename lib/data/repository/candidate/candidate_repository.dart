@@ -1,3 +1,4 @@
+import 'package:acl_flutter/data/model/candidate_faa/family_card_model.dart';
 import 'package:acl_flutter/data/model/documents/documents_response_model.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/get_candidate_data_documents_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
@@ -22,6 +23,7 @@ import '../../remote_data_source/candidate/add_register_candidate_api.dart';
 import '../../remote_data_source/candidate/candiate_be_api.dart';
 import '../../remote_data_source/candidate/candidate_api.dart';
 import '../../remote_data_source/candidate/get_candidate_data_api.dart';
+import '../../remote_data_source/candidate/get_candidate_family_data_api.dart';
 import '../../remote_data_source/candidate/tracking_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';
 import '../../model/candidate/candidate_register_model.dart';
@@ -40,6 +42,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
   final DocumentApi documentApi;
   final PendingSimpleCheckingApi pendingSimpleCheckingApi;
   final GetCandidateDataApi getCandidateDataApi;
+  final GetCandidateFamilyDataApi getCandidateFamilyDataApi;
   final StartProcessInstanceApi startProcessInstanceApi;
   final GetCandidateDataDocumentsApi getCandidateDataDocumentsApi;
 
@@ -53,6 +56,7 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
     required this.addRegisterCandidateApi,
     required this.pendingSimpleCheckingApi,
     required this.getCandidateDataApi,
+    required this.getCandidateFamilyDataApi,
     required this.startProcessInstanceApi,
     required this.getCandidateDataDocumentsApi,
   });
@@ -213,7 +217,22 @@ class CandidateRepository with RepositoryHelper<CandidateModel> {
       String candidateId) async {
     try {
       final ResponseModel<CandidateDataModel> items =
-          await getCandidateDataApi.addRegisterCandidate(candidateId);
+          await getCandidateDataApi.getCandidateData(candidateId);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      var data = e;
+      if (kDebugMode) {
+        print("$data");
+      }
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+Future<ApiResult<ResponseModel<FamilyCardModel>>> getCandidateFamilyData(
+      String candidateId) async {
+    try {
+      final ResponseModel<FamilyCardModel> items =
+          await getCandidateFamilyDataApi.getCandidateFamilyData(candidateId);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;

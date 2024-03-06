@@ -1,6 +1,9 @@
 import 'package:acl_flutter/screens/sidebar_page/sidebar_page.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_helper/source/utility/colors/color_palette.dart';
+import 'package:flutter_helper/source/utility/device_info/device.dart';
+import 'package:flutter_helper/source/utility/text/uifont.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/master_data_model/master_data_model.dart';
@@ -15,6 +18,10 @@ class DropDownGeneralFaa extends StatefulWidget {
         this.title,
         this.icon,
         this.errorText,
+        this.desktopFactor = 1.0,
+        this.tabletFactor = 1.0,
+        this.mobileFactor = 1.0,
+        this.smallMobileFactor = 1.0,
         this.readOnly = false,
         this.isMandatory = true,
       })
@@ -29,6 +36,10 @@ class DropDownGeneralFaa extends StatefulWidget {
   final Icon? icon;
   final bool readOnly;
   final bool isMandatory;
+  final double desktopFactor;
+  final double tabletFactor;
+  final double mobileFactor;
+  final double smallMobileFactor;
 
   @override
   State<DropDownGeneralFaa> createState() =>
@@ -55,6 +66,8 @@ class _DropDownGeneralFaaState extends State<DropDownGeneralFaa> {
 
   @override
   Widget build(BuildContext context) {
+    var scaleFactor = Device.getScaleFactor(context, widget.desktopFactor,
+        widget.tabletFactor, widget.mobileFactor, widget.smallMobileFactor);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -63,9 +76,10 @@ class _DropDownGeneralFaaState extends State<DropDownGeneralFaa> {
             Container(
                 margin: const EdgeInsets.only(left: 15),
                 child: Text(widget.title ?? '',
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: AclColors.greyDarkFontColor,
+                    style:  TextStyle(
+                      fontSize: 12.0 * scaleFactor,
+                      fontWeight:  UIFont.getFontWeightFrom(UIFontSystem.bold),
+                      color: ColorPalette.blue,
                     ))),
             widget.isMandatory
                 ?  Container(
@@ -74,7 +88,7 @@ class _DropDownGeneralFaaState extends State<DropDownGeneralFaa> {
                   '*',
                   style: TextStyle(
                     fontSize: 12.0,
-                    color: AclColors.red,
+                    color: ColorPalette.blue,
                   ),
                 )):Container(),
             Container(

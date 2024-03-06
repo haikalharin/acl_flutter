@@ -3,6 +3,7 @@ import 'package:acl_flutter/core/network/dio_client_new.dart';
 import 'package:acl_flutter/data/remote_data_source/agent/get_agent_data_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/add_register_candidate_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/get_candidate_data_documents_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate/get_candidate_family_data_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/start_process_instance_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_education_candidate_api.dart';
@@ -178,6 +179,7 @@ Future<void> init() async {
       pendingSimpleCheckingApi: getIt<PendingSimpleCheckingApi>(),
       startProcessInstanceApi: getIt<StartProcessInstanceApi>(),
       getCandidateDataDocumentsApi: getIt<GetCandidateDataDocumentsApi>(),
+      getCandidateFamilyDataApi: getIt<GetCandidateFamilyDataApi>(),
     ),
   );
 

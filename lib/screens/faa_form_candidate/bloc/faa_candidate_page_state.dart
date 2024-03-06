@@ -9,6 +9,9 @@ class FaaCandidatePageState with FormzMixin {
   final CandidateModel? candidateModel;
   final CandidateRegisterModel? candidateRegisterModel;
   final CandidateDataModel? candidateDataModel;
+  final FamilyCardModel? candidateDataFamilyModel;
+  final bool checkedValueTermination;
+  final bool checkedValueLastResign;
 
   ///Private Data
   final MandatoryFieldValidator firstName;
@@ -128,6 +131,9 @@ class FaaCandidatePageState with FormzMixin {
     this.candidateRegisterModel,
     this.candidateDataModel,
     this.addEducationModel,
+    this.candidateDataFamilyModel,
+    this.checkedValueLastResign = false,
+    this.checkedValueTermination = false,
     this.submitStatus = FormzSubmissionStatus.initial,
 
     ///private data
@@ -296,8 +302,6 @@ class FaaCandidatePageState with FormzMixin {
         email,
         occupationId,
         lastWorkExperience,
-        lastResignDateString,
-        terminationDateString,
         privateImage,
         identityImage,
         identitySelfieImage,
@@ -322,21 +326,38 @@ class FaaCandidatePageState with FormzMixin {
           noLicenceAAJI,
           imageLicenceAAJI,
         ]);
+      } else {
+        data.remove(noLicenceAAJI);
+        data.remove(noLicenceAAJI);
       }
       if (checkedValueAASI) {
         data.addAll([
           noLicenceAASI,
           imageLicenceAASI,
         ]);
+      } else {
+        data.remove(noLicenceAASI);
+        data.remove(imageLicenceAASI);
       }
       if (checkedValueAAUI) {
         data.addAll([
           noLicenceAAUI,
           imageLicenceAAUI,
         ]);
+      } else {
+        data.remove(noLicenceAAUI);
+        data.remove(imageLicenceAAUI);
       }
-    } else {
-      data.clear();
+
+      if (checkedValueLastResign) {
+        data.addAll([
+          lastResignDateString,
+          terminationDateString,
+        ]);
+      } else {
+        data.remove(lastResignDateString);
+        data.remove(terminationDateString);
+      }
     }
     return data;
   }
@@ -349,6 +370,9 @@ class FaaCandidatePageState with FormzMixin {
     CandidateModel? candidateModel,
     CandidateRegisterModel? candidateRegisterModel,
     CandidateDataModel? candidateDataModel,
+    FamilyCardModel? candidateDataFamilyModel,
+    bool? checkedValueTermination,
+    bool? checkedValueLastResign,
     FormzSubmissionStatus? submitStatus,
 
     ///Private data
@@ -466,10 +490,14 @@ class FaaCandidatePageState with FormzMixin {
       masterDataModel: masterDataModel ?? this.masterDataModel,
       candidateModel: candidateModel ?? this.candidateModel,
       candidateDataModel: candidateDataModel ?? this.candidateDataModel,
+      candidateDataFamilyModel:
+          candidateDataFamilyModel ?? this.candidateDataFamilyModel,
       candidateRegisterModel:
           candidateRegisterModel ?? this.candidateRegisterModel,
       moveTo: moveTo ?? this.moveTo,
       tabType: tabType ?? this.tabType,
+      checkedValueTermination: checkedValueTermination ?? this.checkedValueTermination,
+      checkedValueLastResign: checkedValueLastResign ?? this.checkedValueLastResign,
 
       ///private data
       firstName: firstName ?? this.firstName,

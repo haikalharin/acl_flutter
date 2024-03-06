@@ -5,6 +5,7 @@ import 'package:acl_flutter/common/validators/handphone_validator.dart';
 import 'package:acl_flutter/common/validators/phone_validator.dart';
 import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/education_candidate_model.dart';
+import 'package:acl_flutter/data/model/candidate_faa/family_card_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/private_data_candidate_request_model.dart';
 import 'package:acl_flutter/data/model/documents/documents_response_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
@@ -71,7 +72,9 @@ class FaaCandidatePageBloc
     on<EmailInputEvent>(emailInput);
     on<OccupationInputEvent>(occupationInput);
     on<LastWorkingExperienceInputEvent>(lastWorkingExperienceInput);
+    on<CheckedLastResignDateInputEvent>(checkedLastResignDateInput);
     on<LastResignDateInputEvent>(lastResignDateInput);
+    on<CheckedTerminationDateInputEvent>(checkedTerminationDateInput);
     on<TerminationDateInputEvent>(terminationDateInput);
     on<PrivateImageInputEvent>(privateImageInput);
     on<IdentityImageInputEvent>(identityImageInput);
@@ -224,31 +227,64 @@ class FaaCandidatePageBloc
               checkedValueAASI = true;
             }
           });
-          emit(state.copyWith(
 
-              ///todo
-              candidateDataModel: listData.first,
-              firstName: listData.first.firstName!.isNotEmpty
-                  ? MandatoryFieldValidator.dirty(
-                      listData.first.firstName ?? '')
-                  : const MandatoryFieldValidator.pure(),
-              martialStatusId: listData.first.maritalStatus != null
-                  ? DropdownFieldValidator.dirty(
-                      listData.first.maritalStatus ?? 0)
-                  : const DropdownFieldValidator.pure(),
-              provinceId: listData.first.province != null
-                  ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
-                  : const DropdownFieldValidator.pure(),
-              identityImage: identityImage,
-              identitySelfieImage: identitySelfiImage,
-              imageLicenceAAJI: imageLicenceAAJI,
-              imageLicenceAASI: imageLicenceAASI,
-              imageLicenceAAUI: imageLicenceAAUI,
-              checkedValueAAJI: checkedValueAAJI,
-              checkedValueAASI: checkedValueAASI,
-              checkedValueAAUI: checkedValueAAUI,
-              message: 'success-get-candidate-data',
-              submitStatus: FormzSubmissionStatus.success));
+          final result = await candidateRepository
+              .getCandidateFamilyData(event.candidateId);
+          result.when(success: (response) async {
+            emit(state.copyWith(
+
+                ///todo
+                candidateDataModel: listData.first,
+                firstName: listData.first.firstName!.isNotEmpty
+                    ? MandatoryFieldValidator.dirty(
+                        listData.first.firstName ?? '')
+                    : const MandatoryFieldValidator.pure(),
+                martialStatusId: listData.first.maritalStatus != null
+                    ? DropdownFieldValidator.dirty(
+                        listData.first.maritalStatus ?? 0)
+                    : const DropdownFieldValidator.pure(),
+                provinceId: listData.first.province != null
+                    ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
+                    : const DropdownFieldValidator.pure(),
+                identityImage: identityImage,
+                identitySelfieImage: identitySelfiImage,
+                imageLicenceAAJI: imageLicenceAAJI,
+                imageLicenceAASI: imageLicenceAASI,
+                imageLicenceAAUI: imageLicenceAAUI,
+                checkedValueAAJI: checkedValueAAJI,
+                checkedValueAASI: checkedValueAASI,
+                checkedValueAAUI: checkedValueAAUI,
+                candidateDataFamilyModel: response.data,
+                message: 'success-get-candidate-data',
+                submitStatus: FormzSubmissionStatus.success));
+          }, failure: (error) {
+            emit(state.copyWith(
+
+                ///todo
+                candidateDataModel: listData.first,
+                firstName: listData.first.firstName!.isNotEmpty
+                    ? MandatoryFieldValidator.dirty(
+                        listData.first.firstName ?? '')
+                    : const MandatoryFieldValidator.pure(),
+                martialStatusId: listData.first.maritalStatus != null
+                    ? DropdownFieldValidator.dirty(
+                        listData.first.maritalStatus ?? 0)
+                    : const DropdownFieldValidator.pure(),
+                provinceId: listData.first.province != null
+                    ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
+                    : const DropdownFieldValidator.pure(),
+                identityImage: identityImage,
+                identitySelfieImage: identitySelfiImage,
+                imageLicenceAAJI: imageLicenceAAJI,
+                imageLicenceAASI: imageLicenceAASI,
+                imageLicenceAAUI: imageLicenceAAUI,
+                checkedValueAAJI: checkedValueAAJI,
+                checkedValueAASI: checkedValueAASI,
+                checkedValueAAUI: checkedValueAAUI,
+                candidateDataFamilyModel: FamilyCardModel(),
+                message: 'success-get-candidate-data',
+                submitStatus: FormzSubmissionStatus.success));
+          });
         }, failure: (error) {
           emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
         });
@@ -535,7 +571,12 @@ class FaaCandidatePageBloc
       lastWorkExperience: value,
     ));
   }
-
+  Future<void> checkedLastResignDateInput(
+      CheckedLastResignDateInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueLastResign: event.checkedLastResign,
+    ));
+  }
   Future<void> lastResignDateInput(LastResignDateInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     var month = event.date.month.toString().length == 1
@@ -549,6 +590,13 @@ class FaaCandidatePageBloc
     emit(state.copyWith(
       lastResignDateString: value,
       lastResignDate: event.date,
+    ));
+  }
+
+  Future<void> checkedTerminationDateInput(
+      CheckedTerminationDateInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueTermination: event.checkedTerminationDateInput,
     ));
   }
 
@@ -905,16 +953,16 @@ class FaaCandidatePageBloc
           title: '',
           weight: '',
           high: '',
-          religion:  state.religionId.value.toString(),
-          phoneNo:  state.phone.value,
+          religion: state.religionId.value.toString(),
+          phoneNo: state.phone.value,
           officePhoneNo: '',
-          cellularNo:  state.phone.value,
+          cellularNo: state.phone.value,
           email: state.phone.value,
           heir: state.heirsName.value,
           heirRelation: state.heirsRelation.value,
           jointDate: '',
-          aajiExpired: state.candidateDataModel?.aajiExpired??'',
-          aasiExpired: state.candidateDataModel?.aasiExpired??'',
+          aajiExpired: state.candidateDataModel?.aajiExpired ?? '',
+          aasiExpired: state.candidateDataModel?.aasiExpired ?? '',
           bankAccount: state.bankNo.value,
           bankName: state.bankName.value,
           bankBranch: state.bankBranch.value,
@@ -927,10 +975,11 @@ class FaaCandidatePageBloc
           npwpCity: '',
           npwpProvince: '',
           npwpZipCode: '',
-          spouseName: '',
-          spouseDob: '',
+          spouseName:
+              '${state.candidateDataFamilyModel?.familyDetails?.first.firstName ?? ''} ${state.candidateDataFamilyModel?.familyDetails?.first.middleName ?? ''} ${state.candidateDataFamilyModel?.familyDetails?.first.lastName ?? ''}',
+          spouseDob: state.candidateDataFamilyModel?.familyDetails?.first.dateOfBirth??'',
           spouseJob: '',
-          spouseRelation: '',
+          spouseRelation: state.candidateDataFamilyModel?.familyDetails?.first.relation??'',
           spouseIsAgent: '',
           spouseAgentCode: '',
           spouseUnit: '',
@@ -942,8 +991,8 @@ class FaaCandidatePageBloc
           verificationNumber: '',
           channelId: '',
           channelCode: '',
-          officeCode: state.candidateDataModel?.officeCode??'',
-          officeCity: state.candidateDataModel?.officeCity??'',
+          officeCode: state.candidateDataModel?.officeCode ?? '',
+          officeCity: state.candidateDataModel?.officeCity ?? '',
           taxType: '',
           idCardType: '',
           reinstateOfficeCode: '',
@@ -966,10 +1015,13 @@ class FaaCandidatePageBloc
           ptkpIsExist: '',
           resignLetterDate: '',
           terminationDate: '',
-          prevCompany: (state.candidateDataModel?.prevCompany??0).toString(),
-          prevCompanyOthers: (state.candidateDataModel?.prevCompanyOthers??0).toString(),
-          prevCompanyAasi: (state.candidateDataModel?.prevCompanyAasi??0).toString(),
-          prevCompanyAaui: (state.candidateDataModel?.prevCompanyAaui??0).toString(),
+          prevCompany: (state.candidateDataModel?.prevCompany ?? 0).toString(),
+          prevCompanyOthers:
+              (state.candidateDataModel?.prevCompanyOthers ?? 0).toString(),
+          prevCompanyAasi:
+              (state.candidateDataModel?.prevCompanyAasi ?? 0).toString(),
+          prevCompanyAaui:
+              (state.candidateDataModel?.prevCompanyAaui ?? 0).toString(),
           maritalStatusPtkp: '',
         )));
         await result.when(

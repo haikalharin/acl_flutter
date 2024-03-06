@@ -7,6 +7,7 @@ class ServiceUrl {
   static String masterData = "${subHost}startup/init-cores";
   static String listTracking = "${subHost}restcandidate/getCandidateTracking";
   static String getCandidateData = "${subHost}restcandidate/getCandidateData";
+  static String getCandidateFamilyData = "${subHost}restcandidate/familyCard/view";
   static String addRegisterCandidate = "${subHost}restcandidate/registrationCandidateStart";
   static String addRegisterCandidateFaa = "${subHost}restcandidate/registrationCandidate";
   static String submitPendingSimpleChecking = "${subHost}restcandidate/submitPendingSimpleChecking";

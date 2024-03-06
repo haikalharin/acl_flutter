@@ -666,6 +666,8 @@ class _PrivateDataState extends State<PrivateData> {
                               title: const Text("Isi tanggal Pengunduran diri"),
                               value: checkedValueResign,
                               onChanged: (newValue) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(CheckedLastResignDateInputEvent(newValue??false));
                                 setState(() {
                                   checkedValueResign = newValue ?? false;
                                 });
@@ -709,6 +711,8 @@ class _PrivateDataState extends State<PrivateData> {
                               title: const Text("Isi tanggal Terminasi"),
                               value: checkedValueTerminasi,
                               onChanged: (newValue) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(CheckedTerminationDateInputEvent(newValue??false));
                                 setState(() {
                                   checkedValueTerminasi = newValue ?? false;
                                 });
