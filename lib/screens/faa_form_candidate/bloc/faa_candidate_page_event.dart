@@ -49,6 +49,7 @@ class IdentityNoInputEvent extends FaaCandidatePageEvent {
   IdentityNoInputEvent(this.identityNo);
 }
 
+
 class MartialStatusInputEvent extends FaaCandidatePageEvent {
   final AajicityMasterReference value;
 
@@ -217,8 +218,9 @@ class HeirsNameInputEvent extends FaaCandidatePageEvent {
   HeirsNameInputEvent(this.value);
 }
 
+
 class HeirsRelationInputEvent extends FaaCandidatePageEvent {
-  final String value;
+  final CityMasterReference value;
 
   HeirsRelationInputEvent(this.value);
 }
@@ -275,6 +277,24 @@ class AauiImageInputEvent extends FaaCandidatePageEvent {
   final String aauiImage;
 
   AauiImageInputEvent(this.aauiImage);
+}
+
+class AajiPrevCompanyInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AajiPrevCompanyInputEvent(this.prevCompany);
+}
+
+class AasiPrevCompanyInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AasiPrevCompanyInputEvent(this.prevCompany);
+}
+
+class AauiPrevCompanyInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AauiPrevCompanyInputEvent(this.prevCompany);
 }
 
 class NpwpNoInputEvent extends FaaCandidatePageEvent {

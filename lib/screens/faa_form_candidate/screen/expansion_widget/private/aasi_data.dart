@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
+import '../../../../../common/widget/dropdown/drop_down_general.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
+import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
 
@@ -66,6 +68,30 @@ class _AasiDataState extends State<AasiData> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            const SizedBox(height: 8),
+                            DropDownGeneral(
+                              title: 'Perusahaan sebelumnya',
+                              isMandatory: state.checkedPrevCompanyValueAASI,
+                              readOnly: state.checkedPrevCompanyValueAASI,
+                              icon: const Icon(
+                                Icons.add_chart,
+                                color: AclColors.greyDarkFontColor,
+                              ),
+                              onChanged: (AajicityMasterReference value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AasiPrevCompanyInputEvent(value));
+                              },
+                              items: state
+                                  .masterDataModel
+                                  ?.masterData
+                                  ?.masterReferenceAll
+                                  ?.prevcompany
+                                  ?.masterReference ??
+                                  [],
+                              errorText: isCheck && state.prevCompanyAASIId.isNotValid
+                                  ? 'Mohon diisi'
+                                  : null,
+                            ),
                             const SizedBox(height: 8),
                             TextInput(
                               isMandatory: checkedValueAASI,

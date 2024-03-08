@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../common/widget/dropdown/drop_down_general_faa.dart';
+import '../../../../../common/widget/dropdown/drop_down_general_second_faa.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
+import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
+import '../../tab_widget/private_data_page.dart';
 
 enum Mode { create, update }
 class HeirsData extends StatefulWidget {
@@ -76,13 +80,44 @@ class _HeirsDataState extends State<HeirsData> {
                                 },
                               ),
                               const SizedBox(height: 8),
-                              TextInput(
-                                isMandatory: false,
-                                icon: const Icon(Icons.person),
-                                labelText: "Hubungan ahli waris",
-                                onChanged: (String value) {
-                                  getIt<FaaCandidatePageBloc>()
-                                      .add(HeirsRelationInputEvent(value));
+                              BlocBuilder<FaaCandidatePageBloc,
+                                  FaaCandidatePageState>(
+                                builder: (context, state) {
+                                  return DropDownGeneralSecondFaa(
+                                    title: 'Status Pernikahan',
+                                    icon: const Icon(
+                                      Icons.account_balance_rounded,
+                                      color: AclColors.greyDarkFontColor,
+                                    ),
+                                    onChanged: (CityMasterReference value) {
+                                      getIt<FaaCandidatePageBloc>()
+                                          .add(HeirsRelationInputEvent(value));
+                                    },
+                                    initialItem: state.martialStatusId.isValid
+                                        ? state
+                                        .masterDataModel
+                                        ?.masterData
+                                        ?.masterReferenceAll
+                                        ?.heirrelation
+                                        ?.masterReference
+                                        ?.where((element) =>
+                                    element.id ==
+                                        (state.martialStatusId.value))
+                                        .toList()
+                                        .first
+                                        : null,
+                                    items: state
+                                        .masterDataModel
+                                        ?.masterData
+                                        ?.masterReferenceAll
+                                        ?.heirrelation
+                                        ?.masterReference ??
+                                        [],
+                                    errorText: isCheck == true &&
+                                        state.martialStatusId.isNotValid
+                                        ? 'Mohon diisi'
+                                        : null,
+                                  );
                                 },
                               ),
                               const SizedBox(height: 8),

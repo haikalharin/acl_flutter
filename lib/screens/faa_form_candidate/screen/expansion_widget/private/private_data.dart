@@ -156,16 +156,30 @@ class _PrivateDataState extends State<PrivateData> {
                                     .add(IdentityNoInputEvent(value));
                               },
                             ),
+                            const SizedBox(height: 8),
+                            TextInput(
+                              readOnly: true,
+                              initialValue: state.candidateDataModel?.idFamilyCardNo,
+                              icon: const Icon(Icons.add_card_rounded),
+                              labelText: "No KK",
+                              maxLength: 16,
+                              keyboardType: TextInputType.phone,
+                              validator: (String? value) {
+                                if (state.kkNo.isNotValid) {
+                                  return state.kkNo.invalidIdentityNo;
+                                }
+                                return null;
+                              },
+                              onChanged: (String value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(KkNoInputEvent(value));
+                              },
+                            ),
                             const SizedBox(height: 36),
                             BlocBuilder<FaaCandidatePageBloc,
                                 FaaCandidatePageState>(
                               builder: (context, state) {
                                 return DropDownGeneralFaa(
-                                  readOnly: state.candidateDataModel
-                                              ?.maritalStatus !=
-                                          null &&
-                                      state.candidateDataModel?.maritalStatus !=
-                                          0,
                                   title: 'Status Pernikahan',
                                   icon: const Icon(
                                     Icons.account_balance_rounded,
@@ -217,6 +231,7 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             DateTimePickerForm(
+                              readOnly: true,
                               dateTime: DateTime.parse(
                                 state.candidateDataModel?.dob ?? '2020-01-01',
                               ),
@@ -283,8 +298,9 @@ class _PrivateDataState extends State<PrivateData> {
                             const SizedBox(height: 8),
                             TextInput(
                               icon: const Icon(Icons.person),
+                              readOnly: true,
                               labelText: "Warga Negara",
-                              // initialValue: postTitle,
+                              initialValue: "INDONESIA",
                               validator: (String? value) {
                                 if (value!.isNotEmpty) return null;
                                 return "Mohon diisi";

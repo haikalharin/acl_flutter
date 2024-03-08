@@ -54,6 +54,7 @@ class FaaCandidatePageBloc
     on<LastNameInputEvent>(lastNameInput);
     on<PositionInputEvent>(positionInput);
     on<IdentityNoInputEvent>(identityNoInput);
+    on<KkNoInputEvent>(kkNoInput);
     on<MartialStatusInputEvent>(martialStatusInput);
     on<DobInputEvent>(dobInput);
     on<PobInputEvent>(pobInput);
@@ -103,8 +104,11 @@ class FaaCandidatePageBloc
     on<AppendixImageInputEvent>(appendixImageInput);
     on<FaaAddAgentSubmittedEvent>(faaAddAgentSubmitted);
     on<FaaAddAgentDocSubmittedEvent>(faaAddAgentDocSubmitted);
+    on<AajiPrevCompanyInputEvent>(aajiPrevCompanyInput);
+    on<AasiPrevCompanyInputEvent>(aasiPrevCompanyInput);
+    on<AauiPrevCompanyInputEvent>(aauiPrevCompanyInput);
 
-    on<KkNoInputEvent>(kkNoInput);
+
     on<KkImageInputEvent>(kkImageInput);
     on<MarriedCheckedInputEvent>(marriedCheckedInputEvent);
     on<FirstNamePartnerInputEvent>(firstNamePartnerInput);
@@ -182,8 +186,8 @@ class FaaCandidatePageBloc
     try {
       final result =
           await candidateRepository.getCandidateData(event.candidateId);
-      await result.when(success: (response) async {
-        List<CandidateDataModel> listData = response.data;
+      await result.when(success: (responseCandidateDetail) async {
+        List<CandidateDataModel> listData = responseCandidateDetail.data;
         SecureStorage().setCandidateDataFaa(listData.first);
         LoginModel user = await SecureStorage().getUser();
 
@@ -251,9 +255,23 @@ class FaaCandidatePageBloc
                 imageLicenceAAJI: imageLicenceAAJI,
                 imageLicenceAASI: imageLicenceAASI,
                 imageLicenceAAUI: imageLicenceAAUI,
+                checkedPrevCompanyValueAAJI: listData.first.prevCompany != null? true:false,
+                checkedPrevCompanyValueAASI: listData.first.prevCompanyAasi != null? true:false,
+                checkedPrevCompanyValueAAUI: listData.first.prevCompanyAaui != null? true:false,
                 checkedValueAAJI: checkedValueAAJI,
                 checkedValueAASI: checkedValueAASI,
                 checkedValueAAUI: checkedValueAAUI,
+                martialStatus:state
+                    .masterDataModel
+                    ?.masterData
+                    ?.masterReferenceAll
+                    ?.maritalstatus
+                    ?.masterReference
+                    ?.where((element) =>
+                element.id ==
+                    (listData.first.maritalStatus??0))
+                    .toList()
+                    .first,
                 candidateDataFamilyModel: response.data,
                 message: 'success-get-candidate-data',
                 submitStatus: FormzSubmissionStatus.success));
@@ -657,13 +675,25 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> heirsRelationInput(HeirsRelationInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
-    final value = MandatoryFieldValidator.dirty(event.value);
-    emit(state.copyWith(
-      heirsRelation: value,
-    ));
+  Future<void> heirsRelationInput(
+      HeirsRelationInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.id == 0 || event.value.id == null) {
+      const value = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        heirsRelationId: value,
+        heirsRelation: null,
+      ));
+    } else {
+      final occupationId =
+      DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        heirsRelationId: occupationId,
+        heirsRelation: event.value,
+      ));
+    }
   }
+
+
 
   Future<void> aajiCheckedInput(
       AajiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
@@ -735,6 +765,59 @@ class FaaCandidatePageBloc
     emit(state.copyWith(
       imageLicenceAAUI: imageLicenceAAUI,
     ));
+  }
+
+  Future<void> aajiPrevCompanyInput(AajiPrevCompanyInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
+      const prevCompanyId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        prevCompanyAAJIId: prevCompanyId,
+        prevCompanyAAJI: null,
+      ));
+    } else {
+      final prevCompanyId =
+      DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      emit(state.copyWith(
+        prevCompanyAAJIId: prevCompanyId,
+        prevCompanyAAJI: event.prevCompany,
+      ));
+    }
+  }
+
+  Future<void> aasiPrevCompanyInput(AasiPrevCompanyInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
+      const prevCompanyId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        prevCompanyAASIId: prevCompanyId,
+        prevCompanyAASI: null,
+      ));
+    } else {
+      final prevCompanyId =
+      DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      emit(state.copyWith(
+        prevCompanyAASIId: prevCompanyId,
+        prevCompanyAASI: event.prevCompany,
+      ));
+    }
+  }
+  Future<void> aauiPrevCompanyInput(AauiPrevCompanyInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
+      const prevCompanyId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        prevCompanyAAUIId: prevCompanyId,
+        prevCompanyAAUI: null,
+      ));
+    } else {
+      final prevCompanyId =
+      DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+      emit(state.copyWith(
+        prevCompanyAAUIId: prevCompanyId,
+        prevCompanyAAUI: event.prevCompany,
+      ));
+    }
   }
 
   Future<void> npwpNoInput(
@@ -959,7 +1042,7 @@ class FaaCandidatePageBloc
           cellularNo: state.phone.value,
           email: state.phone.value,
           heir: state.heirsName.value,
-          heirRelation: state.heirsRelation.value,
+          heirRelation: state.heirsRelationId.value.toString(),
           jointDate: '',
           aajiExpired: state.candidateDataModel?.aajiExpired ?? '',
           aasiExpired: state.candidateDataModel?.aasiExpired ?? '',
@@ -1060,6 +1143,7 @@ class FaaCandidatePageBloc
       }
     }
   }
+
 
   Future<int?> _sendDoc() async {
     try {

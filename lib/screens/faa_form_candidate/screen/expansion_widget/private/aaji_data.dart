@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
+import '../../../../../common/widget/dropdown/drop_down_general.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
+import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
 
@@ -67,11 +69,35 @@ class _AajiDataState extends State<AajiData> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const SizedBox(height: 8),
+                            DropDownGeneral(
+                              title: 'Perusahaan sebelumnya',
+                              isMandatory: state.checkedPrevCompanyValueAAJI,
+                              readOnly: state.checkedPrevCompanyValueAAJI,
+                              icon: const Icon(
+                                Icons.add_chart,
+                                color: AclColors.greyDarkFontColor,
+                              ),
+                              onChanged: (AajicityMasterReference value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AajiPrevCompanyInputEvent(value));
+                              },
+                              items: state
+                                  .masterDataModel
+                                  ?.masterData
+                                  ?.masterReferenceAll
+                                  ?.prevcompany
+                                  ?.masterReference ??
+                                  [],
+                              errorText: isCheck && state.prevCompanyAAJIId.isNotValid
+                                  ? 'Mohon diisi'
+                                  : null,
+                            ),
+                            const SizedBox(height: 8),
                             TextInput(
-                              isMandatory: checkedValueAAJI,
+                              isMandatory: state.checkedValueAAJI,
                               icon: const Icon(Icons.add_card_rounded),
                               labelText: "No lisensi AAJI",
-                              readOnly:state.checkedValueAAJI,
+                              readOnly: state.checkedValueAAJI,
                               initialValue: state.candidateDataModel?.aajiNo,
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>()
@@ -89,7 +115,7 @@ class _AajiDataState extends State<AajiData> {
                             const SizedBox(height: 8),
                             CustomImagePicker(
                               title: 'Foto Lisensi AAJI',
-                              isMandatory: checkedValueAAJI,
+                              isMandatory: state.checkedValueAAJI,
                               readOnly: state.checkedValueAAJI,
                               initialImage: state.imageLicenceAAJI.value,
                               onImagePicked: (value) {

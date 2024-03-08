@@ -10,8 +10,6 @@ class FaaCandidatePageState with FormzMixin {
   final CandidateRegisterModel? candidateRegisterModel;
   final CandidateDataModel? candidateDataModel;
   final FamilyCardModel? candidateDataFamilyModel;
-  final bool checkedValueTermination;
-  final bool checkedValueLastResign;
 
   ///Private Data
   final MandatoryFieldValidator firstName;
@@ -56,7 +54,8 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator terminationImage;
   final MandatoryFieldValidator notTwistingImage;
   final MandatoryFieldValidator heirsName;
-  final MandatoryFieldValidator heirsRelation;
+  final CityMasterReference? heirsRelation;
+  final DropdownFieldValidator heirsRelationId;
   final MandatoryFieldValidator noLicenceAAJI;
   final MandatoryFieldValidator imageLicenceAAJI;
   final MandatoryFieldValidator noLicenceAASI;
@@ -74,6 +73,35 @@ class FaaCandidatePageState with FormzMixin {
   final AajicityMasterReference? appendixValue;
   final DropdownFieldValidator appendixValueId;
   final MandatoryFieldValidator appendixImage;
+  final bool checkedValueTermination;
+  final bool checkedValueLastResign;
+  final bool checkedValueAAJI;
+  final bool checkedValueAASI;
+  final bool checkedValueAAUI;
+  final bool checkedPrevCompanyValueAAJI;
+  final bool checkedPrevCompanyValueAASI;
+  final bool checkedPrevCompanyValueAAUI;
+  final AajicityMasterReference? prevCompanyAAJI;
+  final DropdownFieldValidator prevCompanyAAJIId;
+  final AajicityMasterReference? prevCompanyAASI;
+  final DropdownFieldValidator prevCompanyAASIId;
+  final AajicityMasterReference? prevCompanyAAUI;
+  final DropdownFieldValidator prevCompanyAAUIId;
+  final bool checkedLastDateValueAAJI;
+  final MandatoryFieldValidator dateLastDateValueAAJIString;
+  final DateTime? dateLastDateValueAAJI;
+  final MandatoryFieldValidator terminationValueAAJIImage;
+  final MandatoryFieldValidator notTwistingValueAAJIImage;
+  final bool checkedLastDateValueAASI;
+  final MandatoryFieldValidator dateLastDateValueAASIString;
+  final DateTime? dateLastDateValueAASI;
+  final MandatoryFieldValidator terminationValueAASIImage;
+  final MandatoryFieldValidator notTwistingValueAASIImage;
+  final bool checkedLastDateValueAAUI;
+  final MandatoryFieldValidator dateLastDateValueAAUIString;
+  final DateTime? dateLastDateValueAAUI;
+  final MandatoryFieldValidator terminationValueAAUIImage;
+  final MandatoryFieldValidator notTwistingValueAAUIImage;
 
   ///Work Experience
 
@@ -116,10 +144,8 @@ class FaaCandidatePageState with FormzMixin {
   final IdentityNoValidator identityNoPartner;
   final AajicityMasterReference? relation;
   final DropdownFieldValidator relationId;
-  final bool checkedValueAAJI;
-  final bool checkedValueAASI;
+
   final bool checkedNeedValueAAUI;
-  final bool checkedValueAAUI;
   final bool checkedValueMarriage;
 
   const FaaCandidatePageState({
@@ -179,7 +205,8 @@ class FaaCandidatePageState with FormzMixin {
     this.terminationImage = const MandatoryFieldValidator.pure(),
     this.notTwistingImage = const MandatoryFieldValidator.pure(),
     this.heirsName = const MandatoryFieldValidator.pure(),
-    this.heirsRelation = const MandatoryFieldValidator.pure(),
+    this.heirsRelation,
+    this.heirsRelationId = const DropdownFieldValidator.pure(),
     this.noLicenceAAJI = const MandatoryFieldValidator.pure(),
     this.imageLicenceAAJI = const MandatoryFieldValidator.pure(),
     this.noLicenceAASI = const MandatoryFieldValidator.pure(),
@@ -197,6 +224,30 @@ class FaaCandidatePageState with FormzMixin {
     this.appendixValue,
     this.appendixValueId = const DropdownFieldValidator.pure(),
     this.appendixImage = const MandatoryFieldValidator.pure(),
+    this.prevCompanyAAJI,
+    this.prevCompanyAAJIId = const DropdownFieldValidator.pure(),
+    this.prevCompanyAASI,
+    this.prevCompanyAASIId = const DropdownFieldValidator.pure(),
+    this.prevCompanyAAUI,
+    this.prevCompanyAAUIId = const DropdownFieldValidator.pure(),
+    this.checkedPrevCompanyValueAAJI = false,
+    this.checkedPrevCompanyValueAASI = false,
+    this.checkedPrevCompanyValueAAUI = false,
+    this.checkedLastDateValueAAJI = false,
+    this.dateLastDateValueAAJIString = const MandatoryFieldValidator.pure(),
+    this.dateLastDateValueAAJI,
+    this.terminationValueAAJIImage = const MandatoryFieldValidator.pure(),
+    this.notTwistingValueAAJIImage = const MandatoryFieldValidator.pure(),
+    this.checkedLastDateValueAASI = false,
+    this.dateLastDateValueAASIString = const MandatoryFieldValidator.pure(),
+    this.dateLastDateValueAASI,
+    this.terminationValueAASIImage = const MandatoryFieldValidator.pure(),
+    this.notTwistingValueAASIImage = const MandatoryFieldValidator.pure(),
+    this.checkedLastDateValueAAUI = false,
+    this.dateLastDateValueAAUIString = const MandatoryFieldValidator.pure(),
+    this.dateLastDateValueAAUI,
+    this.terminationValueAAUIImage = const MandatoryFieldValidator.pure(),
+    this.notTwistingValueAAUIImage = const MandatoryFieldValidator.pure(),
 
     ///Education
     this.isJustAddEducation = false,
@@ -308,7 +359,7 @@ class FaaCandidatePageState with FormzMixin {
         terminationImage,
         notTwistingImage,
         heirsName,
-        heirsRelation,
+        heirsRelationId,
         npwpNo,
         bankNo,
         bankUserName,
@@ -325,28 +376,34 @@ class FaaCandidatePageState with FormzMixin {
         data.addAll([
           noLicenceAAJI,
           imageLicenceAAJI,
+          prevCompanyAAJIId,
         ]);
       } else {
         data.remove(noLicenceAAJI);
         data.remove(noLicenceAAJI);
+        data.remove(prevCompanyAAJIId);
       }
       if (checkedValueAASI) {
         data.addAll([
           noLicenceAASI,
           imageLicenceAASI,
+          prevCompanyAASIId,
         ]);
       } else {
         data.remove(noLicenceAASI);
         data.remove(imageLicenceAASI);
+        data.remove(prevCompanyAASIId);
       }
       if (checkedValueAAUI) {
         data.addAll([
           noLicenceAAUI,
           imageLicenceAAUI,
+          prevCompanyAAUIId,
         ]);
       } else {
         data.remove(noLicenceAAUI);
         data.remove(imageLicenceAAUI);
+        data.remove(prevCompanyAAUIId);
       }
 
       if (checkedValueLastResign) {
@@ -418,7 +475,8 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? terminationImage,
     MandatoryFieldValidator? notTwistingImage,
     MandatoryFieldValidator? heirsName,
-    MandatoryFieldValidator? heirsRelation,
+    CityMasterReference? heirsRelation,
+    DropdownFieldValidator? heirsRelationId,
     MandatoryFieldValidator? noLicenceAAJI,
     MandatoryFieldValidator? imageLicenceAAJI,
     MandatoryFieldValidator? noLicenceAASI,
@@ -436,6 +494,30 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? appendixImage,
     DropdownFieldValidator? appendixValueId,
     AajicityMasterReference? appendixValue,
+    bool? checkedPrevCompanyValueAAJI,
+    bool? checkedPrevCompanyValueAASI,
+    bool? checkedPrevCompanyValueAAUI,
+    AajicityMasterReference? prevCompanyAAJI,
+    DropdownFieldValidator? prevCompanyAAJIId,
+    AajicityMasterReference? prevCompanyAASI,
+    DropdownFieldValidator? prevCompanyAASIId,
+    AajicityMasterReference? prevCompanyAAUI,
+    DropdownFieldValidator? prevCompanyAAUIId,
+    bool? checkedLastDateValueAAJI,
+    MandatoryFieldValidator? dateLastDateValueAAJIString,
+    DateTime? dateLastDateValueAAJI,
+    MandatoryFieldValidator? terminationValueAAJIImage,
+    MandatoryFieldValidator? notTwistingValueAAJIImage,
+    bool? checkedLastDateValueAASI,
+    MandatoryFieldValidator? dateLastDateValueAASIString,
+    DateTime? dateLastDateValueAASI,
+    MandatoryFieldValidator? terminationValueAASIImage,
+    MandatoryFieldValidator? notTwistingValueAASIImage,
+    bool? checkedLastDateValueAAUI,
+    MandatoryFieldValidator? dateLastDateValueAAUIString,
+    DateTime? dateLastDateValueAAUI,
+    MandatoryFieldValidator? terminationValueAAUIImage,
+    MandatoryFieldValidator? notTwistingValueAAUIImage,
 
     ///Education
     bool? isJustAddEducation,
@@ -496,8 +578,10 @@ class FaaCandidatePageState with FormzMixin {
           candidateRegisterModel ?? this.candidateRegisterModel,
       moveTo: moveTo ?? this.moveTo,
       tabType: tabType ?? this.tabType,
-      checkedValueTermination: checkedValueTermination ?? this.checkedValueTermination,
-      checkedValueLastResign: checkedValueLastResign ?? this.checkedValueLastResign,
+      checkedValueTermination:
+          checkedValueTermination ?? this.checkedValueTermination,
+      checkedValueLastResign:
+          checkedValueLastResign ?? this.checkedValueLastResign,
 
       ///private data
       firstName: firstName ?? this.firstName,
@@ -544,6 +628,7 @@ class FaaCandidatePageState with FormzMixin {
       notTwistingImage: notTwistingImage ?? this.notTwistingImage,
       heirsName: heirsName ?? this.heirsName,
       heirsRelation: heirsRelation ?? this.heirsRelation,
+      heirsRelationId: heirsRelationId ?? this.heirsRelationId,
       noLicenceAAJI: noLicenceAAJI ?? this.noLicenceAAJI,
       imageLicenceAAJI: imageLicenceAAJI ?? this.imageLicenceAAJI,
       noLicenceAASI: noLicenceAASI ?? this.noLicenceAASI,
@@ -561,6 +646,48 @@ class FaaCandidatePageState with FormzMixin {
       appendixValue: appendixValue ?? this.appendixValue,
       appendixValueId: appendixValueId ?? this.appendixValueId,
       appendixImage: appendixImage ?? this.appendixImage,
+      checkedPrevCompanyValueAAJI:
+          checkedPrevCompanyValueAAJI ?? this.checkedPrevCompanyValueAAJI,
+      checkedPrevCompanyValueAASI:
+          checkedPrevCompanyValueAASI ?? this.checkedPrevCompanyValueAASI,
+      checkedPrevCompanyValueAAUI:
+          checkedPrevCompanyValueAAUI ?? this.checkedPrevCompanyValueAAUI,
+      prevCompanyAAJI: prevCompanyAAJI ?? this.prevCompanyAAJI,
+      prevCompanyAAJIId: prevCompanyAAJIId ?? this.prevCompanyAAJIId,
+      prevCompanyAASI: prevCompanyAASI ?? this.prevCompanyAASI,
+      prevCompanyAASIId: prevCompanyAASIId ?? this.prevCompanyAASIId,
+      prevCompanyAAUI: prevCompanyAAUI ?? this.prevCompanyAAUI,
+      prevCompanyAAUIId: prevCompanyAAUIId ?? this.prevCompanyAAUIId,
+      checkedLastDateValueAAJI:
+          checkedLastDateValueAAJI ?? this.checkedLastDateValueAAJI,
+      dateLastDateValueAAJIString:
+          dateLastDateValueAAJIString ?? this.dateLastDateValueAAJIString,
+      dateLastDateValueAAJI:
+          dateLastDateValueAAJI ?? this.dateLastDateValueAAJI,
+      terminationValueAAJIImage:
+          terminationValueAAJIImage ?? this.terminationValueAAJIImage,
+      notTwistingValueAAJIImage:
+          notTwistingValueAAJIImage ?? this.notTwistingValueAAJIImage,
+      checkedLastDateValueAASI:
+          checkedLastDateValueAASI ?? this.checkedPrevCompanyValueAASI,
+      dateLastDateValueAASIString:
+          dateLastDateValueAASIString ?? this.dateLastDateValueAASIString,
+      dateLastDateValueAASI:
+          dateLastDateValueAASI ?? this.dateLastDateValueAASI,
+      terminationValueAASIImage:
+          terminationValueAASIImage ?? this.terminationValueAASIImage,
+      notTwistingValueAASIImage:
+          notTwistingValueAASIImage ?? this.notTwistingValueAASIImage,
+      checkedLastDateValueAAUI:
+          checkedLastDateValueAAUI ?? this.checkedLastDateValueAAUI,
+      dateLastDateValueAAUIString:
+          dateLastDateValueAAUIString ?? this.dateLastDateValueAAUIString,
+      dateLastDateValueAAUI:
+          dateLastDateValueAAUI ?? this.dateLastDateValueAAUI,
+      terminationValueAAUIImage:
+          terminationValueAAUIImage ?? this.terminationValueAAUIImage,
+      notTwistingValueAAUIImage:
+          notTwistingValueAAUIImage ?? this.notTwistingValueAAUIImage,
 
       ///Education
       isJustAddEducation: isJustAddEducation ?? this.isJustAddEducation,

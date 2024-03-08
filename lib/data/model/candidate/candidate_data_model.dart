@@ -222,7 +222,7 @@ class CandidateDataModel {
   @JsonKey(name: "prevCompany")
   int? prevCompany;
   @JsonKey(name: "prevCompanyOthers")
-  dynamic prevCompanyOthers;
+  int? prevCompanyOthers;
   @JsonKey(name: "deletedReason")
   dynamic deletedReason;
   @JsonKey(name: "maritalStatusPtkp")
@@ -262,7 +262,7 @@ class CandidateDataModel {
   @JsonKey(name: "aauiActiveFlag")
   bool? aauiActiveFlag;
   @JsonKey(name: "prevCompanyAaui")
-  dynamic prevCompanyAaui;
+  int? prevCompanyAaui;
   @JsonKey(name: "aauiExpired")
   String? aauiExpired;
   @JsonKey(name: "candidateWorkExperienceList")
@@ -524,7 +524,7 @@ class CandidateDataModel {
     String? terminationDate,
     String? isEmailUpdate,
     int? prevCompany,
-    dynamic prevCompanyOthers,
+    int? prevCompanyOthers,
     dynamic deletedReason,
     dynamic maritalStatusPtkp,
     String? faaSubmissionDate,
@@ -544,7 +544,7 @@ class CandidateDataModel {
     dynamic supportingDoc,
     dynamic aauiNo,
     bool? aauiActiveFlag,
-    dynamic prevCompanyAaui,
+    int? prevCompanyAaui,
     String? aauiExpired,
     dynamic candidateWorkExperienceList,
     dynamic candidateEducationList,

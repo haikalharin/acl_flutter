@@ -327,8 +327,8 @@ class Candidate {
     required this.sourceInformationDesc,
     required this.isEqualWithKtp,
     required this.ptkpIsExist,
-    required this.resignLetterDate,
-    required this.terminationDate,
+    required this.resignLetterDate, //confirm persertifikat
+    required this.terminationDate, //confirm persertifikat
     required this.prevCompany,
     required this.prevCompanyOthers,
     required this.prevCompanyAasi,
