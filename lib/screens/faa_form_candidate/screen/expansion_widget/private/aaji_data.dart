@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
+import '../../../../../common/widget/date_time_picker_form.dart';
 import '../../../../../common/widget/dropdown/drop_down_general.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
@@ -35,7 +36,7 @@ class _AajiDataState extends State<AajiData> {
   bool checkedValueMarriage = false;
   bool checkedValueKpm = false;
   bool checkedValueResign = false;
-  bool checkedValueTerminasi = false;
+  bool checkedValueLastDateAAJI = false;
   var data = [
     LoginModel(name: 'adadada', uid: '1'),
     LoginModel(name: 'bccccc', uid: '2'),
@@ -81,14 +82,27 @@ class _AajiDataState extends State<AajiData> {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(AajiPrevCompanyInputEvent(value));
                               },
-                              items: state
+                              initialItem: state
                                   .masterDataModel
                                   ?.masterData
                                   ?.masterReferenceAll
                                   ?.prevcompany
-                                  ?.masterReference ??
+                                  ?.masterReference
+                                  ?.where((element) =>
+                                      element.id ==
+                                      (state.prevCompanyAAJIId.value))
+                                  .toList()
+                                  .first,
+                              items: state
+                                      .masterDataModel
+                                      ?.masterData
+                                      ?.masterReferenceAll
+                                      ?.prevcompany
+                                      ?.masterReference ??
                                   [],
-                              errorText: isCheck && state.prevCompanyAAJIId.isNotValid
+                              errorText: state.checkedPrevCompanyValueAAJI &&
+                                      isCheck &&
+                                      state.prevCompanyAAJIId.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
                             ),
@@ -113,8 +127,71 @@ class _AajiDataState extends State<AajiData> {
                               },
                             ),
                             const SizedBox(height: 8),
+                            CheckboxListTile(
+                              title: const Text("Isi tanggal Akhir AAJI"),
+                              value: checkedValueLastDateAAJI,
+                              onChanged: (newValue) {
+                                getIt<FaaCandidatePageBloc>().add(
+                                    AajiLastDateCheckedInputEvent(
+                                        newValue ?? false));
+                                setState(() {
+                                  checkedValueLastDateAAJI = newValue ?? false;
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            checkedValueLastDateAAJI
+                                ? const SizedBox(height: 8)
+                                : Container(),
+                            if (checkedValueLastDateAAJI)
+                              DateTimePickerForm(
+                                dateTime:
+                                    mode == Mode.update ? DateTime.now() : null,
+                                labelText: "Pilih Tanggal",
+                                title: "Tanggal Akhir AAJI",
+                                errorText: isCheck == true &&
+                                        state.dateLastDateValueAAJIString
+                                            .isNotValid
+                                    ? 'Mohon diisi'
+                                    : null,
+                                isMandatory: checkedValueLastDateAAJI,
+                                selectedDateTime: (DateTime date) {
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(AajiLastDateInputEvent(date));
+                                },
+                                validator: (String? value) {
+                                  if (checkedValueLastDateAAJI) {
+                                    if (value!.isNotEmpty) return null;
+                                    return "Mohon diisi";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                              )
+                            else
+                              Container(),
+                            const SizedBox(height: 8),
                             CustomImagePicker(
-                              title: 'Foto Lisensi AAJI',
+                              title: 'Surat Terminasi/Pengunduran Diri',
+                              isMandatory: false,
+                              onImagePicked: (value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AajiTerminationImageInputEvent(value));
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            CustomImagePicker(
+                              title: 'Surat Tidak Melakukan Twisting',
+                              isMandatory: false,
+                              onImagePicked: (value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AajiTerminationImageInputEvent(value));
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            CustomImagePicker(
+                              title: 'Foto Kartu AAJI',
                               isMandatory: state.checkedValueAAJI,
                               readOnly: state.checkedValueAAJI,
                               initialImage: state.imageLicenceAAJI.value,
@@ -127,6 +204,15 @@ class _AajiDataState extends State<AajiData> {
                                       state.imageLicenceAAJI.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
+                            ),
+                            const SizedBox(height: 8),
+                            CustomImagePicker(
+                              title: 'Hasil Aktivasi Mobile Exam AAJI',
+                              isMandatory: false,
+                              onImagePicked: (value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AajiMobileActivationExamImageInputEvent(value));
+                              },
                             ),
                             const SizedBox(height: 16),
                           ],

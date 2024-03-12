@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
+import '../../../../../common/widget/dropdown/drop_down_general_faa.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
+import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
 import '../../../../../utils/acl_color.dart';
 import '../../../bloc/faa_candidate_page_bloc.dart';
@@ -66,6 +68,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                               const SizedBox(height: 8),
                               TextInput(
                                 icon: const Icon(Icons.person),
+                                maxLength: 16,
                                 labelText: "No NPWP",
                                 keyboardType: TextInputType.phone,
                                 isMandatory: false,
@@ -102,16 +105,31 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 },
                               ),
                               const SizedBox(height: 8),
-                              TextInput(
-                                icon: const Icon(Icons.person),
-                                labelText: "Nama Bank",
-                                onChanged: (String value) {
-                                  getIt<FaaCandidatePageBloc>()
-                                      .add(BankNameInputEvent(value));
-                                },
-                                validator: (String? value) {
-                                  if (value!.isNotEmpty) return null;
-                                  return "Mohon diisi";
+                              BlocBuilder<FaaCandidatePageBloc,
+                                  FaaCandidatePageState>(
+                                builder: (context, state) {
+                                  return DropDownGeneralFaa(
+                                    title: 'Nama Bank',
+                                    icon: const Icon(
+                                      Icons.account_balance_rounded,
+                                      color: AclColors.greyDarkFontColor,
+                                    ),
+                                    onChanged: (AajicityMasterReference value) {
+                                      getIt<FaaCandidatePageBloc>()
+                                          .add(ReligionInputEvent(value));
+                                    },
+                                    items: state
+                                        .masterDataModel
+                                        ?.masterData
+                                        ?.masterReferenceAll
+                                        ?.listbank
+                                        ?.masterReference ??
+                                        [],
+                                    errorText: isCheck == true &&
+                                        state.bankNameId.isNotValid
+                                        ? 'Mohon diisi'
+                                        : null,
+                                  );
                                 },
                               ),
                               const SizedBox(height: 8),

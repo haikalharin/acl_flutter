@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
+import '../../../../../common/widget/date_time_picker_form.dart';
 import '../../../../../common/widget/dropdown/drop_down_general.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
@@ -27,13 +28,13 @@ class _AauiDataState extends State<AauiData> {
   var lastName = TextEditingController(text: "");
   LoginModel? selectedItem;
   bool checkedValueAASI = false;
-  bool checkedValueAAJI = false;
-  bool checkedNeedValueAAUI = false;
   bool checkedValueAAUI = false;
+  bool checkedNeedValueAAUI = false;
+  bool checkedValueAAJI = false;
   bool checkedValueMarriage = false;
   bool checkedValueKpm = false;
   bool checkedValueResign = false;
-  bool checkedValueTerminasi = false;
+  bool checkedValueLastDateAAUI = false;
   var data = [
     LoginModel(name: 'adadada', uid: '1'),
     LoginModel(name: 'bccccc', uid: '2'),
@@ -86,13 +87,13 @@ class _AauiDataState extends State<AauiData> {
                                     ?.prevcompany
                                     ?.masterReference ??
                                     [],
-                                errorText: isCheck && state.prevCompanyAAUIId.isNotValid
+                                errorText:state.checkedPrevCompanyValueAAUI && isCheck && state.prevCompanyAAUIId.isNotValid
                                     ? 'Mohon diisi'
                                     : null,
                               ),
                               const SizedBox(height: 8),
                               TextInput(
-                                isMandatory: checkedValueAAUI,
+                                isMandatory:  state.checkedValueAAUI,
                                 icon: const Icon(Icons.add_card_rounded),
                                 readOnly:state.checkedValueAAUI,
                                 initialValue:
@@ -112,6 +113,69 @@ class _AauiDataState extends State<AauiData> {
                                 },
                               ),
                               const SizedBox(height: 8),
+                              CheckboxListTile(
+                                title: const Text("Isi tanggal Akhir AAUI"),
+                                value: checkedValueLastDateAAUI,
+                                onChanged: (newValue) {
+                                  getIt<FaaCandidatePageBloc>().add(
+                                      AauiLastDateCheckedInputEvent(
+                                          newValue ?? false));
+                                  setState(() {
+                                    checkedValueLastDateAAUI = newValue ?? false;
+                                  });
+                                },
+                                controlAffinity: ListTileControlAffinity
+                                    .leading, //  <-- leading Checkbox
+                              ),
+                              checkedValueLastDateAAUI
+                                  ? const SizedBox(height: 8)
+                                  : Container(),
+                              if (checkedValueLastDateAAUI)
+                                DateTimePickerForm(
+                                  dateTime:
+                                  mode == Mode.update ? DateTime.now() : null,
+                                  labelText: "Pilih Tanggal",
+                                  title: "Tanggal Akhir AAUI",
+                                  errorText: isCheck == true &&
+                                      state.dateLastDateValueAAUIString
+                                          .isNotValid
+                                      ? 'Mohon diisi'
+                                      : null,
+                                  isMandatory: checkedValueLastDateAAUI,
+                                  selectedDateTime: (DateTime date) {
+                                    getIt<FaaCandidatePageBloc>()
+                                        .add(AauiLastDateInputEvent(date));
+                                  },
+                                  validator: (String? value) {
+                                    if (checkedValueLastDateAAUI) {
+                                      if (value!.isNotEmpty) return null;
+                                      return "Mohon diisi";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                )
+                              else
+                                Container(),
+                              const SizedBox(height: 8),
+                              CustomImagePicker(
+                                title: 'Surat Terminasi/Pengunduran Diri',
+                                isMandatory: false,
+                                onImagePicked: (value) {
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(AauiTerminationImageInputEvent(value));
+                                },
+                              ),
+                              const SizedBox(height: 8),
+                              CustomImagePicker(
+                                title: 'Surat Tidak Melakukan Twisting',
+                                isMandatory: false,
+                                onImagePicked: (value) {
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(AauiTerminationImageInputEvent(value));
+                                },
+                              ),
+                              const SizedBox(height: 8),
                               CustomImagePicker(
                                 title: 'Foto Lisensi AAUI',
                                 isMandatory: checkedValueAAUI,
@@ -125,6 +189,15 @@ class _AauiDataState extends State<AauiData> {
                                     state.imageLicenceAAUI.isNotValid
                                     ? 'Mohon diisi'
                                     : null,
+                              ),
+                              const SizedBox(height: 8),
+                              CustomImagePicker(
+                                title: 'Hasil Aktivasi Mobile Exam AAUI',
+                                isMandatory: false,
+                                onImagePicked: (value) {
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(AauiMobileActivationExamImageInputEvent(value));
+                                },
                               ),
                               const SizedBox(height: 16),
                             ],

@@ -732,10 +732,6 @@ class _PrivateDataState extends State<PrivateData> {
                                 setState(() {
                                   checkedValueTerminasi = newValue ?? false;
                                 });
-
-                                ///todo
-                                // getIt<FaaCandidatePageBloc>().add(
-                                //     MarriedCheckedInputEvent(newValue ?? false));
                               },
                               controlAffinity: ListTileControlAffinity
                                   .leading, //  <-- leading Checkbox

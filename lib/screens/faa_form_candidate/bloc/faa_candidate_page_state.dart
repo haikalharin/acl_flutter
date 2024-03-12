@@ -65,7 +65,8 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator npwpNo;
   final MandatoryFieldValidator bankNo;
   final MandatoryFieldValidator bankUserName;
-  final MandatoryFieldValidator bankName;
+  final DropdownFieldValidator bankNameId;
+  final AajicityMasterReference? bankName;
   final MandatoryFieldValidator bankBranch;
   final MandatoryFieldValidator npwpImage;
   final MandatoryFieldValidator bankUserBookImage;
@@ -92,16 +93,20 @@ class FaaCandidatePageState with FormzMixin {
   final DateTime? dateLastDateValueAAJI;
   final MandatoryFieldValidator terminationValueAAJIImage;
   final MandatoryFieldValidator notTwistingValueAAJIImage;
+  final MandatoryFieldValidator mobileActivationExamValueAAJIImage;
   final bool checkedLastDateValueAASI;
   final MandatoryFieldValidator dateLastDateValueAASIString;
   final DateTime? dateLastDateValueAASI;
   final MandatoryFieldValidator terminationValueAASIImage;
   final MandatoryFieldValidator notTwistingValueAASIImage;
+  final MandatoryFieldValidator mobileActivationExamValueAASIImage;
+
   final bool checkedLastDateValueAAUI;
   final MandatoryFieldValidator dateLastDateValueAAUIString;
   final DateTime? dateLastDateValueAAUI;
   final MandatoryFieldValidator terminationValueAAUIImage;
   final MandatoryFieldValidator notTwistingValueAAUIImage;
+  final MandatoryFieldValidator mobileActivationExamValueAAUIImage;
 
   ///Work Experience
 
@@ -216,7 +221,8 @@ class FaaCandidatePageState with FormzMixin {
     this.npwpNo = const MandatoryFieldValidator.pure(),
     this.bankNo = const MandatoryFieldValidator.pure(),
     this.bankUserName = const MandatoryFieldValidator.pure(),
-    this.bankName = const MandatoryFieldValidator.pure(),
+    this.bankName,
+    this.bankNameId = const DropdownFieldValidator.pure(),
     this.bankBranch = const MandatoryFieldValidator.pure(),
     this.npwpImage = const MandatoryFieldValidator.pure(),
     this.bankUserBookImage = const MandatoryFieldValidator.pure(),
@@ -238,16 +244,20 @@ class FaaCandidatePageState with FormzMixin {
     this.dateLastDateValueAAJI,
     this.terminationValueAAJIImage = const MandatoryFieldValidator.pure(),
     this.notTwistingValueAAJIImage = const MandatoryFieldValidator.pure(),
+    this.mobileActivationExamValueAAJIImage = const MandatoryFieldValidator.pure(),
     this.checkedLastDateValueAASI = false,
     this.dateLastDateValueAASIString = const MandatoryFieldValidator.pure(),
     this.dateLastDateValueAASI,
     this.terminationValueAASIImage = const MandatoryFieldValidator.pure(),
     this.notTwistingValueAASIImage = const MandatoryFieldValidator.pure(),
+    this.mobileActivationExamValueAASIImage = const MandatoryFieldValidator.pure(),
+
     this.checkedLastDateValueAAUI = false,
     this.dateLastDateValueAAUIString = const MandatoryFieldValidator.pure(),
     this.dateLastDateValueAAUI,
     this.terminationValueAAUIImage = const MandatoryFieldValidator.pure(),
     this.notTwistingValueAAUIImage = const MandatoryFieldValidator.pure(),
+    this.mobileActivationExamValueAAUIImage = const MandatoryFieldValidator.pure(),
 
     ///Education
     this.isJustAddEducation = false,
@@ -363,7 +373,7 @@ class FaaCandidatePageState with FormzMixin {
         npwpNo,
         bankNo,
         bankUserName,
-        bankName,
+        bankNameId,
         bankBranch,
         npwpImage,
         bankUserBookImage,
@@ -376,34 +386,28 @@ class FaaCandidatePageState with FormzMixin {
         data.addAll([
           noLicenceAAJI,
           imageLicenceAAJI,
-          prevCompanyAAJIId,
         ]);
       } else {
         data.remove(noLicenceAAJI);
         data.remove(noLicenceAAJI);
-        data.remove(prevCompanyAAJIId);
       }
       if (checkedValueAASI) {
         data.addAll([
           noLicenceAASI,
           imageLicenceAASI,
-          prevCompanyAASIId,
         ]);
       } else {
         data.remove(noLicenceAASI);
         data.remove(imageLicenceAASI);
-        data.remove(prevCompanyAASIId);
       }
       if (checkedValueAAUI) {
         data.addAll([
           noLicenceAAUI,
           imageLicenceAAUI,
-          prevCompanyAAUIId,
         ]);
       } else {
         data.remove(noLicenceAAUI);
         data.remove(imageLicenceAAUI);
-        data.remove(prevCompanyAAUIId);
       }
 
       if (checkedValueLastResign) {
@@ -486,7 +490,8 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? npwpNo,
     MandatoryFieldValidator? bankNo,
     MandatoryFieldValidator? bankUserName,
-    MandatoryFieldValidator? bankName,
+    AajicityMasterReference? bankName,
+    DropdownFieldValidator? bankNameId,
     MandatoryFieldValidator? bankBranch,
     MandatoryFieldValidator? npwpImage,
     MandatoryFieldValidator? bankUserBookImage,
@@ -508,16 +513,21 @@ class FaaCandidatePageState with FormzMixin {
     DateTime? dateLastDateValueAAJI,
     MandatoryFieldValidator? terminationValueAAJIImage,
     MandatoryFieldValidator? notTwistingValueAAJIImage,
+    MandatoryFieldValidator? mobileActivationExamValueAAJIImage,
+
     bool? checkedLastDateValueAASI,
     MandatoryFieldValidator? dateLastDateValueAASIString,
     DateTime? dateLastDateValueAASI,
     MandatoryFieldValidator? terminationValueAASIImage,
     MandatoryFieldValidator? notTwistingValueAASIImage,
+    MandatoryFieldValidator? mobileActivationExamValueAASIImage,
+
     bool? checkedLastDateValueAAUI,
     MandatoryFieldValidator? dateLastDateValueAAUIString,
     DateTime? dateLastDateValueAAUI,
     MandatoryFieldValidator? terminationValueAAUIImage,
     MandatoryFieldValidator? notTwistingValueAAUIImage,
+    MandatoryFieldValidator? mobileActivationExamValueAAUIImage,
 
     ///Education
     bool? isJustAddEducation,
@@ -639,6 +649,7 @@ class FaaCandidatePageState with FormzMixin {
       bankNo: bankNo ?? this.bankNo,
       bankUserName: bankUserName ?? this.bankUserName,
       bankName: bankName ?? this.bankName,
+      bankNameId: bankNameId ?? this.bankNameId,
       bankBranch: bankBranch ?? this.bankBranch,
       npwpImage: npwpImage ?? this.npwpImage,
       bankUserBookImage: bankUserBookImage ?? this.bankUserBookImage,
@@ -668,8 +679,11 @@ class FaaCandidatePageState with FormzMixin {
           terminationValueAAJIImage ?? this.terminationValueAAJIImage,
       notTwistingValueAAJIImage:
           notTwistingValueAAJIImage ?? this.notTwistingValueAAJIImage,
+      mobileActivationExamValueAAJIImage:
+      mobileActivationExamValueAAJIImage ?? this.mobileActivationExamValueAAJIImage,
+
       checkedLastDateValueAASI:
-          checkedLastDateValueAASI ?? this.checkedPrevCompanyValueAASI,
+      checkedLastDateValueAASI ?? this.checkedPrevCompanyValueAASI,
       dateLastDateValueAASIString:
           dateLastDateValueAASIString ?? this.dateLastDateValueAASIString,
       dateLastDateValueAASI:
@@ -678,6 +692,9 @@ class FaaCandidatePageState with FormzMixin {
           terminationValueAASIImage ?? this.terminationValueAASIImage,
       notTwistingValueAASIImage:
           notTwistingValueAASIImage ?? this.notTwistingValueAASIImage,
+      mobileActivationExamValueAASIImage:
+      mobileActivationExamValueAASIImage ?? this.mobileActivationExamValueAASIImage,
+
       checkedLastDateValueAAUI:
           checkedLastDateValueAAUI ?? this.checkedLastDateValueAAUI,
       dateLastDateValueAAUIString:
@@ -688,6 +705,8 @@ class FaaCandidatePageState with FormzMixin {
           terminationValueAAUIImage ?? this.terminationValueAAUIImage,
       notTwistingValueAAUIImage:
           notTwistingValueAAUIImage ?? this.notTwistingValueAAUIImage,
+      mobileActivationExamValueAAUIImage:
+      mobileActivationExamValueAAUIImage ?? this.mobileActivationExamValueAAUIImage,
 
       ///Education
       isJustAddEducation: isJustAddEducation ?? this.isJustAddEducation,

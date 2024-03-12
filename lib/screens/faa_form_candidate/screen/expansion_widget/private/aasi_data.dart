@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
+import '../../../../../common/widget/date_time_picker_form.dart';
 import '../../../../../common/widget/dropdown/drop_down_general.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
@@ -35,7 +36,7 @@ class _AasiDataState extends State<AasiData> {
   bool checkedValueMarriage = false;
   bool checkedValueKpm = false;
   bool checkedValueResign = false;
-  bool checkedValueTerminasi = false;
+  bool checkedValueLastDateAASI = false;
   var data = [
     LoginModel(name: 'adadada', uid: '1'),
     LoginModel(name: 'bccccc', uid: '2'),
@@ -88,13 +89,13 @@ class _AasiDataState extends State<AasiData> {
                                   ?.prevcompany
                                   ?.masterReference ??
                                   [],
-                              errorText: isCheck && state.prevCompanyAASIId.isNotValid
+                              errorText: state.checkedPrevCompanyValueAASI && isCheck && state.prevCompanyAASIId.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              isMandatory: checkedValueAASI,
+                              isMandatory:  state.checkedValueAAJI,
                               icon: const Icon(Icons.add_card_rounded),
                               readOnly:state.checkedValueAASI,
                               initialValue:
@@ -114,8 +115,71 @@ class _AasiDataState extends State<AasiData> {
                               },
                             ),
                             const SizedBox(height: 8),
+                            CheckboxListTile(
+                              title: const Text("Isi tanggal Akhir AASI"),
+                              value: checkedValueLastDateAASI,
+                              onChanged: (newValue) {
+                                getIt<FaaCandidatePageBloc>().add(
+                                    AasiLastDateCheckedInputEvent(
+                                        newValue ?? false));
+                                setState(() {
+                                  checkedValueLastDateAASI = newValue ?? false;
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            checkedValueLastDateAASI
+                                ? const SizedBox(height: 8)
+                                : Container(),
+                            if (checkedValueLastDateAASI)
+                              DateTimePickerForm(
+                                dateTime:
+                                mode == Mode.update ? DateTime.now() : null,
+                                labelText: "Pilih Tanggal",
+                                title: "Tanggal Akhir AASI",
+                                errorText: isCheck == true &&
+                                    state.dateLastDateValueAASIString
+                                        .isNotValid
+                                    ? 'Mohon diisi'
+                                    : null,
+                                isMandatory: checkedValueLastDateAASI,
+                                selectedDateTime: (DateTime date) {
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(AasiLastDateInputEvent(date));
+                                },
+                                validator: (String? value) {
+                                  if (checkedValueLastDateAASI) {
+                                    if (value!.isNotEmpty) return null;
+                                    return "Mohon diisi";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                              )
+                            else
+                              Container(),
+                            const SizedBox(height: 8),
                             CustomImagePicker(
-                              title: 'Foto Lisensi AASI',
+                              title: 'Surat Terminasi/Pengunduran Diri',
+                              isMandatory: false,
+                              onImagePicked: (value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AasiTerminationImageInputEvent(value));
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            CustomImagePicker(
+                              title: 'Surat Tidak Melakukan Twisting',
+                              isMandatory: false,
+                              onImagePicked: (value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AasiTerminationImageInputEvent(value));
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            CustomImagePicker(
+                              title: 'Foto Kartu AASI',
                               isMandatory: checkedValueAASI,
                               readOnly:state.checkedValueAASI,
                               initialImage: state.imageLicenceAASI.value,
@@ -128,6 +192,15 @@ class _AasiDataState extends State<AasiData> {
                                       state.imageLicenceAASI.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
+                            ),
+                            const SizedBox(height: 8),
+                            CustomImagePicker(
+                              title: 'Hasil Aktivasi Mobile Exam AASI',
+                              isMandatory: false,
+                              onImagePicked: (value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AasiMobileActivationExamImageInputEvent(value));
+                              },
                             ),
                             const SizedBox(height: 16),
                           ],

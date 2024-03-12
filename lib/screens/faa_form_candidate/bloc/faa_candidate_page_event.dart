@@ -231,10 +231,47 @@ class AajiCheckedInputEvent extends FaaCandidatePageEvent {
   AajiCheckedInputEvent([this.aajiChecked = false]);
 }
 
+class AajiPrevCompanyInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AajiPrevCompanyInputEvent(this.prevCompany);
+}
+
 class AajiNoInputEvent extends FaaCandidatePageEvent {
   final String aajiNo;
 
   AajiNoInputEvent(this.aajiNo);
+}
+
+class AajiLastDateCheckedInputEvent extends FaaCandidatePageEvent {
+  final bool aajiLastDateChecked;
+
+  AajiLastDateCheckedInputEvent([this.aajiLastDateChecked = false]);
+}
+
+class AajiLastDateInputEvent extends FaaCandidatePageEvent {
+  final DateTime value;
+
+  AajiLastDateInputEvent(this.value);
+}
+
+
+class AajiTerminationImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AajiTerminationImageInputEvent(this.valueImage);
+}
+
+class AajiNotTwistingImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AajiNotTwistingImageInputEvent(this.valueImage);
+}
+
+class AajiMobileActivationExamImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AajiMobileActivationExamImageInputEvent(this.valueImage);
 }
 
 class AajiImageInputEvent extends FaaCandidatePageEvent {
@@ -249,11 +286,48 @@ class AasiCheckedInputEvent extends FaaCandidatePageEvent {
   AasiCheckedInputEvent([this.aasiChecked = false]);
 }
 
+class AasiPrevCompanyInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AasiPrevCompanyInputEvent(this.prevCompany);
+}
+
 class AasiNoInputEvent extends FaaCandidatePageEvent {
   final String aasiNo;
 
   AasiNoInputEvent(this.aasiNo);
 }
+
+class AasiLastDateCheckedInputEvent extends FaaCandidatePageEvent {
+  final bool aasiLastDateChecked;
+
+  AasiLastDateCheckedInputEvent([this.aasiLastDateChecked = false]);
+}
+
+class AasiLastDateInputEvent extends FaaCandidatePageEvent {
+  final DateTime value;
+
+  AasiLastDateInputEvent(this.value);
+}
+
+class AasiTerminationImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AasiTerminationImageInputEvent(this.valueImage);
+}
+
+class AasiNotTwistingImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AasiNotTwistingImageInputEvent(this.valueImage);
+}
+
+class AasiMobileActivationExamImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AasiMobileActivationExamImageInputEvent(this.valueImage);
+}
+
 
 class AasiImageInputEvent extends FaaCandidatePageEvent {
   final String aasiImage;
@@ -267,10 +341,46 @@ class AauiCheckedInputEvent extends FaaCandidatePageEvent {
   AauiCheckedInputEvent([this.aauiChecked = false]);
 }
 
+class AauiPrevCompanyInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference prevCompany;
+
+  AauiPrevCompanyInputEvent(this.prevCompany);
+}
+
 class AauiNoInputEvent extends FaaCandidatePageEvent {
   final String aauiNo;
 
   AauiNoInputEvent(this.aauiNo);
+}
+
+class AauiLastDateCheckedInputEvent extends FaaCandidatePageEvent {
+  final bool aauiLastDateChecked;
+
+  AauiLastDateCheckedInputEvent([this.aauiLastDateChecked = false]);
+}
+
+class AauiLastDateInputEvent extends FaaCandidatePageEvent {
+  final DateTime value;
+
+  AauiLastDateInputEvent(this.value);
+}
+
+class AauiTerminationImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AauiTerminationImageInputEvent(this.valueImage);
+}
+
+class AauiNotTwistingImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AauiNotTwistingImageInputEvent(this.valueImage);
+}
+
+class AauiMobileActivationExamImageInputEvent extends FaaCandidatePageEvent {
+  final String valueImage;
+
+  AauiMobileActivationExamImageInputEvent(this.valueImage);
 }
 
 class AauiImageInputEvent extends FaaCandidatePageEvent {
@@ -279,23 +389,6 @@ class AauiImageInputEvent extends FaaCandidatePageEvent {
   AauiImageInputEvent(this.aauiImage);
 }
 
-class AajiPrevCompanyInputEvent extends FaaCandidatePageEvent {
-  final AajicityMasterReference prevCompany;
-
-  AajiPrevCompanyInputEvent(this.prevCompany);
-}
-
-class AasiPrevCompanyInputEvent extends FaaCandidatePageEvent {
-  final AajicityMasterReference prevCompany;
-
-  AasiPrevCompanyInputEvent(this.prevCompany);
-}
-
-class AauiPrevCompanyInputEvent extends FaaCandidatePageEvent {
-  final AajicityMasterReference prevCompany;
-
-  AauiPrevCompanyInputEvent(this.prevCompany);
-}
 
 class NpwpNoInputEvent extends FaaCandidatePageEvent {
   final String value;
@@ -316,7 +409,7 @@ class BankUserNameInputEvent extends FaaCandidatePageEvent {
 }
 
 class BankNameInputEvent extends FaaCandidatePageEvent {
-  final String value;
+  final AajicityMasterReference value;
 
   BankNameInputEvent(this.value);
 }

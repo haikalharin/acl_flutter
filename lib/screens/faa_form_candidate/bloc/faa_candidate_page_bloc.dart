@@ -105,8 +105,25 @@ class FaaCandidatePageBloc
     on<FaaAddAgentSubmittedEvent>(faaAddAgentSubmitted);
     on<FaaAddAgentDocSubmittedEvent>(faaAddAgentDocSubmitted);
     on<AajiPrevCompanyInputEvent>(aajiPrevCompanyInput);
+    on<AajiLastDateCheckedInputEvent>(aajiLastDateCheckedInput);
+    on<AajiLastDateInputEvent>(aajiLastDateInput);
+    on<AajiTerminationImageInputEvent>(imageTerminationAAJIInput);
+    on<AajiNotTwistingImageInputEvent>(imageNotTwistingAAJIInput);
+    on<AajiMobileActivationExamImageInputEvent>(imageMobileActivationExamAAJIInput);
+
     on<AasiPrevCompanyInputEvent>(aasiPrevCompanyInput);
+    on<AasiLastDateCheckedInputEvent>(aasiLastDateCheckedInput);
+    on<AasiLastDateInputEvent>(aasiLastDateInput);
+    on<AasiTerminationImageInputEvent>(imageTerminationAASIInput);
+    on<AasiNotTwistingImageInputEvent>(imageNotTwistingAASIInput);
+    on<AasiMobileActivationExamImageInputEvent>(imageMobileActivationExamAASIInput);
+
     on<AauiPrevCompanyInputEvent>(aauiPrevCompanyInput);
+    on<AauiLastDateCheckedInputEvent>(aauiLastDateCheckedInput);
+    on<AauiLastDateInputEvent>(aauiLastDateInput);
+    on<AauiTerminationImageInputEvent>(imageTerminationAAUIInput);
+    on<AauiNotTwistingImageInputEvent>(imageNotTwistingAAUIInput);
+    on<AauiMobileActivationExamImageInputEvent>(imageMobileActivationExamAAUIInput);
 
 
     on<KkImageInputEvent>(kkImageInput);
@@ -249,6 +266,16 @@ class FaaCandidatePageBloc
                     : const DropdownFieldValidator.pure(),
                 provinceId: listData.first.province != null
                     ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
+                    : const DropdownFieldValidator.pure(),
+
+                prevCompanyAAJIId: listData.first.prevCompany != null
+                    ? DropdownFieldValidator.dirty(listData.first.prevCompany ?? 0)
+                    : const DropdownFieldValidator.pure(),
+                prevCompanyAASIId: listData.first.prevCompanyAasi != null
+                    ? DropdownFieldValidator.dirty(listData.first.prevCompanyAasi ?? 0)
+                    : const DropdownFieldValidator.pure(),
+                prevCompanyAAUIId: listData.first.prevCompanyAaui != null
+                    ? DropdownFieldValidator.dirty(listData.first.prevCompanyAaui ?? 0)
                     : const DropdownFieldValidator.pure(),
                 identityImage: identityImage,
                 identitySelfieImage: identitySelfiImage,
@@ -702,71 +729,6 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> noLicenceAAJIInput(
-      AajiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final noLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiNo);
-    emit(state.copyWith(
-      noLicenceAAJI: noLicenceAAJI,
-      checkedValueAAJI: noLicenceAAJI.isValid,
-    ));
-  }
-
-  Future<void> imageLicenceAAJIInput(
-      AajiImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final imageLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiImage);
-    emit(state.copyWith(
-      imageLicenceAAJI: imageLicenceAAJI,
-    ));
-  }
-
-  Future<void> aasiCheckedInput(
-      AasiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    emit(state.copyWith(
-      checkedValueAASI: event.aasiChecked,
-    ));
-  }
-
-  Future<void> noLicenceAASIInput(
-      AasiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final noLicenceAASI = MandatoryFieldValidator.dirty(event.aasiNo);
-    emit(state.copyWith(
-      noLicenceAASI: noLicenceAASI,
-      checkedValueAASI: noLicenceAASI.isValid,
-    ));
-  }
-
-  Future<void> imageLicenceAASIInput(
-      AasiImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final imageLicenceAASI = MandatoryFieldValidator.dirty(event.aasiImage);
-    emit(state.copyWith(
-      imageLicenceAASI: imageLicenceAASI,
-    ));
-  }
-
-  Future<void> aauiCheckedInput(
-      AauiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    emit(state.copyWith(
-      checkedValueAAUI: event.aauiChecked,
-    ));
-  }
-
-  Future<void> noLicenceAAUIInput(
-      AauiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final noLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiNo);
-    emit(state.copyWith(
-      noLicenceAAUI: noLicenceAAUI,
-      checkedValueAAUI: noLicenceAAUI.isValid,
-    ));
-  }
-
-  Future<void> imageLicenceAAUIInput(
-      AauiImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final imageLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiImage);
-    emit(state.copyWith(
-      imageLicenceAAUI: imageLicenceAAUI,
-    ));
-  }
-
   Future<void> aajiPrevCompanyInput(AajiPrevCompanyInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
@@ -783,6 +745,79 @@ class FaaCandidatePageBloc
         prevCompanyAAJI: event.prevCompany,
       ));
     }
+  }
+
+
+
+  Future<void> noLicenceAAJIInput(
+      AajiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final noLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiNo);
+    emit(state.copyWith(
+      noLicenceAAJI: noLicenceAAJI,
+      checkedValueAAJI: noLicenceAAJI.isValid,
+    ));
+  }
+
+  Future<void> aajiLastDateCheckedInput(
+      AajiLastDateCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedLastDateValueAAJI: event.aajiLastDateChecked,
+    ));
+  }
+
+  Future<void> aajiLastDateInput(
+      AajiLastDateInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    var month = event.value.month.toString().length == 1
+        ? '0${event.value.month}'
+        : event.value.month;
+    var day = event.value.day.toString().length == 1
+        ? '0${event.value.day}'
+        : event.value.day;
+    var dateTime = "${event.value.year}-$month-$day";
+    final value = MandatoryFieldValidator.dirty(dateTime);
+    emit(state.copyWith(
+      dateLastDateValueAAJIString: value,
+      dateLastDateValueAAJI: event.value,
+    ));
+  }
+
+  Future<void> imageTerminationAAJIInput(
+      AajiTerminationImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      terminationValueAAJIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageNotTwistingAAJIInput(
+      AajiNotTwistingImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      notTwistingValueAAJIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageMobileActivationExamAAJIInput(
+      AajiMobileActivationExamImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      mobileActivationExamValueAAJIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageLicenceAAJIInput(
+      AajiImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final imageLicenceAAJI = MandatoryFieldValidator.dirty(event.aajiImage);
+    emit(state.copyWith(
+      imageLicenceAAJI: imageLicenceAAJI,
+    ));
+  }
+
+  Future<void> aasiCheckedInput(
+      AasiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueAASI: event.aasiChecked,
+    ));
   }
 
   Future<void> aasiPrevCompanyInput(AasiPrevCompanyInputEvent event,
@@ -802,6 +837,77 @@ class FaaCandidatePageBloc
       ));
     }
   }
+
+  Future<void> noLicenceAASIInput(
+      AasiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final noLicenceAASI = MandatoryFieldValidator.dirty(event.aasiNo);
+    emit(state.copyWith(
+      noLicenceAASI: noLicenceAASI,
+      checkedValueAASI: noLicenceAASI.isValid,
+    ));
+  }
+
+  Future<void> aasiLastDateCheckedInput(
+      AasiLastDateCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedLastDateValueAASI: event.aasiLastDateChecked,
+    ));
+  }
+
+  Future<void> aasiLastDateInput(
+      AasiLastDateInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    var month = event.value.month.toString().length == 1
+        ? '0${event.value.month}'
+        : event.value.month;
+    var day = event.value.day.toString().length == 1
+        ? '0${event.value.day}'
+        : event.value.day;
+    var dateTime = "${event.value.year}-$month-$day";
+    final value = MandatoryFieldValidator.dirty(dateTime);
+    emit(state.copyWith(
+      dateLastDateValueAASIString: value,
+      dateLastDateValueAASI: event.value,
+    ));
+  }
+
+  Future<void> imageTerminationAASIInput(
+      AasiTerminationImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      terminationValueAASIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageNotTwistingAASIInput(
+      AasiNotTwistingImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      notTwistingValueAASIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageMobileActivationExamAASIInput(
+      AasiMobileActivationExamImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      mobileActivationExamValueAASIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageLicenceAASIInput(
+      AasiImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final imageLicenceAASI = MandatoryFieldValidator.dirty(event.aasiImage);
+    emit(state.copyWith(
+      imageLicenceAASI: imageLicenceAASI,
+    ));
+  }
+
+  Future<void> aauiCheckedInput(
+      AauiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedValueAAUI: event.aauiChecked,
+    ));
+  }
   Future<void> aauiPrevCompanyInput(AauiPrevCompanyInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
@@ -819,6 +925,73 @@ class FaaCandidatePageBloc
       ));
     }
   }
+
+  Future<void> noLicenceAAUIInput(
+      AauiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final noLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiNo);
+    emit(state.copyWith(
+      noLicenceAAUI: noLicenceAAUI,
+      checkedValueAAUI: noLicenceAAUI.isValid,
+    ));
+  }
+
+  Future<void> aauiLastDateCheckedInput(
+      AauiLastDateCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      checkedLastDateValueAAUI: event.aauiLastDateChecked,
+    ));
+  }
+
+  Future<void> aauiLastDateInput(
+      AauiLastDateInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    var month = event.value.month.toString().length == 1
+        ? '0${event.value.month}'
+        : event.value.month;
+    var day = event.value.day.toString().length == 1
+        ? '0${event.value.day}'
+        : event.value.day;
+    var dateTime = "${event.value.year}-$month-$day";
+    final value = MandatoryFieldValidator.dirty(dateTime);
+    emit(state.copyWith(
+      dateLastDateValueAAUIString: value,
+      dateLastDateValueAAUI: event.value,
+    ));
+  }
+
+  Future<void> imageTerminationAAUIInput(
+      AauiTerminationImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      terminationValueAAUIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageNotTwistingAAUIInput(
+      AauiNotTwistingImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      notTwistingValueAAUIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageMobileActivationExamAAUIInput(
+      AauiMobileActivationExamImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
+    emit(state.copyWith(
+      mobileActivationExamValueAAUIImage: valueImage,
+    ));
+  }
+
+  Future<void> imageLicenceAAUIInput(
+      AauiImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final imageLicenceAAUI = MandatoryFieldValidator.dirty(event.aauiImage);
+    emit(state.copyWith(
+      imageLicenceAAUI: imageLicenceAAUI,
+    ));
+  }
+
+
+
 
   Future<void> npwpNoInput(
       NpwpNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
@@ -843,14 +1016,23 @@ class FaaCandidatePageBloc
       bankUserName: value,
     ));
   }
-
   Future<void> bankNameInput(
       BankNameInputEvent event, Emitter<FaaCandidatePageState> emit) async {
-    final value = MandatoryFieldValidator.dirty(event.value);
-    emit(state.copyWith(
-      bankName: value,
-    ));
+    if (event.value.id == 0 || event.value.id == null) {
+      const valueId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        bankNameId: valueId,
+        bankName: null,
+      ));
+    } else {
+      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        bankNameId: valueId,
+        bankName: event.value,
+      ));
+    }
   }
+
 
   Future<void> bankBranchInput(
       BankBranchInputEvent event, Emitter<FaaCandidatePageState> emit) async {
@@ -1047,7 +1229,7 @@ class FaaCandidatePageBloc
           aajiExpired: state.candidateDataModel?.aajiExpired ?? '',
           aasiExpired: state.candidateDataModel?.aasiExpired ?? '',
           bankAccount: state.bankNo.value,
-          bankName: state.bankName.value,
+          bankName: state.bankNameId.value.toString(),
           bankBranch: state.bankBranch.value,
           bankAccountName: state.bankUserName.value,
           npwpNo: state.npwpNo.value,
@@ -1159,6 +1341,25 @@ class FaaCandidatePageBloc
           stringBase: state.imageLicenceAAJI.value,
         ));
       }
+
+      if (state.terminationValueAAJIImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "SURAT TERMINASI",
+          name: "SURAT TERMINASI",
+          stringBase: state.terminationValueAAJIImage.value,
+        ));
+      }
+      if (state.notTwistingValueAAJIImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "SURAT TIDAK MELAKUKAN TWISTING",
+          name: "SURAT TIDAK MELAKUKAN TWISTING",
+          stringBase: state.notTwistingValueAAJIImage.value,
+        ));
+      }
       if (state.imageLicenceAASI.isValid) {
         listDoc.add(RequestCandidateDocModel(
           agentCode: loginModel.uid,
@@ -1166,6 +1367,25 @@ class FaaCandidatePageBloc
           docType: "KARTU LISENSI AASI",
           name: "KARTU LISENSI AASI",
           stringBase: state.imageLicenceAASI.value,
+        ));
+      }
+
+      if (state.terminationValueAASIImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "SURAT TERMINASI AASI",
+          name: "SURAT TERMINASI AASI",
+          stringBase: state.terminationValueAASIImage.value,
+        ));
+      }
+      if (state.notTwistingValueAASIImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "SURAT TIDAK MELAKUKAN TWISTING AASI",
+          name: "SURAT TIDAK MELAKUKAN TWISTING AASI",
+          stringBase: state.notTwistingValueAASIImage.value,
         ));
       }
       if (state.imageLicenceAAUI.isValid) {
@@ -1177,6 +1397,26 @@ class FaaCandidatePageBloc
           stringBase: state.imageLicenceAAJI.value,
         ));
       }
+
+      if (state.terminationValueAAUIImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "SURAT TERMINASI AAUI",
+          name: "SURAT TERMINASI AAUI",
+          stringBase: state.terminationValueAAUIImage.value,
+        ));
+      }
+      if (state.notTwistingValueAAUIImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "SURAT TIDAK MELAKUKAN TWISTING AAUI",
+          name: "SURAT TIDAK MELAKUKAN TWISTING AAUI",
+          stringBase: state.notTwistingValueAAUIImage.value,
+        ));
+      }
+
       if (state.kkImage.isValid) {
         listDoc.add(RequestCandidateDocModel(
           agentCode: loginModel.uid,
