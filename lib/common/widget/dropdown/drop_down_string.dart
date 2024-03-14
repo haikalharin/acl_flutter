@@ -1,5 +1,8 @@
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_helper/source/utility/colors/color_palette.dart';
+import 'package:flutter_helper/source/utility/device_info/device.dart';
+import 'package:flutter_helper/source/utility/text/uifont.dart';
 import 'package:search_choices/search_choices.dart';
 
 import '../../../data/model/master_data_model/master_data_model.dart';
@@ -16,6 +19,10 @@ class DropDownString extends StatefulWidget {
         this.title,
         this.icon,
         this.errorText,
+        this.desktopFactor = 1.0,
+        this.tabletFactor = 1.0,
+        this.mobileFactor = 1.0,
+        this.smallMobileFactor = 1.0,
         this.isMandatory = true,
         this.displayClearIcon = true,
         this.readOnly = false,
@@ -34,6 +41,11 @@ class DropDownString extends StatefulWidget {
   final bool readOnly;
   final bool isCheck;
   final bool displayClearIcon;
+  final double desktopFactor;
+  final double tabletFactor;
+  final double mobileFactor;
+  final double smallMobileFactor;
+
 
   @override
   State<DropDownString> createState() =>
@@ -60,49 +72,40 @@ class _DropDownStringState extends State<DropDownString> {
 
   @override
   Widget build(BuildContext context) {
+    var scaleFactor = Device.getScaleFactor(context, widget.desktopFactor,
+        widget.tabletFactor, widget.mobileFactor, widget.smallMobileFactor);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Expanded(
-              child: Container(
-                  margin: const EdgeInsets.only(left: 15),
-                  child: RichText(
-                    textAlign: TextAlign.start,
-                    maxLines: 5,
-                    text: TextSpan(
-                      // Note: Styles for TextSpans must be explicitly defined.
-                      // Child text spans will inherit styles from parent
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.black,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: widget.title ?? '',
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                              color: AclColors.greyDarkFontColor,
-                            )),
-                        widget.isMandatory
-                            ? const TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: AclColors.red,
-                                ))
-                            : const TextSpan(),
-                        TextSpan(
-                            text: widget.errorText ?? '',
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                            color: AclColors.red,
-                          ),),
-                      ],
-                    ),
-                  )),
-            ),
+            Container(
+                margin: const EdgeInsets.only(left: 15),
+                child: Text(widget.title ?? '',
+                    style:  TextStyle(
+                      fontSize: 12.0 *scaleFactor,
+                      fontWeight:  UIFont.getFontWeightFrom(UIFontSystem.bold),
+                      color: ColorPalette.blue,
+                    ))),
+            widget.isMandatory
+                ?  Container(
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
+                child: const Text(
+                  '*',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: ColorPalette.blue,
+                  ),
+                )):Container(),
+            Container(
+                margin: const EdgeInsets.only(left: 5, bottom: 5),
+                child: Text(
+                  widget.errorText ?? '',
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    color: AclColors.red,
+                  ),
+                ))
           ],
         ),
         const SizedBox(height: 5),

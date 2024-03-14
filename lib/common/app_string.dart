@@ -24,4 +24,6 @@ class AppString {
   static const textExperience =
       "Apakah anda pernah bekerja sebagai Agen/Leader "
       "di PT Asuransi Allianz Life Indonesia/PT Asuransi Allianz Life Syariah Indonesia?";
+static const textSpouseIsAgent =
+    "Apakah pasangan Anda (Suami/istri) adalah Agen/Leader Allianz?";
 }

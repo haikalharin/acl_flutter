@@ -1,5 +1,6 @@
 import 'package:acl_flutter/common/app_extension.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/aaji_data.dart';
+import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/aaui_data.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/heirs_data.dart';
 import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/private/private_data.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import '../expansion_widget/private/aasi_data.dart';
 import '../expansion_widget/private/appendix_data.dart';
 import '../expansion_widget/private/npwp_and_bank_data.dart';
 import '../expansion_widget/private/source_of_recruiting_information.dart';
+import '../expansion_widget/private/spouse_data.dart';
 import '../faa_form_candidate_page.dart';
 
 enum Mode { create, update }
@@ -65,7 +67,15 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                 const SizedBox(height: 8),
                 AasiData(formKey: formKey),
                 const SizedBox(height: 8),
+                (state.candidateDataModel?.aauiActiveFlag ?? false)
+                    ? AauiData(formKey: formKey)
+                    : Container(),
+                const SizedBox(height: 8),
                 NpwpAndBankData(formKey: formKey),
+                const SizedBox(height: 8),
+                state.martialStatusId.isValid
+                    ? SpouseData(formKey: formKey)
+                    : Container(),
                 const SizedBox(height: 8),
                 SourceOfRecruitingInformation(formKey: formKey),
                 const SizedBox(height: 8),

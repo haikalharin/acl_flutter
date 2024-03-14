@@ -108,6 +108,15 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator notTwistingValueAAUIImage;
   final MandatoryFieldValidator mobileActivationExamValueAAUIImage;
 
+  final MandatoryFieldValidator firstNamePartner;
+  final AajicityMasterReference? relation;
+  final DropdownFieldValidator relationId;
+  final MandatoryFieldValidator spouseIsAgent;
+  final MandatoryFieldValidator directUnitName;
+  final AajicityMasterReference? spousePosition;
+  final DropdownFieldValidator spousePositionId;
+  final MandatoryFieldValidator agentCode;
+
   ///Work Experience
 
   final bool isJustAddExperience;
@@ -142,13 +151,11 @@ class FaaCandidatePageState with FormzMixin {
 
   final IdentityNoValidator kkNo;
   final MandatoryFieldValidator kkImage;
-  final MandatoryFieldValidator firstNamePartner;
+
   final MandatoryFieldValidator middleNamePartner;
   final MandatoryFieldValidator lastNamePartner;
   final MandatoryFieldValidator dobPartner;
   final IdentityNoValidator identityNoPartner;
-  final AajicityMasterReference? relation;
-  final DropdownFieldValidator relationId;
 
   final bool checkedNeedValueAAUI;
   final bool checkedValueMarriage;
@@ -210,8 +217,6 @@ class FaaCandidatePageState with FormzMixin {
     this.terminationImage = const MandatoryFieldValidator.pure(),
     this.notTwistingImage = const MandatoryFieldValidator.pure(),
     this.heirsName = const MandatoryFieldValidator.pure(),
-    this.heirsRelation,
-    this.heirsRelationId = const DropdownFieldValidator.pure(),
     this.noLicenceAAJI = const MandatoryFieldValidator.pure(),
     this.imageLicenceAAJI = const MandatoryFieldValidator.pure(),
     this.noLicenceAASI = const MandatoryFieldValidator.pure(),
@@ -244,20 +249,30 @@ class FaaCandidatePageState with FormzMixin {
     this.dateLastDateValueAAJI,
     this.terminationValueAAJIImage = const MandatoryFieldValidator.pure(),
     this.notTwistingValueAAJIImage = const MandatoryFieldValidator.pure(),
-    this.mobileActivationExamValueAAJIImage = const MandatoryFieldValidator.pure(),
+    this.mobileActivationExamValueAAJIImage =
+        const MandatoryFieldValidator.pure(),
     this.checkedLastDateValueAASI = false,
     this.dateLastDateValueAASIString = const MandatoryFieldValidator.pure(),
     this.dateLastDateValueAASI,
     this.terminationValueAASIImage = const MandatoryFieldValidator.pure(),
     this.notTwistingValueAASIImage = const MandatoryFieldValidator.pure(),
-    this.mobileActivationExamValueAASIImage = const MandatoryFieldValidator.pure(),
-
+    this.mobileActivationExamValueAASIImage =
+        const MandatoryFieldValidator.pure(),
     this.checkedLastDateValueAAUI = false,
     this.dateLastDateValueAAUIString = const MandatoryFieldValidator.pure(),
     this.dateLastDateValueAAUI,
     this.terminationValueAAUIImage = const MandatoryFieldValidator.pure(),
     this.notTwistingValueAAUIImage = const MandatoryFieldValidator.pure(),
-    this.mobileActivationExamValueAAUIImage = const MandatoryFieldValidator.pure(),
+    this.mobileActivationExamValueAAUIImage =
+        const MandatoryFieldValidator.pure(),
+    this.firstNamePartner = const MandatoryFieldValidator.pure(),
+    this.heirsRelation,
+    this.heirsRelationId = const DropdownFieldValidator.pure(),
+    this.spouseIsAgent = const MandatoryFieldValidator.pure(),
+    this.directUnitName = const MandatoryFieldValidator.pure(),
+    this.spousePosition,
+    this.spousePositionId = const DropdownFieldValidator.pure(),
+    this.agentCode = const MandatoryFieldValidator.pure(),
 
     ///Education
     this.isJustAddEducation = false,
@@ -290,7 +305,6 @@ class FaaCandidatePageState with FormzMixin {
     this.addCompanyModel,
     this.kkNo = const IdentityNoValidator.pure(),
     this.kkImage = const MandatoryFieldValidator.pure(),
-    this.firstNamePartner = const MandatoryFieldValidator.pure(),
     this.middleNamePartner = const MandatoryFieldValidator.pure(),
     this.lastNamePartner = const MandatoryFieldValidator.pure(),
     this.dobPartner = const MandatoryFieldValidator.pure(),
@@ -380,9 +394,20 @@ class FaaCandidatePageState with FormzMixin {
         sourceInformation,
         appendixValueId,
         appendixImage,
+        spouseIsAgent,
+        firstNamePartner,
+        relationId,
+        directUnitName,
+        spousePositionId,
+        agentCode,
       ]);
 
       if (checkedValueAAJI) {
+        if (checkedPrevCompanyValueAAJI) {
+          data.add(prevCompanyAAJIId);
+        } else {
+          data.remove(prevCompanyAAJIId);
+        }
         data.addAll([
           noLicenceAAJI,
           imageLicenceAAJI,
@@ -392,6 +417,11 @@ class FaaCandidatePageState with FormzMixin {
         data.remove(noLicenceAAJI);
       }
       if (checkedValueAASI) {
+        if (checkedPrevCompanyValueAASI) {
+          data.add(prevCompanyAASIId);
+        } else {
+          data.remove(prevCompanyAASIId);
+        }
         data.addAll([
           noLicenceAASI,
           imageLicenceAASI,
@@ -401,6 +431,11 @@ class FaaCandidatePageState with FormzMixin {
         data.remove(imageLicenceAASI);
       }
       if (checkedValueAAUI) {
+        if (checkedPrevCompanyValueAAUI) {
+          data.add(prevCompanyAAUIId);
+        } else {
+          data.remove(prevCompanyAAUIId);
+        }
         data.addAll([
           noLicenceAAUI,
           imageLicenceAAUI,
@@ -514,20 +549,26 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? terminationValueAAJIImage,
     MandatoryFieldValidator? notTwistingValueAAJIImage,
     MandatoryFieldValidator? mobileActivationExamValueAAJIImage,
-
     bool? checkedLastDateValueAASI,
     MandatoryFieldValidator? dateLastDateValueAASIString,
     DateTime? dateLastDateValueAASI,
     MandatoryFieldValidator? terminationValueAASIImage,
     MandatoryFieldValidator? notTwistingValueAASIImage,
     MandatoryFieldValidator? mobileActivationExamValueAASIImage,
-
     bool? checkedLastDateValueAAUI,
     MandatoryFieldValidator? dateLastDateValueAAUIString,
     DateTime? dateLastDateValueAAUI,
     MandatoryFieldValidator? terminationValueAAUIImage,
     MandatoryFieldValidator? notTwistingValueAAUIImage,
     MandatoryFieldValidator? mobileActivationExamValueAAUIImage,
+    MandatoryFieldValidator? spouseIsAgent,
+    MandatoryFieldValidator? firstNamePartner,
+    AajicityMasterReference? relation,
+    DropdownFieldValidator? relationId,
+    MandatoryFieldValidator? directUnitName,
+    AajicityMasterReference? spousePosition,
+    DropdownFieldValidator? spousePositionId,
+    MandatoryFieldValidator? agentCode,
 
     ///Education
     bool? isJustAddEducation,
@@ -564,13 +605,10 @@ class FaaCandidatePageState with FormzMixin {
 
     IdentityNoValidator? kkNo,
     MandatoryFieldValidator? kkImage,
-    MandatoryFieldValidator? firstNamePartner,
     MandatoryFieldValidator? middleNamePartner,
     MandatoryFieldValidator? lastNamePartner,
     MandatoryFieldValidator? dobPartner,
     IdentityNoValidator? identityNoPartner,
-    AajicityMasterReference? relation,
-    DropdownFieldValidator? relationId,
     bool? checkedValueAAJI,
     bool? checkedValueAASI,
     bool? checkedNeedValueAAUI,
@@ -679,11 +717,11 @@ class FaaCandidatePageState with FormzMixin {
           terminationValueAAJIImage ?? this.terminationValueAAJIImage,
       notTwistingValueAAJIImage:
           notTwistingValueAAJIImage ?? this.notTwistingValueAAJIImage,
-      mobileActivationExamValueAAJIImage:
-      mobileActivationExamValueAAJIImage ?? this.mobileActivationExamValueAAJIImage,
+      mobileActivationExamValueAAJIImage: mobileActivationExamValueAAJIImage ??
+          this.mobileActivationExamValueAAJIImage,
 
       checkedLastDateValueAASI:
-      checkedLastDateValueAASI ?? this.checkedPrevCompanyValueAASI,
+          checkedLastDateValueAASI ?? this.checkedPrevCompanyValueAASI,
       dateLastDateValueAASIString:
           dateLastDateValueAASIString ?? this.dateLastDateValueAASIString,
       dateLastDateValueAASI:
@@ -692,8 +730,8 @@ class FaaCandidatePageState with FormzMixin {
           terminationValueAASIImage ?? this.terminationValueAASIImage,
       notTwistingValueAASIImage:
           notTwistingValueAASIImage ?? this.notTwistingValueAASIImage,
-      mobileActivationExamValueAASIImage:
-      mobileActivationExamValueAASIImage ?? this.mobileActivationExamValueAASIImage,
+      mobileActivationExamValueAASIImage: mobileActivationExamValueAASIImage ??
+          this.mobileActivationExamValueAASIImage,
 
       checkedLastDateValueAAUI:
           checkedLastDateValueAAUI ?? this.checkedLastDateValueAAUI,
@@ -705,8 +743,17 @@ class FaaCandidatePageState with FormzMixin {
           terminationValueAAUIImage ?? this.terminationValueAAUIImage,
       notTwistingValueAAUIImage:
           notTwistingValueAAUIImage ?? this.notTwistingValueAAUIImage,
-      mobileActivationExamValueAAUIImage:
-      mobileActivationExamValueAAUIImage ?? this.mobileActivationExamValueAAUIImage,
+      mobileActivationExamValueAAUIImage: mobileActivationExamValueAAUIImage ??
+          this.mobileActivationExamValueAAUIImage,
+
+      spouseIsAgent: spouseIsAgent ?? this.spouseIsAgent,
+      firstNamePartner: firstNamePartner ?? this.firstNamePartner,
+      relation: relation ?? this.relation,
+      relationId: relationId ?? this.relationId,
+      directUnitName: directUnitName ?? this.directUnitName,
+      spousePosition: spousePosition ?? this.spousePosition,
+      spousePositionId: spousePositionId ?? this.spousePositionId,
+      agentCode: agentCode ?? this.agentCode,
 
       ///Education
       isJustAddEducation: isJustAddEducation ?? this.isJustAddEducation,
@@ -742,13 +789,10 @@ class FaaCandidatePageState with FormzMixin {
       ///
       kkNo: kkNo ?? this.kkNo,
       kkImage: kkImage ?? this.kkImage,
-      firstNamePartner: firstNamePartner ?? this.firstNamePartner,
       middleNamePartner: middleNamePartner ?? this.middleNamePartner,
       lastNamePartner: lastNamePartner ?? this.lastNamePartner,
       dobPartner: dobPartner ?? this.dobPartner,
       identityNoPartner: identityNoPartner ?? this.identityNoPartner,
-      relation: relation ?? this.relation,
-      relationId: relationId ?? this.relationId,
 
       checkedValueAAJI: checkedValueAAJI ?? this.checkedValueAAJI,
       checkedValueAASI: checkedValueAASI ?? this.checkedValueAASI,

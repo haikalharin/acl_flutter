@@ -449,6 +449,43 @@ class AppendixImageInputEvent extends FaaCandidatePageEvent {
 
   AppendixImageInputEvent(this.value);
 }
+//todo
+class SpouseIsAgentInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  SpouseIsAgentInputEvent(this.value);
+}
+
+class FirstNamePartnerInputEvent extends FaaCandidatePageEvent {
+  final String firstNamePartner;
+
+  FirstNamePartnerInputEvent(this.firstNamePartner);
+}
+
+class RelationPartnerInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference relation;
+
+  RelationPartnerInputEvent(this.relation);
+}
+
+class DirectUnitNameInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  DirectUnitNameInputEvent(this.value);
+}
+
+class PositionSpouseInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference value;
+
+  PositionSpouseInputEvent(this.value);
+}
+class AgentCodeInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  AgentCodeInputEvent(this.value);
+}
+
+//todo
 
 class FaaAddAgentSubmittedEvent extends FaaCandidatePageEvent {
   FaaAddAgentSubmittedEvent();
@@ -476,11 +513,6 @@ class MarriedCheckedInputEvent extends FaaCandidatePageEvent {
   MarriedCheckedInputEvent([this.marriedChecked = false]);
 }
 
-class FirstNamePartnerInputEvent extends FaaCandidatePageEvent {
-  final String firstNamePartner;
-
-  FirstNamePartnerInputEvent(this.firstNamePartner);
-}
 
 class MiddleNamePartnerInputEvent extends FaaCandidatePageEvent {
   final String middleNamePartner;
@@ -506,12 +538,6 @@ class PartnerIdentityNoInputEvent extends FaaCandidatePageEvent {
   PartnerIdentityNoInputEvent(this.partnerIdentityNo);
 }
 
-
-class RelationPartnerInputEvent extends FaaCandidatePageEvent {
-  final AajicityMasterReference relation;
-
-  RelationPartnerInputEvent(this.relation);
-}
 
 
 class FaaCandidatePageInitialEvent extends FaaCandidatePageEvent {

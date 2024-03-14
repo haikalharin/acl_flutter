@@ -125,6 +125,17 @@ class FaaCandidatePageBloc
     on<AauiNotTwistingImageInputEvent>(imageNotTwistingAAUIInput);
     on<AauiMobileActivationExamImageInputEvent>(imageMobileActivationExamAAUIInput);
 
+    //todo
+    // on<SpouseIsAgentInputEvent>(spouseIsAgentInput);
+    on<FirstNamePartnerInputEvent>(firstNamePartnerInput);
+    on<RelationPartnerInputEvent>(relationPartnerInput);
+    // on<DirectUnitNameInputEvent>(directUnitNameInput);
+    // on<PositionSpouseInputEvent>(positionSpouseInput);
+    // on<AgentCodeInputEvent>(agentCodeInput);
+
+    //todo
+
+
 
     on<KkImageInputEvent>(kkImageInput);
     on<MarriedCheckedInputEvent>(marriedCheckedInputEvent);
@@ -260,8 +271,9 @@ class FaaCandidatePageBloc
                     ? MandatoryFieldValidator.dirty(
                         listData.first.firstName ?? '')
                     : const MandatoryFieldValidator.pure(),
-                martialStatusId: listData.first.maritalStatus != null
+                martialStatusId: state.candidateDataFamilyModel != null
                     ? DropdownFieldValidator.dirty(
+                  //todo
                         listData.first.maritalStatus ?? 0)
                     : const DropdownFieldValidator.pure(),
                 provinceId: listData.first.province != null

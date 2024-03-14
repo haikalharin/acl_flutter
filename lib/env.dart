@@ -13,7 +13,7 @@
 
 // env dev allianz
 final Map<String, dynamic> devEnvironment = <String, dynamic>{
-  'host': 'https://igbeyewo.allianz.co.id/acl/app',
+  'host': 'https://igbeyewo.allianz.co.id/acl/services',
   'host_new': 'https://acl-api-nonprd.allianz.co.id',
   'sub_host': '/di/epregnancy/api',
   'receive_timeout': const Duration(milliseconds: 15000),
@@ -25,7 +25,7 @@ final Map<String, dynamic> devEnvironment = <String, dynamic>{
 };
 
 final Map<String, dynamic> environment = <String, dynamic>{
-  'host': 'https://igbeyewo.allianz.co.id/acl/app',
+  'host': 'https://igbeyewo.allianz.co.id/acl/services',
   'host_new': 'https://acl-api-nonprd.allianz.co.id',
   'sub_host': '/di/komunitaz/api',
   'receive_timeout': const Duration(milliseconds: 15000),
@@ -36,7 +36,7 @@ final Map<String, dynamic> environment = <String, dynamic>{
  };
 
 final Map<String, dynamic> stagingEnvironment = <String, dynamic>{
-  'host': 'https://igbeyewo.allianz.co.id/acl/app',
+  'host': 'https://igbeyewo.allianz.co.id/acl/services',
   'host_new': 'https://acl-api-nonprd.allianz.co.id',
   'sub_host': '/di/epregnancy/uat/api',
   'receive_timeout': const Duration(milliseconds: 15000),
