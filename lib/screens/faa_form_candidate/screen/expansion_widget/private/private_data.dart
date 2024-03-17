@@ -813,7 +813,7 @@ class _PrivateDataState extends State<PrivateData> {
                                     .add(TerminationImageInputEvent(value));
                               },
                               errorText: isCheck &&
-                                      state.identitySelfieImage.isNotValid
+                                      state.terminationImage.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
                             ),
@@ -825,7 +825,7 @@ class _PrivateDataState extends State<PrivateData> {
                                     .add(NotTwistingImageInputEvent(value));
                               },
                               errorText: isCheck &&
-                                      state.identitySelfieImage.isNotValid
+                                      state.notTwistingImage.isNotValid
                                   ? 'Mohon diisi'
                                   : null,
                             ),

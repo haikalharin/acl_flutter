@@ -77,8 +77,8 @@ class _SpouseDataState extends State<SpouseData> {
                                   color: AclColors.greyDarkFontColor,
                                 ),
                                 onChanged: (String value) {
-                                  // getIt<FaaCandidatePageBloc>()
-                                  //     .add(CheckEmployeeInputEvent(value));
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(SpouseIsAgentInputEvent(value));
                                 },
                                 items: const ['Ya', 'Tidak'],
                                 errorText: isCheck &&
@@ -91,8 +91,8 @@ class _SpouseDataState extends State<SpouseData> {
                                 icon: const Icon(Icons.person),
                                 labelText: "Nama Agen/Leader",
                                 onChanged: (String value) {
-                                  // getIt<FaaCandidatePageBloc>()
-                                  //     .add(NpwpNoInputEvent(value));
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(FirstNamePartnerInputEvent(value));
                                 },
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;
@@ -107,8 +107,8 @@ class _SpouseDataState extends State<SpouseData> {
                                   color: AclColors.greyDarkFontColor,
                                 ),
                                 onChanged: (AajicityMasterReference value) {
-                                  // getIt<AddCandidatePageBloc>()
-                                  //     .add(RelationPartnerInputEvent(value));
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(RelationPartnerInputEvent(value));
                                 },
                                 items: state
                                     .masterDataModel
@@ -129,8 +129,8 @@ class _SpouseDataState extends State<SpouseData> {
                                 labelText: "Nama Direct Unit/Agency",
                                 keyboardType: TextInputType.phone,
                                 onChanged: (String value) {
-                                  // getIt<FaaCandidatePageBloc>()
-                                  //     .add(BankNoInputEvent(value));
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(DirectUnitNameInputEvent(value));
                                 },
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;
@@ -149,8 +149,8 @@ class _SpouseDataState extends State<SpouseData> {
                                       color: AclColors.greyDarkFontColor,
                                     ),
                                     onChanged: (AajicityMasterReference value) {
-                                      // getIt<FaaCandidatePageBloc>()
-                                      //     .add(PositionInputEvent(value));
+                                      getIt<FaaCandidatePageBloc>()
+                                          .add(PositionSpouseInputEvent(value));
                                     },
                                     items: state
                                         .masterDataModel
@@ -160,7 +160,7 @@ class _SpouseDataState extends State<SpouseData> {
                                         ?.masterReference ??
                                         [],
                                     errorText: isCheck == true &&
-                                        state.positionId.isNotValid
+                                        state.spousePositionId.isNotValid
                                         ? 'Mohon diisi'
                                         : null,
                                   );
@@ -171,8 +171,8 @@ class _SpouseDataState extends State<SpouseData> {
                                 icon: const Icon(Icons.person),
                                 labelText: "Kode Agen",
                                 onChanged: (String value) {
-                                  // getIt<FaaCandidatePageBloc>()
-                                  //     .add(BankUserNameInputEvent(value));
+                                  getIt<FaaCandidatePageBloc>()
+                                      .add(AgentCodeInputEvent(value));
                                 },
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;

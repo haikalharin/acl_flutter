@@ -109,42 +109,41 @@ class FaaCandidatePageBloc
     on<AajiLastDateInputEvent>(aajiLastDateInput);
     on<AajiTerminationImageInputEvent>(imageTerminationAAJIInput);
     on<AajiNotTwistingImageInputEvent>(imageNotTwistingAAJIInput);
-    on<AajiMobileActivationExamImageInputEvent>(imageMobileActivationExamAAJIInput);
+    on<AajiMobileActivationExamImageInputEvent>(
+        imageMobileActivationExamAAJIInput);
 
     on<AasiPrevCompanyInputEvent>(aasiPrevCompanyInput);
     on<AasiLastDateCheckedInputEvent>(aasiLastDateCheckedInput);
     on<AasiLastDateInputEvent>(aasiLastDateInput);
     on<AasiTerminationImageInputEvent>(imageTerminationAASIInput);
     on<AasiNotTwistingImageInputEvent>(imageNotTwistingAASIInput);
-    on<AasiMobileActivationExamImageInputEvent>(imageMobileActivationExamAASIInput);
+    on<AasiMobileActivationExamImageInputEvent>(
+        imageMobileActivationExamAASIInput);
 
     on<AauiPrevCompanyInputEvent>(aauiPrevCompanyInput);
     on<AauiLastDateCheckedInputEvent>(aauiLastDateCheckedInput);
     on<AauiLastDateInputEvent>(aauiLastDateInput);
     on<AauiTerminationImageInputEvent>(imageTerminationAAUIInput);
     on<AauiNotTwistingImageInputEvent>(imageNotTwistingAAUIInput);
-    on<AauiMobileActivationExamImageInputEvent>(imageMobileActivationExamAAUIInput);
+    on<AauiMobileActivationExamImageInputEvent>(
+        imageMobileActivationExamAAUIInput);
 
     //todo
-    // on<SpouseIsAgentInputEvent>(spouseIsAgentInput);
+    on<SpouseIsAgentInputEvent>(spouseIsAgentInput);
     on<FirstNamePartnerInputEvent>(firstNamePartnerInput);
     on<RelationPartnerInputEvent>(relationPartnerInput);
-    // on<DirectUnitNameInputEvent>(directUnitNameInput);
-    // on<PositionSpouseInputEvent>(positionSpouseInput);
-    // on<AgentCodeInputEvent>(agentCodeInput);
+    on<DirectUnitNameInputEvent>(directUnitNameInput);
+    on<PositionSpouseInputEvent>(positionSpouseInput);
+    on<AgentCodeInputEvent>(agentCodeInput);
 
     //todo
-
-
 
     on<KkImageInputEvent>(kkImageInput);
     on<MarriedCheckedInputEvent>(marriedCheckedInputEvent);
-    on<FirstNamePartnerInputEvent>(firstNamePartnerInput);
     on<MiddleNamePartnerInputEvent>(middleNamePartnerInput);
     on<LastNamePartnerInputEvent>(lastNamePartnerInput);
     on<DobPartnerInputEvent>(dobPartnerInput);
     on<PartnerIdentityNoInputEvent>(partnerIdentityNoInput);
-    on<RelationPartnerInputEvent>(relationPartnerInput);
     on<FaaCandidatePageInitialEvent>(faaCandidatePageInitial);
     on<FetchCandidateDataEvent>(fetchCandidateData);
 
@@ -222,8 +221,11 @@ class FaaCandidatePageBloc
         final result = await candidateRepository.getCandidateDataDoc(
             agentCode: user.uid ?? '', candidateId: event.candidateId);
         await result.when(success: (response) async {
+          var privateImage = const MandatoryFieldValidator.pure();
           var identityImage = const MandatoryFieldValidator.pure();
           var identitySelfiImage = const MandatoryFieldValidator.pure();
+          var terminationImage = const MandatoryFieldValidator.pure();
+          var notTwistingImage = const MandatoryFieldValidator.pure();
           var imageLicenceAAJI = const MandatoryFieldValidator.pure();
           var imageLicenceAASI = const MandatoryFieldValidator.pure();
           var imageLicenceAAUI = const MandatoryFieldValidator.pure();
@@ -233,6 +235,9 @@ class FaaCandidatePageBloc
           List<DocumentsResponseModel> listImage = response.data;
 
           listImage.forEach((element) {
+            if (element.key == 30010101) {
+              privateImage = MandatoryFieldValidator.dirty(element.value ?? '');
+            }
             if (element.key == 11010201) {
               identityImage =
                   MandatoryFieldValidator.dirty(element.value ?? '');
@@ -241,7 +246,27 @@ class FaaCandidatePageBloc
               identitySelfiImage =
                   MandatoryFieldValidator.dirty(element.value ?? '');
             }
+            if (element.key == 30020117) {
+              notTwistingImage =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+            }
+            if (element.key == 30020123) {
+              terminationImage =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+            }
             if (element.key == 30020110) {
+              imageLicenceAAJI =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+              checkedValueAAJI = true;
+            } if (element.key == 30020110) {
+              imageLicenceAAJI =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+              checkedValueAAJI = true;
+            } if (element.key == 30020110) {
+              imageLicenceAAJI =
+                  MandatoryFieldValidator.dirty(element.value ?? '');
+              checkedValueAAJI = true;
+            } if (element.key == 30020110) {
               imageLicenceAAJI =
                   MandatoryFieldValidator.dirty(element.value ?? '');
               checkedValueAAJI = true;
@@ -273,42 +298,45 @@ class FaaCandidatePageBloc
                     : const MandatoryFieldValidator.pure(),
                 martialStatusId: state.candidateDataFamilyModel != null
                     ? DropdownFieldValidator.dirty(
-                  //todo
+                        //todo
                         listData.first.maritalStatus ?? 0)
                     : const DropdownFieldValidator.pure(),
                 provinceId: listData.first.province != null
                     ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
                     : const DropdownFieldValidator.pure(),
-
                 prevCompanyAAJIId: listData.first.prevCompany != null
-                    ? DropdownFieldValidator.dirty(listData.first.prevCompany ?? 0)
+                    ? DropdownFieldValidator.dirty(
+                        listData.first.prevCompany ?? 0)
                     : const DropdownFieldValidator.pure(),
                 prevCompanyAASIId: listData.first.prevCompanyAasi != null
-                    ? DropdownFieldValidator.dirty(listData.first.prevCompanyAasi ?? 0)
+                    ? DropdownFieldValidator.dirty(
+                        listData.first.prevCompanyAasi ?? 0)
                     : const DropdownFieldValidator.pure(),
                 prevCompanyAAUIId: listData.first.prevCompanyAaui != null
-                    ? DropdownFieldValidator.dirty(listData.first.prevCompanyAaui ?? 0)
+                    ? DropdownFieldValidator.dirty(
+                        listData.first.prevCompanyAaui ?? 0)
                     : const DropdownFieldValidator.pure(),
+                privateImage: privateImage,
                 identityImage: identityImage,
                 identitySelfieImage: identitySelfiImage,
+                terminationImage: terminationImage,
+                notTwistingImage: notTwistingImage,
                 imageLicenceAAJI: imageLicenceAAJI,
                 imageLicenceAASI: imageLicenceAASI,
                 imageLicenceAAUI: imageLicenceAAUI,
-                checkedPrevCompanyValueAAJI: listData.first.prevCompany != null? true:false,
-                checkedPrevCompanyValueAASI: listData.first.prevCompanyAasi != null? true:false,
-                checkedPrevCompanyValueAAUI: listData.first.prevCompanyAaui != null? true:false,
+                checkedPrevCompanyValueAAJI:
+                    listData.first.prevCompany != null ? true : false,
+                checkedPrevCompanyValueAASI:
+                    listData.first.prevCompanyAasi != null ? true : false,
+                checkedPrevCompanyValueAAUI:
+                    listData.first.prevCompanyAaui != null ? true : false,
                 checkedValueAAJI: checkedValueAAJI,
                 checkedValueAASI: checkedValueAASI,
                 checkedValueAAUI: checkedValueAAUI,
-                martialStatus:state
-                    .masterDataModel
-                    ?.masterData
-                    ?.masterReferenceAll
-                    ?.maritalstatus
-                    ?.masterReference
+                martialStatus: state.masterDataModel?.masterData
+                    ?.masterReferenceAll?.maritalstatus?.masterReference
                     ?.where((element) =>
-                element.id ==
-                    (listData.first.maritalStatus??0))
+                        element.id == (listData.first.maritalStatus ?? 0))
                     .toList()
                     .first,
                 candidateDataFamilyModel: response.data,
@@ -628,12 +656,14 @@ class FaaCandidatePageBloc
       lastWorkExperience: value,
     ));
   }
-  Future<void> checkedLastResignDateInput(
-      CheckedLastResignDateInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+
+  Future<void> checkedLastResignDateInput(CheckedLastResignDateInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueLastResign: event.checkedLastResign,
     ));
   }
+
   Future<void> lastResignDateInput(LastResignDateInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     var month = event.date.month.toString().length == 1
@@ -651,7 +681,8 @@ class FaaCandidatePageBloc
   }
 
   Future<void> checkedTerminationDateInput(
-      CheckedTerminationDateInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+      CheckedTerminationDateInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedValueTermination: event.checkedTerminationDateInput,
     ));
@@ -714,8 +745,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> heirsRelationInput(
-      HeirsRelationInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> heirsRelationInput(HeirsRelationInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     if (event.value.id == 0 || event.value.id == null) {
       const value = DropdownFieldValidator.pure();
       emit(state.copyWith(
@@ -723,16 +754,13 @@ class FaaCandidatePageBloc
         heirsRelation: null,
       ));
     } else {
-      final occupationId =
-      DropdownFieldValidator.dirty(event.value.id ?? 0);
+      final occupationId = DropdownFieldValidator.dirty(event.value.id ?? 0);
       emit(state.copyWith(
         heirsRelationId: occupationId,
         heirsRelation: event.value,
       ));
     }
   }
-
-
 
   Future<void> aajiCheckedInput(
       AajiCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
@@ -751,15 +779,13 @@ class FaaCandidatePageBloc
       ));
     } else {
       final prevCompanyId =
-      DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+          DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
       emit(state.copyWith(
         prevCompanyAAJIId: prevCompanyId,
         prevCompanyAAJI: event.prevCompany,
       ));
     }
   }
-
-
 
   Future<void> noLicenceAAJIInput(
       AajiNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
@@ -770,8 +796,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> aajiLastDateCheckedInput(
-      AajiLastDateCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> aajiLastDateCheckedInput(AajiLastDateCheckedInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedLastDateValueAAJI: event.aajiLastDateChecked,
     ));
@@ -793,16 +819,16 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> imageTerminationAAJIInput(
-      AajiTerminationImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> imageTerminationAAJIInput(AajiTerminationImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       terminationValueAAJIImage: valueImage,
     ));
   }
 
-  Future<void> imageNotTwistingAAJIInput(
-      AajiNotTwistingImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> imageNotTwistingAAJIInput(AajiNotTwistingImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       notTwistingValueAAJIImage: valueImage,
@@ -810,7 +836,8 @@ class FaaCandidatePageBloc
   }
 
   Future<void> imageMobileActivationExamAAJIInput(
-      AajiMobileActivationExamImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+      AajiMobileActivationExamImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       mobileActivationExamValueAAJIImage: valueImage,
@@ -842,7 +869,7 @@ class FaaCandidatePageBloc
       ));
     } else {
       final prevCompanyId =
-      DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+          DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
       emit(state.copyWith(
         prevCompanyAASIId: prevCompanyId,
         prevCompanyAASI: event.prevCompany,
@@ -859,8 +886,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> aasiLastDateCheckedInput(
-      AasiLastDateCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> aasiLastDateCheckedInput(AasiLastDateCheckedInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedLastDateValueAASI: event.aasiLastDateChecked,
     ));
@@ -882,16 +909,16 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> imageTerminationAASIInput(
-      AasiTerminationImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> imageTerminationAASIInput(AasiTerminationImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       terminationValueAASIImage: valueImage,
     ));
   }
 
-  Future<void> imageNotTwistingAASIInput(
-      AasiNotTwistingImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> imageNotTwistingAASIInput(AasiNotTwistingImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       notTwistingValueAASIImage: valueImage,
@@ -899,7 +926,8 @@ class FaaCandidatePageBloc
   }
 
   Future<void> imageMobileActivationExamAASIInput(
-      AasiMobileActivationExamImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+      AasiMobileActivationExamImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       mobileActivationExamValueAASIImage: valueImage,
@@ -920,6 +948,7 @@ class FaaCandidatePageBloc
       checkedValueAAUI: event.aauiChecked,
     ));
   }
+
   Future<void> aauiPrevCompanyInput(AauiPrevCompanyInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     if (event.prevCompany.id == 0 || event.prevCompany.id == null) {
@@ -930,7 +959,7 @@ class FaaCandidatePageBloc
       ));
     } else {
       final prevCompanyId =
-      DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
+          DropdownFieldValidator.dirty(event.prevCompany.id ?? 0);
       emit(state.copyWith(
         prevCompanyAAUIId: prevCompanyId,
         prevCompanyAAUI: event.prevCompany,
@@ -947,8 +976,8 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> aauiLastDateCheckedInput(
-      AauiLastDateCheckedInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> aauiLastDateCheckedInput(AauiLastDateCheckedInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
       checkedLastDateValueAAUI: event.aauiLastDateChecked,
     ));
@@ -970,16 +999,16 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> imageTerminationAAUIInput(
-      AauiTerminationImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> imageTerminationAAUIInput(AauiTerminationImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       terminationValueAAUIImage: valueImage,
     ));
   }
 
-  Future<void> imageNotTwistingAAUIInput(
-      AauiNotTwistingImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> imageNotTwistingAAUIInput(AauiNotTwistingImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       notTwistingValueAAUIImage: valueImage,
@@ -987,7 +1016,8 @@ class FaaCandidatePageBloc
   }
 
   Future<void> imageMobileActivationExamAAUIInput(
-      AauiMobileActivationExamImageInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+      AauiMobileActivationExamImageInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final valueImage = MandatoryFieldValidator.dirty(event.valueImage);
     emit(state.copyWith(
       mobileActivationExamValueAAUIImage: valueImage,
@@ -1002,8 +1032,72 @@ class FaaCandidatePageBloc
     ));
   }
 
+  Future<void> spouseIsAgentInput(SpouseIsAgentInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final spouseIsAgent = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      spouseIsAgent: spouseIsAgent,
+    ));
+  }
 
+  Future<void> firstNamePartnerInput(FirstNamePartnerInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final firstNamePartner =
+        MandatoryFieldValidator.dirty(event.firstNamePartner);
+    emit(state.copyWith(
+      firstNamePartner: firstNamePartner,
+    ));
+  }
 
+  Future<void> relationPartnerInput(RelationPartnerInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.relation.id == 0 || event.relation.id == null) {
+      const relationId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        relationId: relationId,
+        relation: null,
+      ));
+    } else {
+      final relationId = DropdownFieldValidator.dirty(event.relation.id ?? 0);
+      emit(state.copyWith(
+        relationId: relationId,
+        relation: event.relation,
+      ));
+    }
+  }
+
+  Future<void> directUnitNameInput(DirectUnitNameInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      directUnitName: value,
+    ));
+  }
+
+  Future<void> positionSpouseInput(PositionSpouseInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.id == 0 || event.value.id == null) {
+      const valueId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        spousePositionId: valueId,
+        spousePosition: null,
+      ));
+    } else {
+      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        spousePositionId: valueId,
+        spousePosition: event.value,
+      ));
+    }
+  }
+
+  Future<void> agentCodeInput(
+      AgentCodeInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      agentCode: value,
+    ));
+  }
 
   Future<void> npwpNoInput(
       NpwpNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
@@ -1028,6 +1122,7 @@ class FaaCandidatePageBloc
       bankUserName: value,
     ));
   }
+
   Future<void> bankNameInput(
       BankNameInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     if (event.value.id == 0 || event.value.id == null) {
@@ -1044,7 +1139,6 @@ class FaaCandidatePageBloc
       ));
     }
   }
-
 
   Future<void> bankBranchInput(
       BankBranchInputEvent event, Emitter<FaaCandidatePageState> emit) async {
@@ -1119,15 +1213,6 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> firstNamePartnerInput(FirstNamePartnerInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
-    final firstNamePartner =
-        MandatoryFieldValidator.dirty(event.firstNamePartner);
-    emit(state.copyWith(
-      firstNamePartner: firstNamePartner,
-    ));
-  }
-
   Future<void> middleNamePartnerInput(MiddleNamePartnerInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     final middleNamePartner =
@@ -1161,23 +1246,6 @@ class FaaCandidatePageBloc
     emit(state.copyWith(
       identityNoPartner: identityNoPartner,
     ));
-  }
-
-  Future<void> relationPartnerInput(RelationPartnerInputEvent event,
-      Emitter<FaaCandidatePageState> emit) async {
-    if (event.relation.id == 0 || event.relation.id == null) {
-      const relationId = DropdownFieldValidator.pure();
-      emit(state.copyWith(
-        relationId: relationId,
-        relation: null,
-      ));
-    } else {
-      final relationId = DropdownFieldValidator.dirty(event.relation.id ?? 0);
-      emit(state.copyWith(
-        relationId: relationId,
-        relation: event.relation,
-      ));
-    }
   }
 
   Future<void> marriedCheckedInputEvent(MarriedCheckedInputEvent event,
@@ -1254,12 +1322,14 @@ class FaaCandidatePageBloc
           npwpZipCode: '',
           spouseName:
               '${state.candidateDataFamilyModel?.familyDetails?.first.firstName ?? ''} ${state.candidateDataFamilyModel?.familyDetails?.first.middleName ?? ''} ${state.candidateDataFamilyModel?.familyDetails?.first.lastName ?? ''}',
-          spouseDob: state.candidateDataFamilyModel?.familyDetails?.first.dateOfBirth??'',
-          spouseJob: '',
-          spouseRelation: state.candidateDataFamilyModel?.familyDetails?.first.relation??'',
-          spouseIsAgent: '',
-          spouseAgentCode: '',
-          spouseUnit: '',
+          spouseDob: state
+                  .candidateDataFamilyModel?.familyDetails?.first.dateOfBirth ??
+              '',
+          spouseJob: state.spousePositionId.value.toString(),
+          spouseRelation: state.relationId.value.toString(),
+          spouseIsAgent: state.spouseIsAgent.value,
+          spouseAgentCode: state.agentCode.value,
+          spouseUnit: state.directUnitName.value,
           isReinstate: '',
           leaderSignatureDate: '',
           leaderSignatureCity: '',
@@ -1337,7 +1407,6 @@ class FaaCandidatePageBloc
       }
     }
   }
-
 
   Future<int?> _sendDoc() async {
     try {
@@ -1458,6 +1527,36 @@ class FaaCandidatePageBloc
           stringBase: state.identitySelfieImage.value,
         ));
       }
+
+      if (state.privateImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "PHOTO",
+          name: "PHOTO",
+          stringBase: state.privateImage.value,
+        ));
+      }
+      if (state.terminationImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "SURAT RESIGN ATAU TERMINASI",
+          name: "SURAT RESIGN ATAU TERMINASI",
+          stringBase: state.terminationImage.value,
+        ));
+      }
+
+      if (state.notTwistingImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: "SURAT TIDAK MELAKUKAN TWISTING",
+          name: "SURAT TIDAK MELAKUKAN TWISTING",
+          stringBase: state.notTwistingImage.value,
+        ));
+      }
+
       int failureTotal = 0;
       for (var element in listDoc) {
         final result =
