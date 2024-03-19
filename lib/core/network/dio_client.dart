@@ -52,7 +52,7 @@ class DioClient {
     }
 
     dio
-      ..options.baseUrl = Configurations.hostNew
+      ..options.baseUrl = Configurations.host
       ..options.headers = ApiConfig.header
       ..options.connectTimeout = ApiConfig.connectionTimeout
       ..options.receiveTimeout = ApiConfig.receiveTimeout
