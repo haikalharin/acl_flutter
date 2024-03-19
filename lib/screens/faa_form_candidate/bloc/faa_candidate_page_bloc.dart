@@ -298,8 +298,7 @@ class FaaCandidatePageBloc
                     : const MandatoryFieldValidator.pure(),
                 martialStatusId: state.candidateDataFamilyModel != null
                     ? DropdownFieldValidator.dirty(
-                        //todo
-                        listData.first.maritalStatus ?? 0)
+                        11)
                     : const DropdownFieldValidator.pure(),
                 provinceId: listData.first.province != null
                     ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
