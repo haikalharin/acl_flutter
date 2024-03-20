@@ -141,6 +141,11 @@ Future<void> init() async {
   getIt.registerLazySingleton<AddRegisterCandidatePrivateDataApi>(
       () => AddRegisterCandidatePrivateDataApi(dioClient: getIt<DioClient>()));
 
+  // AddRegisterCandidatePrivateData api
+  getIt.registerLazySingleton<GetCandidateFamilyDataApi>(
+          () => GetCandidateFamilyDataApi(dioClient: getIt<DioClient>()));
+
+
   // User repository
   getIt.registerLazySingleton<UserRepository>(
     () => UserRepository(userApi: getIt<UserApi>()),
@@ -160,10 +165,12 @@ Future<void> init() async {
     () => CommentRepository(commentApi: getIt<CommentApi>()),
   );
 
-  // Login repository
+  //Login repository
   getIt.registerLazySingleton<LoginRepository>(
     () => LoginRepository(loginApi: getIt<LoginApi>()),
   );
+
+
 
   // candidate repository
   getIt.registerLazySingleton<CandidateRepository>(
