@@ -84,7 +84,7 @@ class _HeirsDataState extends State<HeirsData> {
                                   FaaCandidatePageState>(
                                 builder: (context, state) {
                                   return DropDownGeneralSecondFaa(
-                                    title: 'Status Pernikahan',
+                                    title: 'Hubungan ahli waris',
                                     icon: const Icon(
                                       Icons.account_balance_rounded,
                                       color: AclColors.greyDarkFontColor,

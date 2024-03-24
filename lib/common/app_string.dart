@@ -26,4 +26,6 @@ class AppString {
       "di PT Asuransi Allianz Life Indonesia/PT Asuransi Allianz Life Syariah Indonesia?";
 static const textSpouseIsAgent =
     "Apakah pasangan Anda (Suami/istri) adalah Agen/Leader Allianz?";
+  static const textSpouseIsAgentInAllianz =
+      "Apakah Pasangan atau keluarga dekat anda terdaftar sebagai agen di Perusahaan Grup Allianz?";
 }

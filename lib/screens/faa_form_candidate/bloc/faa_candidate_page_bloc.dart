@@ -229,6 +229,7 @@ class FaaCandidatePageBloc
           var imageLicenceAAJI = const MandatoryFieldValidator.pure();
           var imageLicenceAASI = const MandatoryFieldValidator.pure();
           var imageLicenceAAUI = const MandatoryFieldValidator.pure();
+          var martialStatusId = const DropdownFieldValidator.pure();
           var checkedValueAAJI = false;
           var checkedValueAASI = false;
           var checkedValueAAUI = false;
@@ -258,15 +259,18 @@ class FaaCandidatePageBloc
               imageLicenceAAJI =
                   MandatoryFieldValidator.dirty(element.value ?? '');
               checkedValueAAJI = true;
-            } if (element.key == 30020110) {
+            }
+            if (element.key == 30020110) {
               imageLicenceAAJI =
                   MandatoryFieldValidator.dirty(element.value ?? '');
               checkedValueAAJI = true;
-            } if (element.key == 30020110) {
+            }
+            if (element.key == 30020110) {
               imageLicenceAAJI =
                   MandatoryFieldValidator.dirty(element.value ?? '');
               checkedValueAAJI = true;
-            } if (element.key == 30020110) {
+            }
+            if (element.key == 30020110) {
               imageLicenceAAJI =
                   MandatoryFieldValidator.dirty(element.value ?? '');
               checkedValueAAJI = true;
@@ -288,87 +292,61 @@ class FaaCandidatePageBloc
           final result = await candidateRepository
               .getCandidateFamilyData(event.candidateId);
           result.when(success: (response) async {
-            emit(state.copyWith(
-
-                ///todo
-                candidateDataModel: listData.first,
-                firstName: listData.first.firstName!.isNotEmpty
-                    ? MandatoryFieldValidator.dirty(
-                        listData.first.firstName ?? '')
-                    : const MandatoryFieldValidator.pure(),
-                martialStatusId: state.candidateDataFamilyModel != null
-                    ? DropdownFieldValidator.dirty(
-                        11)
-                    : const DropdownFieldValidator.pure(),
-                provinceId: listData.first.province != null
-                    ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
-                    : const DropdownFieldValidator.pure(),
-                prevCompanyAAJIId: listData.first.prevCompany != null
-                    ? DropdownFieldValidator.dirty(
-                        listData.first.prevCompany ?? 0)
-                    : const DropdownFieldValidator.pure(),
-                prevCompanyAASIId: listData.first.prevCompanyAasi != null
-                    ? DropdownFieldValidator.dirty(
-                        listData.first.prevCompanyAasi ?? 0)
-                    : const DropdownFieldValidator.pure(),
-                prevCompanyAAUIId: listData.first.prevCompanyAaui != null
-                    ? DropdownFieldValidator.dirty(
-                        listData.first.prevCompanyAaui ?? 0)
-                    : const DropdownFieldValidator.pure(),
-                privateImage: privateImage,
-                identityImage: identityImage,
-                identitySelfieImage: identitySelfiImage,
-                terminationImage: terminationImage,
-                notTwistingImage: notTwistingImage,
-                imageLicenceAAJI: imageLicenceAAJI,
-                imageLicenceAASI: imageLicenceAASI,
-                imageLicenceAAUI: imageLicenceAAUI,
-                checkedPrevCompanyValueAAJI:
-                    listData.first.prevCompany != null ? true : false,
-                checkedPrevCompanyValueAASI:
-                    listData.first.prevCompanyAasi != null ? true : false,
-                checkedPrevCompanyValueAAUI:
-                    listData.first.prevCompanyAaui != null ? true : false,
-                checkedValueAAJI: checkedValueAAJI,
-                checkedValueAASI: checkedValueAASI,
-                checkedValueAAUI: checkedValueAAUI,
-                martialStatus: state.masterDataModel?.masterData
-                    ?.masterReferenceAll?.maritalstatus?.masterReference
-                    ?.where((element) =>
-                        element.id == (listData.first.maritalStatus ?? 0))
-                    .toList()
-                    .first,
-                candidateDataFamilyModel: response.data,
-                message: 'success-get-candidate-data',
-                submitStatus: FormzSubmissionStatus.success));
+            martialStatusId = const DropdownFieldValidator.dirty(11);
           }, failure: (error) {
-            emit(state.copyWith(
-
-                ///todo
-                candidateDataModel: listData.first,
-                firstName: listData.first.firstName!.isNotEmpty
-                    ? MandatoryFieldValidator.dirty(
-                        listData.first.firstName ?? '')
-                    : const MandatoryFieldValidator.pure(),
-                martialStatusId: listData.first.maritalStatus != null
-                    ? DropdownFieldValidator.dirty(
-                        listData.first.maritalStatus ?? 0)
-                    : const DropdownFieldValidator.pure(),
-                provinceId: listData.first.province != null
-                    ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
-                    : const DropdownFieldValidator.pure(),
-                identityImage: identityImage,
-                identitySelfieImage: identitySelfiImage,
-                imageLicenceAAJI: imageLicenceAAJI,
-                imageLicenceAASI: imageLicenceAASI,
-                imageLicenceAAUI: imageLicenceAAUI,
-                checkedValueAAJI: checkedValueAAJI,
-                checkedValueAASI: checkedValueAASI,
-                checkedValueAAUI: checkedValueAAUI,
-                candidateDataFamilyModel: FamilyCardModel(),
-                message: 'success-get-candidate-data',
-                submitStatus: FormzSubmissionStatus.success));
+            martialStatusId = const DropdownFieldValidator.pure();
           });
+
+          emit(state.copyWith(
+
+              ///todo
+              candidateDataModel: listData.first,
+              firstName: listData.first.firstName!.isNotEmpty
+                  ? MandatoryFieldValidator.dirty(
+                      listData.first.firstName ?? '')
+                  : const MandatoryFieldValidator.pure(),
+              martialStatusId: martialStatusId,
+              provinceId: listData.first.province != null
+                  ? DropdownFieldValidator.dirty(listData.first.province ?? 0)
+                  : const DropdownFieldValidator.pure(),
+              prevCompanyAAJIId: listData.first.prevCompany != null
+                  ? DropdownFieldValidator.dirty(
+                      listData.first.prevCompany ?? 0)
+                  : const DropdownFieldValidator.pure(),
+              prevCompanyAASIId: listData.first.prevCompanyAasi != null
+                  ? DropdownFieldValidator.dirty(
+                      listData.first.prevCompanyAasi ?? 0)
+                  : const DropdownFieldValidator.pure(),
+              prevCompanyAAUIId: listData.first.prevCompanyAaui != null
+                  ? DropdownFieldValidator.dirty(
+                      listData.first.prevCompanyAaui ?? 0)
+                  : const DropdownFieldValidator.pure(),
+              privateImage: privateImage,
+              identityImage: identityImage,
+              identitySelfieImage: identitySelfiImage,
+              terminationImage: terminationImage,
+              notTwistingImage: notTwistingImage,
+              imageLicenceAAJI: imageLicenceAAJI,
+              imageLicenceAASI: imageLicenceAASI,
+              imageLicenceAAUI: imageLicenceAAUI,
+              checkedPrevCompanyValueAAJI:
+                  listData.first.prevCompany != null ? true : false,
+              checkedPrevCompanyValueAASI:
+                  listData.first.prevCompanyAasi != null ? true : false,
+              checkedPrevCompanyValueAAUI:
+                  listData.first.prevCompanyAaui != null ? true : false,
+              checkedValueAAJI: checkedValueAAJI,
+              checkedValueAASI: checkedValueAASI,
+              checkedValueAAUI: checkedValueAAUI,
+              martialStatus: state.masterDataModel?.masterData
+                  ?.masterReferenceAll?.maritalstatus?.masterReference
+                  ?.where((element) =>
+                      element.id == (listData.first.maritalStatus ?? 0))
+                  .toList()
+                  .first,
+              candidateDataFamilyModel: response.data,
+              message: 'success-get-candidate-data',
+              submitStatus: FormzSubmissionStatus.success));
         }, failure: (error) {
           emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
         });

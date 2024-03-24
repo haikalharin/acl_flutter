@@ -100,7 +100,7 @@ class _SpouseDataState extends State<SpouseData> {
                                 },
                               ),
                               const SizedBox(height: 8),
-                              DropDownGeneral(
+                              DropDownGeneralFaa(
                                 title: 'Hubungan Suami/Istr',
                                 icon: const Icon(
                                   Icons.add_chart,

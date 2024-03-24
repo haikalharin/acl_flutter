@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../common/widget/custom_image_picker.dart';
 import '../../../../../common/widget/date_time_picker_form.dart';
 import '../../../../../common/widget/dropdown/drop_down_general.dart';
+import '../../../../../common/widget/dropdown/drop_down_general_faa.dart';
 import '../../../../../common/widget/text_input.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
@@ -70,7 +71,7 @@ class _AajiDataState extends State<AajiData> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const SizedBox(height: 8),
-                            DropDownGeneral(
+                            DropDownGeneralFaa(
                               title: 'Perusahaan sebelumnya',
                               isMandatory: state.checkedPrevCompanyValueAAJI,
                               readOnly: state.checkedPrevCompanyValueAAJI,

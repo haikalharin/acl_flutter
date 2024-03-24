@@ -1,3 +1,4 @@
+import 'package:acl_flutter/common/widget/dropdown/drop_down_general_faa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,7 +69,7 @@ class _AauiDataState extends State<AauiData> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const SizedBox(height: 8),
-                              DropDownGeneral(
+                              DropDownGeneralFaa(
                                 title: 'Perusahaan sebelumnya',
                                 isMandatory: state.checkedPrevCompanyValueAAUI,
                                 readOnly: state.checkedPrevCompanyValueAAUI,
@@ -84,7 +85,7 @@ class _AauiDataState extends State<AauiData> {
                                     .masterDataModel
                                     ?.masterData
                                     ?.masterReferenceAll
-                                    ?.prevcompany
+                                    ?.prevcompanyaaui
                                     ?.masterReference ??
                                     [],
                                 errorText:state.checkedPrevCompanyValueAAUI && isCheck && state.prevCompanyAAUIId.isNotValid

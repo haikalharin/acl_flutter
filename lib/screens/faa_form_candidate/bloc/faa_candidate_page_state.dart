@@ -4,6 +4,7 @@ class FaaCandidatePageState with FormzMixin {
   final FormzSubmissionStatus submitStatus;
   final String? message;
   final TabType tabType;
+  final PutDataType putDataType;
   final String? moveTo;
   final MasterDataModel? masterDataModel;
   final CandidateModel? candidateModel;
@@ -118,7 +119,6 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator agentCode;
 
   ///Work Experience
-
   final bool isJustAddExperience;
   final MandatoryFieldValidator checkIsEmployee;
   final MandatoryFieldValidator statusEmployee;
@@ -163,6 +163,7 @@ class FaaCandidatePageState with FormzMixin {
   const FaaCandidatePageState({
     this.message = '',
     this.tabType = TabType.private,
+    this.putDataType = PutDataType.isInit,
     this.moveTo,
     this.masterDataModel,
     this.candidateModel,
@@ -352,107 +353,113 @@ class FaaCandidatePageState with FormzMixin {
         data.add(educationStatus);
       }
     } else if (tabType == TabType.private) {
-      data.clear();
-      data.addAll([
-        firstName,
-        middleName,
-        lastName,
-        positionId,
-        identityNo,
-        martialStatusId,
-        pob,
-        dobString,
-        genderId,
-        nationality,
-        religionId,
-        address,
-        rtRw,
-        kecKel,
-        postalCode,
-        countryId,
-        provinceId,
-        cityId,
-        phone,
-        handphone,
-        email,
-        occupationId,
-        lastWorkExperience,
-        privateImage,
-        identityImage,
-        identitySelfieImage,
-        terminationImage,
-        notTwistingImage,
-        heirsName,
-        heirsRelationId,
-        npwpNo,
-        bankNo,
-        bankUserName,
-        bankNameId,
-        bankBranch,
-        npwpImage,
-        bankUserBookImage,
-        sourceInformation,
-        appendixValueId,
-        appendixImage,
-        spouseIsAgent,
-        firstNamePartner,
-        relationId,
-        directUnitName,
-        spousePositionId,
-        agentCode,
-      ]);
-
-      if (checkedValueAAJI) {
-        if (checkedPrevCompanyValueAAJI) {
-          data.add(prevCompanyAAJIId);
+      if (putDataType == PutDataType.isAgentInAllianz) {
+        data.clear();
+      } else if (putDataType == PutDataType.isAgentInOthers) {
+        data.clear();
+      } else if (putDataType == PutDataType.isEmployeeInAllianz) {
+        data.clear();
+      } else {
+        data.clear();
+        data.addAll([
+          firstName,
+          middleName,
+          lastName,
+          positionId,
+          identityNo,
+          martialStatusId,
+          pob,
+          dobString,
+          genderId,
+          nationality,
+          religionId,
+          address,
+          rtRw,
+          kecKel,
+          postalCode,
+          countryId,
+          provinceId,
+          cityId,
+          phone,
+          handphone,
+          email,
+          occupationId,
+          lastWorkExperience,
+          privateImage,
+          identityImage,
+          identitySelfieImage,
+          terminationImage,
+          notTwistingImage,
+          heirsName,
+          heirsRelationId,
+          npwpNo,
+          bankNo,
+          bankUserName,
+          bankNameId,
+          bankBranch,
+          npwpImage,
+          bankUserBookImage,
+          sourceInformation,
+          appendixValueId,
+          appendixImage,
+          spouseIsAgent,
+          firstNamePartner,
+          relationId,
+          directUnitName,
+          spousePositionId,
+          agentCode,
+        ]);
+        if (checkedValueAAJI) {
+          if (checkedPrevCompanyValueAAJI) {
+            data.add(prevCompanyAAJIId);
+          } else {
+            data.remove(prevCompanyAAJIId);
+          }
+          data.addAll([
+            noLicenceAAJI,
+            imageLicenceAAJI,
+          ]);
         } else {
-          data.remove(prevCompanyAAJIId);
+          data.remove(noLicenceAAJI);
+          data.remove(noLicenceAAJI);
         }
-        data.addAll([
-          noLicenceAAJI,
-          imageLicenceAAJI,
-        ]);
-      } else {
-        data.remove(noLicenceAAJI);
-        data.remove(noLicenceAAJI);
-      }
-      if (checkedValueAASI) {
-        if (checkedPrevCompanyValueAASI) {
-          data.add(prevCompanyAASIId);
+        if (checkedValueAASI) {
+          if (checkedPrevCompanyValueAASI) {
+            data.add(prevCompanyAASIId);
+          } else {
+            data.remove(prevCompanyAASIId);
+          }
+          data.addAll([
+            noLicenceAASI,
+            imageLicenceAASI,
+          ]);
         } else {
-          data.remove(prevCompanyAASIId);
+          data.remove(noLicenceAASI);
+          data.remove(imageLicenceAASI);
         }
-        data.addAll([
-          noLicenceAASI,
-          imageLicenceAASI,
-        ]);
-      } else {
-        data.remove(noLicenceAASI);
-        data.remove(imageLicenceAASI);
-      }
-      if (checkedValueAAUI) {
-        if (checkedPrevCompanyValueAAUI) {
-          data.add(prevCompanyAAUIId);
+        if (checkedValueAAUI) {
+          if (checkedPrevCompanyValueAAUI) {
+            data.add(prevCompanyAAUIId);
+          } else {
+            data.remove(prevCompanyAAUIId);
+          }
+          data.addAll([
+            noLicenceAAUI,
+            imageLicenceAAUI,
+          ]);
         } else {
-          data.remove(prevCompanyAAUIId);
+          data.remove(noLicenceAAUI);
+          data.remove(imageLicenceAAUI);
         }
-        data.addAll([
-          noLicenceAAUI,
-          imageLicenceAAUI,
-        ]);
-      } else {
-        data.remove(noLicenceAAUI);
-        data.remove(imageLicenceAAUI);
-      }
-
-      if (checkedValueLastResign) {
-        data.addAll([
-          lastResignDateString,
-          terminationDateString,
-        ]);
-      } else {
-        data.remove(lastResignDateString);
-        data.remove(terminationDateString);
+        if (checkedValueLastResign) {
+          data.addAll([
+            lastResignDateString,
+            terminationDateString,
+          ]);
+        } else {
+          data.remove(lastResignDateString);
+          data.remove(terminationDateString);
+        }
       }
     }
     return data;
@@ -853,3 +860,10 @@ class AddEducationModel {
 }
 
 enum TabType { private, experience, education }
+
+enum PutDataType {
+  isAgentInAllianz,
+  isAgentInOthers,
+  isEmployeeInAllianz,
+  isInit
+}

@@ -12,6 +12,7 @@ import '../expansion_widget/private/aasi_data.dart';
 import '../expansion_widget/private/appendix_data.dart';
 import '../expansion_widget/private/npwp_and_bank_data.dart';
 import '../expansion_widget/private/source_of_recruiting_information.dart';
+import '../expansion_widget/private/spouse_and_family_status_data.dart';
 import '../expansion_widget/private/spouse_data.dart';
 import '../faa_form_candidate_page.dart';
 
@@ -73,9 +74,11 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                 const SizedBox(height: 8),
                 NpwpAndBankData(formKey: formKey),
                 const SizedBox(height: 8),
-                state.martialStatusId.isValid
+                state.martialStatusId.value == 11
                     ? SpouseData(formKey: formKey)
                     : Container(),
+                const SizedBox(height: 8),
+                SpouseAndFamilyStatusData(formKey:formKey),
                 const SizedBox(height: 8),
                 SourceOfRecruitingInformation(formKey: formKey),
                 const SizedBox(height: 8),
