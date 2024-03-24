@@ -585,7 +585,7 @@ class AddCandidatePageBloc
                 dateOfBirth: state.dobPartner.value)
           ];
             final result = await candidateRepository
-                .startProcessInstance(responseData.id.toString());
+                .startProcessInstance(responseData.userId.toString());
             await result.when(success: (response) async {
               if (state.checkedValueMarriage) {
                 final result = await candidateRepository.addRegisterSepouse(
