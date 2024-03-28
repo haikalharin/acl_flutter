@@ -4,6 +4,10 @@ A new Flutter project.
 
 ## Getting Started
 
+Data Flow
+1. View -> PageEvent -> Bloc -> Repository -> Network/Sqlite or Both -> Bloc -> PageState -> View
+2. View -> PageEvent -> Bloc -> Repository -> Network/Sqlite or Both -> Bloc -> PageState -> Future -> Vie
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:

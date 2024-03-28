@@ -9,7 +9,6 @@ import 'package:acl_flutter/data/model/candidate_faa/family_card_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/private_data_candidate_request_model.dart';
 import 'package:acl_flutter/data/model/documents/documents_response_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
-import 'package:acl_flutter/data/model/sepouse/request_sepouse_model.dart';
 import 'package:acl_flutter/data/repository/candidate_faa_repository/candidate_faa_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -30,7 +29,9 @@ import '../../../data/model/candidate/request_candidate_model.dart';
 import '../../../data/model/candidate/request_pending_simple_checking_model.dart';
 import '../../../data/model/candidate_faa/add_candidate_work_experience_model.dart';
 import '../../../data/model/login_model/login_model.dart';
+import '../../../data/model/sepouse/request_sepouse_model.dart' as request;
 import '../../../data/repository/candidate/candidate_repository.dart';
+import '../screen/expansion_widget/private/widget/custom_card_list_builder.dart';
 
 part 'faa_candidate_page_event.dart';
 
@@ -127,14 +128,22 @@ class FaaCandidatePageBloc
     on<AauiNotTwistingImageInputEvent>(imageNotTwistingAAUIInput);
     on<AauiMobileActivationExamImageInputEvent>(
         imageMobileActivationExamAAUIInput);
-
-    //todo
     on<SpouseIsAgentInputEvent>(spouseIsAgentInput);
     on<FirstNamePartnerInputEvent>(firstNamePartnerInput);
     on<RelationPartnerInputEvent>(relationPartnerInput);
     on<DirectUnitNameInputEvent>(directUnitNameInput);
     on<PositionSpouseInputEvent>(positionSpouseInput);
     on<AgentCodeInputEvent>(agentCodeInput);
+
+    //todo
+    on<AddDataFamilyEvent>(addDataFamily);
+    on<DeleteDataFamilyEvent>(deleteDataFamilyEvent);
+    on<FamilyPersonNameInputEvent>(familyPersonNameInput);
+    on<FamilyPersonRelationInputEvent>(familyPersonRelationInput);
+    on<FamilyDirectNameInputEvent>(familyDirectNameInput);
+    on<FamilyPositionInputEvent>(familyPositionInput);
+    on<FamilyAgentCodeInputEvent>(familyAgentCodeInput);
+    on<FamilyCompanyInputEvent>(familyCompanyInput);
 
     //todo
 
@@ -1076,6 +1085,142 @@ class FaaCandidatePageBloc
     ));
   }
 
+  //todo
+
+  Future<void> addDataFamily(
+      AddDataFamilyEvent event, Emitter<FaaCandidatePageState> emit) async {
+    List<RelationInCompanyModel> listFamilyIsAgent =
+        state.listFamilyIsAgent ?? [];
+    List<RelationInCompanyModel> listFamilyIsAgentDelete =
+        state.listFamilyIsAgent ?? [];
+    var isExistDelete = listFamilyIsAgent
+        .where((element) => element.agentCode == event.agentCode);
+    if (listFamilyIsAgent.isNotEmpty) {
+      var isExist = listFamilyIsAgent
+          .where((element) => element.agentCode == event.agentCode);
+
+
+      if (isExist.isNotEmpty) {
+        listFamilyIsAgent
+            .removeWhere((item) => item.agentCode == event.agentCode);
+        listFamilyIsAgent.add(RelationInCompanyModel(
+          relationName: state.familyPersonName.value.toUpperCase(),
+          relationStatusId: state.familyPersonRelationId.value,
+          relationStatus: state.familyPersonRelation?.longDescriptionInd,
+          directName: state.familyDirectName.value.toUpperCase(),
+          position: state.familyPositionId.value,
+          agentCode: state.familyAgentCode.value,
+          companyNameInAllianzGroup: state.familyCompany.value.toUpperCase(),
+        ));
+
+        if (isExistDelete.isNotEmpty) {
+          listFamilyIsAgentDelete
+              .removeWhere((item) => item.agentCode == event.agentCode);
+        }
+      }else{
+        listFamilyIsAgent.add(RelationInCompanyModel(
+          relationName: state.familyPersonName.value.toUpperCase(),
+          relationStatusId: state.familyPersonRelationId.value,
+          relationStatus: state.familyPersonRelation?.longDescriptionInd,
+          directName: state.familyDirectName.value.toUpperCase(),
+          position: state.familyPositionId.value,
+          agentCode: state.familyAgentCode.value,
+          companyNameInAllianzGroup: state.familyCompany.value.toUpperCase(),
+        ));
+        if (isExistDelete.isNotEmpty) {
+          listFamilyIsAgentDelete
+              .removeWhere((item) => item.agentCode == event.agentCode);
+        }
+      }
+    }
+
+    emit(state.copyWith(
+      // familyPersonName: value,
+    ));
+  }
+
+  Future<void> familyPersonNameInput(
+      FamilyPersonNameInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      familyPersonName: value,
+    ));
+  }
+
+  Future<void> deleteDataFamilyEvent(
+      DeleteDataFamilyEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      // familyPersonName: value,
+    ));
+  }
+
+  Future<void> familyPersonRelationInput(FamilyPersonRelationInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.id == 0 || event.value.id == null) {
+      const valueId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        familyPersonRelationId: valueId,
+        familyPersonRelation: null,
+      ));
+    } else {
+      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        familyPersonRelationId: valueId,
+        familyPersonRelation: event.value,
+      ));
+    }
+  }
+
+  Future<void> familyDirectNameInput(FamilyDirectNameInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      familyDirectName: value,
+    ));
+  }
+
+  Future<void> familyPositionInput(FamilyPositionInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.id == 0 || event.value.id == null) {
+      const valueId = DropdownFieldValidator.pure();
+      emit(state.copyWith(
+        familyPositionId: valueId,
+        familyPosition: null,
+      ));
+    } else {
+      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      emit(state.copyWith(
+        familyPositionId: valueId,
+        familyPosition: event.value,
+      ));
+    }
+  }
+
+  Future<void> familyAgentCodeInput(FamilyAgentCodeInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      familyAgentCode: value,
+    ));
+  }
+
+  Future<void> familyCompanyInput(FamilyCompanyInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    if (event.value.isEmpty) {
+      const value = MandatoryFieldValidator.pure();
+      emit(state.copyWith(
+        familyCompany: value,
+      ));
+    } else {
+      final value = MandatoryFieldValidator.dirty(event.value);
+      emit(state.copyWith(
+        familyCompany: value,
+      ));
+    }
+  }
+
+  //todo
+
   Future<void> npwpNoInput(
       NpwpNoInputEvent event, Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
@@ -1348,11 +1493,24 @@ class FaaCandidatePageBloc
               (state.candidateDataModel?.prevCompanyAaui ?? 0).toString(),
           maritalStatusPtkp: '',
         )));
-        await result.when(
-            success: (response) async {},
-            failure: (error) async {
-              emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+        await result.when(success: (response) async {
+          if (state.listFamilyIsAgent != null) {
+            state.listFamilyIsAgent?.forEach((element) async {
+              List<request.FamilyDetail> listFamilyDetail = [
+                request.FamilyDetail(
+                    firstName: element.relationName?.toUpperCase(),
+                    relation: element.relationStatusId?.toString())
+              ];
+              await candidateRepository.addRegisterSepouse(
+                  request.RequestSepouseModel(
+                      candidateId: state.candidateDataModel?.id.toString(),
+                      familyCardNo: null,
+                      familyDetails: listFamilyDetail));
             });
+          }
+        }, failure: (error) async {
+          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+        });
       } catch (error) {
         if (kDebugMode) {
           print(error);
@@ -1531,6 +1689,16 @@ class FaaCandidatePageBloc
           docType: "SURAT TIDAK MELAKUKAN TWISTING",
           name: "SURAT TIDAK MELAKUKAN TWISTING",
           stringBase: state.notTwistingImage.value,
+        ));
+      }
+
+      if (state.appendixImage.isValid) {
+        listDoc.add(RequestCandidateDocModel(
+          agentCode: loginModel.uid,
+          candidateId: state.candidateRegisterModel?.id.toString(),
+          docType: state.appendixValue?.name,
+          name: state.appendixValue?.name,
+          stringBase: state.appendixImage.value,
         ));
       }
 

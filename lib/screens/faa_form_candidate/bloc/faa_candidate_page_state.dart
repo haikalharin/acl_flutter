@@ -72,7 +72,7 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator npwpImage;
   final MandatoryFieldValidator bankUserBookImage;
   final MandatoryFieldValidator sourceInformation;
-  final AajicityMasterReference? appendixValue;
+  final SupportingDocument? appendixValue;
   final DropdownFieldValidator appendixValueId;
   final MandatoryFieldValidator appendixImage;
   final bool checkedValueTermination;
@@ -117,6 +117,18 @@ class FaaCandidatePageState with FormzMixin {
   final AajicityMasterReference? spousePosition;
   final DropdownFieldValidator spousePositionId;
   final MandatoryFieldValidator agentCode;
+
+  ///Spouse and family
+  final List<RelationInCompanyModel>? listFamilyIsAgent;
+  final List<RelationInCompanyModel>? listFamilyIsAgentDelete;
+  final MandatoryFieldValidator familyPersonName;
+  final DropdownFieldValidator familyPersonRelationId;
+  final CityMasterReference? familyPersonRelation;
+  final MandatoryFieldValidator familyDirectName;
+  final DropdownFieldValidator familyPositionId;
+  final AajicityMasterReference? familyPosition;
+  final MandatoryFieldValidator familyAgentCode;
+  final MandatoryFieldValidator familyCompany;
 
   ///Work Experience
   final bool isJustAddExperience;
@@ -274,6 +286,18 @@ class FaaCandidatePageState with FormzMixin {
     this.spousePosition,
     this.spousePositionId = const DropdownFieldValidator.pure(),
     this.agentCode = const MandatoryFieldValidator.pure(),
+
+    ///Spouse and family
+    this.listFamilyIsAgent,
+    this.listFamilyIsAgentDelete,
+    this.familyPersonName = const MandatoryFieldValidator.pure(),
+    this.familyPersonRelationId = const DropdownFieldValidator.pure(),
+    this.familyPersonRelation,
+    this.familyDirectName = const MandatoryFieldValidator.pure(),
+    this.familyPositionId = const DropdownFieldValidator.pure(),
+    this.familyPosition,
+    this.familyAgentCode = const MandatoryFieldValidator.pure(),
+    this.familyCompany = const MandatoryFieldValidator.pure(),
 
     ///Education
     this.isJustAddEducation = false,
@@ -540,7 +564,7 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? sourceInformation,
     MandatoryFieldValidator? appendixImage,
     DropdownFieldValidator? appendixValueId,
-    AajicityMasterReference? appendixValue,
+    SupportingDocument? appendixValue,
     bool? checkedPrevCompanyValueAAJI,
     bool? checkedPrevCompanyValueAASI,
     bool? checkedPrevCompanyValueAAUI,
@@ -576,6 +600,18 @@ class FaaCandidatePageState with FormzMixin {
     AajicityMasterReference? spousePosition,
     DropdownFieldValidator? spousePositionId,
     MandatoryFieldValidator? agentCode,
+
+    ///Spouse and family
+    List<RelationInCompanyModel>? listFamilyIsAgent,
+    List<RelationInCompanyModel>? listFamilyIsAgentDelete,
+    MandatoryFieldValidator? familyPersonName,
+    DropdownFieldValidator? familyPersonRelationId,
+    CityMasterReference? familyPersonRelation,
+    MandatoryFieldValidator? familyDirectName,
+    DropdownFieldValidator? familyPositionId,
+    AajicityMasterReference? familyPosition,
+    MandatoryFieldValidator? familyAgentCode,
+    MandatoryFieldValidator? familyCompany,
 
     ///Education
     bool? isJustAddEducation,
@@ -761,6 +797,19 @@ class FaaCandidatePageState with FormzMixin {
       spousePosition: spousePosition ?? this.spousePosition,
       spousePositionId: spousePositionId ?? this.spousePositionId,
       agentCode: agentCode ?? this.agentCode,
+
+      ///Spouse and family
+      listFamilyIsAgent: listFamilyIsAgent ?? this.listFamilyIsAgent,
+      listFamilyIsAgentDelete: listFamilyIsAgentDelete ?? this.listFamilyIsAgentDelete,
+      familyPersonName: familyPersonName ?? this.familyPersonName,
+      familyPersonRelationId:
+          familyPersonRelationId ?? this.familyPersonRelationId,
+      familyPersonRelation: familyPersonRelation ?? this.familyPersonRelation,
+      familyDirectName: familyDirectName ?? this.familyDirectName,
+      familyPositionId: familyPositionId ?? this.familyPositionId,
+      familyPosition: familyPosition ?? this.familyPosition,
+      familyAgentCode: familyAgentCode ?? this.familyAgentCode,
+      familyCompany: familyCompany ?? this.familyCompany,
 
       ///Education
       isJustAddEducation: isJustAddEducation ?? this.isJustAddEducation,

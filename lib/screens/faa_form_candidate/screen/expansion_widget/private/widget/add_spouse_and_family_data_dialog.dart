@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_helper/source/components/buttons/adaptive_button.dart';
 import 'package:formz/formz.dart';
 
+import '../../../../../../common/app_string.dart';
 import '../../../../../../common/widget/custom_check.dart';
 import '../../../../../../common/widget/date_time_picker_form.dart';
 import '../../../../../../common/widget/dropdown/drop_down_general.dart';
 import '../../../../../../common/widget/dropdown/drop_down_general_faa.dart';
 import '../../../../../../common/widget/dropdown/drop_down_general_second_faa.dart';
+import '../../../../../../common/widget/dropdown/drop_down_string.dart';
 import '../../../../../../common/widget/spinkit_indicator.dart';
 import '../../../../../../common/widget/text_input.dart';
 import '../../../../../../data/model/master_data_model/master_data_model.dart';
@@ -81,11 +83,10 @@ class _AddSpouseAndFamilyDataDialogState
                         key: formKey,
                         child: Column(
                           children: <Widget>[
-
                             widget.putDataType == PutDataType.isAgentInAllianz
                                 ? SizedBox(
-                              height: 8,
-                                  child: TextInput(
+                                    height: 8,
+                                    child: TextInput(
                                       initialValue:
                                           state.addCompanyModel?.companyName,
                                       icon: const Icon(Icons.person),
@@ -101,7 +102,7 @@ class _AddSpouseAndFamilyDataDialogState
                                                 value));
                                       },
                                     ),
-                                )
+                                  )
                                 : Container(),
                             widget.putDataType == PutDataType.isAgentInAllianz
                                 ? SizedBox(
@@ -174,116 +175,129 @@ class _AddSpouseAndFamilyDataDialogState
                                   )
                                 : Container(),
                             widget.putDataType == PutDataType.isAgentInAllianz
-                                ?  SizedBox(height: 8,
-                              child: BlocBuilder<FaaCandidatePageBloc,
-                                  FaaCandidatePageState>(
-                                builder: (context, state) {
-                                  return DropDownGeneralFaa(
-                                    title: 'Jabatan',
-                                    icon: const Icon(
-                                      Icons.account_balance_rounded,
-                                      color: AclColors.greyDarkFontColor,
+                                ? SizedBox(
+                                    height: 8,
+                                    child: BlocBuilder<FaaCandidatePageBloc,
+                                        FaaCandidatePageState>(
+                                      builder: (context, state) {
+                                        return DropDownGeneralFaa(
+                                          title: 'Jabatan',
+                                          icon: const Icon(
+                                            Icons.account_balance_rounded,
+                                            color: AclColors.greyDarkFontColor,
+                                          ),
+                                          onChanged:
+                                              (AajicityMasterReference value) {
+                                            getIt<FaaCandidatePageBloc>().add(
+                                                PositionSpouseInputEvent(
+                                                    value));
+                                          },
+                                          items: state
+                                                  .masterDataModel
+                                                  ?.masterData
+                                                  ?.masterReferenceAll
+                                                  ?.position
+                                                  ?.masterReference ??
+                                              [],
+                                          errorText: isCheck == true &&
+                                                  state.spousePositionId
+                                                      .isNotValid
+                                              ? 'Mohon diisi'
+                                              : null,
+                                        );
+                                      },
                                     ),
-                                    onChanged: (AajicityMasterReference value) {
-                                      getIt<FaaCandidatePageBloc>()
-                                          .add(PositionSpouseInputEvent(value));
-                                    },
-                                    items: state
-                                        .masterDataModel
-                                        ?.masterData
-                                        ?.masterReferenceAll
-                                        ?.position
-                                        ?.masterReference ??
-                                        [],
-                                    errorText: isCheck == true &&
-                                        state.spousePositionId.isNotValid
-                                        ? 'Mohon diisi'
-                                        : null,
-                                  );
-                                },
-                              ),
-                            )
+                                  )
                                 : Container(),
                             widget.putDataType == PutDataType.isAgentInAllianz
-                                ?     SizedBox(
-                              height: 8,
-                              child: TextInput(
-                                initialValue: state.addCompanyModel?.companyName,
-                                icon: const Icon(Icons.person),
-                                labelText: "Kode Agen",
-                                // initialValue: postTitle,
-                                validator: (String? value) {
-                                  if (value!.isNotEmpty) return null;
-                                  return "Mohon diisi";
-                                },
-                                onChanged: (String value) {
-                                  getIt<FaaCandidatePageBloc>().add(
-                                      CompanyNameExperienceInputEvent(value));
-                                },
-                              ),
-                            )
+                                ? SizedBox(
+                                    height: 8,
+                                    child: TextInput(
+                                      initialValue:
+                                          state.addCompanyModel?.companyName,
+                                      icon: const Icon(Icons.person),
+                                      labelText: "Kode Agen",
+                                      // initialValue: postTitle,
+                                      validator: (String? value) {
+                                        if (value!.isNotEmpty) return null;
+                                        return "Mohon diisi";
+                                      },
+                                      onChanged: (String value) {
+                                        getIt<FaaCandidatePageBloc>().add(
+                                            CompanyNameExperienceInputEvent(
+                                                value));
+                                      },
+                                    ),
+                                  )
                                 : Container(),
-
                             widget.putDataType == PutDataType.isAgentInAllianz
-                                ?     SizedBox(height: 8,
-                              child: DropDownGeneralFaa(
-                                title: 'Nama Perusahaan Allianz Group',
-                                isMandatory: state.checkedPrevCompanyValueAAUI,
-                                readOnly: state.checkedPrevCompanyValueAAUI,
-                                icon: const Icon(
-                                  Icons.add_chart,
-                                  color: AclColors.greyDarkFontColor,
-                                ),
-                                onChanged: (AajicityMasterReference value) {
-                                  getIt<FaaCandidatePageBloc>()
-                                      .add(AauiPrevCompanyInputEvent(value));
-                                },
-                                items: state
-                                    .masterDataModel
-                                    ?.masterData
-                                    ?.masterReferenceAll
-                                    ?.prevcompanyaaui
-                                    ?.masterReference ??
-                                    [],
-                                errorText: state.checkedPrevCompanyValueAAUI &&
-                                    isCheck &&
-                                    state.prevCompanyAAUIId.isNotValid
-                                    ? 'Mohon diisi'
-                                    : null,
-                              ),
-                            )
+                                ? SizedBox(
+                                    height: 8,
+                                    child: DropDownString(
+                                      title:
+                                          AppString.textSpouseIsAgentInAllianz,
+                                      displayClearIcon: false,
+                                      icon: const Icon(
+                                        Icons.add_chart,
+                                        color: AclColors.greyDarkFontColor,
+                                      ),
+                                      onChanged: (String value) {
+                                        // getIt<FaaCandidatePageBloc>()
+                                        //     .add(CheckEmployeeInputEvent(value));
+                                        setState(() {
+                                          // checkedIsAgentInAllianz = true;
+                                        });
+                                      },
+                                      initialItem: state.checkIsEmployee.isValid
+                                          ? state.checkIsEmployee.value
+                                          : null,
+                                      items: const [
+                                        'PT. Asuransi Allianz Life Indonesia',
+                                        'PT. Asuransi Allianz Life Indonesia',
+                                        'PT. Asuransi Allianz Life Indonesia'
+                                      ],
+                                      errorText: isCheck &&
+                                              state.checkIsEmployee.isNotValid
+                                          ? 'Mohon diisi'
+                                          : null,
+                                    ),
+                                  )
                                 : Container(),
-
                             widget.putDataType == PutDataType.isAgentInOthers
-                                ?      SizedBox(height: 8,
-                              child: DropDownGeneralFaa(
-                                title: 'Nama Perusahaan Asuransi',
-                                isMandatory: state.checkedPrevCompanyValueAAUI,
-                                readOnly: state.checkedPrevCompanyValueAAUI,
-                                icon: const Icon(
-                                  Icons.add_chart,
-                                  color: AclColors.greyDarkFontColor,
-                                ),
-                                onChanged: (AajicityMasterReference value) {
-                                  getIt<FaaCandidatePageBloc>()
-                                      .add(AauiPrevCompanyInputEvent(value));
-                                },
-                                items: state
-                                    .masterDataModel
-                                    ?.masterData
-                                    ?.masterReferenceAll
-                                    ?.prevcompanyaaui
-                                    ?.masterReference ??
-                                    [],
-                                errorText: state.checkedPrevCompanyValueAAUI &&
-                                    isCheck &&
-                                    state.prevCompanyAAUIId.isNotValid
-                                    ? 'Mohon diisi'
-                                    : null,
-                              ),
-                            )
+                                ? SizedBox(
+                                    height: 8,
+                                    child: DropDownGeneralFaa(
+                                      title: 'Nama Perusahaan Asuransi',
+                                      isMandatory:
+                                          state.checkedPrevCompanyValueAAUI,
+                                      readOnly:
+                                          state.checkedPrevCompanyValueAAUI,
+                                      icon: const Icon(
+                                        Icons.add_chart,
+                                        color: AclColors.greyDarkFontColor,
+                                      ),
+                                      onChanged:
+                                          (AajicityMasterReference value) {
+                                        getIt<FaaCandidatePageBloc>().add(
+                                            AauiPrevCompanyInputEvent(value));
+                                      },
+                                      items: state
+                                              .masterDataModel
+                                              ?.masterData
+                                              ?.masterReferenceAll
+                                              ?.prevcompanyaaui
+                                              ?.masterReference ??
+                                          [],
+                                      errorText:
+                                          state.checkedPrevCompanyValueAAUI &&
+                                                  isCheck &&
+                                                  state.prevCompanyAAUIId
+                                                      .isNotValid
+                                              ? 'Mohon diisi'
+                                              : null,
+                                    ),
+                                  )
                                 : Container(),
-
                             const SizedBox(height: 8),
                           ],
                         ),

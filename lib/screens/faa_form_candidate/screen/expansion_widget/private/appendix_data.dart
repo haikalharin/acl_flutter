@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widget/custom_image_picker.dart';
 import '../../../../../common/widget/dropdown/drop_down_general.dart';
+import '../../../../../common/widget/dropdown/drop_down_general_faa_fourth.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
@@ -69,23 +70,21 @@ class _AppendixDataState extends State<AppendixData> {
                               BlocBuilder<FaaCandidatePageBloc,
                                   FaaCandidatePageState>(
                                 builder: (context, state) {
-                                  return DropDownGeneralFaa(
+                                  return DropDownGeneralFaaFourth(
                                     title: 'Lain lain',
                                     isMandatory: false,
                                     icon: const Icon(
                                       Icons.account_balance_rounded,
                                       color: AclColors.greyDarkFontColor,
                                     ),
-                                    onChanged: (AajicityMasterReference value) {
+                                    onChanged: (SupportingDocument value) {
                                       getIt<FaaCandidatePageBloc>()
                                           .add(AppendixInputEvent(value));
                                     },
                                     items: state
                                         .masterDataModel
-                                        ?.masterData
-                                        ?.masterReferenceAll
-                                        ?.sourceinformation
-                                        ?.masterReference ??
+                                        ?.supportingDocumentList
+                                        ?.supportingDocument ??
                                         [],
                                     errorText:
                                     isCheck == true && state.appendixValueId.isNotValid
@@ -95,7 +94,7 @@ class _AppendixDataState extends State<AppendixData> {
                                 },
                               ),
                               const SizedBox(height: 8),
-                              CustomImagePicker(
+                             state.appendixValueId.isValid? CustomImagePicker(
                                 title: 'Lain lain',
                                 isMandatory: false,
                                 onImagePicked: (value) {
@@ -106,7 +105,7 @@ class _AppendixDataState extends State<AppendixData> {
                                     state.appendixImage.isNotValid
                                     ? 'Mohon diisi'
                                     : null,
-                              ),
+                              ):Container(),
                               const SizedBox(height: 8),
                             ],
                           ),

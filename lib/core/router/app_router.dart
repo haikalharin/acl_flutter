@@ -39,7 +39,10 @@ class AppRouter {
                   isMyCandidate: getIsMyCandidate(settings.arguments),
                 ));
       case Routes.faaFormCandidatePage:
-        return MaterialPageRoute(builder: (_) =>   FaaFormCandidatePage(candidateModel:  getCandidateModel(settings.arguments) ,));
+        return MaterialPageRoute(
+            builder: (_) => FaaFormCandidatePage(
+                  candidateModel: getCandidateModel(settings.arguments),
+                ));
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

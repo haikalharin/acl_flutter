@@ -3,13 +3,13 @@ part of 'faa_candidate_page_bloc.dart';
 @immutable
 abstract class FaaCandidatePageEvent {}
 
-
 class FetchMasterDataEvent extends FaaCandidatePageEvent {
   FetchMasterDataEvent();
 }
 
 class FetchCandidateDataEvent extends FaaCandidatePageEvent {
   final String candidateId;
+
   FetchCandidateDataEvent(this.candidateId);
 }
 
@@ -48,7 +48,6 @@ class IdentityNoInputEvent extends FaaCandidatePageEvent {
 
   IdentityNoInputEvent(this.identityNo);
 }
-
 
 class MartialStatusInputEvent extends FaaCandidatePageEvent {
   final AajicityMasterReference value;
@@ -218,7 +217,6 @@ class HeirsNameInputEvent extends FaaCandidatePageEvent {
   HeirsNameInputEvent(this.value);
 }
 
-
 class HeirsRelationInputEvent extends FaaCandidatePageEvent {
   final CityMasterReference value;
 
@@ -254,7 +252,6 @@ class AajiLastDateInputEvent extends FaaCandidatePageEvent {
 
   AajiLastDateInputEvent(this.value);
 }
-
 
 class AajiTerminationImageInputEvent extends FaaCandidatePageEvent {
   final String valueImage;
@@ -328,7 +325,6 @@ class AasiMobileActivationExamImageInputEvent extends FaaCandidatePageEvent {
   AasiMobileActivationExamImageInputEvent(this.valueImage);
 }
 
-
 class AasiImageInputEvent extends FaaCandidatePageEvent {
   final String aasiImage;
 
@@ -389,6 +385,56 @@ class AauiImageInputEvent extends FaaCandidatePageEvent {
   AauiImageInputEvent(this.aauiImage);
 }
 
+///Spouse and family
+class AddDataFamilyEvent extends FaaCandidatePageEvent {
+  final String agentCode;
+
+  AddDataFamilyEvent(this.agentCode);
+}
+
+class DeleteDataFamilyEvent extends FaaCandidatePageEvent {
+  final String agentCode;
+
+  DeleteDataFamilyEvent(this.agentCode);
+}
+
+class FamilyPersonNameInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  FamilyPersonNameInputEvent(this.value);
+}
+
+class FamilyPersonRelationInputEvent extends FaaCandidatePageEvent {
+  final CityMasterReference value;
+
+  FamilyPersonRelationInputEvent(this.value);
+}
+
+class FamilyDirectNameInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  FamilyDirectNameInputEvent(this.value);
+}
+
+class FamilyPositionInputEvent extends FaaCandidatePageEvent {
+  final AajicityMasterReference value;
+
+  FamilyPositionInputEvent(this.value);
+}
+
+class FamilyAgentCodeInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  FamilyAgentCodeInputEvent(this.value);
+}
+
+class FamilyCompanyInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  FamilyCompanyInputEvent(this.value);
+}
+
+///
 
 class NpwpNoInputEvent extends FaaCandidatePageEvent {
   final String value;
@@ -439,7 +485,7 @@ class SourceInformationInputEvent extends FaaCandidatePageEvent {
 }
 
 class AppendixInputEvent extends FaaCandidatePageEvent {
-  final AajicityMasterReference value;
+  final SupportingDocument value;
 
   AppendixInputEvent(this.value);
 }
@@ -449,6 +495,7 @@ class AppendixImageInputEvent extends FaaCandidatePageEvent {
 
   AppendixImageInputEvent(this.value);
 }
+
 //todo
 class SpouseIsAgentInputEvent extends FaaCandidatePageEvent {
   final String value;
@@ -479,6 +526,7 @@ class PositionSpouseInputEvent extends FaaCandidatePageEvent {
 
   PositionSpouseInputEvent(this.value);
 }
+
 class AgentCodeInputEvent extends FaaCandidatePageEvent {
   final String value;
 
@@ -492,7 +540,9 @@ class FaaAddAgentSubmittedEvent extends FaaCandidatePageEvent {
 }
 
 class FaaAddAgentDocSubmittedEvent extends FaaCandidatePageEvent {
-  FaaAddAgentDocSubmittedEvent();
+  final String typeDoc;
+
+  FaaAddAgentDocSubmittedEvent(this.typeDoc);
 }
 
 class KkNoInputEvent extends FaaCandidatePageEvent {
@@ -512,7 +562,6 @@ class MarriedCheckedInputEvent extends FaaCandidatePageEvent {
 
   MarriedCheckedInputEvent([this.marriedChecked = false]);
 }
-
 
 class MiddleNamePartnerInputEvent extends FaaCandidatePageEvent {
   final String middleNamePartner;
@@ -538,12 +587,9 @@ class PartnerIdentityNoInputEvent extends FaaCandidatePageEvent {
   PartnerIdentityNoInputEvent(this.partnerIdentityNo);
 }
 
-
-
 class FaaCandidatePageInitialEvent extends FaaCandidatePageEvent {
   FaaCandidatePageInitialEvent();
 }
-
 
 ///Work Experience
 
@@ -552,33 +598,37 @@ class CheckEmployeeInputEvent extends FaaCandidatePageEvent {
 
   CheckEmployeeInputEvent(this.value);
 }
+
 class UnitNameExperienceInputEvent extends FaaCandidatePageEvent {
   final String unitName;
 
   UnitNameExperienceInputEvent(this.unitName);
 }
+
 class LastDepartmentExperienceInputEvent extends FaaCandidatePageEvent {
   final String lastDepartment;
 
   LastDepartmentExperienceInputEvent(this.lastDepartment);
 }
+
 class DirectLeaderExperienceInputEvent extends FaaCandidatePageEvent {
   final String leader;
 
   DirectLeaderExperienceInputEvent(this.leader);
 }
 
-
 class CompanyNameExperienceInputEvent extends FaaCandidatePageEvent {
   final String companyName;
 
   CompanyNameExperienceInputEvent(this.companyName);
 }
+
 class CompanyTypeExperienceInputEvent extends FaaCandidatePageEvent {
   final String companyType;
 
   CompanyTypeExperienceInputEvent(this.companyType);
 }
+
 class DepartmentExperienceInputEvent extends FaaCandidatePageEvent {
   final String department;
 
@@ -590,6 +640,7 @@ class StartWorkingExperienceInputEvent extends FaaCandidatePageEvent {
 
   StartWorkingExperienceInputEvent(this.startWorking);
 }
+
 class EndWorkingExperienceInputEvent extends FaaCandidatePageEvent {
   final DateTime endWorking;
 
@@ -605,18 +656,18 @@ class StatusEmployeeInputEvent extends FaaCandidatePageEvent {
 class CheckStillWorkingInputEvent extends FaaCandidatePageEvent {
   final bool? isCheck;
 
-  CheckStillWorkingInputEvent([this.isCheck= false]);
+  CheckStillWorkingInputEvent([this.isCheck = false]);
 }
 
 class AddWorkingExperienceEvent extends FaaCandidatePageEvent {
   final bool isDelete;
+
   AddWorkingExperienceEvent({this.isDelete = false});
 }
 
 class SubmitWorkingExperienceEvent extends FaaCandidatePageEvent {
   SubmitWorkingExperienceEvent();
 }
-
 
 ///Education
 
@@ -625,11 +676,13 @@ class EducationLevelInputEvent extends FaaCandidatePageEvent {
 
   EducationLevelInputEvent(this.value);
 }
+
 class EducationPlaceNameInputEvent extends FaaCandidatePageEvent {
   final String value;
 
   EducationPlaceNameInputEvent(this.value);
 }
+
 class EducationDescriptionInputEvent extends FaaCandidatePageEvent {
   final String value;
 
@@ -641,6 +694,7 @@ class EducationStartInputEvent extends FaaCandidatePageEvent {
 
   EducationStartInputEvent(this.educationStart);
 }
+
 class EducationEndInputEvent extends FaaCandidatePageEvent {
   final DateTime educationEnd;
 
@@ -656,11 +710,12 @@ class EducationStatusInputEvent extends FaaCandidatePageEvent {
 class CheckStillLearnInputEvent extends FaaCandidatePageEvent {
   final bool? isCheck;
 
-  CheckStillLearnInputEvent([this.isCheck= false]);
+  CheckStillLearnInputEvent([this.isCheck = false]);
 }
 
 class AddEducationEvent extends FaaCandidatePageEvent {
   final bool isDelete;
+
   AddEducationEvent({this.isDelete = false});
 }
 
@@ -668,10 +723,6 @@ class SubmitEducationEvent extends FaaCandidatePageEvent {
   SubmitEducationEvent();
 }
 
-
-
-
-
-class  WorkExperienceCandidateInitialEvent extends FaaCandidatePageEvent {
+class WorkExperienceCandidateInitialEvent extends FaaCandidatePageEvent {
   WorkExperienceCandidateInitialEvent();
 }
