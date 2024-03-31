@@ -386,6 +386,12 @@ class AauiImageInputEvent extends FaaCandidatePageEvent {
 }
 
 ///Spouse and family
+class PutDataTypeEvent extends FaaCandidatePageEvent {
+  final PutDataType putDataType;
+
+  PutDataTypeEvent(this.putDataType);
+}
+
 class AddDataFamilyEvent extends FaaCandidatePageEvent {
   final String agentCode;
 
@@ -533,6 +539,12 @@ class AgentCodeInputEvent extends FaaCandidatePageEvent {
   AgentCodeInputEvent(this.value);
 }
 
+class SubmitFamiliesDataEvent extends FaaCandidatePageEvent {
+  final PutDataType type;
+  final int? id;
+
+  SubmitFamiliesDataEvent(this.type, {this.id});
+}
 //todo
 
 class FaaAddAgentSubmittedEvent extends FaaCandidatePageEvent {

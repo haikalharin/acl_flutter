@@ -7,6 +7,7 @@ import 'package:acl_flutter/data/remote_data_source/candidate/get_candidate_fami
 import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/start_process_instance_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_education_candidate_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_families_data_candidate_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_register_candidate_private_data_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_work_eexperience_candidate_api.dart';
 import 'package:acl_flutter/data/remote_data_source/comment/comment_api.dart';
@@ -19,7 +20,7 @@ import 'package:acl_flutter/data/remote_data_source/todo/todo_api.dart';
 import 'package:acl_flutter/data/remote_data_source/user/user_api.dart';
 import 'package:acl_flutter/data/repository/agent/agent_repository.dart';
 import 'package:acl_flutter/data/repository/candidate/candidate_repository.dart';
-import 'package:acl_flutter/data/repository/candidate_faa_repository/candidate_faa_repository.dart';
+import 'package:acl_flutter/data/repository/candidate_faa/candidate_faa_repository.dart';
 import 'package:acl_flutter/myApp.dart';
 import 'package:acl_flutter/screens/add_candidate_page/bloc/add_candidate_page_bloc.dart';
 import 'package:acl_flutter/screens/detail_candidate/bloc/detail_candidate_page_bloc.dart';
@@ -145,6 +146,10 @@ Future<void> init() async {
   getIt.registerLazySingleton<GetCandidateFamilyDataApi>(
           () => GetCandidateFamilyDataApi(dioClient: getIt<DioClient>()));
 
+  // AddFamiliesData api
+  getIt.registerLazySingleton<AddFamiliesDataCandidateApi>(
+          () => AddFamiliesDataCandidateApi(dioClient: getIt<DioClient>()));
+
 
   // User repository
   getIt.registerLazySingleton<UserRepository>(
@@ -196,7 +201,10 @@ Future<void> init() async {
         addWorkExperienceCandidateApi: getIt<AddWorkExperienceCandidateApi>(),
         addEducationCandidateApi: getIt<AddEducationCandidateApi>(),
         addRegisterCandidatePrivateDataApi:
-            getIt<AddRegisterCandidatePrivateDataApi>()),
+            getIt<AddRegisterCandidatePrivateDataApi>(),
+      addFamiliesDataCandidateApi:
+      getIt<AddFamiliesDataCandidateApi>(),
+    ),
   );
 
   // Notfikasi repository

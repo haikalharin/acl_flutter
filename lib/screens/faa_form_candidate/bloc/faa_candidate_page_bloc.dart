@@ -7,9 +7,10 @@ import 'package:acl_flutter/data/model/candidate/request_candidate_doc_model.dar
 import 'package:acl_flutter/data/model/candidate_faa/education_candidate_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/family_card_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/private_data_candidate_request_model.dart';
+import 'package:acl_flutter/data/model/candidate_faa/request_families_data.dart';
 import 'package:acl_flutter/data/model/documents/documents_response_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
-import 'package:acl_flutter/data/repository/candidate_faa_repository/candidate_faa_repository.dart';
+import 'package:acl_flutter/data/repository/candidate_faa/candidate_faa_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
@@ -21,6 +22,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../common/validators/zipcode_validator.dart';
 import '../../../core/local_storage/secure_storage/secure_storage.dart';
+import '../../../core/network/api_result.dart';
 import '../../../core/router/routes.dart';
 import '../../../data/model/candidate/candidate_data_model.dart';
 import '../../../data/model/candidate/candidate_model.dart';
@@ -28,7 +30,9 @@ import '../../../data/model/candidate/candidate_register_model.dart';
 import '../../../data/model/candidate/request_candidate_model.dart';
 import '../../../data/model/candidate/request_pending_simple_checking_model.dart';
 import '../../../data/model/candidate_faa/add_candidate_work_experience_model.dart';
+import '../../../data/model/candidate_faa/response_families_data.dart';
 import '../../../data/model/login_model/login_model.dart';
+import '../../../data/model/response_model/response_model.dart';
 import '../../../data/model/sepouse/request_sepouse_model.dart' as request;
 import '../../../data/repository/candidate/candidate_repository.dart';
 import '../screen/expansion_widget/private/widget/custom_card_list_builder.dart';
@@ -136,6 +140,7 @@ class FaaCandidatePageBloc
     on<AgentCodeInputEvent>(agentCodeInput);
 
     //todo
+    on<PutDataTypeEvent>(putDataType);
     on<AddDataFamilyEvent>(addDataFamily);
     on<DeleteDataFamilyEvent>(deleteDataFamilyEvent);
     on<FamilyPersonNameInputEvent>(familyPersonNameInput);
@@ -144,6 +149,8 @@ class FaaCandidatePageBloc
     on<FamilyPositionInputEvent>(familyPositionInput);
     on<FamilyAgentCodeInputEvent>(familyAgentCodeInput);
     on<FamilyCompanyInputEvent>(familyCompanyInput);
+    on<SubmitFamiliesDataEvent>(submitFamiliesData);
+
 
     //todo
 
@@ -1087,6 +1094,70 @@ class FaaCandidatePageBloc
 
   //todo
 
+  Future<void> putDataType(
+      PutDataTypeEvent event, Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      putDataType: event.putDataType,
+    ));
+  }
+  Future<void> submitFamiliesData(SubmitFamiliesDataEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    ApiResult<ResponseModel<ResponseFamiliesData>> result =
+    const ApiResult.failure('');
+    if (state.listFamilyIsAgent != null) {
+      if (event.type == PutDataType.isAgentInAllianz) {
+        result = await candidateFaaRepository.addAddFamiliesData(
+            RequestFamiliesData(
+                id: event.id,
+                type: 'agent',
+                candidateId: state.candidateDataModel?.id,
+                name: state.familyPersonName.value.toUpperCase(),
+                relation: state.relationId.value.toString(),
+                directName: state.directUnitName.value.toUpperCase(),
+                role: state.familyPositionId.value.toString(),
+                agentCode: state.familyAgentCode.toString(),
+                company: state.familyCompany.value.toUpperCase()));
+      } else if (event.type == PutDataType.isAgentInOthers) {
+        result = await candidateFaaRepository.addAddFamiliesData(
+            RequestFamiliesData(
+                id: event.id,
+                type: 'nonagent',
+                candidateId: state.candidateDataModel?.id,
+                name: state.familyPersonName.value.toUpperCase(),
+                relation: state.relationId.value.toString(),
+                company: state.familyCompany.value.toUpperCase()));
+      } else {
+        result = await candidateFaaRepository.addAddFamiliesData(
+            RequestFamiliesData(
+                id: event.id,
+                type: 'employee',
+                candidateId: state.candidateDataModel?.id,
+                name: state.familyPersonName.value.toUpperCase(),
+                relation: state.relationId.value.toString(),
+                role: state.familyPositionId.value.toString(),
+                department: state.familyDepartment.value.toUpperCase(),
+                company: state.familyCompany.value.toUpperCase()));
+      }
+
+      result.when(success: (response) async {
+        emit(state.copyWith(
+            moveTo: Routes.userList,
+            message: 'success-add-families-data',
+            putDataType: PutDataType.isInit,
+            submitStatus: FormzSubmissionStatus.success));
+      }, failure: (error) async {
+        emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+      });
+    }
+  }
+
+  Future<void> updateFamiliesData(FaaAddAgentDocSubmittedEvent event,
+      Emitter<FaaCandidatePageState> emit) async {}
+
+  Future<void> deleteFamiliesData(FaaAddAgentDocSubmittedEvent event,
+      Emitter<FaaCandidatePageState> emit) async {}
+
+
   Future<void> addDataFamily(
       AddDataFamilyEvent event, Emitter<FaaCandidatePageState> emit) async {
     List<RelationInCompanyModel> listFamilyIsAgent =
@@ -1098,7 +1169,6 @@ class FaaCandidatePageBloc
     if (listFamilyIsAgent.isNotEmpty) {
       var isExist = listFamilyIsAgent
           .where((element) => element.agentCode == event.agentCode);
-
 
       if (isExist.isNotEmpty) {
         listFamilyIsAgent
@@ -1117,7 +1187,7 @@ class FaaCandidatePageBloc
           listFamilyIsAgentDelete
               .removeWhere((item) => item.agentCode == event.agentCode);
         }
-      }else{
+      } else {
         listFamilyIsAgent.add(RelationInCompanyModel(
           relationName: state.familyPersonName.value.toUpperCase(),
           relationStatusId: state.familyPersonRelationId.value,
@@ -1135,12 +1205,12 @@ class FaaCandidatePageBloc
     }
 
     emit(state.copyWith(
-      // familyPersonName: value,
-    ));
+        // familyPersonName: value,
+        ));
   }
 
-  Future<void> familyPersonNameInput(
-      FamilyPersonNameInputEvent event, Emitter<FaaCandidatePageState> emit) async {
+  Future<void> familyPersonNameInput(FamilyPersonNameInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
     final value = MandatoryFieldValidator.dirty(event.value);
     emit(state.copyWith(
       familyPersonName: value,
@@ -1150,8 +1220,8 @@ class FaaCandidatePageBloc
   Future<void> deleteDataFamilyEvent(
       DeleteDataFamilyEvent event, Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(
-      // familyPersonName: value,
-    ));
+        // familyPersonName: value,
+        ));
   }
 
   Future<void> familyPersonRelationInput(FamilyPersonRelationInputEvent event,
@@ -1494,20 +1564,10 @@ class FaaCandidatePageBloc
           maritalStatusPtkp: '',
         )));
         await result.when(success: (response) async {
-          if (state.listFamilyIsAgent != null) {
-            state.listFamilyIsAgent?.forEach((element) async {
-              List<request.FamilyDetail> listFamilyDetail = [
-                request.FamilyDetail(
-                    firstName: element.relationName?.toUpperCase(),
-                    relation: element.relationStatusId?.toString())
-              ];
-              await candidateRepository.addRegisterSepouse(
-                  request.RequestSepouseModel(
-                      candidateId: state.candidateDataModel?.id.toString(),
-                      familyCardNo: null,
-                      familyDetails: listFamilyDetail));
-            });
-          }
+          emit(state.copyWith(
+              moveTo: Routes.userList,
+              message: 'success-add-private-data',
+              submitStatus: FormzSubmissionStatus.success));
         }, failure: (error) async {
           emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
         });

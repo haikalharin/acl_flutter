@@ -18,19 +18,24 @@ import '../../../core/network/api_result.dart';
 import '../../../core/network/dio_exception.dart';
 import '../../../core/repository_helper/repository_helper.dart';
 
+import '../../model/candidate_faa/request_families_data.dart';
+import '../../model/candidate_faa/response_families_data.dart';
 import '../../remote_data_source/candidate/get_candidate_data_documents_api.dart';
 import '../../remote_data_source/candidate_faa/add_education_candidate_api.dart';
+import '../../remote_data_source/candidate_faa/add_families_data_candidate_api.dart';
 import '../../remote_data_source/candidate_faa/add_work_eexperience_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';
 
 
 class CandidateFaaRepository with RepositoryHelper<CandidateModel> {
   final AddWorkExperienceCandidateApi addWorkExperienceCandidateApi;
+  final AddFamiliesDataCandidateApi addFamiliesDataCandidateApi;
   final AddEducationCandidateApi addEducationCandidateApi;
   final AddRegisterCandidatePrivateDataApi addRegisterCandidatePrivateDataApi;
 
   const CandidateFaaRepository({
     required this.addWorkExperienceCandidateApi,
+    required this.addFamiliesDataCandidateApi,
     required this.addEducationCandidateApi,
     required this.addRegisterCandidatePrivateDataApi,
   });
@@ -54,6 +59,19 @@ class CandidateFaaRepository with RepositoryHelper<CandidateModel> {
       final ResponseModel<CandidateModel> items =
       await addEducationCandidateApi
           .addCandidateEducation(educationCandidateModel);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+
+  Future<ApiResult<ResponseModel<ResponseFamiliesData>>>  addAddFamiliesData(
+      RequestFamiliesData requestFamiliesData) async {
+    try {
+      final ResponseModel<ResponseFamiliesData> items =
+      await addFamiliesDataCandidateApi
+          .addAddFamiliesData(requestFamiliesData);
       return ApiResult.success(items);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();

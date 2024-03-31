@@ -82,7 +82,7 @@ class _SpouseDataState extends State<SpouseData> {
                                 },
                                 items: const ['Ya', 'Tidak'],
                                 errorText: isCheck &&
-                                    state.checkIsEmployee.isNotValid
+                                    state.spouseIsAgent.isNotValid
                                     ? 'Mohon diisi'
                                     : null,
                               ),

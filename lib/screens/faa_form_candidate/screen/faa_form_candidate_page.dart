@@ -136,9 +136,11 @@ class _FaaFormCandidatePageState extends State<FaaFormCandidatePage>
             if (state.message == 'success-get-master-data') {}
             if (state.message == 'success-add-private-data') {
               isSuccesPrivateTab = true;
+              _tabController.index = 1;
             }
             if (state.message == 'success-submit-work-experience') {
               isSuccesWorkExperienceTab =true;
+              _tabController.index = 2;
             }
             if (state.message == 'success-submit-work-experience') {
               isSuccesEducationTab = true;

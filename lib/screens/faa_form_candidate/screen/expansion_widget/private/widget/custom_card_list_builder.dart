@@ -114,6 +114,7 @@ class CustomCardListBuilder extends StatelessWidget {
 }
 
 class RelationInCompanyModel {
+  final int? id;
   final String? relationName;
   final int? relationStatusId;
   final String? relationStatus;
@@ -128,6 +129,7 @@ class RelationInCompanyModel {
 
 
   const RelationInCompanyModel({
+    this.id,
     this.relationName,
     this.relationStatusId,
     this.relationStatus,

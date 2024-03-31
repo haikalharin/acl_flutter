@@ -89,9 +89,7 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                   checkedIsAgentInAllianz = true;
                                 });
                               },
-                              initialItem: state.checkIsEmployee.isValid
-                                  ? state.checkIsEmployee.value
-                                  : 'Tidak',
+                              initialItem: 'Tidak',
                               items: const ['Ya', 'Tidak'],
                               errorText:
                                   isCheck && state.checkIsEmployee.isNotValid

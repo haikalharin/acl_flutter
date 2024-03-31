@@ -128,6 +128,7 @@ class FaaCandidatePageState with FormzMixin {
   final DropdownFieldValidator familyPositionId;
   final AajicityMasterReference? familyPosition;
   final MandatoryFieldValidator familyAgentCode;
+  final MandatoryFieldValidator familyDepartment;
   final MandatoryFieldValidator familyCompany;
 
   ///Work Experience
@@ -297,6 +298,7 @@ class FaaCandidatePageState with FormzMixin {
     this.familyPositionId = const DropdownFieldValidator.pure(),
     this.familyPosition,
     this.familyAgentCode = const MandatoryFieldValidator.pure(),
+    this.familyDepartment = const MandatoryFieldValidator.pure(),
     this.familyCompany = const MandatoryFieldValidator.pure(),
 
     ///Education
@@ -602,6 +604,8 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? agentCode,
 
     ///Spouse and family
+
+    PutDataType? putDataType,
     List<RelationInCompanyModel>? listFamilyIsAgent,
     List<RelationInCompanyModel>? listFamilyIsAgentDelete,
     MandatoryFieldValidator? familyPersonName,
@@ -611,6 +615,7 @@ class FaaCandidatePageState with FormzMixin {
     DropdownFieldValidator? familyPositionId,
     AajicityMasterReference? familyPosition,
     MandatoryFieldValidator? familyAgentCode,
+    MandatoryFieldValidator? familyDepartment,
     MandatoryFieldValidator? familyCompany,
 
     ///Education
@@ -802,6 +807,7 @@ class FaaCandidatePageState with FormzMixin {
       listFamilyIsAgent: listFamilyIsAgent ?? this.listFamilyIsAgent,
       listFamilyIsAgentDelete: listFamilyIsAgentDelete ?? this.listFamilyIsAgentDelete,
       familyPersonName: familyPersonName ?? this.familyPersonName,
+      putDataType: putDataType ?? this.putDataType,
       familyPersonRelationId:
           familyPersonRelationId ?? this.familyPersonRelationId,
       familyPersonRelation: familyPersonRelation ?? this.familyPersonRelation,
@@ -809,6 +815,7 @@ class FaaCandidatePageState with FormzMixin {
       familyPositionId: familyPositionId ?? this.familyPositionId,
       familyPosition: familyPosition ?? this.familyPosition,
       familyAgentCode: familyAgentCode ?? this.familyAgentCode,
+      familyDepartment: familyDepartment ?? this.familyDepartment,
       familyCompany: familyCompany ?? this.familyCompany,
 
       ///Education

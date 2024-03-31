@@ -98,7 +98,7 @@ class _AddSpouseAndFamilyDataDialogState
                                       },
                                       onChanged: (String value) {
                                         getIt<FaaCandidatePageBloc>().add(
-                                            CompanyNameExperienceInputEvent(
+                                            FamilyPersonNameInputEvent(
                                                 value));
                                       },
                                     ),
@@ -119,7 +119,7 @@ class _AddSpouseAndFamilyDataDialogState
                                           onChanged:
                                               (CityMasterReference value) {
                                             getIt<FaaCandidatePageBloc>().add(
-                                                HeirsRelationInputEvent(value));
+                                                FamilyPersonRelationInputEvent(value));
                                           },
                                           initialItem:
                                               state.martialStatusId.isValid
@@ -131,7 +131,7 @@ class _AddSpouseAndFamilyDataDialogState
                                                       ?.masterReference
                                                       ?.where((element) =>
                                                           element.id ==
-                                                          (state.martialStatusId
+                                                          (state.familyPersonRelationId
                                                               .value))
                                                       .toList()
                                                       .first
@@ -144,7 +144,7 @@ class _AddSpouseAndFamilyDataDialogState
                                                   ?.masterReference ??
                                               [],
                                           errorText: isCheck == true &&
-                                                  state.martialStatusId
+                                                  state.familyPersonRelationId
                                                       .isNotValid
                                               ? 'Mohon diisi'
                                               : null,
@@ -168,7 +168,7 @@ class _AddSpouseAndFamilyDataDialogState
                                       },
                                       onChanged: (String value) {
                                         getIt<FaaCandidatePageBloc>().add(
-                                            CompanyNameExperienceInputEvent(
+                                            FamilyDirectNameInputEvent(
                                                 value));
                                       },
                                     ),
@@ -189,7 +189,7 @@ class _AddSpouseAndFamilyDataDialogState
                                           onChanged:
                                               (AajicityMasterReference value) {
                                             getIt<FaaCandidatePageBloc>().add(
-                                                PositionSpouseInputEvent(
+                                                FamilyPositionInputEvent(
                                                     value));
                                           },
                                           items: state
@@ -200,7 +200,7 @@ class _AddSpouseAndFamilyDataDialogState
                                                   ?.masterReference ??
                                               [],
                                           errorText: isCheck == true &&
-                                                  state.spousePositionId
+                                                  state.familyPositionId
                                                       .isNotValid
                                               ? 'Mohon diisi'
                                               : null,
@@ -224,7 +224,7 @@ class _AddSpouseAndFamilyDataDialogState
                                       },
                                       onChanged: (String value) {
                                         getIt<FaaCandidatePageBloc>().add(
-                                            CompanyNameExperienceInputEvent(
+                                            FamilyAgentCodeInputEvent(
                                                 value));
                                       },
                                     ),
@@ -242,8 +242,8 @@ class _AddSpouseAndFamilyDataDialogState
                                         color: AclColors.greyDarkFontColor,
                                       ),
                                       onChanged: (String value) {
-                                        // getIt<FaaCandidatePageBloc>()
-                                        //     .add(CheckEmployeeInputEvent(value));
+                                        getIt<FaaCandidatePageBloc>()
+                                            .add(FamilyCompanyInputEvent(value));
                                         setState(() {
                                           // checkedIsAgentInAllianz = true;
                                         });
@@ -257,7 +257,7 @@ class _AddSpouseAndFamilyDataDialogState
                                         'PT. Asuransi Allianz Life Indonesia'
                                       ],
                                       errorText: isCheck &&
-                                              state.checkIsEmployee.isNotValid
+                                              state.familyCompany.isNotValid
                                           ? 'Mohon diisi'
                                           : null,
                                     ),
