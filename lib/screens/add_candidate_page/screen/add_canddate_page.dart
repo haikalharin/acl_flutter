@@ -139,6 +139,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                           TextInput(
                             icon: const Icon(Icons.person),
                             labelText: "Nama Depan(sesuai KTP)",
+                            keyboardType: TextInputType.name,
                             // initialValue: postTitle,
                             validator: (String? value) {
                               if (value!.isNotEmpty) return null;
@@ -154,6 +155,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             isMandatory: false,
                             icon: const Icon(Icons.person),
                             labelText: "Nama tengah(sesuai KTP)",
+                            keyboardType: TextInputType.name,
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(MiddleNameInputEvent(value));
@@ -164,6 +166,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                             isMandatory: false,
                             icon: const Icon(Icons.person),
                             labelText: "Nama belakang(sesuai KTP)",
+                            keyboardType: TextInputType.name,
                             onChanged: (String value) {
                               getIt<AddCandidatePageBloc>()
                                   .add(LastNameInputEvent(value));
@@ -734,7 +737,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                               ? TextInput(
                                   controller: aauiController,
                                   maxLength: 28,
-                                  keyboardType: TextInputType.phone,
                                   isMandatory: checkedPrevCompanyAAUI ||
                                       state.imageLicenceAAUI.isValid,
                                   icon: const Icon(Icons.add_card_rounded),

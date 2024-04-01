@@ -119,7 +119,7 @@ class _AajiDataState extends State<AajiData> {
                                     .add(AajiNoInputEvent(value));
                               },
                               validator: (String? value) {
-                                if (checkedValueAAJI) {
+                                if (state.checkedValueAAJI) {
                                   if (value!.isNotEmpty) return null;
                                   return "Mohon diisi";
                                 } else {
@@ -200,7 +200,7 @@ class _AajiDataState extends State<AajiData> {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(AajiImageInputEvent(value));
                               },
-                              errorText: checkedValueAAJI &&
+                              errorText: state.checkedValueAAJI &&
                                       isCheck &&
                                       state.imageLicenceAAJI.isNotValid
                                   ? 'Mohon diisi'

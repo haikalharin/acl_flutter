@@ -83,7 +83,10 @@ class _AddSpouseAndFamilyDataDialogState
                         key: formKey,
                         child: Column(
                           children: <Widget>[
-                            widget.putDataType == PutDataType.isAgentInAllianz
+                            widget.putDataType ==
+                                        PutDataType.isAgentInAllianz ||
+                                    widget.putDataType ==
+                                        PutDataType.isAgentInOthers || widget.putDataType == PutDataType.isEmployeeInAllianz
                                 ? SizedBox(
                                     height: 8,
                                     child: TextInput(
@@ -98,13 +101,13 @@ class _AddSpouseAndFamilyDataDialogState
                                       },
                                       onChanged: (String value) {
                                         getIt<FaaCandidatePageBloc>().add(
-                                            FamilyPersonNameInputEvent(
-                                                value));
+                                            FamilyPersonNameInputEvent(value));
                                       },
                                     ),
                                   )
                                 : Container(),
-                            widget.putDataType == PutDataType.isAgentInAllianz
+                            widget.putDataType == PutDataType.isAgentInAllianz || widget.putDataType ==
+                                PutDataType.isAgentInOthers||  widget.putDataType == PutDataType.isEmployeeInAllianz
                                 ? SizedBox(
                                     height: 8,
                                     child: BlocBuilder<FaaCandidatePageBloc,
@@ -119,23 +122,25 @@ class _AddSpouseAndFamilyDataDialogState
                                           onChanged:
                                               (CityMasterReference value) {
                                             getIt<FaaCandidatePageBloc>().add(
-                                                FamilyPersonRelationInputEvent(value));
+                                                FamilyPersonRelationInputEvent(
+                                                    value));
                                           },
-                                          initialItem:
-                                              state.martialStatusId.isValid
-                                                  ? state
-                                                      .masterDataModel
-                                                      ?.masterData
-                                                      ?.masterReferenceAll
-                                                      ?.heirrelation
-                                                      ?.masterReference
-                                                      ?.where((element) =>
-                                                          element.id ==
-                                                          (state.familyPersonRelationId
-                                                              .value))
-                                                      .toList()
-                                                      .first
-                                                  : null,
+                                          initialItem: state
+                                                  .martialStatusId.isValid
+                                              ? state
+                                                  .masterDataModel
+                                                  ?.masterData
+                                                  ?.masterReferenceAll
+                                                  ?.heirrelation
+                                                  ?.masterReference
+                                                  ?.where((element) =>
+                                                      element.id ==
+                                                      (state
+                                                          .familyPersonRelationId
+                                                          .value))
+                                                  .toList()
+                                                  .first
+                                              : null,
                                           items: state
                                                   .masterDataModel
                                                   ?.masterData
@@ -168,8 +173,7 @@ class _AddSpouseAndFamilyDataDialogState
                                       },
                                       onChanged: (String value) {
                                         getIt<FaaCandidatePageBloc>().add(
-                                            FamilyDirectNameInputEvent(
-                                                value));
+                                            FamilyDirectNameInputEvent(value));
                                       },
                                     ),
                                   )
@@ -224,26 +228,45 @@ class _AddSpouseAndFamilyDataDialogState
                                       },
                                       onChanged: (String value) {
                                         getIt<FaaCandidatePageBloc>().add(
-                                            FamilyAgentCodeInputEvent(
-                                                value));
+                                            FamilyAgentCodeInputEvent(value));
                                       },
                                     ),
                                   )
                                 : Container(),
+                            widget.putDataType == PutDataType.isEmployeeInAllianz
+                                ? SizedBox(
+                              height: 8,
+                              child: TextInput(
+                                initialValue:
+                                state.addCompanyModel?.companyName,
+                                icon: const Icon(Icons.person),
+                                labelText: "Nama Perusahaan Asuransi Lain",
+                                // initialValue: postTitle,
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                },
+                                onChanged: (String value) {
+                                  getIt<FaaCandidatePageBloc>().add(
+                                      FamilyCompanyInputEvent(value));
+                                },
+                              ),
+                            )
+                                : Container(),
+
                             widget.putDataType == PutDataType.isAgentInAllianz
                                 ? SizedBox(
                                     height: 8,
                                     child: DropDownString(
-                                      title:
-                                          AppString.textSpouseIsAgentInAllianz,
+                                      title:'Nama Perusahaan Grup Allianz',
                                       displayClearIcon: false,
                                       icon: const Icon(
                                         Icons.add_chart,
                                         color: AclColors.greyDarkFontColor,
                                       ),
                                       onChanged: (String value) {
-                                        getIt<FaaCandidatePageBloc>()
-                                            .add(FamilyCompanyInputEvent(value));
+                                        getIt<FaaCandidatePageBloc>().add(
+                                            FamilyCompanyInputEvent(value));
                                         setState(() {
                                           // checkedIsAgentInAllianz = true;
                                         });
@@ -266,35 +289,20 @@ class _AddSpouseAndFamilyDataDialogState
                             widget.putDataType == PutDataType.isAgentInOthers
                                 ? SizedBox(
                                     height: 8,
-                                    child: DropDownGeneralFaa(
-                                      title: 'Nama Perusahaan Asuransi',
-                                      isMandatory:
-                                          state.checkedPrevCompanyValueAAUI,
-                                      readOnly:
-                                          state.checkedPrevCompanyValueAAUI,
-                                      icon: const Icon(
-                                        Icons.add_chart,
-                                        color: AclColors.greyDarkFontColor,
-                                      ),
-                                      onChanged:
-                                          (AajicityMasterReference value) {
-                                        getIt<FaaCandidatePageBloc>().add(
-                                            AauiPrevCompanyInputEvent(value));
+                                    child: TextInput(
+                                      initialValue:
+                                          state.addCompanyModel?.companyName,
+                                      icon: const Icon(Icons.person),
+                                      labelText: "Nama Perusahaan Asuransi Lain",
+                                      // initialValue: postTitle,
+                                      validator: (String? value) {
+                                        if (value!.isNotEmpty) return null;
+                                        return "Mohon diisi";
                                       },
-                                      items: state
-                                              .masterDataModel
-                                              ?.masterData
-                                              ?.masterReferenceAll
-                                              ?.prevcompanyaaui
-                                              ?.masterReference ??
-                                          [],
-                                      errorText:
-                                          state.checkedPrevCompanyValueAAUI &&
-                                                  isCheck &&
-                                                  state.prevCompanyAAUIId
-                                                      .isNotValid
-                                              ? 'Mohon diisi'
-                                              : null,
+                                      onChanged: (String value) {
+                                        getIt<FaaCandidatePageBloc>().add(
+                                            FamilyCompanyInputEvent(value));
+                                      },
                                     ),
                                   )
                                 : Container(),

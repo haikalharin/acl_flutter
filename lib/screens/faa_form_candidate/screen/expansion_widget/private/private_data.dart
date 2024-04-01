@@ -72,6 +72,7 @@ class _PrivateDataState extends State<PrivateData> {
                               readOnly: true,
                               icon: const Icon(Icons.person),
                               labelText: "Nama Depan(sesuai KTP)",
+                              keyboardType: TextInputType.name,
                               initialValue: state.firstName.isValid
                                   ? state.firstName.value
                                   : null,
@@ -92,6 +93,7 @@ class _PrivateDataState extends State<PrivateData> {
                               isMandatory: false,
                               icon: const Icon(Icons.person),
                               labelText: "Nama tengah(sesuai KTP)",
+                              keyboardType: TextInputType.name,
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(MiddleNameInputEvent(value));
@@ -104,6 +106,7 @@ class _PrivateDataState extends State<PrivateData> {
                               isMandatory: false,
                               icon: const Icon(Icons.person),
                               labelText: "Nama belakang(sesuai KTP)",
+                              keyboardType: TextInputType.name,
                               onChanged: (String value) {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(LastNameInputEvent(value));

@@ -385,6 +385,7 @@ class AauiImageInputEvent extends FaaCandidatePageEvent {
   AauiImageInputEvent(this.aauiImage);
 }
 
+//todo
 ///Spouse and family
 class PutDataTypeEvent extends FaaCandidatePageEvent {
   final PutDataType putDataType;
@@ -438,6 +439,14 @@ class FamilyCompanyInputEvent extends FaaCandidatePageEvent {
   final String value;
 
   FamilyCompanyInputEvent(this.value);
+}
+
+
+class SubmitFamiliesDataEvent extends FaaCandidatePageEvent {
+  final PutDataType type;
+  final int? id;
+
+  SubmitFamiliesDataEvent(this.type, {this.id});
 }
 
 ///
@@ -502,7 +511,6 @@ class AppendixImageInputEvent extends FaaCandidatePageEvent {
   AppendixImageInputEvent(this.value);
 }
 
-//todo
 class SpouseIsAgentInputEvent extends FaaCandidatePageEvent {
   final String value;
 
@@ -539,13 +547,8 @@ class AgentCodeInputEvent extends FaaCandidatePageEvent {
   AgentCodeInputEvent(this.value);
 }
 
-class SubmitFamiliesDataEvent extends FaaCandidatePageEvent {
-  final PutDataType type;
-  final int? id;
 
-  SubmitFamiliesDataEvent(this.type, {this.id});
-}
-//todo
+
 
 class FaaAddAgentSubmittedEvent extends FaaCandidatePageEvent {
   FaaAddAgentSubmittedEvent();

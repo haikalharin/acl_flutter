@@ -119,7 +119,9 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator agentCode;
 
   ///Spouse and family
-  final List<RelationInCompanyModel>? listFamilyIsAgent;
+  final List<ResponseFamiliesData>? listFamilyIsAgent;
+  final List<ResponseFamiliesData>? listFamilyIsAgentOthers;
+  final List<ResponseFamiliesData>? listFamilyIsEmploye;
   final List<RelationInCompanyModel>? listFamilyIsAgentDelete;
   final MandatoryFieldValidator familyPersonName;
   final DropdownFieldValidator familyPersonRelationId;
@@ -290,6 +292,8 @@ class FaaCandidatePageState with FormzMixin {
 
     ///Spouse and family
     this.listFamilyIsAgent,
+    this.listFamilyIsAgentOthers,
+    this.listFamilyIsEmploye,
     this.listFamilyIsAgentDelete,
     this.familyPersonName = const MandatoryFieldValidator.pure(),
     this.familyPersonRelationId = const DropdownFieldValidator.pure(),
@@ -606,7 +610,9 @@ class FaaCandidatePageState with FormzMixin {
     ///Spouse and family
 
     PutDataType? putDataType,
-    List<RelationInCompanyModel>? listFamilyIsAgent,
+    List<ResponseFamiliesData>? listFamilyIsAgent,
+    List<ResponseFamiliesData>? listFamilyIsAgentOthers,
+    List<ResponseFamiliesData>? listFamilyIsEmployee,
     List<RelationInCompanyModel>? listFamilyIsAgentDelete,
     MandatoryFieldValidator? familyPersonName,
     DropdownFieldValidator? familyPersonRelationId,
@@ -805,6 +811,8 @@ class FaaCandidatePageState with FormzMixin {
 
       ///Spouse and family
       listFamilyIsAgent: listFamilyIsAgent ?? this.listFamilyIsAgent,
+      listFamilyIsAgentOthers: listFamilyIsAgentOthers ?? this.listFamilyIsAgentOthers,
+      listFamilyIsEmploye: listFamilyIsEmploye ?? this.listFamilyIsEmploye,
       listFamilyIsAgentDelete: listFamilyIsAgentDelete ?? this.listFamilyIsAgentDelete,
       familyPersonName: familyPersonName ?? this.familyPersonName,
       putDataType: putDataType ?? this.putDataType,

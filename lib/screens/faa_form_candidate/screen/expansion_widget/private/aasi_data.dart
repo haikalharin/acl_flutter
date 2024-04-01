@@ -107,7 +107,7 @@ class _AasiDataState extends State<AasiData> {
                                     .add(AasiNoInputEvent(value));
                               },
                               validator: (String? value) {
-                                if (checkedValueAASI) {
+                                if (state.checkedValueAASI) {
                                   if (value!.isNotEmpty) return null;
                                   return "Mohon diisi";
                                 } else {
@@ -188,7 +188,7 @@ class _AasiDataState extends State<AasiData> {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(AasiImageInputEvent(value));
                               },
-                              errorText: checkedValueAASI &&
+                              errorText: state.checkedValueAASI &&
                                       isCheck &&
                                       state.imageLicenceAASI.isNotValid
                                   ? 'Mohon diisi'

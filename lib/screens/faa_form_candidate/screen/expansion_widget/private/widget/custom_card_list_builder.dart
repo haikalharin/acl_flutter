@@ -1,14 +1,15 @@
+import 'package:acl_flutter/data/model/candidate_faa/response_families_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_helper/source/utility/text/uitext_style.dart';
 
 class CustomCardListBuilder extends StatelessWidget {
-  final List<RelationInCompanyModel> relationInCompanyModel;
-    final Function(RelationInCompanyModel)? onEditPressed;
-  final Function(RelationInCompanyModel)? onDeletePressed;
+  final List<ResponseFamiliesData> responseFamiliesData;
+    final Function(ResponseFamiliesData)? onEditPressed;
+  final Function(ResponseFamiliesData)? onDeletePressed;
 
   const CustomCardListBuilder({
     Key? key,
-    required this.relationInCompanyModel,
+    required this.responseFamiliesData,
     this.onEditPressed,
     this.onDeletePressed,
   }) : super(key: key);
@@ -16,9 +17,9 @@ class CustomCardListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: relationInCompanyModel.length,
+      itemCount: responseFamiliesData.length,
       itemBuilder: (context, index) {
-        final data = relationInCompanyModel[index];
+        final data = responseFamiliesData[index];
         return Card(
           margin: const EdgeInsets.all(16.0),
           child: Container(
@@ -46,11 +47,11 @@ class CustomCardListBuilder extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(data.relationName??'',style: UITextStyle.subheading,),
+                      Text(data.name??'',style: UITextStyle.subheading,),
                       const SizedBox(height: 8),
-                      Text(data.relationStatus??''),
+                      Text(data.relation??''),
                       const SizedBox(height: 8),
-                      Text(data.companyNameInAllianzGroup??''),
+                      Text(data.companyGroup??''),
                       const SizedBox(height: 8),
                       Row(
                         children: [

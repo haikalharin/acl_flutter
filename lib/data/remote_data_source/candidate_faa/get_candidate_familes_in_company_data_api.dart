@@ -1,4 +1,5 @@
 import 'package:acl_flutter/data/model/candidate_faa/family_card_model.dart';
+import 'package:acl_flutter/data/model/candidate_faa/response_families_data.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 
 import '../../../core/network/api_helper.dart';
@@ -6,13 +7,13 @@ import '../../../core/network/dio_client.dart';
 import '../../../core/network/service_url.dart';
 import '../../model/candidate/candidate_data_model.dart';
 
-class GetCandidateFamilyDataApi with ApiHelper<FamilyCardModel> {
+class GetCandidateFamiliesInCompanyDataApi with ApiHelper<ResponseFamiliesData> {
   final DioClient dioClient;
 
-  GetCandidateFamilyDataApi({required this.dioClient});
+  GetCandidateFamiliesInCompanyDataApi({required this.dioClient});
 
-  Future<ResponseModel<FamilyCardModel>> getCandidateFamilyData(
-      String candidateId) async {
+  Future<ResponseModel<ResponseFamiliesData>> getCandidateFamiliesInCompanyData(
+      int candidateId) async {
     Map<String, dynamic> data = {"candidateId": candidateId};
 
     return await makeGetRequestWithResponseModel(
@@ -20,7 +21,7 @@ class GetCandidateFamilyDataApi with ApiHelper<FamilyCardModel> {
           ServiceUrl.getCandidateFamilyData,
           queryParameters: data,
         ),
-        FamilyCardModel.fromJson);
+        ResponseFamiliesData.fromJson);
   }
 
 

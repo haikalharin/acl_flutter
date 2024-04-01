@@ -186,7 +186,7 @@ class _AauiDataState extends State<AauiData> {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(AauiImageInputEvent(value));
                                 },
-                                errorText: checkedValueAAUI && isCheck &&
+                                errorText: state.checkedValueAAUI && isCheck &&
                                     state.imageLicenceAAUI.isNotValid
                                     ? 'Mohon diisi'
                                     : null,

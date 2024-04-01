@@ -40,6 +40,8 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
   bool checkedValueAAUI = false;
   bool checkedValueMarriage = false;
   bool checkedIsAgentInAllianz = false;
+  bool checkedIsAgentOthers = false;
+  bool checkedIsEmployee = false;
   bool checkedValueResign = false;
   bool checkedValueTerminasi = false;
   var data = [
@@ -74,70 +76,147 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(height: 8),
-                            DropDownString(
-                              title: AppString.textSpouseIsAgentInAllianz,
-                              displayClearIcon: false,
-                              icon: const Icon(
-                                Icons.add_chart,
-                                color: AclColors.greyDarkFontColor,
-                              ),
-                              onChanged: (String value) {
-                                // getIt<FaaCandidatePageBloc>()
-                                //     .add(CheckEmployeeInputEvent(value));
-                                setState(() {
-                                  checkedIsAgentInAllianz = true;
-                                });
-                              },
-                              initialItem: 'Tidak',
-                              items: const ['Ya', 'Tidak'],
-                              errorText:
-                                  isCheck && state.checkIsEmployee.isNotValid
-                                      ? 'Mohon diisi'
-                                      : null,
-                            ),
-                            const SizedBox(height: 8),
-                             Column(
-                              children: [
-                                const CustomCardListBuilder(
-                                    relationInCompanyModel: [
-                                      RelationInCompanyModel(
-                                          relationName: 'wawan syahroni',
-                                          relationStatus: 'suami',
-                                          companyNameInAllianzGroup:
-                                              'PT. Asuransi Allianz Life Indonesia'),
-                                      RelationInCompanyModel(relationName: 'wawan syahroni',
-                                          relationStatus: 'adik',
-                                          companyNameInAllianzGroup:
-                                          'PT. Asuransi Allianz Life Indonesia'),
-                                      RelationInCompanyModel(relationName: 'wawan syahroni',
-                                          relationStatus: 'kakak',
-                                          companyNameInAllianzGroup:
-                                          'PT. Asuransi Allianz Life Indonesia'),
-                                    ]),
-                                SizedBox(height: 8,
-                                  child: ButtonWidgetCustom(
-                                    text: "Tambah",
-                                    backgroudColor: AclColors.blueButton,
-                                    textColor: AclColors.white,
-                                    function: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AddSpouseAndFamilyDataDialog(
-                                            onSubmitPressed: () =>
-                                                Navigator.pop(context,
-                                                ), putDataType: PutDataType.isAgentInAllianz,
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
+                            SizedBox(height: 8,
+                              child: DropDownString(
+                                title: AppString.textSpouseIsAgentInAllianz,
+                                displayClearIcon: false,
+                                icon: const Icon(
+                                  Icons.add_chart,
+                                  color: AclColors.greyDarkFontColor,
                                 ),
-                              ],
+                                onChanged: (String value) {
+                                  // getIt<FaaCandidatePageBloc>()
+                                  //     .add(CheckEmployeeInputEvent(value));
+                                  setState(() {
+                                    checkedIsAgentInAllianz = value == 'Ya'? true:false;
+                                  });
+                                },
+                                initialItem: 'Tidak',
+                                items: const ['Ya', 'Tidak'],
+                              ),
                             ),
+                            checkedIsAgentInAllianz?  SizedBox(height: 8,
+                              child: Column(
+                                children: [
+                                   CustomCardListBuilder(
+                                      responseFamiliesData: state.listFamilyIsAgent??[]),
+                                  SizedBox(height: 8,
+                                    child: ButtonWidgetCustom(
+                                      text: "Tambah",
+                                      backgroudColor: AclColors.blueButton,
+                                      textColor: AclColors.white,
+                                      function: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AddSpouseAndFamilyDataDialog(
+                                              onSubmitPressed: () =>
+                                                  Navigator.pop(context,
+                                                  ), putDataType: PutDataType.isAgentInAllianz,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ):Container(),
 
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8,
+                              child: DropDownString(
+                                title: AppString.textSpouseIsAgentInAllianz,
+                                displayClearIcon: false,
+                                icon: const Icon(
+                                  Icons.add_chart,
+                                  color: AclColors.greyDarkFontColor,
+                                ),
+                                onChanged: (String value) {
+                                  // getIt<FaaCandidatePageBloc>()
+                                  //     .add(CheckEmployeeInputEvent(value));
+                                  setState(() {
+                                    checkedIsAgentOthers = value == 'Ya'? true:false;
+                                  });
+                                },
+                                initialItem: 'Tidak',
+                                items: const ['Ya', 'Tidak'],
+
+                              ),
+                            ),
+                            checkedIsAgentOthers?  SizedBox(height: 8,
+                              child: Column(
+                                children: [
+                                  CustomCardListBuilder(
+                                      responseFamiliesData: state.listFamilyIsAgentOthers??[]),
+                                  SizedBox(height: 8,
+                                    child: ButtonWidgetCustom(
+                                      text: "Tambah",
+                                      backgroudColor: AclColors.blueButton,
+                                      textColor: AclColors.white,
+                                      function: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AddSpouseAndFamilyDataDialog(
+                                              onSubmitPressed: () =>
+                                                  Navigator.pop(context,
+                                                  ), putDataType: PutDataType.isAgentInOthers,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ):Container(),
+                            SizedBox(height: 8,
+                              child: DropDownString(
+                                title: AppString.textSpouseIsAgentInAllianz,
+                                displayClearIcon: false,
+                                icon: const Icon(
+                                  Icons.add_chart,
+                                  color: AclColors.greyDarkFontColor,
+                                ),
+                                onChanged: (String value) {
+                                  // getIt<FaaCandidatePageBloc>()
+                                  //     .add(CheckEmployeeInputEvent(value));
+                                  setState(() {
+                                    checkedIsEmployee = value == 'Ya'? true:false;
+                                  });
+                                },
+                                initialItem: 'Tidak',
+                                items: const ['Ya', 'Tidak'],
+
+                              ),
+                            ),
+                            checkedIsEmployee?  SizedBox(height: 8,
+                              child: Column(
+                                children: [
+                                  CustomCardListBuilder(
+                                      responseFamiliesData: state.listFamilyIsEmploye??[]),
+                                  SizedBox(height: 8,
+                                    child: ButtonWidgetCustom(
+                                      text: "Tambah",
+                                      backgroudColor: AclColors.blueButton,
+                                      textColor: AclColors.white,
+                                      function: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AddSpouseAndFamilyDataDialog(
+                                              onSubmitPressed: () =>
+                                                  Navigator.pop(context,
+                                                  ), putDataType: PutDataType.isEmployeeInAllianz,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ):Container(),
                           ],
                         ),
                       ),

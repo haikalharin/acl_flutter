@@ -10,6 +10,7 @@ import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_education_
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_families_data_candidate_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_register_candidate_private_data_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_work_eexperience_candidate_api.dart';
+import 'package:acl_flutter/data/remote_data_source/candidate_faa/get_candidate_familes_in_company_data_api.dart';
 import 'package:acl_flutter/data/remote_data_source/comment/comment_api.dart';
 import 'package:acl_flutter/data/remote_data_source/document/document_api.dart';
 import 'package:acl_flutter/data/remote_data_source/master_data/master_data_api.dart';
@@ -144,12 +145,15 @@ Future<void> init() async {
 
   // AddRegisterCandidatePrivateData api
   getIt.registerLazySingleton<GetCandidateFamilyDataApi>(
-          () => GetCandidateFamilyDataApi(dioClient: getIt<DioClient>()));
+      () => GetCandidateFamilyDataApi(dioClient: getIt<DioClient>()));
 
   // AddFamiliesData api
   getIt.registerLazySingleton<AddFamiliesDataCandidateApi>(
-          () => AddFamiliesDataCandidateApi(dioClient: getIt<DioClient>()));
+      () => AddFamiliesDataCandidateApi(dioClient: getIt<DioClient>()));
 
+  // GetCandidateFamiliesInCompanyData api
+  getIt.registerLazySingleton<GetCandidateFamiliesInCompanyDataApi>(() =>
+      GetCandidateFamiliesInCompanyDataApi(dioClient: getIt<DioClient>()));
 
   // User repository
   getIt.registerLazySingleton<UserRepository>(
@@ -175,8 +179,6 @@ Future<void> init() async {
     () => LoginRepository(loginApi: getIt<LoginApi>()),
   );
 
-
-
   // candidate repository
   getIt.registerLazySingleton<CandidateRepository>(
     () => CandidateRepository(
@@ -196,16 +198,16 @@ Future<void> init() async {
   );
 
   // CandidateFaa repository
-  getIt.registerLazySingleton<CandidateFaaRepository>(
-    () => CandidateFaaRepository(
+  getIt.registerLazySingleton<CandidateFaaRepository>(() =>
+      CandidateFaaRepository(
         addWorkExperienceCandidateApi: getIt<AddWorkExperienceCandidateApi>(),
         addEducationCandidateApi: getIt<AddEducationCandidateApi>(),
         addRegisterCandidatePrivateDataApi:
             getIt<AddRegisterCandidatePrivateDataApi>(),
-      addFamiliesDataCandidateApi:
-      getIt<AddFamiliesDataCandidateApi>(),
-    ),
-  );
+        addFamiliesDataCandidateApi: getIt<AddFamiliesDataCandidateApi>(),
+        getCandidateFamiliesInCompanyDataApi:
+            getIt<GetCandidateFamiliesInCompanyDataApi>(),
+      ));
 
   // Notfikasi repository
   getIt.registerLazySingleton<NotificationRepository>(

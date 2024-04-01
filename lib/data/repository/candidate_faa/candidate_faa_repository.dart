@@ -25,22 +25,25 @@ import '../../remote_data_source/candidate_faa/add_education_candidate_api.dart'
 import '../../remote_data_source/candidate_faa/add_families_data_candidate_api.dart';
 import '../../remote_data_source/candidate_faa/add_work_eexperience_candidate_api.dart';
 import '../../model/candidate/candidate_model.dart';
-
+import '../../remote_data_source/candidate_faa/get_candidate_familes_in_company_data_api.dart';
 
 class CandidateFaaRepository with RepositoryHelper<CandidateModel> {
   final AddWorkExperienceCandidateApi addWorkExperienceCandidateApi;
   final AddFamiliesDataCandidateApi addFamiliesDataCandidateApi;
   final AddEducationCandidateApi addEducationCandidateApi;
   final AddRegisterCandidatePrivateDataApi addRegisterCandidatePrivateDataApi;
+  final GetCandidateFamiliesInCompanyDataApi
+      getCandidateFamiliesInCompanyDataApi;
 
   const CandidateFaaRepository({
     required this.addWorkExperienceCandidateApi,
     required this.addFamiliesDataCandidateApi,
     required this.addEducationCandidateApi,
     required this.addRegisterCandidatePrivateDataApi,
+    required this.getCandidateFamiliesInCompanyDataApi,
   });
 
-  Future<ApiResult<ResponseModel<CandidateModel>>>  addCandidateWorkExperience(
+  Future<ApiResult<ResponseModel<CandidateModel>>> addCandidateWorkExperience(
       AddCandidateWorkExperienceModel addCandidateWorkExperienceModel) async {
     try {
       final ResponseModel<CandidateModel> items =
@@ -53,11 +56,10 @@ class CandidateFaaRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<CandidateModel>>>  addCandidateEducation(
+  Future<ApiResult<ResponseModel<CandidateModel>>> addCandidateEducation(
       EducationCandidateModel educationCandidateModel) async {
     try {
-      final ResponseModel<CandidateModel> items =
-      await addEducationCandidateApi
+      final ResponseModel<CandidateModel> items = await addEducationCandidateApi
           .addCandidateEducation(educationCandidateModel);
       return ApiResult.success(items);
     } on DioException catch (e) {
@@ -66,12 +68,12 @@ class CandidateFaaRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<ResponseFamiliesData>>>  addAddFamiliesData(
+  Future<ApiResult<ResponseModel<ResponseFamiliesData>>> addAddFamiliesData(
       RequestFamiliesData requestFamiliesData) async {
     try {
       final ResponseModel<ResponseFamiliesData> items =
-      await addFamiliesDataCandidateApi
-          .addAddFamiliesData(requestFamiliesData);
+          await addFamiliesDataCandidateApi
+              .addAddFamiliesData(requestFamiliesData);
       return ApiResult.success(items);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
@@ -79,12 +81,32 @@ class CandidateFaaRepository with RepositoryHelper<CandidateModel> {
     }
   }
 
-  Future<ApiResult<ResponseModel<PrivateDataCandidateRequestModel>>> addRegisterCandidatePrivateData(
-      PrivateDataCandidateRequestModel privateDataCandidateRequestModel) async {
+  Future<ApiResult<ResponseModel<PrivateDataCandidateRequestModel>>>
+      addRegisterCandidatePrivateData(
+          PrivateDataCandidateRequestModel
+              privateDataCandidateRequestModel) async {
     try {
       final ResponseModel<PrivateDataCandidateRequestModel> items =
-      await addRegisterCandidatePrivateDataApi
-          .addRegisterCandidatePrivateData(privateDataCandidateRequestModel);
+          await addRegisterCandidatePrivateDataApi
+              .addRegisterCandidatePrivateData(
+                  privateDataCandidateRequestModel);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      var data = e;
+      if (kDebugMode) {
+        print("$data");
+      }
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+
+  Future<ApiResult<ResponseModel<ResponseFamiliesData>>>
+      getCandidateFamiliesInCompanyData(int candidateId) async {
+    try {
+      final ResponseModel<ResponseFamiliesData> items =
+          await getCandidateFamiliesInCompanyDataApi
+              .getCandidateFamiliesInCompanyData(candidateId);
       return ApiResult.success(items);
     } on DioException catch (e) {
       var data = e;
