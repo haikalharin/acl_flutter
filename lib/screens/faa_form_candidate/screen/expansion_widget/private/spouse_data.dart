@@ -118,8 +118,7 @@ class _SpouseDataState extends State<SpouseData> {
                                     ?.masterReference ??
                                     [],
                                 errorText: isCheck &&
-                                    state.relationId.isNotValid &&
-                                    checkedValueMarriage
+                                    state.relationId.isNotValid
                                     ? 'Mohon diisi'
                                     : null,
                               ),

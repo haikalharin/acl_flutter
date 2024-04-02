@@ -61,7 +61,7 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
       child: Card(
         child: ExpansionTile(
           title: const Text(
-            'Data Ahli Waris',
+            'Data pasangan dan keluarga',
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
           collapsedBackgroundColor: AclColors.greyDivider,
@@ -76,7 +76,8 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: 8,
+                            Container(
+                              margin: const EdgeInsets.only(top: 8),
                               child: DropDownString(
                                 title: AppString.textSpouseIsAgentInAllianz,
                                 displayClearIcon: false,
@@ -87,43 +88,52 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                 onChanged: (String value) {
                                   // getIt<FaaCandidatePageBloc>()
                                   //     .add(CheckEmployeeInputEvent(value));
-                                  setState(() {
-                                    checkedIsAgentInAllianz = value == 'Ya'? true:false;
-                                  });
+                                    checkedIsAgentInAllianz =
+                                        value == 'Ya' ? true : false;
                                 },
                                 initialItem: 'Tidak',
                                 items: const ['Ya', 'Tidak'],
                               ),
                             ),
-                            checkedIsAgentInAllianz?  SizedBox(height: 8,
-                              child: Column(
-                                children: [
-                                   CustomCardListBuilder(
-                                      responseFamiliesData: state.listFamilyIsAgent??[]),
-                                  SizedBox(height: 8,
-                                    child: ButtonWidgetCustom(
-                                      text: "Tambah",
-                                      backgroudColor: AclColors.blueButton,
-                                      textColor: AclColors.white,
-                                      function: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AddSpouseAndFamilyDataDialog(
-                                              onSubmitPressed: () =>
-                                                  Navigator.pop(context,
-                                                  ), putDataType: PutDataType.isAgentInAllianz,
-                                            );
-                                          },
-                                        );
-                                      },
+                            checkedIsAgentInAllianz
+                                ? Container(
+                                    margin: const EdgeInsets.only(top: 8),
+                                    child: Column(
+                                      children: [
+                                        state.listFamilyIsAgent != null? CustomCardListBuilder(
+                                            responseFamiliesData:
+                                                state.listFamilyIsAgent ?? []):Container(),
+                                        Container(
+                                        margin: const EdgeInsets.only(top: 8),
+                                          child: ButtonWidgetCustom(
+                                            text: "Tambah",
+                                            backgroudColor:
+                                                AclColors.blueButton,
+                                            textColor: AclColors.white,
+                                            function: () {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AddSpouseAndFamilyDataDialog(
+                                                    onSubmitPressed: () =>
+                                                        Navigator.pop(
+                                                      context,
+                                                    ),
+                                                    putDataType: PutDataType
+                                                        .isAgentInAllianz,
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ):Container(),
-
-                            SizedBox(height: 8,
+                                  )
+                                : Container(),
+                            Container(
+                              margin: const EdgeInsets.only(top: 8),
                               child: DropDownString(
                                 title: AppString.textSpouseIsAgentInAllianz,
                                 displayClearIcon: false,
@@ -134,43 +144,53 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                 onChanged: (String value) {
                                   // getIt<FaaCandidatePageBloc>()
                                   //     .add(CheckEmployeeInputEvent(value));
-                                  setState(() {
-                                    checkedIsAgentOthers = value == 'Ya'? true:false;
-                                  });
+                                    checkedIsAgentOthers =
+                                        value == 'Ya' ? true : false;
                                 },
                                 initialItem: 'Tidak',
                                 items: const ['Ya', 'Tidak'],
-
                               ),
                             ),
-                            checkedIsAgentOthers?  SizedBox(height: 8,
-                              child: Column(
-                                children: [
-                                  CustomCardListBuilder(
-                                      responseFamiliesData: state.listFamilyIsAgentOthers??[]),
-                                  SizedBox(height: 8,
-                                    child: ButtonWidgetCustom(
-                                      text: "Tambah",
-                                      backgroudColor: AclColors.blueButton,
-                                      textColor: AclColors.white,
-                                      function: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AddSpouseAndFamilyDataDialog(
-                                              onSubmitPressed: () =>
-                                                  Navigator.pop(context,
-                                                  ), putDataType: PutDataType.isAgentInOthers,
-                                            );
-                                          },
-                                        );
-                                      },
+                            checkedIsAgentOthers
+                                ? Container(
+                                    margin: const EdgeInsets.only(top: 8),
+                                    child: Column(
+                                      children: [
+                                        state.listFamilyIsAgentOthers != null? CustomCardListBuilder(
+                                            responseFamiliesData:
+                                                state.listFamilyIsAgentOthers ??
+                                                    []):Container(),
+                                        Container(
+                                          margin: const EdgeInsets.only(top: 8),
+                                          child: ButtonWidgetCustom(
+                                            text: "Tambah",
+                                            backgroudColor:
+                                                AclColors.blueButton,
+                                            textColor: AclColors.white,
+                                            function: () {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AddSpouseAndFamilyDataDialog(
+                                                    onSubmitPressed: () =>
+                                                        Navigator.pop(
+                                                      context,
+                                                    ),
+                                                    putDataType: PutDataType
+                                                        .isAgentInOthers,
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ):Container(),
-                            SizedBox(height: 8,
+                                  )
+                                : Container(),
+                            Container(
+                              margin: const EdgeInsets.only(top: 8),
                               child: DropDownString(
                                 title: AppString.textSpouseIsAgentInAllianz,
                                 displayClearIcon: false,
@@ -181,42 +201,52 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                 onChanged: (String value) {
                                   // getIt<FaaCandidatePageBloc>()
                                   //     .add(CheckEmployeeInputEvent(value));
-                                  setState(() {
-                                    checkedIsEmployee = value == 'Ya'? true:false;
-                                  });
+                                    checkedIsEmployee =
+                                        value == 'Ya' ? true : false;
                                 },
                                 initialItem: 'Tidak',
                                 items: const ['Ya', 'Tidak'],
-
                               ),
                             ),
-                            checkedIsEmployee?  SizedBox(height: 8,
-                              child: Column(
-                                children: [
-                                  CustomCardListBuilder(
-                                      responseFamiliesData: state.listFamilyIsEmploye??[]),
-                                  SizedBox(height: 8,
-                                    child: ButtonWidgetCustom(
-                                      text: "Tambah",
-                                      backgroudColor: AclColors.blueButton,
-                                      textColor: AclColors.white,
-                                      function: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AddSpouseAndFamilyDataDialog(
-                                              onSubmitPressed: () =>
-                                                  Navigator.pop(context,
-                                                  ), putDataType: PutDataType.isEmployeeInAllianz,
-                                            );
-                                          },
-                                        );
-                                      },
+                            checkedIsEmployee
+                                ? Container(
+                                    margin: const EdgeInsets.only(top: 8),
+                                    child: Column(
+                                      children: [
+                                        state.listFamilyIsEmploye != null? CustomCardListBuilder(
+                                            responseFamiliesData:
+                                                state.listFamilyIsEmploye ??
+                                                    []):Container(),
+                                        Container(
+                                          margin: const EdgeInsets.only(top: 8),
+                                          child: ButtonWidgetCustom(
+                                            text: "Tambah",
+                                            backgroudColor:
+                                                AclColors.blueButton,
+                                            textColor: AclColors.white,
+                                            function: () {
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AddSpouseAndFamilyDataDialog(
+                                                    onSubmitPressed: () =>
+                                                        Navigator.pop(
+                                                      context,
+                                                    ),
+                                                    putDataType: PutDataType
+                                                        .isEmployeeInAllianz,
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(height: 16,)
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ):Container(),
+                                  )
+                                : Container(),
                           ],
                         ),
                       ),

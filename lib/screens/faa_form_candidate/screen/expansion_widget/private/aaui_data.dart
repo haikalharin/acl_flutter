@@ -81,6 +81,17 @@ class _AauiDataState extends State<AauiData> {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(AauiPrevCompanyInputEvent(value));
                                 },
+                                initialItem: state.prevCompanyAAUIId.isValid? state
+                                    .masterDataModel
+                                    ?.masterData
+                                    ?.masterReferenceAll
+                                    ?.prevcompanyaaui
+                                    ?.masterReference
+                                    ?.where((element) =>
+                                element.id ==
+                                    (state.prevCompanyAAUIId.value))
+                                    .toList()
+                                    .first:null,
                                 items: state
                                     .masterDataModel
                                     ?.masterData

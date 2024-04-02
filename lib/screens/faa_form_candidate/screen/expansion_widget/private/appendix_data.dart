@@ -13,9 +13,11 @@ import '../../../bloc/faa_candidate_page_bloc.dart';
 import '../../tab_widget/private_data_page.dart';
 
 enum Mode { create, update }
+
 class AppendixData extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-   const AppendixData({super.key, required this.formKey});
+
+  const AppendixData({super.key, required this.formKey});
 
   @override
   State<AppendixData> createState() => _AppendixDataState();
@@ -46,89 +48,96 @@ class _AppendixDataState extends State<AppendixData> {
   @override
   Widget build(BuildContext context) {
     Mode mode = Mode.create;
-    var width = MediaQuery.of(context).size.width;
-    return  SingleChildScrollView(
+    var width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    return SingleChildScrollView(
       child: Card(
         child: ExpansionTile(
-            title: const Text(
-              'Lampiran',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-          collapsedBackgroundColor: AclColors.greyDivider,
-            children: <Widget>[
-              BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
-                builder: (context, state) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Stack(
-                      children: [
-                        SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: 8),
-                              BlocBuilder<FaaCandidatePageBloc,
-                                  FaaCandidatePageState>(
-                                builder: (context, state) {
-                                  return DropDownGeneralFaaFourth(
-                                    title: 'Lain lain',
-                                    isMandatory: false,
-                                    icon: const Icon(
-                                      Icons.account_balance_rounded,
-                                      color: AclColors.greyDarkFontColor,
-                                    ),
-                                    onChanged: (SupportingDocument value) {
-                                      getIt<FaaCandidatePageBloc>()
-                                          .add(AppendixInputEvent(value));
-                                    },
-                                    items: state
-                                        .masterDataModel
-                                        ?.supportingDocumentList
-                                        ?.supportingDocument ??
-                                        [],
-                                    errorText:
-                                    isCheck == true && state.appendixValueId.isNotValid
-                                        ? 'Mohon diisi'
-                                        : null,
-                                  );
-                                },
-                              ),
-                              const SizedBox(height: 8),
-                             state.appendixValueId.isValid? CustomImagePicker(
-                                title: 'Lain lain',
-                                isMandatory: false,
-                                onImagePicked: (value) {
-                                  getIt<FaaCandidatePageBloc>()
-                                      .add(AppendixImageInputEvent(value));
-                                },
-                                errorText:  isCheck &&
-                                    state.appendixImage.isNotValid
-                                    ? 'Mohon diisi'
-                                    : null,
-                              ):Container(),
-                              const SizedBox(height: 8),
-                            ],
-                          ),
-                        ),
-                        // state.submitStatus.isFailure
-                        //     ? showDialog(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return RetryDialog(
-                        //       title: state.message ?? "Error",
-                        //       onCancelPressed: () =>Navigator.pop(context),
-                        //     );
-                        //   },
-                        // ): Container()
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
+          title: const Text(
+            'Lampiran',
+            style: TextStyle(fontWeight: FontWeight.w500),
           ),
+          collapsedBackgroundColor: AclColors.greyDivider,
+          children: <Widget>[
+            BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 8),
+                            BlocBuilder<FaaCandidatePageBloc,
+                                FaaCandidatePageState>(
+                              builder: (context, state) {
+                                return DropDownGeneralFaaFourth(
+                                  title: 'Lain lain',
+                                  isMandatory: false,
+                                  icon: const Icon(
+                                    Icons.account_balance_rounded,
+                                    color: AclColors.greyDarkFontColor,
+                                  ),
+                                  onChanged: (SupportingDocument value) {
+                                    getIt<FaaCandidatePageBloc>()
+                                        .add(AppendixInputEvent(value));
+                                  },
+                                  items: state
+                                      .masterDataModel
+                                      ?.supportingDocumentList
+                                      ?.supportingDocument ??
+                                      [],
+                                  errorText:
+                                  isCheck == true &&
+                                      state.appendixValueId.isNotValid
+                                      ? 'Mohon diisi'
+                                      : null,
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            state.appendixValueId.isValid ? CustomImagePicker(
+                              title: 'Lain lain',
+                              isMandatory: false,
+                              initialImage: state.appendixValueId.value ==
+                                  30020110 ? state.imageLicenceAAJI.value:null,
+                              readOnly: state.appendixValueId.value ==
+                                  30020110,
+                              onImagePicked: (value) {
+                                getIt<FaaCandidatePageBloc>()
+                                    .add(AppendixImageInputEvent(value));
+                              },
+                              errorText: isCheck &&
+                                  state.appendixImage.isNotValid
+                                  ? 'Mohon diisi'
+                                  : null,
+                            ) : Container(),
+                            const SizedBox(height: 8),
+                          ],
+                        ),
+                      ),
+                      // state.submitStatus.isFailure
+                      //     ? showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) {
+                      //     return RetryDialog(
+                      //       title: state.message ?? "Error",
+                      //       onCancelPressed: () =>Navigator.pop(context),
+                      //     );
+                      //   },
+                      // ): Container()
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
-
   }
 }

@@ -435,6 +435,12 @@ class FamilyAgentCodeInputEvent extends FaaCandidatePageEvent {
   FamilyAgentCodeInputEvent(this.value);
 }
 
+class FamilyDepartmentInputEvent extends FaaCandidatePageEvent {
+  final String value;
+
+  FamilyDepartmentInputEvent(this.value);
+}
+
 class FamilyCompanyInputEvent extends FaaCandidatePageEvent {
   final String value;
 

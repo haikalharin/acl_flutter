@@ -83,6 +83,17 @@ class _AasiDataState extends State<AasiData> {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(AasiPrevCompanyInputEvent(value));
                               },
+                              initialItem: state.prevCompanyAASIId.isValid? state
+                                  .masterDataModel
+                                  ?.masterData
+                                  ?.masterReferenceAll
+                                  ?.prevcompanyaasi
+                                  ?.masterReference
+                                  ?.where((element) =>
+                              element.id ==
+                                  (state.prevCompanyAASIId.value))
+                                  .toList()
+                                  .first:null,
                               items: state
                                   .masterDataModel
                                   ?.masterData

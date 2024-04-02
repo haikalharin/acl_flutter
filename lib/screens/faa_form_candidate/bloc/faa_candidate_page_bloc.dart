@@ -148,6 +148,7 @@ class FaaCandidatePageBloc
     on<FamilyPositionInputEvent>(familyPositionInput);
     on<FamilyAgentCodeInputEvent>(familyAgentCodeInput);
     on<FamilyCompanyInputEvent>(familyCompanyInput);
+    on<FamilyDepartmentInputEvent>(familyDepartmentInput);
     on<SubmitFamiliesDataEvent>(submitFamiliesData);
 
 
@@ -304,9 +305,11 @@ class FaaCandidatePageBloc
             }
           }
 
-          final result = await candidateRepository
+          final resultCandidateFamily = await candidateRepository
               .getCandidateFamilyData(event.candidateId);
-          result.when(success: (response) async {
+          FamilyCardModel familyCardModel = FamilyCardModel();
+          resultCandidateFamily.when(success: (responseCandidateFamily) async {
+            familyCardModel =responseCandidateFamily.data;
             martialStatusId = const DropdownFieldValidator.dirty(11);
           }, failure: (error) {
             martialStatusId = const DropdownFieldValidator.pure();
@@ -316,7 +319,7 @@ class FaaCandidatePageBloc
          listMartialModel = state.masterDataModel?.masterData
               ?.masterReferenceAll?.maritalstatus?.masterReference
               ?.where((element) =>
-          element.id == (listData.first.maritalStatus ?? 0)).toList()??[];
+          element.id == (martialStatusId.value)).toList()??[];
          if(listMartialModel.isNotEmpty){
            martialStatusModel = listMartialModel.single;
          }
@@ -363,7 +366,7 @@ class FaaCandidatePageBloc
               checkedValueAASI: checkedValueAASI,
               checkedValueAAUI: checkedValueAAUI,
               martialStatus: martialStatusModel,
-              candidateDataFamilyModel: response.data,
+              candidateDataFamilyModel: familyCardModel,
               message: 'success-get-candidate-data',
               submitStatus: FormzSubmissionStatus.success));
         }, failure: (error) {
@@ -1262,6 +1265,14 @@ class FaaCandidatePageBloc
     ));
   }
 
+  Future<void> familyDepartmentInput(FamilyDepartmentInputEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    final value = MandatoryFieldValidator.dirty(event.value);
+    emit(state.copyWith(
+      familyDepartment: value,
+    ));
+  }
+
   Future<void> familyCompanyInput(FamilyCompanyInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     if (event.value.isEmpty) {
@@ -1361,7 +1372,7 @@ class FaaCandidatePageBloc
         appendixValue: null,
       ));
     } else {
-      final valueId = DropdownFieldValidator.dirty(event.value.id ?? 0);
+      final valueId = DropdownFieldValidator.dirty(int.parse(event.value.fileNetId ?? '0'));
       emit(state.copyWith(
         appendixValueId: valueId,
         appendixValue: event.value,

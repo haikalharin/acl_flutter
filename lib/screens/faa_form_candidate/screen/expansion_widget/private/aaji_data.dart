@@ -83,7 +83,7 @@ class _AajiDataState extends State<AajiData> {
                                 getIt<FaaCandidatePageBloc>()
                                     .add(AajiPrevCompanyInputEvent(value));
                               },
-                              initialItem: state
+                              initialItem: state.prevCompanyAAJIId.isValid? state
                                   .masterDataModel
                                   ?.masterData
                                   ?.masterReferenceAll
@@ -93,7 +93,7 @@ class _AajiDataState extends State<AajiData> {
                                       element.id ==
                                       (state.prevCompanyAAJIId.value))
                                   .toList()
-                                  .first,
+                                  .first:null,
                               items: state
                                       .masterDataModel
                                       ?.masterData

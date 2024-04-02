@@ -93,7 +93,7 @@ class _HeirsDataState extends State<HeirsData> {
                                       getIt<FaaCandidatePageBloc>()
                                           .add(HeirsRelationInputEvent(value));
                                     },
-                                    initialItem: state.martialStatusId.isValid
+                                    initialItem: state.heirsRelationId.isValid
                                         ? state
                                         .masterDataModel
                                         ?.masterData
@@ -102,7 +102,7 @@ class _HeirsDataState extends State<HeirsData> {
                                         ?.masterReference
                                         ?.where((element) =>
                                     element.id ==
-                                        (state.martialStatusId.value))
+                                        (state.heirsRelationId.value))
                                         .toList()
                                         .first
                                         : null,
@@ -114,7 +114,7 @@ class _HeirsDataState extends State<HeirsData> {
                                         ?.masterReference ??
                                         [],
                                     errorText: isCheck == true &&
-                                        state.martialStatusId.isNotValid
+                                        state.heirsRelationId.isNotValid
                                         ? 'Mohon diisi'
                                         : null,
                                   );

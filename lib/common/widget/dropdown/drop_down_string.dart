@@ -77,37 +77,41 @@ class _DropDownStringState extends State<DropDownString> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Container(
-                margin: const EdgeInsets.only(left: 15),
-                child: Text(widget.title ?? '',
-                    style:  TextStyle(
-                      fontSize: 12.0 *scaleFactor,
-                      fontWeight:  UIFont.getFontWeightFrom(UIFontSystem.bold),
-                      color: ColorPalette.blue,
-                    ))),
+      Container(
+        margin: const EdgeInsets.only(left: 15),
+        child: RichText(
+        textAlign: TextAlign.start,
+        maxLines: 5,
+        text: TextSpan(
+          // Note: Styles for TextSpans must be explicitly defined.
+          // Child text spans will inherit styles from parent
+          children: <TextSpan>[
+            TextSpan(
+                text: widget.title ?? '',
+                style: TextStyle(
+                  fontSize: 12.0 *scaleFactor,
+                  fontWeight:  UIFont.getFontWeightFrom(UIFontSystem.bold),
+                  color: ColorPalette.blue,
+                )),
             widget.isMandatory
-                ?  Container(
-                margin: const EdgeInsets.only(left: 5, bottom: 5),
-                child: const Text(
-                  '*',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: ColorPalette.blue,
-                  ),
-                )):Container(),
-            Container(
-                margin: const EdgeInsets.only(left: 5, bottom: 5),
-                child: Text(
-                  widget.errorText ?? '',
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    color: AclColors.red,
-                  ),
+                ? const TextSpan(
+                text: '*',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: AclColors.primaryBlue,
                 ))
+                : const TextSpan(),
+            TextSpan(
+              text: widget.errorText ?? '',
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: AclColors.red,
+              ),
+            ),
           ],
         ),
+    ),
+      ),
         const SizedBox(height: 5),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 15),

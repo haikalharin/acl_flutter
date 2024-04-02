@@ -87,8 +87,8 @@ class _AddSpouseAndFamilyDataDialogState
                                         PutDataType.isAgentInAllianz ||
                                     widget.putDataType ==
                                         PutDataType.isAgentInOthers || widget.putDataType == PutDataType.isEmployeeInAllianz
-                                ? SizedBox(
-                                    height: 8,
+                                ?  Container(
+                              margin: const EdgeInsets.only(top: 8),
                                     child: TextInput(
                                       initialValue:
                                           state.addCompanyModel?.companyName,
@@ -108,8 +108,8 @@ class _AddSpouseAndFamilyDataDialogState
                                 : Container(),
                             widget.putDataType == PutDataType.isAgentInAllianz || widget.putDataType ==
                                 PutDataType.isAgentInOthers||  widget.putDataType == PutDataType.isEmployeeInAllianz
-                                ? SizedBox(
-                                    height: 8,
+                                ?  Container(
+                              margin: const EdgeInsets.only(top: 8),
                                     child: BlocBuilder<FaaCandidatePageBloc,
                                         FaaCandidatePageState>(
                                       builder: (context, state) {
@@ -126,7 +126,7 @@ class _AddSpouseAndFamilyDataDialogState
                                                     value));
                                           },
                                           initialItem: state
-                                                  .martialStatusId.isValid
+                                                  .familyPersonRelationId.isValid
                                               ? state
                                                   .masterDataModel
                                                   ?.masterData
@@ -159,8 +159,8 @@ class _AddSpouseAndFamilyDataDialogState
                                   )
                                 : Container(),
                             widget.putDataType == PutDataType.isAgentInAllianz
-                                ? SizedBox(
-                                    height: 8,
+                                ?  Container(
+                              margin: const EdgeInsets.only(top: 8),
                                     child: TextInput(
                                       initialValue:
                                           state.addCompanyModel?.companyName,
@@ -179,8 +179,8 @@ class _AddSpouseAndFamilyDataDialogState
                                   )
                                 : Container(),
                             widget.putDataType == PutDataType.isAgentInAllianz
-                                ? SizedBox(
-                                    height: 8,
+                                ?  Container(
+                              margin: const EdgeInsets.only(top: 8),
                                     child: BlocBuilder<FaaCandidatePageBloc,
                                         FaaCandidatePageState>(
                                       builder: (context, state) {
@@ -214,8 +214,8 @@ class _AddSpouseAndFamilyDataDialogState
                                   )
                                 : Container(),
                             widget.putDataType == PutDataType.isAgentInAllianz
-                                ? SizedBox(
-                                    height: 8,
+                                ?  Container(
+                              margin: const EdgeInsets.only(top: 8),
                                     child: TextInput(
                                       initialValue:
                                           state.addCompanyModel?.companyName,
@@ -234,13 +234,11 @@ class _AddSpouseAndFamilyDataDialogState
                                   )
                                 : Container(),
                             widget.putDataType == PutDataType.isEmployeeInAllianz
-                                ? SizedBox(
-                              height: 8,
+                                ?  Container(
+                              margin: const EdgeInsets.only(top: 8),
                               child: TextInput(
-                                initialValue:
-                                state.addCompanyModel?.companyName,
                                 icon: const Icon(Icons.person),
-                                labelText: "Nama Perusahaan Asuransi Lain",
+                                labelText: "Department",
                                 // initialValue: postTitle,
                                 validator: (String? value) {
                                   if (value!.isNotEmpty) return null;
@@ -248,15 +246,15 @@ class _AddSpouseAndFamilyDataDialogState
                                 },
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>().add(
-                                      FamilyCompanyInputEvent(value));
+                                      FamilyDepartmentInputEvent(value));
                                 },
                               ),
                             )
                                 : Container(),
 
                             widget.putDataType == PutDataType.isAgentInAllianz
-                                ? SizedBox(
-                                    height: 8,
+                                ?  Container(
+                              margin: const EdgeInsets.only(top: 8),
                                     child: DropDownString(
                                       title:'Nama Perusahaan Grup Allianz',
                                       displayClearIcon: false,
@@ -267,9 +265,8 @@ class _AddSpouseAndFamilyDataDialogState
                                       onChanged: (String value) {
                                         getIt<FaaCandidatePageBloc>().add(
                                             FamilyCompanyInputEvent(value));
-                                        setState(() {
+
                                           // checkedIsAgentInAllianz = true;
-                                        });
                                       },
                                       initialItem: state.checkIsEmployee.isValid
                                           ? state.checkIsEmployee.value
@@ -287,8 +284,8 @@ class _AddSpouseAndFamilyDataDialogState
                                   )
                                 : Container(),
                             widget.putDataType == PutDataType.isAgentInOthers
-                                ? SizedBox(
-                                    height: 8,
+                                ?  Container(
+                              margin: const EdgeInsets.only(top: 8),
                                     child: TextInput(
                                       initialValue:
                                           state.addCompanyModel?.companyName,
