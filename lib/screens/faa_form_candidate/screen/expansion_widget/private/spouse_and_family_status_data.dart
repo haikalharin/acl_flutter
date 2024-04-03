@@ -101,6 +101,13 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                     child: Column(
                                       children: [
                                         state.listFamilyIsAgent != null? CustomCardListBuilder(
+                                            onEditPressed: (data){
+                                              AddSpouseAndFamilyDataDialog(
+                                                id: data.id,
+                                                putDataType: PutDataType
+                                                    .isAgentInAllianz,
+                                              );
+                                            },
                                             responseFamiliesData:
                                                 state.listFamilyIsAgent ?? []):Container(),
                                         Container(
@@ -157,6 +164,13 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                     child: Column(
                                       children: [
                                         state.listFamilyIsAgentOthers != null? CustomCardListBuilder(
+                                          onEditPressed: (data){
+                                              AddSpouseAndFamilyDataDialog(
+                                               id: data.id,
+                                              putDataType: PutDataType
+                                                  .isAgentInOthers,
+                                            );
+                                          },
                                             responseFamiliesData:
                                                 state.listFamilyIsAgentOthers ??
                                                     []):Container(),
@@ -214,6 +228,13 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                     child: Column(
                                       children: [
                                         state.listFamilyIsEmploye != null? CustomCardListBuilder(
+                                            onEditPressed: (data){
+                                              AddSpouseAndFamilyDataDialog(
+                                                id: data.id,
+                                                putDataType: PutDataType
+                                                    .isEmployeeInAllianz,
+                                              );
+                                            },
                                             responseFamiliesData:
                                                 state.listFamilyIsEmploye ??
                                                     []):Container(),
@@ -229,11 +250,7 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                                 context: context,
                                                 builder:
                                                     (BuildContext context) {
-                                                  return AddSpouseAndFamilyDataDialog(
-                                                    onSubmitPressed: () =>
-                                                        Navigator.pop(
-                                                      context,
-                                                    ),
+                                                  return const AddSpouseAndFamilyDataDialog(
                                                     putDataType: PutDataType
                                                         .isEmployeeInAllianz,
                                                   );
@@ -242,7 +259,7 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                             },
                                           ),
                                         ),
-                                        SizedBox(height: 16,)
+                                        const SizedBox(height: 16,)
                                       ],
                                     ),
                                   )

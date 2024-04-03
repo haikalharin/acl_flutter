@@ -4,7 +4,7 @@ import 'package:flutter_helper/source/utility/text/uitext_style.dart';
 
 class CustomCardListBuilder extends StatelessWidget {
   final List<ResponseFamiliesData> responseFamiliesData;
-    final Function(ResponseFamiliesData)? onEditPressed;
+  final Function(ResponseFamiliesData)? onEditPressed;
   final Function(ResponseFamiliesData)? onDeletePressed;
 
   const CustomCardListBuilder({
@@ -17,7 +17,8 @@ class CustomCardListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: responseFamiliesData.length,
+      itemCount:
+          responseFamiliesData.length < 3 ? responseFamiliesData.length : 3,
       itemBuilder: (context, index) {
         final data = responseFamiliesData[index];
         return Card(
@@ -47,11 +48,14 @@ class CustomCardListBuilder extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(data.name??'',style: UITextStyle.subheading,),
+                      Text(
+                        data.name ?? '',
+                        style: UITextStyle.subheading,
+                      ),
                       const SizedBox(height: 8),
-                      Text(data.relation??''),
+                      Text(data.relation ?? ''),
                       const SizedBox(height: 8),
-                      Text(data.companyGroup??''),
+                      Text(data.companyGroup ?? ''),
                       const SizedBox(height: 8),
                       Row(
                         children: [
@@ -127,7 +131,6 @@ class RelationInCompanyModel {
   final int? companyNameInOthersId;
   final String? companyNameInOthers;
   final String? department;
-
 
   const RelationInCompanyModel({
     this.id,
