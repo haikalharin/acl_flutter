@@ -9,6 +9,7 @@ import '../../../../../common/widget/button_widget.dart';
 import '../../../../../common/widget/dropdown/drop_down_general_faa.dart';
 import '../../../../../common/widget/dropdown/drop_down_general_second_faa.dart';
 import '../../../../../common/widget/text_input.dart';
+import '../../../../../data/model/candidate_faa/response_families_data.dart';
 import '../../../../../data/model/login_model/login_model.dart';
 import '../../../../../data/model/master_data_model/master_data_model.dart';
 import '../../../../../di.dart';
@@ -68,6 +69,132 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
           children: <Widget>[
             BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
               builder: (context, state) {
+                List<Widget> listWidgetIsAgentInAllianz = [
+                  CustomCardListBuilder(
+                      onEditPressed: (data) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSpouseAndFamilyDataDialog(
+                              id: data.id,
+                              putDataType: PutDataType.isAgentInAllianz,
+                              onSubmitPressed: () => Navigator.pop(
+                                context,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      onDeletePressed: (data) {},
+                      responseFamiliesData: ResponseFamiliesData()),
+                ];
+
+                List<Widget> listWidgetIsAgentInOthers = [
+                  CustomCardListBuilder(
+                      onEditPressed: (data) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSpouseAndFamilyDataDialog(
+                              id: data.id,
+                              putDataType: PutDataType.isAgentInOthers,
+                              onSubmitPressed: () => Navigator.pop(
+                                context,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      onDeletePressed: (data) {},
+                      responseFamiliesData: ResponseFamiliesData()),
+                ];
+
+                List<Widget> listWidgetIsEmployeeInAllianz = [
+                  CustomCardListBuilder(
+                      onEditPressed: (data) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddSpouseAndFamilyDataDialog(
+                              id: data.id,
+                              putDataType: PutDataType.isEmployeeInAllianz,
+                              onSubmitPressed: () => Navigator.pop(
+                                context,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      onDeletePressed: (data) {},
+                      responseFamiliesData: ResponseFamiliesData()),
+                ];
+
+                if (state.listFamilyIsAgent != null &&
+                    (state.listFamilyIsAgent ?? []).isNotEmpty) {
+                  state.listFamilyIsAgent?.forEach((element) {
+                    listWidgetIsAgentInAllianz.add(CustomCardListBuilder(
+                        onEditPressed: (data) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSpouseAndFamilyDataDialog(
+                                id: data.id,
+                                putDataType: PutDataType.isAgentInAllianz,
+                                onSubmitPressed: () => Navigator.pop(
+                                  context,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        responseFamiliesData: element));
+                  });
+                }
+
+                if (state.listFamilyIsAgentOthers != null &&
+                    (state.listFamilyIsAgentOthers ?? []).isNotEmpty) {
+                  state.listFamilyIsAgentOthers?.forEach((element) {
+                    listWidgetIsAgentInOthers.add(CustomCardListBuilder(
+                        onEditPressed: (data) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSpouseAndFamilyDataDialog(
+                                id: data.id,
+                                putDataType: PutDataType.isAgentInOthers,
+                                onSubmitPressed: () => Navigator.pop(
+                                  context,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        responseFamiliesData: element));
+                  });
+                }
+
+                if (state.listFamilyIsEmploye != null &&
+                    (state.listFamilyIsEmploye ?? []).isNotEmpty) {
+                  state.listFamilyIsEmploye?.forEach((element) {
+                    listWidgetIsEmployeeInAllianz.add(CustomCardListBuilder(
+                        onEditPressed: (data) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddSpouseAndFamilyDataDialog(
+                                id: data.id,
+                                putDataType: PutDataType.isEmployeeInAllianz,
+                                onSubmitPressed: () => Navigator.pop(
+                                  context,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        responseFamiliesData: element));
+                  });
+                }
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Stack(
@@ -88,8 +215,8 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                 onChanged: (String value) {
                                   // getIt<FaaCandidatePageBloc>()
                                   //     .add(CheckEmployeeInputEvent(value));
-                                    checkedIsAgentInAllianz =
-                                        value == 'Ya' ? true : false;
+                                  checkedIsAgentInAllianz =
+                                      value == 'Ya' ? true : false;
                                 },
                                 initialItem: 'Tidak',
                                 items: const ['Ya', 'Tidak'],
@@ -100,18 +227,13 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                     margin: const EdgeInsets.only(top: 8),
                                     child: Column(
                                       children: [
-                                        state.listFamilyIsAgent != null? CustomCardListBuilder(
-                                            onEditPressed: (data){
-                                              AddSpouseAndFamilyDataDialog(
-                                                id: data.id,
-                                                putDataType: PutDataType
-                                                    .isAgentInAllianz,
-                                              );
-                                            },
-                                            responseFamiliesData:
-                                                state.listFamilyIsAgent ?? []):Container(),
+                                        state.listFamilyIsAgent != null
+                                            ? Column(
+                                                children: listWidgetIsAgentInAllianz,
+                                              )
+                                            : Container(),
                                         Container(
-                                        margin: const EdgeInsets.only(top: 8),
+                                          margin: const EdgeInsets.only(top: 8),
                                           child: ButtonWidgetCustom(
                                             text: "Tambah",
                                             backgroudColor:
@@ -151,8 +273,8 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                 onChanged: (String value) {
                                   // getIt<FaaCandidatePageBloc>()
                                   //     .add(CheckEmployeeInputEvent(value));
-                                    checkedIsAgentOthers =
-                                        value == 'Ya' ? true : false;
+                                  checkedIsAgentOthers =
+                                      value == 'Ya' ? true : false;
                                 },
                                 initialItem: 'Tidak',
                                 items: const ['Ya', 'Tidak'],
@@ -163,17 +285,11 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                     margin: const EdgeInsets.only(top: 8),
                                     child: Column(
                                       children: [
-                                        state.listFamilyIsAgentOthers != null? CustomCardListBuilder(
-                                          onEditPressed: (data){
-                                              AddSpouseAndFamilyDataDialog(
-                                               id: data.id,
-                                              putDataType: PutDataType
-                                                  .isAgentInOthers,
-                                            );
-                                          },
-                                            responseFamiliesData:
-                                                state.listFamilyIsAgentOthers ??
-                                                    []):Container(),
+                                        state.listFamilyIsAgentOthers != null
+                                            ? Column(
+                                          children: listWidgetIsAgentInOthers,
+                                        )
+                                            : Container(),
                                         Container(
                                           margin: const EdgeInsets.only(top: 8),
                                           child: ButtonWidgetCustom(
@@ -215,8 +331,8 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                 onChanged: (String value) {
                                   // getIt<FaaCandidatePageBloc>()
                                   //     .add(CheckEmployeeInputEvent(value));
-                                    checkedIsEmployee =
-                                        value == 'Ya' ? true : false;
+                                  checkedIsEmployee =
+                                      value == 'Ya' ? true : false;
                                 },
                                 initialItem: 'Tidak',
                                 items: const ['Ya', 'Tidak'],
@@ -227,17 +343,11 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                     margin: const EdgeInsets.only(top: 8),
                                     child: Column(
                                       children: [
-                                        state.listFamilyIsEmploye != null? CustomCardListBuilder(
-                                            onEditPressed: (data){
-                                              AddSpouseAndFamilyDataDialog(
-                                                id: data.id,
-                                                putDataType: PutDataType
-                                                    .isEmployeeInAllianz,
-                                              );
-                                            },
-                                            responseFamiliesData:
-                                                state.listFamilyIsEmploye ??
-                                                    []):Container(),
+                                        state.listFamilyIsEmploye != null
+                                            ? Column(
+                                          children: listWidgetIsEmployeeInAllianz,
+                                        )
+                                            : Container(),
                                         Container(
                                           margin: const EdgeInsets.only(top: 8),
                                           child: ButtonWidgetCustom(
@@ -259,7 +369,9 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                                             },
                                           ),
                                         ),
-                                        const SizedBox(height: 16,)
+                                        const SizedBox(
+                                          height: 16,
+                                        )
                                       ],
                                     ),
                                   )

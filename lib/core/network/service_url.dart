@@ -21,4 +21,6 @@ class ServiceUrl {
   static String addEducationCandidate = "${subHost}restcandidate/addCandidateEducation";
   static String getDataAgent = "/v2/acl/aclopusproc/agentInquiryAuth";
   static String addFamiliesData = "${subHost}restcandidate/families";
+  static String getListFamilyData = "${subHost}restcandidate/families";
+
 }

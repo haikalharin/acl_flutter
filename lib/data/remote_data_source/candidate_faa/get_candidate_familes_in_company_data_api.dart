@@ -18,7 +18,7 @@ class GetCandidateFamiliesInCompanyDataApi with ApiHelper<ResponseFamiliesData> 
 
     return await makeGetRequestWithResponseModel(
         dioClient.dio.get(
-          ServiceUrl.getCandidateFamilyData,
+          ServiceUrl.getListFamilyData,
           queryParameters: data,
         ),
         ResponseFamiliesData.fromJson);

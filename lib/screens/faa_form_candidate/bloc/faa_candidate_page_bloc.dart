@@ -1113,7 +1113,6 @@ class FaaCandidatePageBloc
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     if (state.isValid) {
       try {
-        if (state.listFamilyIsAgent != null) {
           if (event.type == PutDataType.isAgentInAllianz) {
             result = await candidateFaaRepository.addAddFamiliesData(
                 RequestFamiliesData(
@@ -1124,7 +1123,7 @@ class FaaCandidatePageBloc
                     relation: state.relationId.value.toString(),
                     directName: state.directUnitName.value.toUpperCase(),
                     role: state.familyPositionId.value.toString(),
-                    agentCode: state.familyAgentCode.toString(),
+                    agentCode: state.familyAgentCode.value.toString(),
                     company: state.familyCompany.value.toUpperCase()));
           } else if (event.type == PutDataType.isAgentInOthers) {
             result = await candidateFaaRepository.addAddFamiliesData(
@@ -1148,13 +1147,13 @@ class FaaCandidatePageBloc
                     company: state.familyCompany.value.toUpperCase()));
           }
 
-          result.when(success: (response) async {
-            List<ResponseFamiliesData> listResponseFamiliesData = response.data;
-            var resultFetch = await candidateFaaRepository
+         await result.when(success: (response) async {
+                      var resultFetch = await candidateFaaRepository
                 .getCandidateFamiliesInCompanyData(
                 state.candidateDataModel?.id ?? 0);
-            resultFetch.when(success: (response) async {
-              List<ResponseFamiliesData> listFamilyIsAgent = [];
+           await resultFetch.when(success: (responseList) async {
+             List<ResponseFamiliesData> listResponseFamiliesData = responseList.data;
+             List<ResponseFamiliesData> listFamilyIsAgent = [];
               List<ResponseFamiliesData> listFamilyIsAgentOthers = [];
               List<ResponseFamiliesData> listFamilyIsEmployee = [];
               if (listResponseFamiliesData.isNotEmpty) {
@@ -1192,7 +1191,6 @@ class FaaCandidatePageBloc
           }, failure: (error) async {
             emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
           });
-        }
       }catch (error) {
         if (kDebugMode) {
           print(error);

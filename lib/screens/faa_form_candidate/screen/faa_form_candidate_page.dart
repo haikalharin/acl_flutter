@@ -23,9 +23,9 @@ bool isSuccesWorkExperienceTab = true;
 bool isSuccesEducationTab = false;
 
 class FaaFormCandidatePage extends StatefulWidget {
-  CandidateModel candidateModel;
+  CandidateModel? candidateModel = CandidateModel();
 
-  FaaFormCandidatePage({super.key, required this.candidateModel});
+  FaaFormCandidatePage({super.key,  this.candidateModel});
 
   @override
   State<FaaFormCandidatePage> createState() => _FaaFormCandidatePageState();

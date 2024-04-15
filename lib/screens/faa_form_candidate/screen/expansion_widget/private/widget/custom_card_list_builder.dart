@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_helper/source/utility/text/uitext_style.dart';
 
 class CustomCardListBuilder extends StatelessWidget {
-  final List<ResponseFamiliesData> responseFamiliesData;
+  final ResponseFamiliesData responseFamiliesData;
   final Function(ResponseFamiliesData)? onEditPressed;
   final Function(ResponseFamiliesData)? onDeletePressed;
 
@@ -16,104 +16,98 @@ class CustomCardListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount:
-          responseFamiliesData.length < 3 ? responseFamiliesData.length : 3,
-      itemBuilder: (context, index) {
-        final data = responseFamiliesData[index];
-        return Card(
-          margin: const EdgeInsets.all(16.0),
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(right: 8),
-                  padding: EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Colors.blue, // AclColors.primaryBlue,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.chrome_reader_mode_outlined,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ),
+    return  Card(
+      margin: const EdgeInsets.all(16.0),
+      child: Container(
+        // height: 100,
+        padding: const EdgeInsets.all(16.0),
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                color: Colors.blue, // AclColors.primaryBlue,
+                shape: BoxShape.circle,
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.chrome_reader_mode_outlined,
+                  color: Colors.white,
+                  size: 24,
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    responseFamiliesData.name ?? '',
+                    style: UITextStyle.subheading,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(responseFamiliesData.relation ?? ''),
+                  const SizedBox(height: 8),
+                  Text(responseFamiliesData.companyGroup ?? ''),
+                  const SizedBox(height: 8),
+                  Row(
                     children: [
-                      Text(
-                        data.name ?? '',
-                        style: UITextStyle.subheading,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(data.relation ?? ''),
-                      const SizedBox(height: 8),
-                      Text(data.companyGroup ?? ''),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              onEditPressed?.call(data);
-                            },
-                            child: const Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.create,
-                                  size: 14,
-                                  color: Colors.green, // AclColors.green,
-                                ),
-                                SizedBox(width: 2),
-                                Text('Ubah'),
-                              ],
+                      InkWell(
+                        onTap: () {
+                          onEditPressed?.call(responseFamiliesData);
+                        },
+                        child: const Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.create,
+                              size: 14,
+                              color: Colors.green, // AclColors.green,
                             ),
-                          ),
-                          SizedBox(width: 16),
-                          InkWell(
-                            onTap: () {
-                              onDeletePressed?.call(data);
-                            },
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.red, // AclColors.red,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Center(
-                                    child: Icon(
-                                      Icons.close,
-                                      color: Colors.white,
-                                      size: 12,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 2),
-                                Text('Hapus'),
-                              ],
-                            ),
-                          ),
-                        ],
+                            SizedBox(width: 2),
+                            Text('Ubah'),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 16.0),
-                      // Spacer
+                      SizedBox(width: 16),
+                      InkWell(
+                        onTap: () {
+                          onDeletePressed?.call(responseFamiliesData);
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.red, // AclColors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 12,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 2),
+                            Text('Hapus'),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 16.0),
+                  // Spacer
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }
