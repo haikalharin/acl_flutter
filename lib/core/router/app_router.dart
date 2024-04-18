@@ -43,7 +43,7 @@ class AppRouter {
             builder: (_) => FaaFormCandidatePage(
                   candidateModel: getCandidateModel(settings.arguments),
                 ));
-      // default:
+       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
             body: Center(child: Text('No route defined for ${settings.name}')),

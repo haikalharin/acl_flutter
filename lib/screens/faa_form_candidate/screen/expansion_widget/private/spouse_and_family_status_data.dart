@@ -69,65 +69,11 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
           children: <Widget>[
             BlocBuilder<FaaCandidatePageBloc, FaaCandidatePageState>(
               builder: (context, state) {
-                List<Widget> listWidgetIsAgentInAllianz = [
-                  CustomCardListBuilder(
-                      onEditPressed: (data) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSpouseAndFamilyDataDialog(
-                              id: data.id,
-                              putDataType: PutDataType.isAgentInAllianz,
-                              onSubmitPressed: () => Navigator.pop(
-                                context,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      onDeletePressed: (data) {},
-                      responseFamiliesData: ResponseFamiliesData()),
-                ];
+                List<Widget> listWidgetIsAgentInAllianz = [];
 
-                List<Widget> listWidgetIsAgentInOthers = [
-                  CustomCardListBuilder(
-                      onEditPressed: (data) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSpouseAndFamilyDataDialog(
-                              id: data.id,
-                              putDataType: PutDataType.isAgentInOthers,
-                              onSubmitPressed: () => Navigator.pop(
-                                context,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      onDeletePressed: (data) {},
-                      responseFamiliesData: ResponseFamiliesData()),
-                ];
+                List<Widget> listWidgetIsAgentInOthers = [];
 
-                List<Widget> listWidgetIsEmployeeInAllianz = [
-                  CustomCardListBuilder(
-                      onEditPressed: (data) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddSpouseAndFamilyDataDialog(
-                              id: data.id,
-                              putDataType: PutDataType.isEmployeeInAllianz,
-                              onSubmitPressed: () => Navigator.pop(
-                                context,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      onDeletePressed: (data) {},
-                      responseFamiliesData: ResponseFamiliesData()),
-                ];
+                List<Widget> listWidgetIsEmployeeInAllianz = [];
 
                 if (state.listFamilyIsAgent != null &&
                     (state.listFamilyIsAgent ?? []).isNotEmpty) {
@@ -139,6 +85,7 @@ class _SpouseAndFamilyStatusDataState extends State<SpouseAndFamilyStatusData> {
                             builder: (BuildContext context) {
                               return AddSpouseAndFamilyDataDialog(
                                 id: data.id,
+                                data: data,
                                 putDataType: PutDataType.isAgentInAllianz,
                                 onSubmitPressed: () => Navigator.pop(
                                   context,

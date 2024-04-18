@@ -1120,8 +1120,8 @@ class FaaCandidatePageBloc
                     type: 'agent',
                     candidateId: state.candidateDataModel?.id,
                     name: state.familyPersonName.value.toUpperCase(),
-                    relation: state.relationId.value.toString(),
-                    directName: state.directUnitName.value.toUpperCase(),
+                    relation: state.familyPersonRelationId.value.toString(),
+                    directName: state.familyDirectName.value.toUpperCase(),
                     role: state.familyPositionId.value.toString(),
                     agentCode: state.familyAgentCode.value.toString(),
                     company: state.familyCompany.value.toUpperCase()));
@@ -1132,7 +1132,7 @@ class FaaCandidatePageBloc
                     type: 'nonagent',
                     candidateId: state.candidateDataModel?.id,
                     name: state.familyPersonName.value.toUpperCase(),
-                    relation: state.relationId.value.toString(),
+                    relation: state.familyPersonRelationId.value.toString(),
                     company: state.familyCompany.value.toUpperCase()));
           } else {
             result = await candidateFaaRepository.addAddFamiliesData(
