@@ -91,11 +91,11 @@ class _AppendixDataState extends State<AppendixData> {
                                       ?.supportingDocumentList
                                       ?.supportingDocument ??
                                       [],
-                                  errorText:
-                                  isCheck == true &&
-                                      state.appendixValueId.isNotValid
-                                      ? 'Mohon diisi'
-                                      : null,
+                                  // errorText:
+                                  // isCheck == true &&
+                                  //     state.appendixValueId.isNotValid
+                                  //     ? 'Mohon diisi'
+                                  //     : null,
                                 );
                               },
                             ),

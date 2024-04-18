@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_helper/flutter_helper.dart';
 
+import '../../../../di.dart';
 import '../../bloc/faa_candidate_page_bloc.dart';
 import '../expansion_widget/private/aasi_data.dart';
 import '../expansion_widget/private/appendix_data.dart';
@@ -93,7 +94,8 @@ class _PrivateDataPageState extends State<PrivateDataPage> {
                         titleText: "Selanjutnya".toCapital,
                         onTap: () {
                           if (formKey.currentState!.validate()) {
-                            // widget.tabController.animateTo(1);
+                            getIt<FaaCandidatePageBloc>()
+                                .add(FaaAddAgentSubmittedEvent());
                           }
                           setState(() {
                             isCheck = true;

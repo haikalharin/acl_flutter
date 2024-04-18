@@ -1,4 +1,5 @@
 import 'package:acl_flutter/data/model/candidate_faa/add_candidate_work_experience_model.dart';
+import 'package:acl_flutter/data/model/candidate_faa/work_experience_reinstance.dart';
 import 'package:acl_flutter/data/model/response_model/response_model.dart';
 
 import '../../../core/network/api_helper.dart';
@@ -20,6 +21,19 @@ class AddWorkExperienceCandidateApi with ApiHelper<CandidateModel> {
     return await makeGetRequestWithResponseModel(
         dioClient.dio.post(
           ServiceUrl.addWorkExperienceCandidate,
+          data: data,
+        ),
+        CandidateModel.fromJson);
+  }
+
+  Future<ResponseModel<CandidateModel>> putWorkExperienceReinstance(
+      WorkExperienceReinstance workExperienceReinstance, String userId) async {
+    Map<String, dynamic> data = workExperienceReinstance.toJson();
+
+    return await makeGetRequestWithResponseModel(
+        dioClient.dio.post(
+          ServiceUrl.putWorkExperienceReinstance,
+          queryParameters:{ "userId":userId},
           data: data,
         ),
         CandidateModel.fromJson);

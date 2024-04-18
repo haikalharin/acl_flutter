@@ -22,5 +22,6 @@ class ServiceUrl {
   static String getDataAgent = "/v2/acl/aclopusproc/agentInquiryAuth";
   static String addFamiliesData = "${subHost}restcandidate/families";
   static String getListFamilyData = "${subHost}restcandidate/families";
+  static String putWorkExperienceReinstance = "${subHost}aclopt/reinstate";
 
 }

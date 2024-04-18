@@ -95,7 +95,7 @@ class DioInterceptor extends Interceptor with ApiHelper<dynamic> {
       LoginModel loginModel = await SecureStorage().getUser();
       Map<String, dynamic> data = {"userId":loginModel.uid,"fullName":loginModel.name,"group":["acl"]};
       response = await dio.post(
-          'https://acl-api-nonprd.allianz.co.id/v2/acl/api/authentication/login/token/generation',
+          '/v2/acl/api/authentication/login/token/generation',
           data: data
       );
 

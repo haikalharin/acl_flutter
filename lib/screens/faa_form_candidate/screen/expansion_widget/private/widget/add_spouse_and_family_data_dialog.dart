@@ -89,280 +89,267 @@ class _AddSpouseAndFamilyDataDialogState
                 scrollable: true,
                 content: Stack(
                   children: [
-                    Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
-                          child: Form(
-                            key: formKey,
-                            child: Column(
-                              children: <Widget>[
+                    Container(
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: <Widget>[
+                            widget.putDataType ==
+                                PutDataType.isAgentInAllianz ||
                                 widget.putDataType ==
-                                    PutDataType.isAgentInAllianz ||
-                                    widget.putDataType ==
-                                        PutDataType.isAgentInOthers ||
-                                    widget.putDataType ==
-                                        PutDataType.isEmployeeInAllianz
-                                    ? Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: TextInput(
-                                    initialValue:
-                                   widget.data?.id != null? widget.data?.name??'':null,
-                                    icon: const Icon(Icons.person),
-                                    labelText: "Nama",
-                                    // initialValue: postTitle,
-                                    validator: (String? value) {
-                                      if (value!.isNotEmpty) return null;
-                                      return "Mohon diisi";
-                                    },
-                                    onChanged: (String value) {
-                                      getIt<FaaCandidatePageBloc>().add(
-                                          FamilyPersonNameInputEvent(value));
-                                    },
-                                  ),
-                                )
-                                    : Container(),
-                                widget.putDataType ==
-                                    PutDataType.isAgentInAllianz ||
-                                    widget.putDataType ==
-                                        PutDataType.isAgentInOthers ||
-                                    widget.putDataType ==
-                                        PutDataType.isEmployeeInAllianz
-                                    ? Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: BlocBuilder<FaaCandidatePageBloc,
-                                      FaaCandidatePageState>(
-                                    builder: (context, state) {
-                                      List<CityMasterReference> initial = [];
-                                      initial =  state
-                                          .masterDataModel
-                                          ?.masterData
-                                          ?.masterReferenceAll
-                                          ?.heirrelation
-                                          ?.masterReference
-                                          ?.where((element) =>
-                                      element.id ==
-                                          (int.parse(widget.data?.relation??'0')))
-                                          .toList()??[];
-                                      return DropDownGeneralSecondFaa(
-                                        title: 'Hubungan',
-                                        icon: const Icon(
-                                          Icons.account_balance_rounded,
-                                          color: AclColors.greyDarkFontColor,
-                                        ),
-                                        onChanged:
-                                            (CityMasterReference value) {
-                                          getIt<FaaCandidatePageBloc>().add(
-                                              FamilyPersonRelationInputEvent(
-                                                  value));
-                                        },
-                                        initialItem:initial.isNotEmpty?initial.first:null,
-                                        items: state
-                                            .masterDataModel
-                                            ?.masterData
-                                            ?.masterReferenceAll
-                                            ?.heirrelation
-                                            ?.masterReference ??
-                                            [],
-                                        errorText: isCheck == true &&
-                                            state.familyPersonRelationId
-                                                .isNotValid
-                                            ? 'Mohon diisi'
-                                            : null,
-                                      );
-                                    },
-                                  ),
-                                )
-                                    : Container(),
-                                widget.putDataType == PutDataType.isAgentInAllianz
-                                    ? Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: TextInput(
-                                    initialValue:  widget.data?.id != null?
-                                    widget.data?.directName:null,
-                                    icon: const Icon(Icons.person),
-                                    labelText: "Nama Direct",
-                                    // initialValue: postTitle,
-                                    validator: (String? value) {
-                                      if (value!.isNotEmpty) return null;
-                                      return "Mohon diisi";
-                                    },
-                                    onChanged: (String value) {
-                                      getIt<FaaCandidatePageBloc>().add(
-                                          FamilyDirectNameInputEvent(value));
-                                    },
-                                  ),
-                                )
-                                    : Container(),
-                                widget.putDataType == PutDataType.isAgentInAllianz
-                                    ? Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: BlocBuilder<FaaCandidatePageBloc,
-                                      FaaCandidatePageState>(
-                                    builder: (context, state) {
-                                      return DropDownGeneralFaa(
-                                        title: 'Jabatan',
-                                        icon: const Icon(
-                                          Icons.account_balance_rounded,
-                                          color: AclColors.greyDarkFontColor,
-                                        ),
-                                        onChanged:
-                                            (AajicityMasterReference value) {
-                                          getIt<FaaCandidatePageBloc>().add(
-                                              FamilyPositionInputEvent(
-                                                  value));
-                                        },
-                                        initialItem: widget.data?.id != null?  state
-                                            .masterDataModel
-                                            ?.masterData
-                                            ?.masterReferenceAll
-                                            ?.position
-                                            ?.masterReference
-                                            ?.where((element) =>
-                                        element.id ==
-                                            (int.parse(widget.data?.role??'0')))
-                                            .toList()
-                                            .first
-                                            : null,
-                                        items: state
-                                            .masterDataModel
-                                            ?.masterData
-                                            ?.masterReferenceAll
-                                            ?.position
-                                            ?.masterReference ??
-                                            [],
-                                        errorText: isCheck == true &&
-                                            state.familyPositionId
-                                                .isNotValid
-                                            ? 'Mohon diisi'
-                                            : null,
-                                      );
-                                    },
-                                  ),
-                                )
-                                    : Container(),
-                                widget.putDataType == PutDataType.isAgentInAllianz
-                                    ? Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: TextInput(
-                                    initialValue:
-                                    widget.data?.id != null?
-                                    widget.data?.agentCode:null,
-                                    keyboardType: TextInputType.phone,
-                                    icon: const Icon(Icons.person),
-                                    labelText: "Kode Agen",
-                                    // initialValue: postTitle,
-                                    validator: (String? value) {
-                                      if (value!.isNotEmpty) return null;
-                                      return "Mohon diisi";
-                                    },
-                                    onChanged: (String value) {
-                                      getIt<FaaCandidatePageBloc>().add(
-                                          FamilyAgentCodeInputEvent(value));
-                                    },
-                                  ),
-                                )
-                                    : Container(),
+                                    PutDataType.isAgentInOthers ||
                                 widget.putDataType ==
                                     PutDataType.isEmployeeInAllianz
-                                    ? Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: TextInput(
-                                    icon: const Icon(Icons.person),
-                                    labelText: "Department",
-                                    initialValue:
-                                    widget.data?.id != null?
-                                    widget.data?.department:null,
-                                    // initialValue: postTitle,
-                                    validator: (String? value) {
-                                      if (value!.isNotEmpty) return null;
-                                      return "Mohon diisi";
-                                    },
-                                    onChanged: (String value) {
-                                      getIt<FaaCandidatePageBloc>().add(
-                                          FamilyDepartmentInputEvent(value));
-                                    },
-                                  ),
-                                )
-                                    : Container(),
-
-                                widget.putDataType == PutDataType.isAgentInAllianz
-                                    ? Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: DropDownString(
-                                    title: 'Nama Perusahaan Grup Allianz',
-                                    displayClearIcon: false,
+                                ? Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: TextInput(
+                                initialValue:
+                               widget.data?.id != null? widget.data?.name??'':null,
+                                icon: const Icon(Icons.person),
+                                labelText: "Nama",
+                                // initialValue: postTitle,
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                },
+                                onChanged: (String value) {
+                                  getIt<FaaCandidatePageBloc>().add(
+                                      FamilyPersonNameInputEvent(value));
+                                },
+                              ),
+                            )
+                                : Container(),
+                            widget.putDataType ==
+                                PutDataType.isAgentInAllianz ||
+                                widget.putDataType ==
+                                    PutDataType.isAgentInOthers ||
+                                widget.putDataType ==
+                                    PutDataType.isEmployeeInAllianz
+                                ? Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: BlocBuilder<FaaCandidatePageBloc,
+                                  FaaCandidatePageState>(
+                                builder: (context, state) {
+                                  List<CityMasterReference> initial = [];
+                                  initial =  state
+                                      .masterDataModel
+                                      ?.masterData
+                                      ?.masterReferenceAll
+                                      ?.heirrelation
+                                      ?.masterReference
+                                      ?.where((element) =>
+                                  element.id ==
+                                      (int.parse(widget.data?.relation??'0')))
+                                      .toList()??[];
+                                  return DropDownGeneralSecondFaa(
+                                    title: 'Hubungan',
                                     icon: const Icon(
-                                      Icons.add_chart,
+                                      Icons.account_balance_rounded,
                                       color: AclColors.greyDarkFontColor,
                                     ),
-                                    onChanged: (String value) {
+                                    onChanged:
+                                        (CityMasterReference value) {
                                       getIt<FaaCandidatePageBloc>().add(
-                                          FamilyCompanyInputEvent(value));
-
-                                      // checkedIsAgentInAllianz = true;
+                                          FamilyPersonRelationInputEvent(
+                                              value));
                                     },
-                                    initialItem:
-                                    widget.data?.id != null?
-                                    widget.data?.companyGroup:null,
-                                    items: const [
-                                      'PT. Asuransi Allianz Life Indonesia',
-                                      'PT. Asuransi Allianz Life Indonesia',
-                                      'PT. Asuransi Allianz Life Indonesia'
-                                    ],
-                                    errorText: isCheck &&
-                                        state.familyCompany.isNotValid
+                                    initialItem:initial.isNotEmpty?initial.first:null,
+                                    items: state
+                                        .masterDataModel
+                                        ?.masterData
+                                        ?.masterReferenceAll
+                                        ?.heirrelation
+                                        ?.masterReference ??
+                                        [],
+                                    errorText: isCheck == true &&
+                                        state.familyPersonRelationId
+                                            .isNotValid
                                         ? 'Mohon diisi'
                                         : null,
-                                  ),
-                                )
-                                    : Container(),
-                                widget.putDataType == PutDataType.isAgentInOthers
-                                    ? Container(
-                                  margin: const EdgeInsets.only(top: 8),
-                                  child: TextInput(
-                                    initialValue:
-                                    widget.data?.id != null?
-                                    widget.data?.companyInsurance:null,
-                                    icon: const Icon(Icons.person),
-                                    labelText: "Nama Perusahaan Asuransi Lain",
-                                    validator: (String? value) {
-                                      if (value!.isNotEmpty) return null;
-                                      return "Mohon diisi";
-                                    },
-                                    onChanged: (String value) {
+                                  );
+                                },
+                              ),
+                            )
+                                : Container(),
+                            widget.putDataType == PutDataType.isAgentInAllianz
+                                ? Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: TextInput(
+                                initialValue:  widget.data?.id != null?
+                                widget.data?.directName:null,
+                                icon: const Icon(Icons.person),
+                                labelText: "Nama Direct",
+                                // initialValue: postTitle,
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                },
+                                onChanged: (String value) {
+                                  getIt<FaaCandidatePageBloc>().add(
+                                      FamilyDirectNameInputEvent(value));
+                                },
+                              ),
+                            )
+                                : Container(),
+                            widget.putDataType == PutDataType.isAgentInAllianz
+                                ? Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: BlocBuilder<FaaCandidatePageBloc,
+                                  FaaCandidatePageState>(
+                                builder: (context, state) {
+                                  return DropDownGeneralFaa(
+                                    title: 'Jabatan',
+                                    icon: const Icon(
+                                      Icons.account_balance_rounded,
+                                      color: AclColors.greyDarkFontColor,
+                                    ),
+                                    onChanged:
+                                        (AajicityMasterReference value) {
                                       getIt<FaaCandidatePageBloc>().add(
-                                          FamilyCompanyInputEvent(value));
+                                          FamilyPositionInputEvent(
+                                              value));
                                     },
-                                  ),
-                                )
-                                    : Container(),
-                                const SizedBox(height: 8),
-                              ],
-                            ),
-                          ),
+                                    initialItem: widget.data?.id != null?  state
+                                        .masterDataModel
+                                        ?.masterData
+                                        ?.masterReferenceAll
+                                        ?.position
+                                        ?.masterReference
+                                        ?.where((element) =>
+                                    element.id ==
+                                        (int.parse(widget.data?.role??'0')))
+                                        .toList()
+                                        .first
+                                        : null,
+                                    items: state
+                                        .masterDataModel
+                                        ?.masterData
+                                        ?.masterReferenceAll
+                                        ?.position
+                                        ?.masterReference ??
+                                        [],
+                                    errorText: isCheck == true &&
+                                        state.familyPositionId
+                                            .isNotValid
+                                        ? 'Mohon diisi'
+                                        : null,
+                                  );
+                                },
+                              ),
+                            )
+                                : Container(),
+                            widget.putDataType == PutDataType.isAgentInAllianz
+                                ? Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: TextInput(
+                                initialValue:
+                                widget.data?.id != null?
+                                widget.data?.agentCode:null,
+                                keyboardType: TextInputType.phone,
+                                icon: const Icon(Icons.person),
+                                labelText: "Kode Agen",
+                                // initialValue: postTitle,
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                },
+                                onChanged: (String value) {
+                                  getIt<FaaCandidatePageBloc>().add(
+                                      FamilyAgentCodeInputEvent(value));
+                                },
+                              ),
+                            )
+                                : Container(),
+                            widget.putDataType ==
+                                PutDataType.isEmployeeInAllianz
+                                ? Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: TextInput(
+                                icon: const Icon(Icons.person),
+                                labelText: "Department",
+                                initialValue:
+                                widget.data?.id != null?
+                                widget.data?.department:null,
+                                // initialValue: postTitle,
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                },
+                                onChanged: (String value) {
+                                  getIt<FaaCandidatePageBloc>().add(
+                                      FamilyDepartmentInputEvent(value));
+                                },
+                              ),
+                            )
+                                : Container(),
+
+                            widget.putDataType == PutDataType.isAgentInAllianz
+                                ? Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: DropDownString(
+                                title: 'Nama Perusahaan Grup Allianz',
+                                displayClearIcon: false,
+                                icon: const Icon(
+                                  Icons.add_chart,
+                                  color: AclColors.greyDarkFontColor,
+                                ),
+                                onChanged: (String value) {
+                                  getIt<FaaCandidatePageBloc>().add(
+                                      FamilyCompanyInputEvent(value));
+
+                                  // checkedIsAgentInAllianz = true;
+                                },
+                                initialItem:
+                                widget.data?.id != null?
+                                widget.data?.companyGroup:null,
+                                items: const [
+                                  'PT. Asuransi Allianz Life Indonesia',
+                                  'PT. Asuransi Allianz Life Indonesia',
+                                  'PT. Asuransi Allianz Life Indonesia'
+                                ],
+                                errorText: isCheck &&
+                                    state.familyCompany.isNotValid
+                                    ? 'Mohon diisi'
+                                    : null,
+                              ),
+                            )
+                                : Container(),
+                            widget.putDataType == PutDataType.isAgentInOthers
+                                ? Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: TextInput(
+                                initialValue:
+                                widget.data?.id != null?
+                                widget.data?.companyInsurance:null,
+                                icon: const Icon(Icons.person),
+                                labelText: "Nama Perusahaan Asuransi Lain",
+                                validator: (String? value) {
+                                  if (value!.isNotEmpty) return null;
+                                  return "Mohon diisi";
+                                },
+                                onChanged: (String value) {
+                                  getIt<FaaCandidatePageBloc>().add(
+                                      FamilyCompanyInputEvent(value));
+                                },
+                              ),
+                            )
+                                : Container(),
+                            const SizedBox(height: 8),
+                          ],
                         ),
-                        state.submitStatus.isInProgress
-                            ? Center(
-                          child: Container(
-                              color: Colors.white.withAlpha(90),
-                              child: const Center(
-                                  child:
-                                  SpinKitIndicator(type: SpinKitType.circle))),
-                        )
-                            : Container(),
-                      ],
+                      ),
                     ),
                     state.submitStatus.isInProgress
                         ? Center(
                       child: Container(
                           color: Colors.white.withAlpha(90),
                           child: const Center(
-                              child: SpinKitIndicator(
-                                  type: SpinKitType.circle))),
+                              child:
+                              SpinKitIndicator(type: SpinKitType.circle))),
                     )
                         : Container(),
                   ],

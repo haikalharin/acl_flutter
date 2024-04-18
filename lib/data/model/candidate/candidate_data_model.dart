@@ -20,13 +20,13 @@ class CandidateDataModel {
   @JsonKey(name: "agentCode")
   String? agentCode;
   @JsonKey(name: "clientNumber")
-  String? clientNumber;
+  dynamic clientNumber;
   @JsonKey(name: "firstName")
   String? firstName;
   @JsonKey(name: "middleName")
-  dynamic middleName;
+  String? middleName;
   @JsonKey(name: "lastName")
-  dynamic lastName;
+  String? lastName;
   @JsonKey(name: "title")
   int? title;
   @JsonKey(name: "position")
@@ -62,19 +62,19 @@ class CandidateDataModel {
   @JsonKey(name: "cellularNo")
   String? cellularNo;
   @JsonKey(name: "email")
-  dynamic email;
+  String? email;
   @JsonKey(name: "idCardNo")
   String? idCardNo;
   @JsonKey(name: "maritalStatus")
   int? maritalStatus;
   @JsonKey(name: "heir")
-  String? heir;
+  dynamic heir;
   @JsonKey(name: "heirRelation")
   String? heirRelation;
   @JsonKey(name: "jointDate")
   String? jointDate;
   @JsonKey(name: "aajiNo")
-  dynamic aajiNo;
+  String? aajiNo;
   @JsonKey(name: "aajiExpired")
   String? aajiExpired;
   @JsonKey(name: "bankAccount")
@@ -86,7 +86,7 @@ class CandidateDataModel {
   @JsonKey(name: "bankAccountName")
   String? bankAccountName;
   @JsonKey(name: "npwpNo")
-  dynamic npwpNo;
+  String? npwpNo;
   @JsonKey(name: "npwpName")
   dynamic npwpName;
   @JsonKey(name: "npwpAddress1")
@@ -102,21 +102,21 @@ class CandidateDataModel {
   @JsonKey(name: "npwpZipCode")
   dynamic npwpZipCode;
   @JsonKey(name: "spouseName")
-  dynamic spouseName;
+  String? spouseName;
   @JsonKey(name: "spouseDob")
   String? spouseDob;
   @JsonKey(name: "spouseIdCardNo")
   dynamic spouseIdCardNo;
   @JsonKey(name: "spouseJob")
-  dynamic spouseJob;
+  String? spouseJob;
   @JsonKey(name: "spouseRelation")
-  dynamic spouseRelation;
+  String? spouseRelation;
   @JsonKey(name: "spouseIsAgent")
-  dynamic spouseIsAgent;
+  String? spouseIsAgent;
   @JsonKey(name: "spouseAgentCode")
-  dynamic spouseAgentCode;
+  String? spouseAgentCode;
   @JsonKey(name: "spouseUnit")
-  dynamic spouseUnit;
+  String? spouseUnit;
   @JsonKey(name: "isReinstate")
   String? isReinstate;
   @JsonKey(name: "leaderName")
@@ -130,7 +130,7 @@ class CandidateDataModel {
   @JsonKey(name: "signatureDate")
   String? signatureDate;
   @JsonKey(name: "signatureCity")
-  String? signatureCity;
+  dynamic signatureCity;
   @JsonKey(name: "createDate")
   String? createDate;
   @JsonKey(name: "createBy")
@@ -184,7 +184,7 @@ class CandidateDataModel {
   @JsonKey(name: "isCompleted")
   String? isCompleted;
   @JsonKey(name: "isSuspended")
-  String? isSuspended;
+  dynamic isSuspended;
   @JsonKey(name: "recruiterAgentCode")
   dynamic recruiterAgentCode;
   @JsonKey(name: "dependent")
@@ -202,17 +202,17 @@ class CandidateDataModel {
   @JsonKey(name: "isEqualWithKtp")
   dynamic isEqualWithKtp;
   @JsonKey(name: "pickerFaa")
-  String? pickerFaa;
+  dynamic pickerFaa;
   @JsonKey(name: "pickerSimpleChecking")
-  String? pickerSimpleChecking;
+  dynamic pickerSimpleChecking;
   @JsonKey(name: "ptkpIsExist")
   dynamic ptkpIsExist;
   @JsonKey(name: "submissionDate")
   String? submissionDate;
   @JsonKey(name: "isCompletedFaa")
-  String? isCompletedFaa;
+  dynamic isCompletedFaa;
   @JsonKey(name: "isCompletedSimpleChecking")
-  String? isCompletedSimpleChecking;
+  dynamic isCompletedSimpleChecking;
   @JsonKey(name: "resignLetterDate")
   String? resignLetterDate;
   @JsonKey(name: "terminationDate")
@@ -222,7 +222,7 @@ class CandidateDataModel {
   @JsonKey(name: "prevCompany")
   int? prevCompany;
   @JsonKey(name: "prevCompanyOthers")
-  int? prevCompanyOthers;
+  String? prevCompanyOthers;
   @JsonKey(name: "deletedReason")
   dynamic deletedReason;
   @JsonKey(name: "maritalStatusPtkp")
@@ -232,9 +232,9 @@ class CandidateDataModel {
   @JsonKey(name: "pickerActimize")
   dynamic pickerActimize;
   @JsonKey(name: "isReview")
-  String? isReview;
+  dynamic isReview;
   @JsonKey(name: "isSignature")
-  String? isSignature;
+  dynamic isSignature;
   @JsonKey(name: "isRelease")
   dynamic isRelease;
   @JsonKey(name: "kpmLocationCode")
@@ -244,7 +244,7 @@ class CandidateDataModel {
   @JsonKey(name: "idFamilyCardNo")
   String? idFamilyCardNo;
   @JsonKey(name: "aasiNo")
-  dynamic aasiNo;
+  String? aasiNo;
   @JsonKey(name: "prevCompanyAasi")
   int? prevCompanyAasi;
   @JsonKey(name: "aasiExpired")
@@ -423,10 +423,10 @@ class CandidateDataModel {
     int? id,
     String? userId,
     String? agentCode,
-    String? clientNumber,
+    dynamic clientNumber,
     String? firstName,
-    dynamic middleName,
-    dynamic lastName,
+    String? middleName,
+    String? lastName,
     int? title,
     int? position,
     String? placeOfBirth,
@@ -444,19 +444,19 @@ class CandidateDataModel {
     String? phoneNo,
     dynamic officePhoneNo,
     String? cellularNo,
-    dynamic email,
+    String? email,
     String? idCardNo,
     int? maritalStatus,
-    String? heir,
+    dynamic heir,
     String? heirRelation,
     String? jointDate,
-    dynamic aajiNo,
+    String? aajiNo,
     String? aajiExpired,
     String? bankAccount,
     String? bankName,
     String? bankBranch,
     String? bankAccountName,
-    dynamic npwpNo,
+    String? npwpNo,
     dynamic npwpName,
     dynamic npwpAddress1,
     dynamic npwpAddress2,
@@ -464,21 +464,21 @@ class CandidateDataModel {
     int? npwpCity,
     int? npwpProvince,
     dynamic npwpZipCode,
-    dynamic spouseName,
+    String? spouseName,
     String? spouseDob,
     dynamic spouseIdCardNo,
-    dynamic spouseJob,
-    dynamic spouseRelation,
-    dynamic spouseIsAgent,
-    dynamic spouseAgentCode,
-    dynamic spouseUnit,
+    String? spouseJob,
+    String? spouseRelation,
+    String? spouseIsAgent,
+    String? spouseAgentCode,
+    String? spouseUnit,
     String? isReinstate,
     String? leaderName,
     String? leaderAgentCode,
     String? leaderSignatureDate,
     dynamic leaderSignatureCity,
     String? signatureDate,
-    String? signatureCity,
+    dynamic signatureCity,
     String? createDate,
     String? createBy,
     String? updateDate,
@@ -505,7 +505,7 @@ class CandidateDataModel {
     int? occupation,
     dynamic occupationOther,
     String? isCompleted,
-    String? isSuspended,
+    dynamic isSuspended,
     dynamic recruiterAgentCode,
     int? dependent,
     String? isSubmission,
@@ -514,28 +514,28 @@ class CandidateDataModel {
     int? sourceInformation,
     dynamic sourceInformationDesc,
     dynamic isEqualWithKtp,
-    String? pickerFaa,
-    String? pickerSimpleChecking,
+    dynamic pickerFaa,
+    dynamic pickerSimpleChecking,
     dynamic ptkpIsExist,
     String? submissionDate,
-    String? isCompletedFaa,
-    String? isCompletedSimpleChecking,
+    dynamic isCompletedFaa,
+    dynamic isCompletedSimpleChecking,
     String? resignLetterDate,
     String? terminationDate,
     String? isEmailUpdate,
     int? prevCompany,
-    int? prevCompanyOthers,
+    String? prevCompanyOthers,
     dynamic deletedReason,
     dynamic maritalStatusPtkp,
     String? faaSubmissionDate,
     dynamic pickerActimize,
-    String? isReview,
-    String? isSignature,
+    dynamic isReview,
+    dynamic isSignature,
     dynamic isRelease,
     dynamic kpmLocationCode,
     dynamic isReleases,
     String? idFamilyCardNo,
-    dynamic aasiNo,
+    String? aasiNo,
     int? prevCompanyAasi,
     String? aasiExpired,
     bool? aajiActiveFlag,

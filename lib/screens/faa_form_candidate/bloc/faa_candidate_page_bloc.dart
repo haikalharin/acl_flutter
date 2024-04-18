@@ -8,6 +8,7 @@ import 'package:acl_flutter/data/model/candidate_faa/education_candidate_model.d
 import 'package:acl_flutter/data/model/candidate_faa/family_card_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/private_data_candidate_request_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/request_families_data.dart';
+import 'package:acl_flutter/data/model/candidate_faa/work_experience_reinstance.dart';
 import 'package:acl_flutter/data/model/documents/documents_response_model.dart';
 import 'package:acl_flutter/data/model/master_data_model/master_data_model.dart';
 import 'package:acl_flutter/data/repository/candidate_faa/candidate_faa_repository.dart';
@@ -151,7 +152,6 @@ class FaaCandidatePageBloc
     on<FamilyDepartmentInputEvent>(familyDepartmentInput);
     on<SubmitFamiliesDataEvent>(submitFamiliesData);
 
-
     //todo
 
     on<KkImageInputEvent>(kkImageInput);
@@ -166,7 +166,7 @@ class FaaCandidatePageBloc
     ///Work Experience
     on<CheckEmployeeInputEvent>(checkEmployeeInput);
     on<UnitNameExperienceInputEvent>(unitNameExperienceInput);
-    on<LastDepartmentExperienceInputEvent>(lastDepartmentExperienceInput);
+    on<LastPositionExperienceInputEvent>(lastPositionExperienceInput);
     on<DirectLeaderExperienceInputEvent>(directLeaderExperienceInput);
     on<CompanyNameExperienceInputEvent>(companyNameExperienceInput);
     on<CompanyTypeExperienceInputEvent>(companyTypeExperienceInput);
@@ -177,6 +177,7 @@ class FaaCandidatePageBloc
     on<StatusEmployeeInputEvent>(statusEmployeeInput);
     on<AddWorkingExperienceEvent>(addWorkingExperience);
     on<SubmitWorkingExperienceEvent>(submitWorkingExperience);
+    on<PutWorkExperienceReinstanceEvent>(putWorkExperienceReinstance);
 
     ///Education
     on<EducationLevelInputEvent>(educationLevelInput);
@@ -309,20 +310,21 @@ class FaaCandidatePageBloc
               .getCandidateFamilyData(event.candidateId);
           FamilyCardModel familyCardModel = FamilyCardModel();
           resultCandidateFamily.when(success: (responseCandidateFamily) async {
-            familyCardModel =responseCandidateFamily.data;
+            familyCardModel = responseCandidateFamily.data;
             martialStatusId = const DropdownFieldValidator.dirty(11);
           }, failure: (error) {
             martialStatusId = const DropdownFieldValidator.pure();
           });
           List<AajicityMasterReference> listMartialModel = [];
           AajicityMasterReference? martialStatusModel;
-         listMartialModel = state.masterDataModel?.masterData
-              ?.masterReferenceAll?.maritalstatus?.masterReference
-              ?.where((element) =>
-          element.id == (martialStatusId.value)).toList()??[];
-         if(listMartialModel.isNotEmpty){
-           martialStatusModel = listMartialModel.single;
-         }
+          listMartialModel = state.masterDataModel?.masterData
+                  ?.masterReferenceAll?.maritalstatus?.masterReference
+                  ?.where((element) => element.id == (martialStatusId.value))
+                  .toList() ??
+              [];
+          if (listMartialModel.isNotEmpty) {
+            martialStatusModel = listMartialModel.single;
+          }
 
           emit(state.copyWith(
 
@@ -740,7 +742,7 @@ class FaaCandidatePageBloc
       Emitter<FaaCandidatePageState> emit) async {
     final image = MandatoryFieldValidator.dirty(event.image);
     emit(state.copyWith(
-      terminationImage: image,
+      notTwistingImage: image,
     ));
   }
 
@@ -1106,92 +1108,95 @@ class FaaCandidatePageBloc
       putDataType: event.putDataType,
     ));
   }
+
   Future<void> submitFamiliesData(SubmitFamiliesDataEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     ApiResult<ResponseModel<ResponseFamiliesData>> result =
-    const ApiResult.failure('');
+        const ApiResult.failure('');
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
     if (state.isValid) {
       try {
-          if (event.type == PutDataType.isAgentInAllianz) {
-            result = await candidateFaaRepository.addAddFamiliesData(
-                RequestFamiliesData(
-                    id: event.id,
-                    type: 'agent',
-                    candidateId: state.candidateDataModel?.id,
-                    name: state.familyPersonName.value.toUpperCase(),
-                    relation: state.familyPersonRelationId.value.toString(),
-                    directName: state.familyDirectName.value.toUpperCase(),
-                    role: state.familyPositionId.value.toString(),
-                    agentCode: state.familyAgentCode.value.toString(),
-                    company: state.familyCompany.value.toUpperCase()));
-          } else if (event.type == PutDataType.isAgentInOthers) {
-            result = await candidateFaaRepository.addAddFamiliesData(
-                RequestFamiliesData(
-                    id: event.id,
-                    type: 'nonagent',
-                    candidateId: state.candidateDataModel?.id,
-                    name: state.familyPersonName.value.toUpperCase(),
-                    relation: state.familyPersonRelationId.value.toString(),
-                    company: state.familyCompany.value.toUpperCase()));
-          } else {
-            result = await candidateFaaRepository.addAddFamiliesData(
-                RequestFamiliesData(
-                    id: event.id,
-                    type: 'employee',
-                    candidateId: state.candidateDataModel?.id,
-                    name: state.familyPersonName.value.toUpperCase(),
-                    relation: state.relationId.value.toString(),
-                    role: state.familyPositionId.value.toString(),
-                    department: state.familyDepartment.value.toUpperCase(),
-                    company: state.familyCompany.value.toUpperCase()));
-          }
+        if (event.type == PutDataType.isAgentInAllianz) {
+          result = await candidateFaaRepository.addAddFamiliesData(
+              RequestFamiliesData(
+                  id: event.id,
+                  type: 'agent',
+                  candidateId: state.candidateDataModel?.id,
+                  name: state.familyPersonName.value.toUpperCase(),
+                  relation: state.familyPersonRelationId.value.toString(),
+                  directName: state.familyDirectName.value.toUpperCase(),
+                  role: state.familyPositionId.value.toString(),
+                  agentCode: state.familyAgentCode.value.toString(),
+                  company: state.familyCompany.value.toUpperCase()));
+        } else if (event.type == PutDataType.isAgentInOthers) {
+          result = await candidateFaaRepository.addAddFamiliesData(
+              RequestFamiliesData(
+                  id: event.id,
+                  type: 'nonagent',
+                  candidateId: state.candidateDataModel?.id,
+                  name: state.familyPersonName.value.toUpperCase(),
+                  relation: state.familyPersonRelationId.value.toString(),
+                  company: state.familyCompany.value.toUpperCase()));
+        } else {
+          result = await candidateFaaRepository.addAddFamiliesData(
+              RequestFamiliesData(
+                  id: event.id,
+                  type: 'employee',
+                  candidateId: state.candidateDataModel?.id,
+                  name: state.familyPersonName.value.toUpperCase(),
+                  relation: state.relationId.value.toString(),
+                  role: state.familyPositionId.value.toString(),
+                  department: state.familyDepartment.value.toUpperCase(),
+                  company: state.familyCompany.value.toUpperCase()));
+        }
 
-         await result.when(success: (response) async {
-                      var resultFetch = await candidateFaaRepository
-                .getCandidateFamiliesInCompanyData(
-                state.candidateDataModel?.id ?? 0);
-           await resultFetch.when(success: (responseList) async {
-             List<ResponseFamiliesData> listResponseFamiliesData = responseList.data;
-             List<ResponseFamiliesData> listFamilyIsAgent = [];
-              List<ResponseFamiliesData> listFamilyIsAgentOthers = [];
-              List<ResponseFamiliesData> listFamilyIsEmployee = [];
-              if (listResponseFamiliesData.isNotEmpty) {
-                listFamilyIsAgent = listResponseFamiliesData.where((element) =>
-                element.type?.toLowerCase() == 'agent').toList();
+        await result.when(success: (response) async {
+          var resultFetch =
+              await candidateFaaRepository.getCandidateFamiliesInCompanyData(
+                  state.candidateDataModel?.id ?? 0);
+          await resultFetch.when(success: (responseList) async {
+            List<ResponseFamiliesData> listResponseFamiliesData =
+                responseList.data;
+            List<ResponseFamiliesData> listFamilyIsAgent = [];
+            List<ResponseFamiliesData> listFamilyIsAgentOthers = [];
+            List<ResponseFamiliesData> listFamilyIsEmployee = [];
+            if (listResponseFamiliesData.isNotEmpty) {
+              listFamilyIsAgent = listResponseFamiliesData
+                  .where((element) => element.type?.toLowerCase() == 'agent')
+                  .toList();
 
-                listFamilyIsAgentOthers =
-                    listResponseFamiliesData.where((element) =>
-                    element.type?.toLowerCase() == 'nonagent').toList();
+              listFamilyIsAgentOthers = listResponseFamiliesData
+                  .where((element) => element.type?.toLowerCase() == 'nonagent')
+                  .toList();
 
-                listFamilyIsEmployee =
-                    listResponseFamiliesData.where((element) =>
-                    element.type?.toLowerCase() == 'employee').toList();
-              }
-              emit(state.copyWith(
-                  moveTo: Routes.userList,
-                  message: 'success-add-families-data',
-                  putDataType: PutDataType.isInit,
-                  familyPersonName: const MandatoryFieldValidator.pure(),
-                  familyAgentCode:  const MandatoryFieldValidator.pure(),
-                  familyPersonRelation: null,
-                  familyPersonRelationId: const DropdownFieldValidator.pure(),
-                  familyPosition: null,
-                  familyPositionId: const DropdownFieldValidator.pure(),
-                  familyDepartment:  const MandatoryFieldValidator.pure(),
-                  familyDirectName:  const MandatoryFieldValidator.pure(),
-                  familyCompany:  const MandatoryFieldValidator.pure(),
-                  listFamilyIsAgent: listFamilyIsAgent,
-                  listFamilyIsAgentOthers: listFamilyIsAgentOthers,
-                  listFamilyIsEmployee: listFamilyIsEmployee,
-                  submitStatus: FormzSubmissionStatus.success));
-            }, failure: (error) async {
-              emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
-            });
+              listFamilyIsEmployee = listResponseFamiliesData
+                  .where((element) => element.type?.toLowerCase() == 'employee')
+                  .toList();
+            }
+            emit(state.copyWith(
+                moveTo: Routes.userList,
+                message: 'success-add-families-data',
+                putDataType: PutDataType.isInit,
+                familyPersonName: const MandatoryFieldValidator.pure(),
+                familyAgentCode: const MandatoryFieldValidator.pure(),
+                familyPersonRelation: null,
+                familyPersonRelationId: const DropdownFieldValidator.pure(),
+                familyPosition: null,
+                familyPositionId: const DropdownFieldValidator.pure(),
+                familyDepartment: const MandatoryFieldValidator.pure(),
+                familyDirectName: const MandatoryFieldValidator.pure(),
+                familyCompany: const MandatoryFieldValidator.pure(),
+                listFamilyIsAgent: listFamilyIsAgent,
+                listFamilyIsAgentOthers: listFamilyIsAgentOthers,
+                listFamilyIsEmployee: listFamilyIsEmployee,
+                submitStatus: FormzSubmissionStatus.success));
           }, failure: (error) async {
             emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
           });
-      }catch (error) {
+        }, failure: (error) async {
+          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+        });
+      } catch (error) {
         if (kDebugMode) {
           print(error);
         }
@@ -1204,8 +1209,6 @@ class FaaCandidatePageBloc
 
   Future<void> deleteFamiliesData(FaaAddAgentDocSubmittedEvent event,
       Emitter<FaaCandidatePageState> emit) async {}
-
-
 
   Future<void> familyPersonNameInput(FamilyPersonNameInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
@@ -1379,7 +1382,8 @@ class FaaCandidatePageBloc
         appendixValue: null,
       ));
     } else {
-      final valueId = DropdownFieldValidator.dirty(int.parse(event.value.fileNetId ?? '0'));
+      final valueId =
+          DropdownFieldValidator.dirty(int.parse(event.value.fileNetId ?? '0'));
       emit(state.copyWith(
         appendixValueId: valueId,
         appendixValue: event.value,
@@ -1456,133 +1460,128 @@ class FaaCandidatePageBloc
   Future<void> faaAddAgentSubmitted(FaaAddAgentSubmittedEvent event,
       Emitter<FaaCandidatePageState> emit) async {
     emit(state.copyWith(submitStatus: FormzSubmissionStatus.inProgress));
-    if (state.isValid) {
-      try {
-        LoginModel loginModel = await SecureStorage().getUser();
-        final result = await candidateFaaRepository
-            .addRegisterCandidatePrivateData(PrivateDataCandidateRequestModel(
-                candidate: Candidate(
-          id: (state.candidateDataModel?.id ?? '').toString(),
-          userId: state.candidateDataModel?.userId ?? '',
-          agentCode: loginModel.uid ?? '',
-          firstName: state.firstName.value.toUpperCase(),
-          middleName: state.middleName.value.toUpperCase(),
-          lastName: state.lastName.value.toUpperCase(),
-          position: state.positionId.value.toString(),
-          idCardNo: state.identityNo.value,
-          maritalStatus: state.martialStatusId.value.toString(),
-          placeOfBirth: state.pob.value.toUpperCase(),
-          dob: state.dobString.value,
-          gender: state.genderId.value.toString(),
-          nationality: state.nationality.value.toUpperCase(),
-          clientNumber: state.candidateDataModel?.clientNumber ?? '',
-          address1: state.address.value.toUpperCase(),
-          address2: state.rtRw.value.toUpperCase(),
-          address3: state.kecKel.value.toUpperCase(),
-          city: state.cityId.value.toString(),
-          province: state.provinceId.value.toString(),
-          zipCode: state.postalCode.value,
-          country: state.countryId.value.toString(),
-          leaderName: (loginModel.name ?? '').toUpperCase(),
-          leaderAgentCode: (loginModel.uid ?? ''),
-          spouseIdCardNo: state.identityNoPartner.value,
-          occupation: state.occupationId.value.toString(),
-          occupationOther: '',
-          aajiNo: state.noLicenceAAJI.value,
-          aajiActiveFlag: state.checkedValueAAJI,
-          aasiNo: state.noLicenceAASI.value,
-          aasiActiveFlag: state.checkedValueAASI,
-          aauiActiveFlag: state.checkedValueAAJI,
-          title: '',
-          weight: '',
-          high: '',
-          religion: state.religionId.value.toString(),
-          phoneNo: state.phone.value,
-          officePhoneNo: '',
-          cellularNo: state.phone.value,
-          email: state.phone.value,
-          heir: state.heirsName.value,
-          heirRelation: state.heirsRelationId.value.toString(),
-          jointDate: '',
-          aajiExpired: state.candidateDataModel?.aajiExpired ?? '',
-          aasiExpired: state.candidateDataModel?.aasiExpired ?? '',
-          bankAccount: state.bankNo.value,
-          bankName: state.bankNameId.value.toString(),
-          bankBranch: state.bankBranch.value,
-          bankAccountName: state.bankUserName.value,
-          npwpNo: state.npwpNo.value,
-          npwpName: '',
-          npwpAddress1: '',
-          npwpAddress2: '',
-          npwpAddress3: '',
-          npwpCity: '',
-          npwpProvince: '',
-          npwpZipCode: '',
-          spouseName:
-              '${state.candidateDataFamilyModel?.familyDetails?.first.firstName ?? ''} ${state.candidateDataFamilyModel?.familyDetails?.first.middleName ?? ''} ${state.candidateDataFamilyModel?.familyDetails?.first.lastName ?? ''}',
-          spouseDob: state
-                  .candidateDataFamilyModel?.familyDetails?.first.dateOfBirth ??
-              '',
-          spouseJob: state.spousePositionId.value.toString(),
-          spouseRelation: state.relationId.value.toString(),
-          spouseIsAgent: state.spouseIsAgent.value,
-          spouseAgentCode: state.agentCode.value,
-          spouseUnit: state.directUnitName.value,
-          isReinstate: '',
-          leaderSignatureDate: '',
-          leaderSignatureCity: '',
-          signatureDate: '',
-          signatureCity: '',
-          verificationNumber: '',
-          channelId: '',
-          channelCode: '',
-          officeCode: state.candidateDataModel?.officeCode ?? '',
-          officeCity: state.candidateDataModel?.officeCity ?? '',
-          taxType: '',
-          idCardType: '',
-          reinstateOfficeCode: '',
-          reinstateLeaderName: '',
-          reinstateLastPosition: '',
-          reinstateStatus: '',
-          reinstateAgentCode: '',
-          supervisorAgentCode: '',
-          locationCode: '',
-          branchCode: '',
-          altReferenceNo: '',
-          isSubmission: '',
-          isCompleted: '',
-          isSignature: '',
-          dependent: '',
-          otherReligion: '',
-          sourceInformation: '',
-          sourceInformationDesc: '',
-          isEqualWithKtp: '',
-          ptkpIsExist: '',
-          resignLetterDate: '',
-          terminationDate: '',
-          prevCompany: (state.candidateDataModel?.prevCompany ?? 0).toString(),
-          prevCompanyOthers:
-              (state.candidateDataModel?.prevCompanyOthers ?? 0).toString(),
-          prevCompanyAasi:
-              (state.candidateDataModel?.prevCompanyAasi ?? 0).toString(),
-          prevCompanyAaui:
-              (state.candidateDataModel?.prevCompanyAaui ?? 0).toString(),
-          maritalStatusPtkp: '',
-        )));
-        await result.when(success: (response) async {
-          emit(state.copyWith(
-              moveTo: Routes.userList,
-              message: 'success-add-private-data',
-              submitStatus: FormzSubmissionStatus.success));
-        }, failure: (error) async {
-          emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
-        });
-      } catch (error) {
-        if (kDebugMode) {
-          print(error);
-        }
+    // if (state.isValid) {
+    try {
+      LoginModel loginModel = await SecureStorage().getUser();
+      final result = await candidateFaaRepository
+          .addRegisterCandidatePrivateData(PrivateDataCandidateRequestModel(
+        id: (state.candidateDataModel?.id ?? '').toString(),
+        userId: state.candidateDataModel?.userId ?? '',
+        agentCode: loginModel.uid ?? '',
+        firstName: state.firstName.value.toUpperCase(),
+        middleName: state.middleName.value.toUpperCase(),
+        lastName: state.lastName.value.toUpperCase(),
+        position: state.positionId.value.toString(),
+        idCardNo: state.identityNo.value,
+        maritalStatus: state.martialStatusId.value.toString(),
+        placeOfBirth: state.pob.value.toUpperCase(),
+        dob: state.dobString.value,
+        gender: state.genderId.value.toString(),
+        nationality: state.nationality.value.toUpperCase(),
+        clientNumber: state.candidateDataModel?.clientNumber ?? '',
+        address1: state.address.value.toUpperCase(),
+        address2: state.rtRw.value.toUpperCase(),
+        address3: state.kecKel.value.toUpperCase(),
+        city: state.cityId.value.toString(),
+        province: state.provinceId.value.toString(),
+        zipCode: state.postalCode.value,
+        country: state.countryId.value.toString(),
+        leaderName: (loginModel.name ?? '').toUpperCase(),
+        leaderAgentCode: (loginModel.uid ?? ''),
+        spouseIdCardNo: state.identityNoPartner.value,
+        occupation: state.occupationId.value.toString(),
+        occupationOther: '',
+        aajiNo: state.noLicenceAAJI.value,
+        aasiNo: state.noLicenceAASI.value,
+        title: '',
+        weight: '',
+        high: '',
+        religion: state.religionId.value.toString(),
+        phoneNo: state.phone.value,
+        officePhoneNo: '',
+        cellularNo: state.phone.value,
+        email: state.phone.value,
+        heir: state.heirsName.value,
+        heirRelation: state.heirsRelationId.value.toString(),
+        jointDate: '',
+        aajiExpired: state.candidateDataModel?.aajiExpired ?? '',
+        aasiExpired: state.candidateDataModel?.aasiExpired ?? '',
+        bankAccount: state.bankNo.value,
+        bankName: state.bankName?.longDescriptionInd.toString(),
+        bankBranch: state.bankBranch.value,
+        bankAccountName: state.bankUserName.value,
+        npwpNo: state.npwpNo.value,
+        npwpName: '',
+        npwpAddress1: '',
+        npwpAddress2: '',
+        npwpAddress3: '',
+        npwpCity: '',
+        npwpProvince: '',
+        npwpZipCode: '',
+        spouseName:
+            '${state.candidateDataFamilyModel?.familyDetails?.first.firstName ?? ''} ${state.candidateDataFamilyModel?.familyDetails?.first.middleName ?? ''} ${state.candidateDataFamilyModel?.familyDetails?.first.lastName ?? ''}',
+        spouseDob:
+            state.candidateDataFamilyModel?.familyDetails?.first.dateOfBirth ??
+                '',
+        spouseJob: state.spousePositionId.value.toString(),
+        spouseRelation: state.relationId.value.toString(),
+        spouseIsAgent:
+            state.spouseIsAgent.value.toLowerCase() == 'ya' ? 'Y' : 'N',
+        spouseAgentCode: state.agentCode.value,
+        spouseUnit: state.directUnitName.value,
+        isReinstate: 'N',
+        leaderSignatureDate: '',
+        leaderSignatureCity: '',
+        signatureDate: '',
+        signatureCity: '',
+        verificationNumber: '',
+        channelId: '',
+        channelCode: '',
+        officeCode: state.candidateDataModel?.officeCode ?? '',
+        officeCity: state.candidateDataModel?.officeCity ?? '',
+        taxType: '',
+        idCardType: '',
+        reinstateOfficeCode: '',
+        reinstateLeaderName: '',
+        reinstateLastPosition: '',
+        reinstateStatus: '',
+        reinstateAgentCode: '',
+        supervisorAgentCode: '',
+        locationCode: '',
+        branchCode: '',
+        altReferenceNo: '',
+        isSubmission: 'Y',
+        isCompleted: 'N',
+        isSignature: '',
+        dependent: '',
+        otherReligion: '',
+        sourceInformation: '',
+        sourceInformationDesc: '',
+        isEqualWithKtp: '',
+        ptkpIsExist: '',
+        resignLetterDate: '',
+        terminationDate: '',
+        prevCompany: (state.candidateDataModel?.prevCompany ?? 0).toString(),
+        prevCompanyOthers:
+            (state.candidateDataModel?.prevCompanyOthers ?? 0).toString(),
+        prevCompanyaasi:
+            (state.candidateDataModel?.prevCompanyAasi ?? 0).toString(),
+        maritalStatusPtkp: '',
+      ));
+      await result.when(success: (response) async {
+        emit(state.copyWith(
+            moveTo: Routes.userList,
+            message: 'success-add-private-data',
+            submitStatus: FormzSubmissionStatus.success));
+      }, failure: (error) async {
+        emit(state.copyWith(submitStatus: FormzSubmissionStatus.failure));
+      });
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
       }
     }
+    // }
   }
 
   Future<void> faaAddAgentDocSubmitted(FaaAddAgentDocSubmittedEvent event,
@@ -1813,12 +1812,12 @@ class FaaCandidatePageBloc
     ));
   }
 
-  Future<void> lastDepartmentExperienceInput(
-      LastDepartmentExperienceInputEvent event,
+  Future<void> lastPositionExperienceInput(
+      LastPositionExperienceInputEvent event,
       Emitter<FaaCandidatePageState> emit) async {
-    final value = MandatoryFieldValidator.dirty(event.lastDepartment);
+    final value = MandatoryFieldValidator.dirty(event.lastPosition);
     emit(state.copyWith(
-      lastDepartment: value,
+      lastPosition: value,
     ));
   }
 
@@ -1978,6 +1977,41 @@ class FaaCandidatePageBloc
               },
               failure: (error) {});
         }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    }
+  }
+
+  Future<void> putWorkExperienceReinstance(PutWorkExperienceReinstanceEvent event,
+      Emitter<FaaCandidatePageState> emit) async {
+    emit(state.copyWith(
+      submitStatus: FormzSubmissionStatus.inProgress,
+    ));
+    if (state.isValid) {
+      try {
+        final result = await candidateFaaRepository.putWorkExperienceRinstance(
+            WorkExperienceReinstance(
+                reinstateLeaderName: state.directLeader.value,
+                reinstateLastPosition: state.lastPosition.value,
+                isReinstate: 'Y',
+                // reinstateStatus:
+                //     state.statusEmployee.value.toLowerCase() == 'ya'
+                //         ? 'Y'
+                //         : 'N'
+            ),
+            userId: state.candidateDataModel?.userId ?? '',);
+
+        result.when(
+            success: (response) {
+              emit(state.copyWith(
+                message: 'success-put-work-experience-reinstance',
+                submitStatus: FormzSubmissionStatus.success,
+              ));
+            },
+            failure: (error) {});
       } catch (e) {
         if (kDebugMode) {
           print(e);

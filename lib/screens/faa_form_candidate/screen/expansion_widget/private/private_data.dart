@@ -380,7 +380,7 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              readOnly: true,
+                              readOnly:state.candidateDataModel?.address2!= null,
                               initialValue: state.candidateDataModel?.address2,
                               icon: const Icon(Icons.add_location),
                               labelText: "(RT.../RW...)",
@@ -395,7 +395,7 @@ class _PrivateDataState extends State<PrivateData> {
                             ),
                             const SizedBox(height: 8),
                             TextInput(
-                              readOnly: true,
+                              readOnly: state.candidateDataModel?.address3!= null,
                               initialValue: state.candidateDataModel?.address3,
                               icon: const Icon(Icons.add_location),
                               labelText: "(Kelurahan.../Kecamatan...)",

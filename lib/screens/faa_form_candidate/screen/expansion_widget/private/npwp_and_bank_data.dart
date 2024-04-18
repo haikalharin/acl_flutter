@@ -116,7 +116,7 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                     ),
                                     onChanged: (AajicityMasterReference value) {
                                       getIt<FaaCandidatePageBloc>()
-                                          .add(ReligionInputEvent(value));
+                                          .add(BankNameInputEvent(value));
                                     },
                                     items: state
                                         .masterDataModel
@@ -162,10 +162,10 @@ class _NpwpAndBankDataState extends State<NpwpAndBankData> {
                                 title: 'Foto Buku Rekening',
                                 onImagePicked: (value) {
                                   getIt<FaaCandidatePageBloc>()
-                                      .add(IdentitySelfieImageInputEvent(value));
+                                      .add(BankUserBookImageInputEvent(value));
                                 },
                                 errorText:  isCheck &&
-                                    state.identitySelfieImage.isNotValid
+                                    state.bankUserBookImage.isNotValid
                                     ? 'Mohon diisi'
                                     : null,
                               ),

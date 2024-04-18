@@ -626,10 +626,10 @@ class UnitNameExperienceInputEvent extends FaaCandidatePageEvent {
   UnitNameExperienceInputEvent(this.unitName);
 }
 
-class LastDepartmentExperienceInputEvent extends FaaCandidatePageEvent {
-  final String lastDepartment;
+class LastPositionExperienceInputEvent extends FaaCandidatePageEvent {
+  final String lastPosition;
 
-  LastDepartmentExperienceInputEvent(this.lastDepartment);
+  LastPositionExperienceInputEvent(this.lastPosition);
 }
 
 class DirectLeaderExperienceInputEvent extends FaaCandidatePageEvent {
@@ -688,6 +688,9 @@ class AddWorkingExperienceEvent extends FaaCandidatePageEvent {
 
 class SubmitWorkingExperienceEvent extends FaaCandidatePageEvent {
   SubmitWorkingExperienceEvent();
+}
+class PutWorkExperienceReinstanceEvent extends FaaCandidatePageEvent {
+  PutWorkExperienceReinstanceEvent();
 }
 
 ///Education

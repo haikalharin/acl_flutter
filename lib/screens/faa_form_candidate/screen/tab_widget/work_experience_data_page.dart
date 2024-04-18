@@ -1,6 +1,7 @@
 import 'package:acl_flutter/common/app_string.dart';
 import 'package:acl_flutter/common/widget/dropdown/drop_down_general.dart';
 import 'package:acl_flutter/data/model/candidate/candidate_data_model.dart';
+import 'package:acl_flutter/screens/faa_form_candidate/screen/expansion_widget/work_experience/add_work_experience_reinstance_dialog.dart';
 import 'package:acl_flutter/utils/acl_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,20 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
               builder: (BuildContext context) {
                 return const SuccessDialog(
                   title: "Berhasil input pengalaman kerja",
+                  isProgressed: false,
+                );
+              },
+            );
+            await Future.delayed(const Duration(seconds: 1));
+            Navigator.pop(context);
+            widget.tabController.animateTo(2);
+          } else if (state.message ==
+              'success-put-work-experience-reinstance') {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const SuccessDialog(
+                  title: "Berhasil update pengalaman kerja",
                   isProgressed: false,
                 );
               },
@@ -230,7 +245,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                   child: Divider(),
                                 ),
                                 const SizedBox(height: 16),
-                                DropDownStringUnderline(
+                                DropDownString(
                                   title: AppString.textExperience,
                                   displayClearIcon: false,
                                   icon: const Icon(
@@ -240,6 +255,17 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                   onChanged: (String value) {
                                     getIt<FaaCandidatePageBloc>()
                                         .add(CheckEmployeeInputEvent(value));
+                                    if (value.toLowerCase() == 'ya') {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AddWorkExperienceReinstanceDialog(
+                                            onCancelPressed: () =>
+                                                Navigator.pop(context),
+                                          );
+                                        },
+                                      );
+                                    }
                                   },
                                   initialItem: state.checkIsEmployee.isValid
                                       ? state.checkIsEmployee.value
@@ -278,8 +304,8 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                             icon: const Icon(
                                                 Icons.account_circle),
                                             initialValue:
-                                                state.lastDepartment.isValid
-                                                    ? state.lastDepartment.value
+                                                state.lastPosition.isValid
+                                                    ? state.lastPosition.value
                                                     : null,
                                             labelText: "Jabatan Terakhir",
                                             // initialValue: postTitle,
@@ -290,7 +316,7 @@ class _WorkExperienceDataPageState extends State<WorkExperienceDataPage> {
                                             },
                                             onChanged: (String value) {
                                               getIt<FaaCandidatePageBloc>().add(
-                                                  LastDepartmentExperienceInputEvent(
+                                                  LastPositionExperienceInputEvent(
                                                       value));
                                             },
                                           ),

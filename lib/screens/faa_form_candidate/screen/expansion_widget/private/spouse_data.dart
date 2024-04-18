@@ -126,7 +126,6 @@ class _SpouseDataState extends State<SpouseData> {
                               TextInput(
                                 icon: const Icon(Icons.person),
                                 labelText: "Nama Direct Unit/Agency",
-                                keyboardType: TextInputType.phone,
                                 onChanged: (String value) {
                                   getIt<FaaCandidatePageBloc>()
                                       .add(DirectUnitNameInputEvent(value));

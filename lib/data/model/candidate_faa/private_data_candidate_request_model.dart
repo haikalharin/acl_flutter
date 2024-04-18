@@ -2,7 +2,6 @@
 //
 //     final privateDataCandidateRequestModel = privateDataCandidateRequestModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
@@ -14,332 +13,299 @@ String privateDataCandidateRequestModelToJson(PrivateDataCandidateRequestModel d
 
 @JsonSerializable()
 class PrivateDataCandidateRequestModel {
-  @JsonKey(name: "candidate")
-  Candidate candidate;
+  @JsonKey(name: "id")
+  String? id;
+  @JsonKey(name: "userID")
+  String? userId;
+  @JsonKey(name: "agentCode")
+  String? agentCode;
+  @JsonKey(name: "clientNumber")
+  String? clientNumber;
+  @JsonKey(name: "firstName")
+  String? firstName;
+  @JsonKey(name: "middleName")
+  String? middleName;
+  @JsonKey(name: "lastName")
+  String? lastName;
+  @JsonKey(name: "title")
+  String? title;
+  @JsonKey(name: "position")
+  String? position;
+  @JsonKey(name: "placeOfBirth")
+  String? placeOfBirth;
+  @JsonKey(name: "dob")
+  String? dob;
+  @JsonKey(name: "gender")
+  String? gender;
+  @JsonKey(name: "weight")
+  String? weight;
+  @JsonKey(name: "high")
+  String? high;
+  @JsonKey(name: "religion")
+  String? religion;
+  @JsonKey(name: "address1")
+  String? address1;
+  @JsonKey(name: "address2")
+  String? address2;
+  @JsonKey(name: "address3")
+  String? address3;
+  @JsonKey(name: "city")
+  String? city;
+  @JsonKey(name: "province")
+  String? province;
+  @JsonKey(name: "zipCode")
+  String? zipCode;
+  @JsonKey(name: "phoneNo")
+  String? phoneNo;
+  @JsonKey(name: "officePhoneNo")
+  String? officePhoneNo;
+  @JsonKey(name: "cellularNo")
+  String? cellularNo;
+  @JsonKey(name: "email")
+  String? email;
+  @JsonKey(name: "idCardNo")
+  String? idCardNo;
+  @JsonKey(name: "maritalStatus")
+  String? maritalStatus;
+  @JsonKey(name: "heir")
+  String? heir;
+  @JsonKey(name: "heirRelation")
+  String? heirRelation;
+  @JsonKey(name: "jointDate")
+  String? jointDate;
+  @JsonKey(name: "bankAccount")
+  String? bankAccount;
+  @JsonKey(name: "bankName")
+  String? bankName;
+  @JsonKey(name: "bankBranch")
+  String? bankBranch;
+  @JsonKey(name: "bankAccountName")
+  String? bankAccountName;
+  @JsonKey(name: "npwpNo")
+  String? npwpNo;
+  @JsonKey(name: "npwpName")
+  String? npwpName;
+  @JsonKey(name: "npwpAddress1")
+  String? npwpAddress1;
+  @JsonKey(name: "npwpAddress2")
+  String? npwpAddress2;
+  @JsonKey(name: "npwpAddress3")
+  String? npwpAddress3;
+  @JsonKey(name: "npwpCity")
+  String? npwpCity;
+  @JsonKey(name: "npwpProvince")
+  String? npwpProvince;
+  @JsonKey(name: "npwpZipCode")
+  String? npwpZipCode;
+  @JsonKey(name: "spouseName")
+  String? spouseName;
+  @JsonKey(name: "spouseDob")
+  String? spouseDob;
+  @JsonKey(name: "spouseIdCardNo")
+  String? spouseIdCardNo;
+  @JsonKey(name: "spouseJob")
+  String? spouseJob;
+  @JsonKey(name: "spouseRelation")
+  String? spouseRelation;
+  @JsonKey(name: "spouseIsAgent")
+  String? spouseIsAgent;
+  @JsonKey(name: "spouseAgentCode")
+  String? spouseAgentCode;
+  @JsonKey(name: "spouseUnit")
+  String? spouseUnit;
+  @JsonKey(name: "isReinstate")
+  String? isReinstate;
+  @JsonKey(name: "leaderName")
+  String? leaderName;
+  @JsonKey(name: "leaderAgentCode")
+  String? leaderAgentCode;
+  @JsonKey(name: "leaderSignatureDate")
+  String? leaderSignatureDate;
+  @JsonKey(name: "leaderSignatureCity")
+  String? leaderSignatureCity;
+  @JsonKey(name: "signatureDate")
+  String? signatureDate;
+  @JsonKey(name: "signatureCity")
+  String? signatureCity;
+  @JsonKey(name: "verificationNumber")
+  String? verificationNumber;
+  @JsonKey(name: "nationality")
+  String? nationality;
+  @JsonKey(name: "channelID")
+  String? channelId;
+  @JsonKey(name: "channelCode")
+  String? channelCode;
+  @JsonKey(name: "officeCode")
+  String? officeCode;
+  @JsonKey(name: "officeCity")
+  String? officeCity;
+  @JsonKey(name: "taxType")
+  String? taxType;
+  @JsonKey(name: "idCardType")
+  String? idCardType;
+  @JsonKey(name: "reinstateOfficeCode")
+  String? reinstateOfficeCode;
+  @JsonKey(name: "reinstateLeaderName")
+  String? reinstateLeaderName;
+  @JsonKey(name: "reinstateLastPosition")
+  String? reinstateLastPosition;
+  @JsonKey(name: "reinstateStatus")
+  String? reinstateStatus;
+  @JsonKey(name: "reinstateAgentCode")
+  String? reinstateAgentCode;
+  @JsonKey(name: "country")
+  String? country;
+  @JsonKey(name: "supervisorAgentCode")
+  String? supervisorAgentCode;
+  @JsonKey(name: "locationCode")
+  String? locationCode;
+  @JsonKey(name: "branchCode")
+  String? branchCode;
+  @JsonKey(name: "altReferenceNo")
+  String? altReferenceNo;
+  @JsonKey(name: "occupation")
+  String? occupation;
+  @JsonKey(name: "occupationOther")
+  String? occupationOther;
+  @JsonKey(name: "isSubmission")
+  String? isSubmission;
+  @JsonKey(name: "isCompleted")
+  String? isCompleted;
+  @JsonKey(name: "dependent")
+  String? dependent;
+  @JsonKey(name: "otherReligion")
+  String? otherReligion;
+  @JsonKey(name: "sourceInformation")
+  String? sourceInformation;
+  @JsonKey(name: "sourceInformationDesc")
+  String? sourceInformationDesc;
+  @JsonKey(name: "isEqualWithKtp")
+  String? isEqualWithKtp;
+  @JsonKey(name: "ptkpIsExist")
+  String? ptkpIsExist;
+  @JsonKey(name: "resignLetterDate")
+  String? resignLetterDate;
+  @JsonKey(name: "terminationDate")
+  String? terminationDate;
+  @JsonKey(name: "prevCompanyOthers")
+  String? prevCompanyOthers;
+  @JsonKey(name: "maritalStatusPTKP")
+  String? maritalStatusPtkp;
+  @JsonKey(name: "isSignature")
+  String? isSignature;
+  @JsonKey(name: "aajiExpired")
+  String? aajiExpired;
+  @JsonKey(name: "aasiExpired")
+  String? aasiExpired;
+  @JsonKey(name: "prevCompany")
+  String? prevCompany;
+  @JsonKey(name: "prevCompanyaasi")
+  String? prevCompanyaasi;
+  @JsonKey(name: "aajiNo")
+  String? aajiNo;
+  @JsonKey(name: "aasiNo")
+  String? aasiNo;
 
   PrivateDataCandidateRequestModel({
-    required this.candidate,
+    this.id,
+    this.userId,
+    this.agentCode,
+    this.clientNumber,
+    this.firstName,
+    this.middleName,
+    this.lastName,
+    this.title,
+    this.position,
+    this.placeOfBirth,
+    this.dob,
+    this.gender,
+    this.weight,
+    this.high,
+    this.religion,
+    this.address1,
+    this.address2,
+    this.address3,
+    this.city,
+    this.province,
+    this.zipCode,
+    this.phoneNo,
+    this.officePhoneNo,
+    this.cellularNo,
+    this.email,
+    this.idCardNo,
+    this.maritalStatus,
+    this.heir,
+    this.heirRelation,
+    this.jointDate,
+    this.bankAccount,
+    this.bankName,
+    this.bankBranch,
+    this.bankAccountName,
+    this.npwpNo,
+    this.npwpName,
+    this.npwpAddress1,
+    this.npwpAddress2,
+    this.npwpAddress3,
+    this.npwpCity,
+    this.npwpProvince,
+    this.npwpZipCode,
+    this.spouseName,
+    this.spouseDob,
+    this.spouseIdCardNo,
+    this.spouseJob,
+    this.spouseRelation,
+    this.spouseIsAgent,
+    this.spouseAgentCode,
+    this.spouseUnit,
+    this.isReinstate,
+    this.leaderName,
+    this.leaderAgentCode,
+    this.leaderSignatureDate,
+    this.leaderSignatureCity,
+    this.signatureDate,
+    this.signatureCity,
+    this.verificationNumber,
+    this.nationality,
+    this.channelId,
+    this.channelCode,
+    this.officeCode,
+    this.officeCity,
+    this.taxType,
+    this.idCardType,
+    this.reinstateOfficeCode,
+    this.reinstateLeaderName,
+    this.reinstateLastPosition,
+    this.reinstateStatus,
+    this.reinstateAgentCode,
+    this.country,
+    this.supervisorAgentCode,
+    this.locationCode,
+    this.branchCode,
+    this.altReferenceNo,
+    this.occupation,
+    this.occupationOther,
+    this.isSubmission,
+    this.isCompleted,
+    this.dependent,
+    this.otherReligion,
+    this.sourceInformation,
+    this.sourceInformationDesc,
+    this.isEqualWithKtp,
+    this.ptkpIsExist,
+    this.resignLetterDate,
+    this.terminationDate,
+    this.prevCompanyOthers,
+    this.maritalStatusPtkp,
+    this.isSignature,
+    this.aajiExpired,
+    this.aasiExpired,
+    this.prevCompany,
+    this.prevCompanyaasi,
+    this.aajiNo,
+    this.aasiNo,
   });
 
   PrivateDataCandidateRequestModel copyWith({
-    Candidate? candidate,
-  }) =>
-      PrivateDataCandidateRequestModel(
-        candidate: candidate ?? this.candidate,
-      );
-
-  factory PrivateDataCandidateRequestModel.fromJson(Map<String, dynamic> json) => _$PrivateDataCandidateRequestModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PrivateDataCandidateRequestModelToJson(this);
-}
-
-@JsonSerializable()
-class Candidate {
-  @JsonKey(name: "id")
-  String id;
-  @JsonKey(name: "userID")
-  String userId;
-  @JsonKey(name: "agentCode")
-  String agentCode;
-  @JsonKey(name: "clientNumber")
-  String clientNumber;
-  @JsonKey(name: "firstName")
-  String firstName;
-  @JsonKey(name: "middleName")
-  String middleName;
-  @JsonKey(name: "lastName")
-  String lastName;
-  @JsonKey(name: "title")
-  String title;
-  @JsonKey(name: "position")
-  String position;
-  @JsonKey(name: "placeOfBirth")
-  String placeOfBirth;
-  @JsonKey(name: "dob")
-  String dob;
-  @JsonKey(name: "gender")
-  String gender;
-  @JsonKey(name: "weight")
-  String weight;
-  @JsonKey(name: "high")
-  String high;
-  @JsonKey(name: "religion")
-  String religion;
-  @JsonKey(name: "address1")
-  String address1;
-  @JsonKey(name: "address2")
-  String address2;
-  @JsonKey(name: "address3")
-  String address3;
-  @JsonKey(name: "city")
-  String city;
-  @JsonKey(name: "province")
-  String province;
-  @JsonKey(name: "zipCode")
-  String zipCode;
-  @JsonKey(name: "phoneNo")
-  String phoneNo;
-  @JsonKey(name: "officePhoneNo")
-  String officePhoneNo;
-  @JsonKey(name: "cellularNo")
-  String cellularNo;
-  @JsonKey(name: "email")
-  String email;
-  @JsonKey(name: "idCardNo")
-  String idCardNo;
-  @JsonKey(name: "maritalStatus")
-  String maritalStatus;
-  @JsonKey(name: "heir")
-  String heir;
-  @JsonKey(name: "heirRelation")
-  String heirRelation;
-  @JsonKey(name: "jointDate")
-  String jointDate;
-  @JsonKey(name: "aajiNo")
-  String aajiNo;
-  @JsonKey(name: "aajiExpired")
-  String aajiExpired;
-  @JsonKey(name: "aasiNo")
-  String aasiNo;
-  @JsonKey(name: "aasiExpired")
-  String aasiExpired;
-  @JsonKey(name: "bankAccount")
-  String bankAccount;
-  @JsonKey(name: "bankName")
-  String bankName;
-  @JsonKey(name: "bankBranch")
-  String bankBranch;
-  @JsonKey(name: "bankAccountName")
-  String bankAccountName;
-  @JsonKey(name: "npwpNo")
-  String npwpNo;
-  @JsonKey(name: "npwpName")
-  String npwpName;
-  @JsonKey(name: "npwpAddress1")
-  String npwpAddress1;
-  @JsonKey(name: "npwpAddress2")
-  String npwpAddress2;
-  @JsonKey(name: "npwpAddress3")
-  String npwpAddress3;
-  @JsonKey(name: "npwpCity")
-  String npwpCity;
-  @JsonKey(name: "npwpProvince")
-  String npwpProvince;
-  @JsonKey(name: "npwpZipCode")
-  String npwpZipCode;
-  @JsonKey(name: "spouseName")
-  String spouseName;
-  @JsonKey(name: "spouseDob")
-  String spouseDob;
-  @JsonKey(name: "spouseIdCardNo")
-  String spouseIdCardNo;
-  @JsonKey(name: "spouseJob")
-  String spouseJob;
-  @JsonKey(name: "spouseRelation")
-  String spouseRelation;
-  @JsonKey(name: "spouseIsAgent")
-  String spouseIsAgent;
-  @JsonKey(name: "spouseAgentCode")
-  String spouseAgentCode;
-  @JsonKey(name: "spouseUnit")
-  String spouseUnit;
-  @JsonKey(name: "isReinstate")
-  String isReinstate;
-  @JsonKey(name: "leaderName")
-  String leaderName;
-  @JsonKey(name: "leaderAgentCode")
-  String leaderAgentCode;
-  @JsonKey(name: "leaderSignatureDate")
-  String leaderSignatureDate;
-  @JsonKey(name: "leaderSignatureCity")
-  String leaderSignatureCity;
-  @JsonKey(name: "signatureDate")
-  String signatureDate;
-  @JsonKey(name: "signatureCity")
-  String signatureCity;
-  @JsonKey(name: "verificationNumber")
-  String verificationNumber;
-  @JsonKey(name: "nationality")
-  String nationality;
-  @JsonKey(name: "channelID")
-  String channelId;
-  @JsonKey(name: "channelCode")
-  String channelCode;
-  @JsonKey(name: "officeCode")
-  String officeCode;
-  @JsonKey(name: "officeCity")
-  String officeCity;
-  @JsonKey(name: "taxType")
-  String taxType;
-  @JsonKey(name: "idCardType")
-  String idCardType;
-  @JsonKey(name: "reinstateOfficeCode")
-  String reinstateOfficeCode;
-  @JsonKey(name: "reinstateLeaderName")
-  String reinstateLeaderName;
-  @JsonKey(name: "reinstateLastPosition")
-  String reinstateLastPosition;
-  @JsonKey(name: "reinstateStatus")
-  String reinstateStatus;
-  @JsonKey(name: "reinstateAgentCode")
-  String reinstateAgentCode;
-  @JsonKey(name: "country")
-  String country;
-  @JsonKey(name: "supervisorAgentCode")
-  String supervisorAgentCode;
-  @JsonKey(name: "locationCode")
-  String locationCode;
-  @JsonKey(name: "branchCode")
-  String branchCode;
-  @JsonKey(name: "altReferenceNo")
-  String altReferenceNo;
-  @JsonKey(name: "occupation")
-  String occupation;
-  @JsonKey(name: "occupationOther")
-  String occupationOther;
-  @JsonKey(name: "isSubmission")
-  String isSubmission;
-  @JsonKey(name: "isCompleted")
-  String isCompleted;
-  @JsonKey(name: "isSignature")
-  String isSignature;
-  @JsonKey(name: "dependent")
-  String dependent;
-  @JsonKey(name: "otherReligion")
-  String otherReligion;
-  @JsonKey(name: "sourceInformation")
-  String sourceInformation;
-  @JsonKey(name: "sourceInformationDesc")
-  String sourceInformationDesc;
-  @JsonKey(name: "isEqualWithKtp")
-  String isEqualWithKtp;
-  @JsonKey(name: "ptkpIsExist")
-  String ptkpIsExist;
-  @JsonKey(name: "resignLetterDate")
-  String resignLetterDate;
-  @JsonKey(name: "terminationDate")
-  String terminationDate;
-  @JsonKey(name: "prevCompany")
-  String prevCompany;
-  @JsonKey(name: "prevCompanyOthers")
-  String prevCompanyOthers;
-  @JsonKey(name: "prevCompanyAasi")
-  String prevCompanyAasi;
-  @JsonKey(name: "prevCompanyAaui")
-  String prevCompanyAaui;
-  @JsonKey(name: "aajiActiveFlag")
-  bool aajiActiveFlag;
-  @JsonKey(name: "aasiActiveFlag")
-  bool aasiActiveFlag;
-  @JsonKey(name: "aauiActiveFlag")
-  bool aauiActiveFlag;
-  @JsonKey(name: "maritalStatusPTKP")
-  String maritalStatusPtkp;
-
-  Candidate({
-    required this.id,
-    required this.userId,
-    required this.agentCode,
-    required this.clientNumber,
-    required this.firstName,
-    required this.middleName,
-    required this.lastName,
-    required this.title,
-    required this.position,
-    required this.placeOfBirth,
-    required this.dob,
-    required this.gender,
-    required this.weight,
-    required this.high,
-    required this.religion,
-    required this.address1,
-    required this.address2,
-    required this.address3,
-    required this.city,
-    required this.province,
-    required this.zipCode,
-    required this.phoneNo,
-    required this.officePhoneNo,
-    required this.cellularNo,
-    required this.email,
-    required this.idCardNo,
-    required this.maritalStatus,
-    required this.heir,
-    required this.heirRelation,
-    required this.jointDate,
-    required this.aajiNo,
-    required this.aajiExpired,
-    required this.aasiNo,
-    required this.aasiExpired,
-    required this.bankAccount,
-    required this.bankName,
-    required this.bankBranch,
-    required this.bankAccountName,
-    required this.npwpNo,
-    required this.npwpName,
-    required this.npwpAddress1,
-    required this.npwpAddress2,
-    required this.npwpAddress3,
-    required this.npwpCity,
-    required this.npwpProvince,
-    required this.npwpZipCode,
-    required this.spouseName,
-    required this.spouseDob,
-    required this.spouseIdCardNo,
-    required this.spouseJob,
-    required this.spouseRelation,
-    required this.spouseIsAgent,
-    required this.spouseAgentCode,
-    required this.spouseUnit,
-    required this.isReinstate,
-    required this.leaderName,
-    required this.leaderAgentCode,
-    required this.leaderSignatureDate,
-    required this.leaderSignatureCity,
-    required this.signatureDate,
-    required this.signatureCity,
-    required this.verificationNumber,
-    required this.nationality,
-    required this.channelId,
-    required this.channelCode,
-    required this.officeCode,
-    required this.officeCity,
-    required this.taxType,
-    required this.idCardType,
-    required this.reinstateOfficeCode,
-    required this.reinstateLeaderName,
-    required this.reinstateLastPosition,
-    required this.reinstateStatus,
-    required this.reinstateAgentCode,
-    required this.country,
-    required this.supervisorAgentCode,
-    required this.locationCode,
-    required this.branchCode,
-    required this.altReferenceNo,
-    required this.occupation,
-    required this.occupationOther,
-    required this.isSubmission,
-    required this.isCompleted,
-    required this.isSignature,
-    required this.dependent,
-    required this.otherReligion,
-    required this.sourceInformation,
-    required this.sourceInformationDesc,
-    required this.isEqualWithKtp,
-    required this.ptkpIsExist,
-    required this.resignLetterDate, //confirm persertifikat
-    required this.terminationDate, //confirm persertifikat
-    required this.prevCompany,
-    required this.prevCompanyOthers,
-    required this.prevCompanyAasi,
-    required this.prevCompanyAaui,
-    required this.aajiActiveFlag,
-    required this.aasiActiveFlag,
-    required this.aauiActiveFlag,
-    required this.maritalStatusPtkp,
-  });
-
-  Candidate copyWith({
     String? id,
     String? userId,
     String? agentCode,
@@ -370,10 +336,6 @@ class Candidate {
     String? heir,
     String? heirRelation,
     String? jointDate,
-    String? aajiNo,
-    String? aajiExpired,
-    String? aasiNo,
-    String? aasiExpired,
     String? bankAccount,
     String? bankName,
     String? bankBranch,
@@ -423,7 +385,6 @@ class Candidate {
     String? occupationOther,
     String? isSubmission,
     String? isCompleted,
-    String? isSignature,
     String? dependent,
     String? otherReligion,
     String? sourceInformation,
@@ -432,16 +393,17 @@ class Candidate {
     String? ptkpIsExist,
     String? resignLetterDate,
     String? terminationDate,
-    String? prevCompany,
     String? prevCompanyOthers,
-    String? prevCompanyAasi,
-    String? prevCompanyAaui,
-    bool? aajiActiveFlag,
-    bool? aasiActiveFlag,
-    bool? aauiActiveFlag,
     String? maritalStatusPtkp,
+    String? isSignature,
+    String? aajiExpired,
+    String? aasiExpired,
+    String? prevCompany,
+    String? prevCompanyaasi,
+    String? aajiNo,
+    String? aasiNo,
   }) =>
-      Candidate(
+      PrivateDataCandidateRequestModel(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         agentCode: agentCode ?? this.agentCode,
@@ -472,10 +434,6 @@ class Candidate {
         heir: heir ?? this.heir,
         heirRelation: heirRelation ?? this.heirRelation,
         jointDate: jointDate ?? this.jointDate,
-        aajiNo: aajiNo ?? this.aajiNo,
-        aajiExpired: aajiExpired ?? this.aajiExpired,
-        aasiNo: aasiNo ?? this.aasiNo,
-        aasiExpired: aasiExpired ?? this.aasiExpired,
         bankAccount: bankAccount ?? this.bankAccount,
         bankName: bankName ?? this.bankName,
         bankBranch: bankBranch ?? this.bankBranch,
@@ -525,7 +483,6 @@ class Candidate {
         occupationOther: occupationOther ?? this.occupationOther,
         isSubmission: isSubmission ?? this.isSubmission,
         isCompleted: isCompleted ?? this.isCompleted,
-        isSignature: isSignature ?? this.isSignature,
         dependent: dependent ?? this.dependent,
         otherReligion: otherReligion ?? this.otherReligion,
         sourceInformation: sourceInformation ?? this.sourceInformation,
@@ -534,17 +491,18 @@ class Candidate {
         ptkpIsExist: ptkpIsExist ?? this.ptkpIsExist,
         resignLetterDate: resignLetterDate ?? this.resignLetterDate,
         terminationDate: terminationDate ?? this.terminationDate,
-        prevCompany: prevCompany ?? this.prevCompany,
         prevCompanyOthers: prevCompanyOthers ?? this.prevCompanyOthers,
-        prevCompanyAasi: prevCompanyAasi ?? this.prevCompanyAasi,
-        prevCompanyAaui: prevCompanyAaui ?? this.prevCompanyAaui,
-        aajiActiveFlag: aajiActiveFlag ?? this.aajiActiveFlag,
-        aasiActiveFlag: aasiActiveFlag ?? this.aasiActiveFlag,
-        aauiActiveFlag: aauiActiveFlag ?? this.aauiActiveFlag,
         maritalStatusPtkp: maritalStatusPtkp ?? this.maritalStatusPtkp,
+        isSignature: isSignature ?? this.isSignature,
+        aajiExpired: aajiExpired ?? this.aajiExpired,
+        aasiExpired: aasiExpired ?? this.aasiExpired,
+        prevCompany: prevCompany ?? this.prevCompany,
+        prevCompanyaasi: prevCompanyaasi ?? this.prevCompanyaasi,
+        aajiNo: aajiNo ?? this.aajiNo,
+        aasiNo: aasiNo ?? this.aasiNo,
       );
 
-  factory Candidate.fromJson(Map<String, dynamic> json) => _$CandidateFromJson(json);
+  factory PrivateDataCandidateRequestModel.fromJson(Map<String, dynamic> json) => _$PrivateDataCandidateRequestModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CandidateToJson(this);
+  Map<String, dynamic> toJson() => _$PrivateDataCandidateRequestModelToJson(this);
 }

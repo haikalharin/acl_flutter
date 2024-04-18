@@ -1,5 +1,6 @@
 import 'package:acl_flutter/data/model/candidate_faa/education_candidate_model.dart';
 import 'package:acl_flutter/data/model/candidate_faa/private_data_candidate_request_model.dart';
+import 'package:acl_flutter/data/model/candidate_faa/work_experience_reinstance.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/pending_simple_checking.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate/start_process_instance_api.dart';
 import 'package:acl_flutter/data/remote_data_source/candidate_faa/add_register_candidate_private_data_api.dart';
@@ -49,6 +50,19 @@ class CandidateFaaRepository with RepositoryHelper<CandidateModel> {
       final ResponseModel<CandidateModel> items =
           await addWorkExperienceCandidateApi
               .addCandidateWorkExperience(addCandidateWorkExperienceModel);
+      return ApiResult.success(items);
+    } on DioException catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      return ApiResult.failure(errorMessage);
+    }
+  }
+
+  Future<ApiResult<ResponseModel<CandidateModel>>> putWorkExperienceRinstance(
+      WorkExperienceReinstance workExperienceReinstance,{required String userId}) async {
+    try {
+      final ResponseModel<CandidateModel> items =
+      await addWorkExperienceCandidateApi
+          .putWorkExperienceReinstance(workExperienceReinstance, userId);
       return ApiResult.success(items);
     } on DioException catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();

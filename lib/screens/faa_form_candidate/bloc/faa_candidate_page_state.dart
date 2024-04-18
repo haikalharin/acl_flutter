@@ -138,7 +138,7 @@ class FaaCandidatePageState with FormzMixin {
   final MandatoryFieldValidator checkIsEmployee;
   final MandatoryFieldValidator statusEmployee;
   final MandatoryFieldValidator unitName;
-  final MandatoryFieldValidator lastDepartment;
+  final MandatoryFieldValidator lastPosition;
   final MandatoryFieldValidator directLeader;
   final MandatoryFieldValidator companyName;
   final MandatoryFieldValidator companyType;
@@ -321,7 +321,7 @@ class FaaCandidatePageState with FormzMixin {
     ///Work Experience
     this.isJustAddExperience = false,
     this.unitName = const MandatoryFieldValidator.pure(),
-    this.lastDepartment = const MandatoryFieldValidator.pure(),
+    this.lastPosition = const MandatoryFieldValidator.pure(),
     this.directLeader = const MandatoryFieldValidator.pure(),
     this.checkIsEmployee = const MandatoryFieldValidator.pure(),
     this.statusEmployee = const MandatoryFieldValidator.pure(),
@@ -365,7 +365,7 @@ class FaaCandidatePageState with FormzMixin {
         data.clear();
         data.add(checkIsEmployee);
         data.add(unitName);
-        data.add(lastDepartment);
+        data.add(lastPosition);
         data.add(directLeader);
         data.add(statusEmployee);
       } else {
@@ -393,8 +393,6 @@ class FaaCandidatePageState with FormzMixin {
         data.clear();
         data.addAll([
           firstName,
-          middleName,
-          lastName,
           positionId,
           identityNo,
           martialStatusId,
@@ -404,40 +402,35 @@ class FaaCandidatePageState with FormzMixin {
           nationality,
           religionId,
           address,
-          rtRw,
-          kecKel,
           postalCode,
           countryId,
           provinceId,
           cityId,
-          phone,
-          handphone,
-          email,
-          occupationId,
-          lastWorkExperience,
-          privateImage,
-          identityImage,
-          identitySelfieImage,
-          terminationImage,
-          notTwistingImage,
-          heirsName,
-          heirsRelationId,
-          npwpNo,
-          bankNo,
-          bankUserName,
-          bankNameId,
-          bankBranch,
-          npwpImage,
-          bankUserBookImage,
-          sourceInformation,
-          appendixValueId,
-          appendixImage,
-          spouseIsAgent,
-          firstNamePartner,
-          relationId,
-          directUnitName,
-          spousePositionId,
-          agentCode,
+          // phone,
+          // handphone,
+          // email,
+          // occupationId,
+          // lastWorkExperience,
+          // privateImage,
+          // identityImage,
+          // identitySelfieImage,
+          // terminationImage,
+          // notTwistingImage,
+          // heirsName,
+          // heirsRelationId,
+          // bankNo,
+          // bankUserName,
+          // bankNameId,
+          // bankBranch,
+          // npwpImage,
+          // bankUserBookImage,
+          // sourceInformation,
+          // spouseIsAgent,
+          // firstNamePartner,
+          // relationId,
+          // directUnitName,
+          // spousePositionId,
+          // agentCode,
         ]);
         if (checkedValueAAJI) {
           if (checkedPrevCompanyValueAAJI) {
@@ -643,7 +636,7 @@ class FaaCandidatePageState with FormzMixin {
     MandatoryFieldValidator? checkIsEmployee,
     MandatoryFieldValidator? statusEmployee,
     MandatoryFieldValidator? unitName,
-    MandatoryFieldValidator? lastDepartment,
+    MandatoryFieldValidator? lastPosition,
     MandatoryFieldValidator? directLeader,
     MandatoryFieldValidator? companyName,
     MandatoryFieldValidator? companyType,
@@ -845,7 +838,7 @@ class FaaCandidatePageState with FormzMixin {
       checkIsEmployee: checkIsEmployee ?? this.checkIsEmployee,
       statusEmployee: statusEmployee ?? this.statusEmployee,
       unitName: unitName ?? this.unitName,
-      lastDepartment: lastDepartment ?? this.lastDepartment,
+      lastPosition: lastPosition ?? this.lastPosition,
       directLeader: directLeader ?? this.directLeader,
       companyName: companyName ?? this.companyName,
       companyType: companyType ?? this.companyType,
