@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 
 
-import '../../../data/model/login_model/login_model.dart';
 import '../../../data/model/master_data_model/master_data_model.dart';
 import '../../sidebar_page/sidebar_page.dart';
 

@@ -57,12 +57,8 @@ class SecureStorage {
 
    Future<LoginModel> getUser() async {
     String? json = await _storage.read( key: AppSharedPreference.user);
-    if (json != null) {
-      Map<String, dynamic> map = jsonDecode(json);
-      LoginModel loginModel = LoginModel.fromJson(map);
-      return loginModel;
-    } else {
-      return LoginModel();
+    Map<String, dynamic> map = jsonDecode(json??'');
+    LoginModel loginModel = LoginModel.fromJson(map);
+    return loginModel;
     }
-  }
 }

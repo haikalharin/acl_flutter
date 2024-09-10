@@ -164,14 +164,10 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     );
 
     if (pickedFile != null) {
-      CroppedFile? croppedFile = await ImageCropper.platform
-          .cropImage(sourcePath: pickedFile.path, aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9,
-      ]);
+      CroppedFile? croppedFile = await ImageCropper.platform.cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1), // Custom aspect ratio, e.g., 1:1 for square
+      );
       if (croppedFile != null) {
         setState(() {
           _selectedImage = croppedFile.path;
@@ -188,14 +184,10 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     );
 
     if (pickedFile != null) {
-      CroppedFile? croppedFile = await ImageCropper.platform
-          .cropImage(sourcePath: pickedFile.path, aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9,
-      ]);
+      CroppedFile? croppedFile = await ImageCropper.platform.cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1), // Custom aspect ratio, e.g., 1:1 for square
+      );
       if (croppedFile != null) {
         setState(() {
           _selectedImage = croppedFile.path;

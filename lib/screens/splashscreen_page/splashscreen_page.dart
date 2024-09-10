@@ -12,7 +12,6 @@ import 'package:in_app_update/in_app_update.dart';
 import '../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../core/router/routes.dart';
 import '../../di.dart';
-import '../../main_dev.dart' as dev;
 import 'bloc/splash_screen_bloc.dart';
 import 'package:intl/intl_standalone.dart';
 

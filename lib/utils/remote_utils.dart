@@ -1,5 +1,4 @@
 
-import 'firebase_service.dart';
 
 dynamic getDataValue(dynamic result) => result;
 

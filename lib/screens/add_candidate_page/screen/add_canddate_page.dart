@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/widget/custom_image_picker.dart';
-import '../../../core/widget/date_time_picker.dart';
 import '../../../core/widget/date_time_picker_form.dart';
 import '../../../core/widget/text_input.dart';
 import '../../../data/model/login_model/login_model.dart';

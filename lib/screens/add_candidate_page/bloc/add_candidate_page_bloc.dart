@@ -9,9 +9,7 @@ import '../../../common/secure.dart';
 import '../../../common/validators/mandatory_field_validator.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../core/local_storage/secure_storage/secure_storage.dart';
 import '../../../core/router/routes.dart';
-import '../../../data/model/login_model/login_model.dart';
 import '../../../data/repository/candidate/candidate_repository.dart';
 
 

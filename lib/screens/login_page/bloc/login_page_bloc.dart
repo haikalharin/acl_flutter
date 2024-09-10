@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:acl_flutter/core/local_storage/secure_storage/secure_storage.dart';
 import 'package:acl_flutter/data/model/login_model/login_model.dart';
@@ -12,7 +11,6 @@ import 'package:meta/meta.dart';
 
 import '../../../common/secure.dart';
 import '../../../common/validators/mandatory_field_validator.dart';
-import '../../../core/local_storage/shared_preference/app_shared_preference.dart';
 import '../../../core/router/routes.dart';
 import 'package:equatable/equatable.dart';
 

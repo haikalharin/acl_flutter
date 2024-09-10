@@ -83,12 +83,8 @@ class AppSharedPreference {
   static Future<LoginModel> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? json = prefs.getString(user);
-    if (json != null) {
-      Map<String, dynamic> map = jsonDecode(json);
-      LoginModel loginModel = LoginModel.fromJson(map);
-      return loginModel;
-    } else {
-      return LoginModel();
+    Map<String, dynamic> map = jsonDecode(json??'');
+    LoginModel loginModel = LoginModel.fromJson(map);
+    return loginModel;
     }
-  }
 }
